@@ -5,6 +5,12 @@
     i18n_domain="plone.app.dexterity">
 
     <browser:page
+        name="field"
+        for="zope.schema.interfaces.IField"
+        class=".edit.FieldEditingContext"
+        permission="plone.schemaeditor.ManageSchemata" />
+
+    <browser:page
         name="edit"
         for="...interfaces.IFieldEditingContext"
         class=".edit.EditView"

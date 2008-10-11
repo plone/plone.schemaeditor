@@ -1,12 +1,29 @@
+import Acquisition
 from zope.interface import implements, implementer, alsoProvides, Interface
 from zope.component import getUtility, getMultiAdapter, queryMultiAdapter, adapter, adapts
 from z3c.form import form, field, button, group, subform, validator
 from z3c.form.interfaces import IFieldWidget, IDataConverter
 from zope.schema.interfaces import IField
 from zope.schema._bootstrapinterfaces import RequiredMissing
+from zope.publisher.browser import BrowserPage
 from plone.z3cform import layout
 
-from plone.schemaeditor.interfaces import IFieldEditForm, IMetaFieldWidget
+from plone.schemaeditor.interfaces import IFieldEditingContext, IFieldEditForm, IMetaFieldWidget
+
+class FieldEditingContext(Acquisition.Implicit, BrowserPage):
+    """ wrapper for published zope 3 schema fields
+    """
+    implements(IFieldEditingContext)
+    
+    __allow_access_to_unprotected_subobjects__ = 1
+
+    def __init__(self, context, request):
+        super(FieldEditingContext, self).__init__(context, request)
+        self.field = self.context
+        self.__name__ = self.field.__name__
+        
+    def browserDefault(self, request):
+        return self, ('@@edit',)
 
 class FieldEditForm(form.EditForm):
     implements(IFieldEditForm)

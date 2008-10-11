@@ -2,6 +2,7 @@ from plone.z3cform.crud import crud
 from zope.schema.interfaces import IField
 from plone.z3cform import layout
 from zope.interface import Interface, implements
+from zope.component import getMultiAdapter
 from zope import schema
 from zope.publisher.browser import BrowserPage
 import Acquisition
@@ -46,7 +47,7 @@ class SchemaListingContext(Acquisition.Implicit, BrowserPage):
         self.schema = context
     
     def publishTraverse(self, traverse, name):
-        return getMultiAdapter((self.schema[name], self.request), name=u'edit').__of__(self)
+        return getMultiAdapter((self.schema[name], self.request), name=u'field').__of__(self)
     
     def browserDefault(self, request):
         return self, ('@@edit',)
