@@ -4,5 +4,6 @@
     i18n_domain="plone.schemaeditor">
 
     <include package=".field"/>
+	<include package=".schema" />
 
 </configure>
