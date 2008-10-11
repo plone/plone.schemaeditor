@@ -3,5 +3,16 @@
     xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="plone.schemaeditor">
 
+    <include package="plone.z3cform"/>
+    
+    <permission
+        id="plone.schemaeditor.ManageSchemata"
+        title="Manage schemata"
+        />
+    
+    <!-- z3c.form data manager for modifying schemata -->
+    <adapter factory=".datamanager.SchemaFieldFormDataManager"/>
+
+    <include package=".browser"/>
 
 </configure>
