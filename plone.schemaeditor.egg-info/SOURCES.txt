@@ -1,0 +1,14 @@
+README.txt
+setup.cfg
+setup.py
+plone/__init__.py
+plone.schemaeditor.egg-info/PKG-INFO
+plone.schemaeditor.egg-info/SOURCES.txt
+plone.schemaeditor.egg-info/dependency_links.txt
+plone.schemaeditor.egg-info/entry_points.txt
+plone.schemaeditor.egg-info/namespace_packages.txt
+plone.schemaeditor.egg-info/not-zip-safe
+plone.schemaeditor.egg-info/requires.txt
+plone.schemaeditor.egg-info/top_level.txt
+plone/schemaeditor/__init__.py
+plone/schemaeditor/tests.py
