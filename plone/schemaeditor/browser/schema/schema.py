@@ -3,25 +3,29 @@ from zope.schema.interfaces import IField
 from plone.z3cform import layout
 from zope.interface import Interface, implements
 from zope.component import getMultiAdapter
-from zope import schema
 from zope.publisher.browser import BrowserPage
 import Acquisition
 from Acquisition import aq_parent, aq_inner
 from plone.schemaeditor.interfaces import ISchemaEditingContext
 from z3c.form import field
 
+class FieldEditForm(crud.EditForm):
+    label = None
+
 class SchemaListing(crud.CrudForm):
     
     view_schema = field.Fields(IField).select('title', 'description')
     addform_factory = crud.NullForm
+    editform_factory = FieldEditForm
     
     def __init__(self, context, request):
         super(SchemaListing, self).__init__(context, request)
         self.__name__
     
     def get_items(self):
-        schema = self.context.schema
-        return [(name, schema[name]) for name in schema.names()]
+        fields = self.context.schema.namesAndDescriptions()
+        fields.sort(key = lambda x: x[1].order)
+        return fields
         
     def add(self, data):
         return None
@@ -35,7 +39,12 @@ class SchemaListing(crud.CrudForm):
         else:
             return None
 
-SchemaListingPage = layout.wrap_form(SchemaListing)
+class SchemaListingPage(layout.FormWrapper):
+    form = SchemaListing
+    
+    @property
+    def label(self):
+        return u'Edit %s' % self.context.__name__
 
 class SchemaListingContext(Acquisition.Implicit, BrowserPage):
     implements(ISchemaEditingContext)
