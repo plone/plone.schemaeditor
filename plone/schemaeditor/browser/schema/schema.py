@@ -1,5 +1,6 @@
 from plone.z3cform.crud import crud
 from zope.schema.interfaces import IField
+from zope.schema import getFieldsInOrder
 from plone.z3cform import layout
 from zope.interface import Interface, implements
 from zope.component import getMultiAdapter
@@ -23,9 +24,7 @@ class SchemaListing(crud.CrudForm):
         self.__name__
     
     def get_items(self):
-        fields = self.context.schema.namesAndDescriptions()
-        fields.sort(key = lambda x: x[1].order)
-        return fields
+        return getFieldsInOrder(self.context.schema)
         
     def add(self, data):
         return None
