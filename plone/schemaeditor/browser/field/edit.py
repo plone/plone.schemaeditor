@@ -1,28 +1,40 @@
 import Acquisition
+from OFS.SimpleItem import Item
+
 from zope.interface import implements, implementer, alsoProvides, Interface
 from zope.component import getUtility, getMultiAdapter, queryMultiAdapter, adapter, adapts
-from z3c.form import form, field, button, group, subform, validator
-from z3c.form.interfaces import IFieldWidget, IDataConverter
+from zope.publisher.interfaces.browser import IBrowserPublisher
 from zope.schema.interfaces import IField
 from zope.schema._bootstrapinterfaces import RequiredMissing
-from zope.publisher.browser import BrowserPage
+
+from z3c.form import form, field, button, group, subform, validator
+from z3c.form.interfaces import IFieldWidget, IDataConverter
 from plone.z3cform import layout
 
-from plone.schemaeditor.interfaces import IFieldEditingContext, IFieldEditForm, IMetaFieldWidget
+from plone.schemaeditor.interfaces import IFieldContext, IFieldEditForm, IMetaFieldWidget
 
-class FieldEditingContext(Acquisition.Implicit, BrowserPage):
+class FieldContext(Item, Acquisition.Implicit):
     """ wrapper for published zope 3 schema fields
     """
-    implements(IFieldEditingContext)
+    implements(IFieldContext, IBrowserPublisher)
     
-    __allow_access_to_unprotected_subobjects__ = 1
-
     def __init__(self, context, request):
-        super(FieldEditingContext, self).__init__(context, request)
-        self.field = self.context
+        super(FieldContext, self).__init__(context, request)
+        self.field = context
+        self.request = request
+        
+        # make sure breadcrumbs are correct
+        self.id = None
         self.__name__ = self.field.__name__
         
+    def publishTraverse(self, request, name):
+        """ It's not valid to traverse to anything below a field context.
+        """
+        return None
+        
     def browserDefault(self, request):
+        """ Really we want to show the field EditView.
+        """
         return self, ('@@edit',)
 
 class FieldEditForm(form.EditForm):

@@ -4,11 +4,11 @@ from zope.component import adapts
 from zope.schema.interfaces import IField
 from z3c import form
 
-from plone.schemaeditor.interfaces import IFieldEditingContext
+from plone.schemaeditor.interfaces import IFieldContext
 
 class SchemaFieldFormDataManager(form.datamanager.DataManager):
     """Form data adapter that modifies Field definitions on the schema."""
-    adapts(IFieldEditingContext, IField)
+    adapts(IFieldContext, IField)
 
     def __init__(self, wrapper, field):
         self.context = wrapper

@@ -5,14 +5,8 @@
     i18n_domain="plone.schemaeditor">
 
     <browser:page
-        name="schema"
-        for="zope.interface.interfaces.IInterface"
-        class=".schema.SchemaListingContext"
-        permission="plone.schemaeditor.ManageSchemata" />
-
-    <browser:page
         name="edit"
-        for="plone.schemaeditor.interfaces.ISchemaEditingContext"
+        for="plone.schemaeditor.interfaces.ISchemaContext"
         class=".schema.SchemaListingPage"
         permission="plone.schemaeditor.ManageSchemata" />
 

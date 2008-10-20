@@ -3,21 +3,22 @@ from zope.publisher.interfaces.browser import IBrowserPage
 from zope.schema import Object
 from zope.schema.interfaces import IField
 from z3c.form.interfaces import IFieldWidget, IEditForm
+from OFS.interfaces import IItem
 
 class ISchemaView(IBrowserPage):
     """ A publishable view of a zope 3 schema
     """
 
-class ISchemaEditingContext(IBrowserPage):
-    """ A publishable view of a zope 3 schema
+class ISchemaContext(IItem):
+    """ A publishable wrapper of a zope 3 schema
     """
 
     schema = Object(
         schema = IInterface
         )
 
-class IFieldEditingContext(IBrowserPage):
-    """ A publishable view of a zope 3 schema field
+class IFieldContext(IItem):
+    """ A publishable wrapper of a zope 3 schema field
     """
 
     field = Object(
