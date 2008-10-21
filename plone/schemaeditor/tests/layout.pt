@@ -1,0 +1,11 @@
+<html>
+<body>
+
+<h1 tal:content="view/label">View Title</h1>
+
+<div id="layout-contents">
+    <span tal:replace="structure view/contents" />
+</div>
+
+</body>
+</html>

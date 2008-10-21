@@ -1,0 +1,18 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser">
+
+    <include package="plone.schemaeditor"/>
+
+    <!-- dummy schema editing context -->
+    <browser:page
+        name="schemaeditor"
+        for="*"
+        class=".schemacontext.DummySchemaContext"
+        permission="plone.schemaeditor.ManageSchemata"
+        allowed_interface="OFS.interfaces.IItem" />
+        
+    <!-- use a form layout that doesn't pull in main_template -->
+    <adapter factory=".tests.layout_factory"/>
+
+</configure>

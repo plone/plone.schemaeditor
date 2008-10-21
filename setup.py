@@ -6,7 +6,7 @@ version = '0.1'
 setup(name='plone.schemaeditor',
       version=version,
       description="Provides through-the-web editing of a zope 3 schema/interface.",
-      long_description=open("README.txt").read() + "\n" +
+      long_description=open(os.path.join('plone', 'schemaeditor', "README.txt")).read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[

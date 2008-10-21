@@ -1,0 +1,103 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="plone.z3cform"
+      tal:omit-tag=""
+      tal:condition="view/subforms">
+
+	<style>
+		#dexterity-fields{
+			width:520;
+			margin:10px;
+		}
+		li.dexterity-field{
+			margin:5px;
+			border: 1px solid black;
+			padding: 5px;
+			width:500px;
+			position:relative;
+			background-color:#f3f3f3;
+			list-style-image:none;
+			list-style-type:none;
+		}
+		.dexterity-field span{
+			margin: 5px;
+		}
+		a.move-field-up{
+			text-align:right;
+		}
+		a.move-field-down{
+			text-align:right;
+		}
+		
+		.dexterity-field table{
+			width:100%;
+		}
+		.droppable-active{
+			border-color:gray;
+		}
+		.drag-handle{
+			width:15px;
+			height:15px;
+			background-color:black;
+		}
+		.drag-handle:hover{
+			cursor:pointer;
+		}
+	 	</style>
+
+  <h2 tal:condition="view/label | nothing"
+      tal:content="view/label">Form title</h2>
+
+  <div class="portalMessage"
+       tal:condition="view/status" tal:content="view/status">
+  </div>
+
+  <form action="." method="post" tal:attributes="action request/getURL">
+
+    <ul tal:replace="structure view/render_batch_navigation">
+    </ul>
+    
+    <input type="hidden"
+           tal:define="batch view/batch"
+           tal:condition="python:batch.total &gt; 1"
+           tal:attributes="name python:'%spage' % view.prefix;
+                           value python:batch.number-1"
+           />
+	
+	<ul id="dexterity-fields">
+	<tal:block repeat="row view/subforms">
+        <div tal:replace="structure row/render"/>
+    </tal:block>
+	</ul>
+    <div class="action" tal:repeat="action view/actions/values">
+      <input type="submit" tal:replace="structure action/render" />
+    </div>
+
+  </form>
+
+	<script>
+	//remove things that do not need to be there when javascript is working.
+	jq(".field-mover").html("");
+	jq(".field-mover").children().remove();
+	jq("span.option").remove(); 
+	jq("input.button-field").remove();
+	
+	jq("a.dexterity-field-options-link").click(function(){
+		//do ajax magic here
+	});
+	
+	jq("a.delete-field").click(function(){
+		//ajax call to delete fields
+	});
+	
+	//this is rediculously easy!
+	jq("#dexterity-fields").sortable({
+		change: function(event, ui){
+			//how do we want to do ajax now?
+			//this is where we'll fire up the lightbox
+		}
+	});
+	</script>
+</html>

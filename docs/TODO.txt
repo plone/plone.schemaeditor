@@ -1,0 +1,13 @@
+docs
+ X overview of where this package fits in
+ X dependencies
+ - how to customize
+test
+ X mock traverser
+ X can see fields -- correct links
+ - can reorder fields
+ - can rename fields
+ X can't access without ManageSchemata permission
+
+issues:
+ - fall back to __name__ in schema listing if field has no title

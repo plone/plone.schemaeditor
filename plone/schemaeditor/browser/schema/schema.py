@@ -30,8 +30,6 @@ class FieldEditForm(crud.EditForm):
 class SchemaListing(crud.CrudForm):
     """ A plone.z3cform CRUD form for editing a zope 3 schema.
     """
-    template = viewpagetemplatefile.ViewPageTemplateFile('schema-master.pt')
-    
     view_schema = field.Fields(IField).select('title', 'description')
     addform_factory = crud.NullForm
     editform_factory = FieldEditForm
@@ -86,7 +84,7 @@ class SchemaContext(Item, Acquisition.Implicit):
         
         # make sure absolute_url and breadcrumbs are correct
         self.id = None
-        self.__name__ = name        
+        self.__name__ = name
         if title is None:
             title = name
         self.Title = lambda: title

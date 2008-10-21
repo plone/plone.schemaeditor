@@ -1,4 +1,5 @@
 import Acquisition
+from Acquisition import aq_parent, aq_inner
 from OFS.SimpleItem import Item
 
 from zope.interface import implements, implementer, alsoProvides, Interface
@@ -26,12 +27,12 @@ class FieldContext(Item, Acquisition.Implicit):
         # make sure breadcrumbs are correct
         self.id = None
         self.__name__ = self.field.__name__
-        
+
     def publishTraverse(self, request, name):
         """ It's not valid to traverse to anything below a field context.
         """
         return None
-        
+
     def browserDefault(self, request):
         """ Really we want to show the field EditView.
         """
@@ -56,6 +57,19 @@ class FieldEditForm(form.EditForm):
         fields['default'].widgetFactory = MetaFieldWidgetFactory(self.field)
         fields['missing_value'].widgetFactory = MetaFieldWidgetFactory(self.field)
         return fields
+
+    @button.buttonAndHandler(u'Save', name='save')
+    def handleSave(self, action):
+        self.handleApply(self, action)
+        if self.status != self.formErrorsMessage:
+            self.redirectToParent()
+
+    @button.buttonAndHandler(u'Cancel', name='cancel')
+    def handleCancel(self, action):
+        self.redirectToParent()
+    
+    def redirectToParent(self):
+        self.request.response.redirect(aq_parent(aq_inner(self.context)).absolute_url())
 
 # form wrapper to use Plone form template
 class EditView(layout.FormWrapper):
@@ -110,11 +124,10 @@ class MetaFieldValidator(validator.SimpleFieldValidator):
         in zope.schema.interfaces)
     """
     adapts(Interface, Interface, IFieldEditForm, IField, Interface)
-    
+
     def validate(self, value):
         try:
             return super(MetaFieldValidator, self).validate(value)
         except RequiredMissing:
             if self.field.__name__ not in ('default', 'missing_value'):
                 raise
-            
