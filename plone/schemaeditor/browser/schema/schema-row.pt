@@ -4,8 +4,9 @@
 <!--
 	tups indexes
 	0 - checkbox widget
-	1 - title
-	2 - description
+	1 - __name__
+	2 - title
+	3 - description
 	
 	I don't not iterate over the widgets because we want to control the way they are displayed....
 	May not be the best way to do it....

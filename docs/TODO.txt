@@ -11,3 +11,4 @@ test
 
 issues:
  - fall back to __name__ in schema listing if field has no title
+ - disable JS sorting of crud form

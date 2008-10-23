@@ -25,6 +25,20 @@ class IFieldContext(IItem):
         schema = IField
         )
 
+class IEditableSchema(IInterface):
+    """ Interface for adding/removing fields to/from a schema.
+    """
+    
+    def add_field(field, name=None):
+        """ Add a field to a schema
+        
+            If not provided, the field's name will be taken from its __name__ attribute.
+        """
+        
+    def remove_field(name):
+        """ Remove a field from a schema
+        """
+
 class IFieldEditForm(IEditForm):
     """ Marker interface for field edit forms
     """

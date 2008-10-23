@@ -13,6 +13,9 @@
     <!-- z3c.form data manager for modifying schemata -->
     <adapter factory=".datamanager.SchemaFieldFormDataManager"/>
 
+    <!-- adapter for adding/removing fields on schemata -->
+    <adapter factory=".utils.EditableSchema"/>
+
     <include package=".browser"/>
 
 </configure>

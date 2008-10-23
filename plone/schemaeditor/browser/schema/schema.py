@@ -1,53 +1,104 @@
 import Acquisition
-from Acquisition import aq_parent, aq_inner
 from OFS.SimpleItem import Item
 
 from zope.interface import Interface, implements
-from zope.component import getMultiAdapter
+from zope.component import provideAdapter, adapts
 from zope.publisher.interfaces.browser import IBrowserPublisher
 from zope.app.pagetemplate import viewpagetemplatefile
+from zope import schema
 from zope.schema.interfaces import IField
-from zope.schema import getFieldsInOrder
+from zope.event import notify
+from zope.app.container.contained import ObjectAddedEvent, ObjectRemovedEvent, ObjectMovedEvent
 
 from z3c.form import field
 from plone.z3cform.crud import crud
 from plone.z3cform import layout
 
-from plone.schemaeditor.interfaces import ISchemaContext
+from plone.schemaeditor.interfaces import ISchemaContext, IEditableSchema
 from plone.schemaeditor.browser.field.edit import FieldContext
+from plone.schemaeditor.utils import sorted_fields
+
+# We need this interface and adapter so that we can get/set the __name__
+# attribute of a schema field.
+
+class IFieldNameSchema(Interface):
+    
+    __name__ = schema.TextLine(title=u'ID')
+
+class FieldNameAdapter(object):
+    adapts(IField)
+    implements(IFieldNameSchema)
+    
+    def __init__(self, field):
+        self.field = field
+    
+    @apply
+    def __name__():
+        def get(self):
+            return getattr(self.field, '__name__', None)
+        def set(self, value):
+            self.field.__name__ = value
+        return property(get, set)
+provideAdapter(FieldNameAdapter)
 
 
 class FieldSubForm(crud.EditSubForm):
-    template = viewpagetemplatefile.ViewPageTemplateFile('schema-row.pt')
+#    template = viewpagetemplatefile.ViewPageTemplateFile('schema-row.pt')
+    pass
 
 
 class FieldEditForm(crud.EditForm):
     label = None
-    template = viewpagetemplatefile.ViewPageTemplateFile('schema-table.pt')
+#    template = viewpagetemplatefile.ViewPageTemplateFile('schema-table.pt')
     
     editsubform_factory = FieldSubForm
 
 class SchemaListing(crud.CrudForm):
     """ A plone.z3cform CRUD form for editing a zope 3 schema.
     """
+    update_schema = IFieldNameSchema
     view_schema = field.Fields(IField).select('title', 'description')
     addform_factory = crud.NullForm
     editform_factory = FieldEditForm
     
     def __init__(self, context, request):
         super(SchemaListing, self).__init__(context, request)
-    
+        self.schema = context.schema
+
     def get_items(self):
-        return getFieldsInOrder(self.context.schema)
-        
+        return sorted_fields(self.schema)
+
     def add(self, data):
-        return None
-        # XXX implement me
+        """ Add field to schema
+        """
         
-    def remove(self, (id, item)):
-        return None
-        # XXX implement me
+        # XXX create the field based on the form data!
         
+        schema = IEditableSchema(self.schema)
+        schema.add_field(field)
+        notify(ObjectAddedEvent(field, self.schema))
+
+    def remove(self, (id, field)):
+        """ Remove field from schema
+        """
+        schema = IEditableSchema(self.schema)
+        schema.remove_field(id)
+        notify(ObjectRemovedEvent(field, self.schema))
+
+    def before_update(self, field, data):
+        """ Handle field renaming
+        """
+        oldname = field.__name__
+        newname = data['__name__']
+        if newname != oldname:
+            schema = IEditableSchema(self.schema)
+            schema.remove_field(oldname)
+            schema.add_field(field, name=newname)
+            # (You might expect us to update the __name__ attribute on the field
+            # also, but the z3c.form update handler will take care of that --
+            # and this will ensure that the user sees the correct form status message.)
+            notify(ObjectMovedEvent(field, self.schema, oldname, self.schema, newname))
+
     def link(self, item, field):
         """ Generate a link to the edit page for each field.
         """

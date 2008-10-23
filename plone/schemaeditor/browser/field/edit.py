@@ -2,13 +2,13 @@ import Acquisition
 from Acquisition import aq_parent, aq_inner
 from OFS.SimpleItem import Item
 
-from zope.interface import implements, implementer, alsoProvides, Interface
-from zope.component import getUtility, getMultiAdapter, queryMultiAdapter, adapter, adapts
+from zope.interface import implements, implementer, Interface
+from zope.component import getMultiAdapter, queryMultiAdapter, adapter, adapts
 from zope.publisher.interfaces.browser import IBrowserPublisher
 from zope.schema.interfaces import IField
 from zope.schema._bootstrapinterfaces import RequiredMissing
 
-from z3c.form import form, field, button, group, subform, validator
+from z3c.form import form, field, button, validator
 from z3c.form.interfaces import IFieldWidget, IDataConverter
 from plone.z3cform import layout
 
@@ -45,6 +45,9 @@ class FieldEditForm(form.EditForm):
         super(form.EditForm, self).__init__(context, request)
         self.field = context.field
         self.schema = [s for s in self.field.__provides__.__iro__ if s.isOrExtends(IField)][0]
+    
+    def getContent(self):
+        return self.field
     
     @property
     def fields(self):
