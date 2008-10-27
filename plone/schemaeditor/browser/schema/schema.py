@@ -4,7 +4,7 @@ from OFS.SimpleItem import Item
 from zope.interface import Interface, implements
 from zope.component import provideAdapter, adapts
 from zope.publisher.interfaces.browser import IBrowserPublisher
-from zope.app.pagetemplate import viewpagetemplatefile
+from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope import schema
 from zope.schema.interfaces import IField
 from zope.event import notify
@@ -12,10 +12,10 @@ from zope.app.container.contained import ObjectAddedEvent, ObjectRemovedEvent, O
 
 from z3c.form import field
 from plone.z3cform.crud import crud
-from plone.z3cform import layout
 
-from plone.schemaeditor.interfaces import ISchemaContext, IEditableSchema
+from plone.schemaeditor.interfaces import ISchemaContext, IEditableSchema, IJavascriptForm
 from plone.schemaeditor.browser.field.edit import FieldContext
+from plone.schemaeditor.browser.jsform.jsform import JavascriptFormWrapper
 from plone.schemaeditor.utils import sorted_fields
 
 # We need this interface and adapter so that we can get/set the __name__
@@ -43,19 +43,23 @@ provideAdapter(FieldNameAdapter)
 
 
 class FieldSubForm(crud.EditSubForm):
-#    template = viewpagetemplatefile.ViewPageTemplateFile('schema-row.pt')
+    template = ViewPageTemplateFile('schema-row.pt')
     pass
 
 
 class FieldEditForm(crud.EditForm):
     label = None
-#    template = viewpagetemplatefile.ViewPageTemplateFile('schema-table.pt')
+    template = ViewPageTemplateFile('schema-table.pt')
     
     editsubform_factory = FieldSubForm
 
 class SchemaListing(crud.CrudForm):
     """ A plone.z3cform CRUD form for editing a zope 3 schema.
     """
+    implements(IJavascriptForm)
+    
+    javascript = ViewPageTemplateFile('schema-js.pt')
+    
     update_schema = IFieldNameSchema
     view_schema = field.Fields(IField).select('title', 'description')
     addform_factory = crud.NullForm
@@ -107,7 +111,7 @@ class SchemaListing(crud.CrudForm):
         else:
             return None
 
-class SchemaListingPage(layout.FormWrapper):
+class SchemaListingPage(JavascriptFormWrapper):
     """ Form wrapper so we can get a form with layout.
     
         We define an explicit subclass rather than using the wrap_form method

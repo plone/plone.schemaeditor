@@ -1,8 +1,9 @@
-from zope.interface.interfaces import IInterface
+from zope.interface.interfaces import Interface, IInterface
 from zope.publisher.interfaces.browser import IBrowserPage
 from zope.schema import Object
 from zope.schema.interfaces import IField
 from z3c.form.interfaces import IFieldWidget, IEditForm
+from plone.z3cform.interfaces import IFormWrapper
 from OFS.interfaces import IItem
 
 class ISchemaView(IBrowserPage):
@@ -25,7 +26,7 @@ class IFieldContext(IItem):
         schema = IField
         )
 
-class IEditableSchema(IInterface):
+class IEditableSchema(Interface):
     """ Interface for adding/removing fields to/from a schema.
     """
     
@@ -38,6 +39,18 @@ class IEditableSchema(IInterface):
     def remove_field(name):
         """ Remove a field from a schema
         """
+
+class IJavascriptForm(Interface):
+    """ A z3c form that includes Javascript
+    """
+    
+    def javascript():
+        """ Returns the Javascript that should be rendered with the form.
+        """
+
+class IJavascriptFormWrapper(IFormWrapper, IJavascriptForm):
+    """ A form wrapper that knows how to render javascript.
+    """
 
 class IFieldEditForm(IEditForm):
     """ Marker interface for field edit forms

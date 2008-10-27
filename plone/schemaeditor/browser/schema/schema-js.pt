@@ -1,0 +1,29 @@
+<script type="text/javascript" src="++resource++jquery-ui-sortable.js"></script>
+<script type="text/javascript">
+// wrap this so it runs after page load
+jq(function() {
+    //remove things that do not need to be there when javascript is working.
+    jq(".schemaeditor-field-mover").html("");
+    jq(".schemaeditor-field-mover").children().remove();
+    //jq("span.option").remove(); 
+    //jq("input.button-field").remove();
+
+    jq("a.schemaeditor-field-options-link").click(function(){
+    	//do ajax magic here
+    });
+
+    jq(".schemaeditor-delete-field a").click(function(){
+    	//ajax call to delete fields
+    	
+    	return false;
+    });
+
+    //this is ridiculously easy!
+    jq("#schemaeditor-fields").sortable({
+    	change: function(event, ui){
+    		//how do we want to do ajax now?
+    		//this is where we'll fire up the lightbox
+    	}
+    });
+});
+</script>

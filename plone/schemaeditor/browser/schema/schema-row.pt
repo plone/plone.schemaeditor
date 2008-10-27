@@ -1,40 +1,44 @@
+<li class="schemaeditor-field">
+    <table>
+		<tr>
+
 <tal:block define="tups view/getCombinedWidgets;
                    niceTitles view/getNiceTitles;
-									 error python:tups[0][0].error;" >
-<!--
-	tups indexes
-	0 - checkbox widget
-	1 - __name__
-	2 - title
-	3 - description
-	
-	I don't not iterate over the widgets because we want to control the way they are displayed....
-	May not be the best way to do it....
-	-->
- 	<li class="dexterity-field" tal:define="error python:tups[0][0].error;">
-		<table>
-			<tr>
-				<td style="width:70%">
-					<span class="error" tal:omit-tag="not:error">
-						<div tal:condition="error" tal:replace="structure error/render" />
-						<input class="field-type-checkbox" type="text" tal:replace="structure python: tups[0][0].render()" />
-					</span>
-					<a href=""
-						class="dexterity-field-options-link"
-	       		tal:define="link python:view.context.context.link(view.getContent(), tups[1][0].field.__name__)"
-	       		tal:attributes="href link">
-						<b tal:content="python: tups[1][0].value"></b>
-					</a>
-				</td>
+                   colwidths python:(10, 10, 30, 30, 15)"
+           repeat="tup tups">
 
-				<td class="field-mover" style="width:15%; text-align:right">
-					<a class="move-field-up" tal:attributes="href python: '/move/up/' + tups[1][0].value" >up</a> | 
-					<a class="move-field-down" tal:attributes="href python: '/move/down/' + tups[1][0].value">down</a>
-				</td>
-				<td style="width:15%; text-align:right">
-					<a class="delete-field" onclick="return false;" tal:attributes="href python: '/delete/' + tups[1][0].value" >delete</a>
-				</td>
-			</tr>
-			</table>
-  </li>
+  <td tal:define="error python:tup[0].error;
+                  idx repeat/tup/index;
+                  colwidth python:colwidths[idx]"
+      tal:attributes="class python:'field' + (error and ' error' or '');
+                      style string: width: ${colwidth}%;;">
+    <tal:block repeat="widget tup">
+
+    <a href=""
+       tal:define="link python:view.context.context.link(view.getContent(), widget.field.__name__)"
+       tal:omit-tag="python:widget.mode == 'input' or link is None"
+       tal:attributes="href link">
+
+      <span class="error" tal:omit-tag="not:error">
+        <div tal:condition="error" tal:replace="structure error/render" />
+        <input type="text" tal:replace="structure widget/render" />
+      </span>
+
+    </a>
+    <br/>
+    </tal:block>
+
+  </td>
 </tal:block>
+
+    <td class="schemaeditor-field-mover">
+    	<a class="schemaeditor-move-field-up" tal:attributes="href python: view.content_id + '/@@move-up'" >up</a> | 
+    	<a class="schemaeditor-move-field-down" tal:attributes="href python: view.content_id + '/@@move-down'">down</a>
+    </td>
+    <td class="schemaeditor-delete-field">
+    	<a tal:attributes="href python: view.content_id + '/@@delete'" >delete</a>
+    </td>
+
+        </tr>
+    </table>
+</li>
