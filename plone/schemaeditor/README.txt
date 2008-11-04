@@ -33,14 +33,11 @@ Despite the name, Plone is not a dependency.
 Navigating to a schema
 ======================
 
-Let's import some ZCML which will set up a dummy schema context that will allow us
-to demonstrate editing the zope.schema.interfaces.IField schema, via the /schemaeditor URL::
-
-    >>> from Products.Five import zcml
-    >>> import plone.schemaeditor.tests
-    >>> zcml.load_config('tests.zcml', package=plone.schemaeditor.tests)
+Note that for the sake of the test, the test setup has installed a dummy schema context that
+will allow us to demonstrate editing the zope.schema.interfaces.IField schema, via the
+/schemaeditor URL.
     
-And set up the test browser::
+Let's set up the test browser::
     
     >>> from Products.Five.testbrowser import Browser
     >>> browser = Browser()
