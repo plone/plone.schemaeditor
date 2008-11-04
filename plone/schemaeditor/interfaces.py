@@ -26,6 +26,10 @@ class IFieldContext(IItem):
         schema = IField
         )
 
+class IFieldFactory(IField):
+    """ A component that instantiates a field when called.
+    """
+
 class IEditableSchema(Interface):
     """ Interface for adding/removing fields to/from a schema.
     """

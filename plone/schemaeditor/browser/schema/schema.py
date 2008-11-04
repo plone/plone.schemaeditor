@@ -3,6 +3,7 @@ from OFS.SimpleItem import Item
 
 from zope.interface import Interface, implements
 from zope.component import provideAdapter, adapts
+from zope.app.component.vocabulary import UtilityVocabulary
 from zope.publisher.interfaces.browser import IBrowserPublisher
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope import schema
@@ -13,7 +14,7 @@ from zope.app.container.contained import ObjectAddedEvent, ObjectRemovedEvent, O
 from z3c.form import field
 from plone.z3cform.crud import crud
 
-from plone.schemaeditor.interfaces import ISchemaContext, IEditableSchema, IJavascriptForm
+from plone.schemaeditor.interfaces import ISchemaContext, IFieldFactory, IEditableSchema, IJavascriptForm
 from plone.schemaeditor.browser.field.edit import FieldContext
 from plone.schemaeditor.browser.jsform.jsform import JavascriptFormWrapper
 from plone.schemaeditor.utils import sorted_fields
@@ -23,9 +24,9 @@ from plone.schemaeditor.utils import sorted_fields
 
 class IFieldNameSchema(Interface):
     
-    __name__ = schema.TextLine(title=u'ID')
+    __name__ = schema.ASCIILine(title=u'ID')
 
-class FieldNameAdapter(object):
+class FieldNameProperty(object):
     adapts(IField)
     implements(IFieldNameSchema)
     
@@ -39,8 +40,17 @@ class FieldNameAdapter(object):
         def set(self, value):
             self.field.__name__ = value
         return property(get, set)
-provideAdapter(FieldNameAdapter)
+provideAdapter(FieldNameProperty)
 
+class FieldsVocabulary(UtilityVocabulary):
+    interface = IFieldFactory
+    
+class IFieldFactorySchema(IFieldNameSchema):
+    
+    factory =  schema.Choice(
+        title=u"Field type",
+        vocabulary="Fields"
+        )
 
 class FieldSubForm(crud.EditSubForm):
     template = ViewPageTemplateFile('schema-row.pt')
@@ -60,9 +70,9 @@ class SchemaListing(crud.CrudForm):
     
     javascript = ViewPageTemplateFile('schema-js.pt')
     
+    add_schema = IFieldFactorySchema
     update_schema = IFieldNameSchema
     view_schema = field.Fields(IField).select('title', 'description')
-    addform_factory = crud.NullForm
     editform_factory = FieldEditForm
     
     def __init__(self, context, request):
@@ -76,7 +86,9 @@ class SchemaListing(crud.CrudForm):
         """ Add field to schema
         """
         
-        # XXX create the field based on the form data!
+        # XXX normalize __name__ from title
+        factory = data.pop('factory')
+        field = factory(**data)
         
         schema = IEditableSchema(self.schema)
         schema.add_field(field)

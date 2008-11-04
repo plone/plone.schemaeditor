@@ -9,5 +9,11 @@
         for="plone.schemaeditor.interfaces.ISchemaContext"
         class=".schema.SchemaListingPage"
         permission="plone.schemaeditor.ManageSchemata" />
+        
+    <utility
+        component=".schema.FieldsVocabulary"
+        provides="zope.schema.interfaces.IVocabularyFactory"
+        name="Fields"
+        />
 
 </configure>
