@@ -11,7 +11,7 @@
         permission="plone.schemaeditor.ManageSchemata" />
         
     <utility
-        component=".schema.FieldsVocabulary"
+        component=".schema.FieldsVocabularyFactory"
         provides="zope.schema.interfaces.IVocabularyFactory"
         name="Fields"
         />

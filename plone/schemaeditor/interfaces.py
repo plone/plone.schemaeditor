@@ -1,6 +1,6 @@
 from zope.interface.interfaces import Interface, IInterface
 from zope.publisher.interfaces.browser import IBrowserPage
-from zope.schema import Object
+from zope.schema import Object, TextLine
 from zope.schema.interfaces import IField
 from z3c.form.interfaces import IFieldWidget, IEditForm
 from plone.z3cform.interfaces import IFormWrapper
@@ -29,6 +29,7 @@ class IFieldContext(IItem):
 class IFieldFactory(IField):
     """ A component that instantiates a field when called.
     """
+    title = TextLine(title=u'Title')
 
 class IEditableSchema(Interface):
     """ Interface for adding/removing fields to/from a schema.

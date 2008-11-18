@@ -1,14 +1,24 @@
-docs
+docs:
  X overview of where this package fits in
  X dependencies
  - how to customize
-test
+
+test:
  X mock traverser
  X can see fields -- correct links
  - can reorder fields
  - can rename fields
+ - can add, remove fields
  X can't access without ManageSchemata permission
+
+features:
+ - field support
+   - choice, sequences (waiting on value_type marshalling in supermodel)
 
 issues:
  - fall back to __name__ in schema listing if field has no title
  - disable JS sorting of crud form
+
+usability:
+ - hide missing value field when item is required
+ - improve help text for field fields

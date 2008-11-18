@@ -1,13 +1,13 @@
-import Acquisition
-from OFS.SimpleItem import Item
+from OFS.SimpleItem import SimpleItem
 
 from zope.interface import Interface, implements
-from zope.component import provideAdapter, adapts
-from zope.app.component.vocabulary import UtilityVocabulary
+from zope.component import provideAdapter, adapts, queryUtility, getUtilitiesFor
 from zope.publisher.interfaces.browser import IBrowserPublisher
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+from zope.i18n import translate
 from zope import schema
 from zope.schema.interfaces import IField
+from zope.schema.vocabulary import SimpleVocabulary
 from zope.event import notify
 from zope.app.container.contained import ObjectAddedEvent, ObjectRemovedEvent, ObjectMovedEvent
 
@@ -42,9 +42,11 @@ class FieldNameProperty(object):
         return property(get, set)
 provideAdapter(FieldNameProperty)
 
-class FieldsVocabulary(UtilityVocabulary):
-    interface = IFieldFactory
-    
+def FieldsVocabularyFactory(context):
+    field_factories = getUtilitiesFor(IFieldFactory)
+    items = [(translate(factory.title), factory) for (id, factory) in field_factories]
+    return SimpleVocabulary.fromItems(items)
+
 class IFieldFactorySchema(IFieldNameSchema):
     
     factory =  schema.Choice(
@@ -118,7 +120,9 @@ class SchemaListing(crud.CrudForm):
     def link(self, item, field):
         """ Generate a link to the edit page for each field.
         """
-        if field == 'title':
+        field_identifier = u'%s.%s' % (item.__module__, item.__class__.__name__)
+        field_factory = queryUtility(IFieldFactory, name=field_identifier)
+        if field == 'title' and field_factory is not None:
             return '%s/%s' % (self.context.absolute_url(), item.__name__)
         else:
             return None
@@ -136,11 +140,11 @@ class SchemaListingPage(JavascriptFormWrapper):
     def label(self):
         return u'Edit %s' % self.context.__name__
 
-class SchemaContext(Item, Acquisition.Implicit):
+class SchemaContext(SimpleItem):
     """ This is a transient item that allows us to traverse through (a wrapper of) a zope 3 schema
         to (a wrapper of) a zope 3 schema field.
     """
-    # Implementing IBrowserPublisher tells the Zope 2 traverser to pay attention
+    # Implementing IBrowserPublisher tells the Zope 2 publish traverser to pay attention
     # to the publishTraverse and browserDefault methods.
     implements(ISchemaContext, IBrowserPublisher)
     

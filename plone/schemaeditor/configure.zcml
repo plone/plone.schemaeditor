@@ -16,7 +16,6 @@
     <!-- adapter for adding/removing fields on schemata -->
     <adapter factory=".utils.EditableSchema"/>
 
-    <include file="fields.zcml"/>
     <include package=".browser"/>
 
 </configure>
