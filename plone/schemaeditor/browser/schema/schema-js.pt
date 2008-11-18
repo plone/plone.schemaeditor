@@ -2,6 +2,14 @@
 <script type="text/javascript">
 // wrap this so it runs after page load
 jq(function() {
+    // show/hide spinner on jquery AJAX events
+    jq("#kss-spinner").ajaxStart(function(){
+        jq(this).show();
+    });
+    jq("#kss-spinner").ajaxStop(function(){
+        jq(this).hide();
+    });
+
     //remove things that do not need to be there when javascript is working.
     jq(".schemaeditor-field-mover").html("");
     jq(".schemaeditor-field-mover").children().remove();
@@ -20,9 +28,19 @@ jq(function() {
 
     //this is ridiculously easy!
     jq("#schemaeditor-fields").sortable({
-    	change: function(event, ui){
-    		//how do we want to do ajax now?
-    		//this is where we'll fire up the lightbox
+        axis: 'y',
+        placeholder: 'schemaeditor-field',
+    	update: function(event, ui){
+    		var field = jq('.schemaeditor-field-id', ui.item).val();
+    		var pos = jq('.schemaeditor-field').index(ui.item);
+            jq.ajax({
+              type: "POST",
+              url: location.href + '/' + field + '/@@order',
+              data: { 'pos': pos },
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert( 'Error: ' + textStatus );
+              }
+            });
     	}
     });
 });

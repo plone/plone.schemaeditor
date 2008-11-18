@@ -6,7 +6,7 @@ li.schemaeditor-field{
 	margin:5px;
 	border: 1px solid black;
 	padding: 5px;
-	width:100%;
+	width:600px;
 	position:relative;
 	background-color:#f3f3f3;
 	list-style-image:none;
@@ -20,7 +20,7 @@ li.schemaeditor-field{
 }
 
 .schemaeditor-field table{
-	width:100%;
+	width:600px;
 }
 .schemaeditor-field td {
     text-align: left;

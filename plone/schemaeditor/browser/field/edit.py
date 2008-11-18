@@ -1,6 +1,6 @@
-import Acquisition
 from Acquisition import aq_parent, aq_inner
-from OFS.SimpleItem import Item
+from OFS.SimpleItem import SimpleItem
+from ZPublisher.BaseRequest import DefaultPublishTraverse
 
 from zope.interface import implements, implementer, Interface
 from zope.component import getMultiAdapter, queryMultiAdapter, adapter, adapts
@@ -14,7 +14,7 @@ from plone.z3cform import layout
 
 from plone.schemaeditor.interfaces import IFieldContext, IFieldEditForm, IMetaFieldWidget
 
-class FieldContext(Item, Acquisition.Implicit):
+class FieldContext(SimpleItem):
     """ wrapper for published zope 3 schema fields
     """
     implements(IFieldContext, IBrowserPublisher)
@@ -31,7 +31,7 @@ class FieldContext(Item, Acquisition.Implicit):
     def publishTraverse(self, request, name):
         """ It's not valid to traverse to anything below a field context.
         """
-        return None
+        return DefaultPublishTraverse(self, request).publishTraverse(request, name)
 
     def browserDefault(self, request):
         """ Really we want to show the field EditView.

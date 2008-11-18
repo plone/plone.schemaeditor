@@ -14,5 +14,13 @@
         factory=".edit.MetaFieldWidgetDataConverter" />
     <adapter
         factory=".edit.MetaFieldValidator" />
+        
+    <browser:page
+        name="order"
+        for="...interfaces.IFieldContext"
+        class=".order.FieldOrderView"
+        attribute="move"
+        permission="plone.schemaeditor.ManageSchemata"
+        />
 
 </configure>

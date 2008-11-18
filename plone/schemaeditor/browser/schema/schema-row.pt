@@ -1,6 +1,10 @@
 <li class="schemaeditor-field">
+    <input type="hidden"
+           class="schemaeditor-field-id"
+           tal:attributes="value string:${view/content_id}"/>
     <table>
 		<tr>
+		    
 
 <tal:block define="tups view/getCombinedWidgets;
                    niceTitles view/getNiceTitles;

@@ -20,6 +20,8 @@ def sorted_fields(schema):
 
 class EditableSchema(object):
     """ Zope 3 schema adapter to allow addition/removal of schema fields
+    
+        XXX this needs to be made threadsafe
     """
     implements(IEditableSchema)
     adapts(IInterface)
@@ -49,3 +51,39 @@ class EditableSchema(object):
                 del self.schema._v_attrs[name]
         except KeyError:
             raise ValueError, "%s schema has no '%s' field" % (self.schema.__identifier__, name)
+
+    def move_field(self, field_id, new_pos):
+        """ Move a field to the (new_pos)th position in the schema's sort order (indexed beginning
+            at 0).
+        
+            Schema fields are assigned an 'order' attribute that increments for each new field
+            instance.  We shuffle these around in case it matters anywhere that they're unique.
+        """
+        moving_field = self.schema[field_id]
+        ordered_field_ids = [name for (name, field) in sorted_fields(self.schema)]
+
+        # make sure this is sane
+        if not isinstance(new_pos, int):
+            raise IndexError, 'The new field position must be an integer.'
+        if new_pos < 0:
+            raise IndexError, 'The new field position must be greater than 0.'
+        if new_pos >= len(ordered_field_ids):
+            raise IndexError, 'The new field position must be less than the number of fields.'
+        
+        # determine which fields we have to update the order attribute on
+        cur_pos = ordered_field_ids.index(field_id)
+        if new_pos == cur_pos:
+            # no change; short circuit
+            return
+        elif new_pos < cur_pos:
+            intervening_fields = [self.schema[field_id] for field_id in ordered_field_ids[cur_pos - 1:new_pos - 1:-1]]
+        elif new_pos > cur_pos:
+            intervening_fields = [self.schema[field_id] for field_id in ordered_field_ids[cur_pos + 1:new_pos + 1]]
+        
+        # do a little dance
+        prev_order = moving_field.order
+        for field in intervening_fields:
+            order_buffer = field.order
+            field.order = prev_order
+            prev_order = order_buffer
+        moving_field.order = prev_order
