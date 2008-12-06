@@ -41,11 +41,14 @@ class EditableSchema(object):
         self.schema._InterfaceClass__attrs[name] = field
         if hasattr(self.schema, '_v_attrs'):
             self.schema._v_attrs[name] = field
-        
+            
+        field.interface = self.schema
+
     def remove_field(self, name):
         """ Remove a field
         """
         try:
+            self.schema[name].interface = None
             del self.schema._InterfaceClass__attrs[name]
             if hasattr(self.schema, '_v_attrs'):
                 del self.schema._v_attrs[name]
