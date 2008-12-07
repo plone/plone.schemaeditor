@@ -1,0 +1,38 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="plone.schemaeditor">
+
+  <utility
+      name="zope.schema._bootstrapfields.TextLine"
+      component=".fields.TextLineFactory"
+      />
+  <utility
+      name="zope.schema._bootstrapfields.Text"
+      component=".fields.TextFactory"
+      />
+  <utility
+      name="zope.schema._bootstrapfields.Int"
+      component=".fields.IntFactory"
+      />
+  <utility
+      name="zope.schema._bootstrapfields.Float"
+      component=".fields.FloatFactory"
+      />
+  <utility
+      name="zope.schema._bootstrapfields.Bool"
+      component=".fields.BoolFactory"
+      />
+  <utility
+      name="zope.schema._bootstrapfields.Password"
+      component=".fields.PasswordFactory"
+      />
+  <utility
+      name="zope.schema._bootstrapfields.Bytes"
+      component=".fields.BytesFactory"
+      />
+  <utility
+      name="zope.schema._bootstrapfields.Datetime"
+      component=".fields.DatetimeFactory"
+      />
+
+</configure>

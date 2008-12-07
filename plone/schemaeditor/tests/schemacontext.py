@@ -1,13 +1,11 @@
-import Acquisition
 from Acquisition import aq_inner, aq_parent
-from OFS.SimpleItem import Item
-from zope.interface import implements, Interface
-from zope.component import provideAdapter
-from zope.publisher.interfaces.browser import IBrowserPublisher, IBrowserRequest
+from OFS.SimpleItem import SimpleItem
+from zope.interface import implements
+from zope.publisher.interfaces.browser import IBrowserPublisher
 from plone.schemaeditor.browser.schema.schema import SchemaContext
 from zope.schema.interfaces import IField
 
-class DummySchemaContext(Item, Acquisition.Implicit):
+class DummySchemaContext(SimpleItem):
     implements(IBrowserPublisher)
 
     id = None

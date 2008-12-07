@@ -37,6 +37,7 @@ jq(function() {
               type: "POST",
               url: location.href + '/' + field + '/@@order',
               data: { 'pos': pos },
+              // XXX make this nicer
               error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert( 'Error: ' + textStatus );
               }
