@@ -24,3 +24,7 @@ class DummySchemaContext(SimpleItem):
 
     def browserDefault(self, request):
         return SchemaContext(IDummySchema, request, name=u'@@schemaeditor').__of__(aq_parent(aq_inner(self))), ('@@edit',)
+
+
+def log_event(object, event):
+    print '[event: %s on %s]' % (event.__class__.__name__, object.__class__.__name__)

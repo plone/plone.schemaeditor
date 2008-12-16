@@ -8,9 +8,25 @@
     <browser:page
         name="schemaeditor"
         for="*"
-        class=".schemacontext.DummySchemaContext"
+        class=".fixtures.DummySchemaContext"
         permission="plone.schemaeditor.ManageSchemata"
         allowed_interface="OFS.interfaces.IItem" />
+
+    <subscriber
+        for="plone.schemaeditor.interfaces.IField
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".fixtures.log_event"
+        />
+    <subscriber
+        for="plone.schemaeditor.interfaces.IField
+             zope.app.container.interfaces.IObjectMovedEvent"
+        handler=".fixtures.log_event"
+        />
+    <subscriber
+        for="zope.interface.interfaces.IInterface
+             zope.app.container.interfaces.IContainerModifiedEvent"
+        handler=".fixtures.log_event"
+        />
 
     <!-- use a form layout that doesn't pull in main_template -->
     <adapter factory=".tests.layout_factory"/>

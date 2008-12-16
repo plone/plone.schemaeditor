@@ -33,10 +33,11 @@ Despite the name, Plone is not a dependency.
 Functional Tests
 ================
 
-Note that for the sake of the test, the test setup has installed a dummy schema context that
-will allow us to demonstrate editing a dummy IDummySchema schema, via the
-/schemaeditor URL.
-    
+Note that for the sake of the test, the test setup has installed a dummy schema
+context that will allow us to demonstrate editing a dummy IDummySchema schema, via the
+/schemaeditor URL.  It also registers an event handler for various schema events that
+will print out the event, so that we can make sure events are getting raised properly.
+
 Let's set up the test browser::
     
     >>> from Products.Five.testbrowser import Browser
@@ -76,13 +77,14 @@ Let's add a 'favorite-color' field to the IDummySchema schema::
     >>> browser.getControl('Field title').value = 'Favorite Color'
     >>> browser.getControl('Field type').value = ['Text line']
     >>> browser.getControl('Add').click()
+    [event: ObjectAddedEvent on TextLine]
     >>> 'Item added successfully.' in browser.contents
     True
 
 Now the actual IDummySchema schema should have the new field (the field id is a
 normalized form of the title)::
 
-    >>> from plone.schemaeditor.tests.schemacontext import IDummySchema
+    >>> from plone.schemaeditor.tests.fixtures import IDummySchema
     >>> 'favorite-color' in IDummySchema
     True
     >>> from zope.schema import TextLine
@@ -112,6 +114,7 @@ And now click the button to save the change.  This should take us back to the li
 of schema fields, which should reflect the change::
 
     >>> browser.getControl('Save').click()
+    [event: ObjectModifiedEvent on TextLine]
     >>> browser.url
     'http://nohost/@@schemaeditor'
     
@@ -155,6 +158,7 @@ result from dragging the 'favorite-color' field to the 3rd position (since the
 testbrowser doesn't support Javascript)::
 
     >>> browser.open('http://nohost/@@schemaeditor/favorite-color/@@order?pos=2')
+    [event: ContainerModifiedEvent on InterfaceClass]
     >>> browser.contents
     ''
 
@@ -172,6 +176,8 @@ We can change the id of the field using the textbox on the schema edit page::
     >>> browser.goBack()
     >>> browser.getControl(name='crud-edit.favorite-color.widgets.__name__').value = 'hue'
     >>> browser.getControl('Apply changes').click()
+    [event: ObjectMovedEvent on TextLine]
+    [event: ObjectModifiedEvent on TextLine]
     >>> 'Successfully updated' in browser.contents
     True
 
@@ -194,6 +200,7 @@ We can also remove a field::
 
     >>> browser.getControl(name='crud-edit.hue.widgets.select:list').value = ['0']
     >>> browser.getControl('Delete').click()
+    [event: ObjectRemovedEvent on TextLine]
     >>> 'Successfully deleted items.' in browser.contents
     True
 

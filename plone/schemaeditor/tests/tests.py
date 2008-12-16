@@ -1,8 +1,6 @@
 import unittest
 import doctest
 from Testing import ZopeTestCase as ztc
-from zope.app.testing import placelesssetup
-from zope.security.management import endInteraction
 import Products.Five
 from Products.Five import zcml
 import plone.schemaeditor
@@ -14,9 +12,6 @@ optionflags =  (doctest.ELLIPSIS |
                 doctest.REPORT_ONLY_FIRST_FAILURE)
 
 def setUp(self):
-    placelesssetup.setUp()
-    endInteraction()
-
     zcml.load_config('meta.zcml', Products.Five)
     zcml.load_config('configure.zcml', Products.Five)
     zcml.load_config('configure.zcml', plone.schemaeditor)
@@ -26,10 +21,8 @@ def setUp(self):
     # pull in main_template
     classImplements(BaseRequest, ITestLayer)
     
-    
 def tearDown(self):
     classImplements(implementedBy(BaseRequest) - ITestLayer)
-    placelesssetup.tearDown()
 
 def test_suite():
     return unittest.TestSuite([
