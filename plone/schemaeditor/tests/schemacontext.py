@@ -1,9 +1,17 @@
 from Acquisition import aq_inner, aq_parent
 from OFS.SimpleItem import SimpleItem
-from zope.interface import implements
+from zope.interface import implements, Interface
 from zope.publisher.interfaces.browser import IBrowserPublisher
 from plone.schemaeditor.browser.schema.schema import SchemaContext
-from zope.schema.interfaces import IField
+from zope import schema
+
+class IDummySchema(Interface):
+    
+    field1 = schema.TextLine()
+    field2 = schema.TextLine()
+    field3 = schema.TextLine()
+    field4 = schema.TextLine()
+    field5 = schema.TextLine()
 
 class DummySchemaContext(SimpleItem):
     implements(IBrowserPublisher)
@@ -15,4 +23,4 @@ class DummySchemaContext(SimpleItem):
         return schema_context.publishTraverse(request, name)
 
     def browserDefault(self, request):
-        return SchemaContext(IField, request, name=u'@@schemaeditor').__of__(aq_parent(aq_inner(self))), ('@@edit',)
+        return SchemaContext(IDummySchema, request, name=u'@@schemaeditor').__of__(aq_parent(aq_inner(self))), ('@@edit',)

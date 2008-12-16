@@ -3,6 +3,7 @@
     xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="plone.schemaeditor">
 
+    <include package="plone.i18n"/>
     <include package="plone.z3cform"/>
     
     <permission

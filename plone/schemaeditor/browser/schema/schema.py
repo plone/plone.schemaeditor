@@ -1,7 +1,7 @@
 from OFS.SimpleItem import SimpleItem
 
 from zope.interface import Interface, implements
-from zope.component import provideAdapter, adapts, queryUtility, getUtilitiesFor
+from zope.component import provideAdapter, adapts, queryUtility, getUtilitiesFor, getUtility
 from zope.publisher.interfaces.browser import IBrowserPublisher
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope.i18n import translate
@@ -10,6 +10,7 @@ from zope.schema.interfaces import IField
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.event import notify
 from zope.app.container.contained import ObjectAddedEvent, ObjectRemovedEvent, ObjectMovedEvent
+from plone.i18n.normalizer.interfaces import IIDNormalizer
 
 from z3c.form import field
 from plone.z3cform.crud import crud
@@ -47,17 +48,37 @@ def FieldsVocabularyFactory(context):
     items = [(translate(factory.title), factory) for (id, factory) in field_factories]
     return SimpleVocabulary.fromItems(items)
 
-class IFieldFactorySchema(IFieldNameSchema):
+class IFieldFactorySchema(Interface):
+    
+    title = schema.TextLine(
+        title = u'Field title',
+        required=True
+        )
     
     factory =  schema.Choice(
         title=u"Field type",
-        vocabulary="Fields"
+        vocabulary="Fields",
+        required=True
         )
 
 class FieldSubForm(crud.EditSubForm):
     template = ViewPageTemplateFile('schema-row.pt')
-    pass
+    
+    def applyChanges(self, data):
+        """ Wrapper of the normal applyChanges to tweak the subform id
+            if the field was renamed. """
+        if '_schemaeditor_newname' in data:
+            self.content_id = data['_schemaeditor_newname']
+            self.updateWidgets()
+            del data['_schemaeditor_newname']
+        return super(FieldSubForm, self).applyChanges(data)
 
+class FieldAddForm(crud.AddForm):
+    """ Just a normal CRUD add form with a custom template to show a form title.
+    """
+
+    label = u'Add Field'
+    template = ViewPageTemplateFile('../titledform.pt')
 
 class FieldEditForm(crud.EditForm):
     label = None
@@ -75,6 +96,7 @@ class SchemaListing(crud.CrudForm):
     add_schema = IFieldFactorySchema
     update_schema = IFieldNameSchema
     view_schema = field.Fields(IField).select('title', 'description')
+    addform_factory = FieldAddForm
     editform_factory = FieldEditForm
     
     def __init__(self, context, request):
@@ -87,8 +109,10 @@ class SchemaListing(crud.CrudForm):
     def add(self, data):
         """ Add field to schema
         """
-        
-        # XXX normalize __name__ from title
+ 
+        id = getUtility(IIDNormalizer).normalize(data['title'])
+        # XXX validation
+        data['__name__'] = id
         factory = data.pop('factory')
         field = factory(**data)
         
@@ -116,6 +140,10 @@ class SchemaListing(crud.CrudForm):
             # also, but the z3c.form update handler will take care of that --
             # and this will ensure that the user sees the correct form status message.)
             notify(ObjectMovedEvent(field, self.schema, oldname, self.schema, newname))
+            
+            # annotate the data dict so the subform's applyChanges method can
+            # tweak the subform's id
+            data['_schemaeditor_newname'] = newname
 
     def link(self, item, field):
         """ Generate a link to the edit page for each field.

@@ -30,11 +30,11 @@ Dependencies
 Despite the name, Plone is not a dependency.
 
 
-Navigating to a schema
-======================
+Functional Tests
+================
 
 Note that for the sake of the test, the test setup has installed a dummy schema context that
-will allow us to demonstrate editing the zope.schema.interfaces.IField schema, via the
+will allow us to demonstrate editing a dummy IDummySchema schema, via the
 /schemaeditor URL.
     
 Let's set up the test browser::
@@ -43,6 +43,10 @@ Let's set up the test browser::
     >>> browser = Browser()
     >>> portal_url = 'http://nohost'
     >>> browser.handleErrors = False
+
+
+Navigating to a schema
+----------------------
 
 If we try to access the schema editor without logging in, we should get an Unauthorized
 error::
@@ -57,55 +61,74 @@ We need to log in as a manager, because by default only managers get the 'Manage
     >>> self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
     >>> browser.addHeader('Authorization', 'Basic root:secret')
 
-Now we should be able to navigate to the IField schema in the browser::
+Now we should be able to navigate to the IDummySchema schema in the browser::
 
     >>> browser.open(portal_url + '/@@schemaeditor')
     >>> 'Edit @@schemaeditor' in browser.contents
     True
 
 
-Editing a schema field attribute
-================================
+Adding a field
+--------------
 
-Now let's navigate to the 'title' field of the IField schema::
+Let's add a 'favorite-color' field to the IDummySchema schema::
 
-    >>> browser.getLink('Title').click()
-    >>> browser.url
-    'http://nohost/@@schemaeditor/title'
-    >>> "Edit Field 'title'" in browser.contents
+    >>> browser.getControl('Field title').value = 'Favorite Color'
+    >>> browser.getControl('Field type').value = ['Text line']
+    >>> browser.getControl('Add').click()
+    >>> 'Item added successfully.' in browser.contents
     True
 
-Now we can change various attributes.  For instance, let's change the field title
-(note that this is the title of a field whose id is 'title' -- confusing I know!)::
+Now the actual IDummySchema schema should have the new field (the field id is a
+normalized form of the title)::
 
-    >>> browser.getControl('Title').value = 'Moniker'
-    
+    >>> from plone.schemaeditor.tests.schemacontext import IDummySchema
+    >>> 'favorite-color' in IDummySchema
+    True
+    >>> from zope.schema import TextLine
+    >>> isinstance(IDummySchema['favorite-color'], TextLine)
+    True
+    >>> IDummySchema['favorite-color'].title
+    u'Favorite Color'
+
+
+Editing a schema field attribute
+--------------------------------
+
+Let's navigate to the 'favorite-color' field we just created::
+
+    >>> browser.getLink('Color').click()
+    >>> browser.url
+    'http://nohost/@@schemaeditor/favorite-color'
+    >>> "Edit Field 'favorite-color'" in browser.contents
+    True
+
+Now we can change various attributes.  For instance, let's change the default
+value of the 'color' field to 'orange'::
+
+    >>> browser.getControl('Default Value').value = 'orange'
+
 And now click the button to save the change.  This should take us back to the list
 of schema fields, which should reflect the change::
 
     >>> browser.getControl('Save').click()
     >>> browser.url
     'http://nohost/@@schemaeditor'
-    >>> 'Moniker' in browser.contents
-    True
     
-Let's confirm that the new field title was correctly saved to the actual schema::
+Let's confirm that the new default value was correctly saved to the actual schema::
 
-    >>> from zope.schema.interfaces import IField
-    >>> IField['title'].title
-    u'Moniker'
+    >>> IDummySchema['favorite-color'].default
+    u'orange'
 
-Let's go back and try to make an invalid change.  The form won't let us. (Note
-that we need to use 'Moniker' instead of 'Title' like we did above, because we have
-edited the schema which is actually used to render the field edit form!)::
+Let's go back and try to make an invalid change.  The form won't let us::
 
-    >>> browser.getLink('Moniker').click()
+    >>> browser.getLink('Color').click()
     >>> browser.url
-    'http://nohost/@@schemaeditor/title'
+    'http://nohost/@@schemaeditor/favorite-color'
     >>> browser.getControl('Minimum length').value = 'asdf'
     >>> browser.getControl('Save').click()
     >>> browser.url
-    'http://nohost/@@schemaeditor/title'
+    'http://nohost/@@schemaeditor/favorite-color'
     >>> 'The entered value is not a valid integer literal.' in browser.contents
     True
 
@@ -115,8 +138,69 @@ without trying to save changes::
     >>> browser.getControl('Cancel').click()
     >>> browser.url
     'http://nohost/@@schemaeditor'
-    >>> IField['title'].title
-    u'Moniker'
+
+
+Re-ordering a field
+-------------------
+
+The field we added was created in a position following the 5 existing fields on the
+interface::
+
+    >>> from zope.schema import getFieldsInOrder
+    >>> getFieldsInOrder(IDummySchema)[5][0]
+    'favorite-color'
+
+Fields can be reordered via drag-and-drop.  Let's simulate the AJAX request that would
+result from dragging the 'favorite-color' field to the 3rd position (since the
+testbrowser doesn't support Javascript)::
+
+    >>> browser.open('http://nohost/@@schemaeditor/favorite-color/@@order?pos=2')
+    >>> browser.contents
+    ''
+
+Now the field should be the third field of the schema::
+
+    >>> getFieldsInOrder(IDummySchema)[2][0]
+    'favorite-color'
+
+
+Renaming a field
+----------------
+
+We can change the id of the field using the textbox on the schema edit page::
+
+    >>> browser.goBack()
+    >>> browser.getControl(name='crud-edit.favorite-color.widgets.__name__').value = 'hue'
+    >>> browser.getControl('Apply changes').click()
+    >>> 'Successfully updated' in browser.contents
+    True
+
+And confirm that the real schema was updated, keeping the field in the same position::
+
+    >>> 'favorite-color' in IDummySchema
+    False
+    >>> 'hue' in IDummySchema
+    True
+    >>> IDummySchema['hue'].__name__
+    'hue'
+    >>> getFieldsInOrder(IDummySchema)[2][0]
+    'hue'
+
+
+Removing a field
+----------------
+
+We can also remove a field::
+
+    >>> browser.getControl(name='crud-edit.hue.widgets.select:list').value = ['0']
+    >>> browser.getControl('Delete').click()
+    >>> 'Successfully deleted items.' in browser.contents
+    True
+
+And confirm that the real schema was updated::
+
+    >>> 'hue' in IDummySchema
+    False
 
 
 Authors
