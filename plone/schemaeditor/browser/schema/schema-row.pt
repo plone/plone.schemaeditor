@@ -35,12 +35,21 @@
   </td>
 </tal:block>
 
+  <noscript>
     <td class="schemaeditor-field-mover">
-    	<a class="schemaeditor-move-field-up" tal:attributes="href python: view.content_id + '/@@move-up'" >up</a> | 
-    	<a class="schemaeditor-move-field-down" tal:attributes="href python: view.content_id + '/@@move-down'">down</a>
+    	<a 
+    	  class="schemaeditor-move-field-up" 
+    	  tal:attributes="href string:${view/type_url}/${view/content_id}/@@move-up" >
+    	  up
+    	  </a> | 
+    	<a 
+    	  class="schemaeditor-move-field-down" 
+    	  tal:attributes="href string:${view/type_url}/${view/content_id}/@@move-down">down</a>
     </td>
+  </noscript>
+  
     <td class="schemaeditor-delete-field">
-    	<a tal:attributes="href python: view.content_id + '/@@delete'" >delete</a>
+    	<a tal:attributes="href string:${view/type_url}/${view/content_id}/@@delete" >delete</a>
     </td>
 
         </tr>

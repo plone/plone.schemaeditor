@@ -64,6 +64,13 @@ class IFieldFactorySchema(Interface):
 class FieldSubForm(crud.EditSubForm):
     template = ViewPageTemplateFile('schema-row.pt')
     
+    def type_url(self):
+        """
+        pretty weird to do it this way....  Is there a better way?
+        this is how its wrapped: self -> FieldEditForm -> SchemaListing -> SchemaContext
+        """
+        return self.context.context.context.absolute_url()
+    
     def applyChanges(self, data):
         """ Wrapper of the normal applyChanges to tweak the subform id
             if the field was renamed. """

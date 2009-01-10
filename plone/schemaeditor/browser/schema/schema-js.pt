@@ -1,7 +1,7 @@
 <script type="text/javascript" src="++resource++jquery-ui-sortable.js"></script>
 <script type="text/javascript">
 // wrap this so it runs after page load
-jq(function() {
+jq(document).ready(function() {
     // show/hide spinner on jquery AJAX events
     jq("#kss-spinner").ajaxStart(function(){
         jq(this).show();
@@ -10,18 +10,27 @@ jq(function() {
         jq(this).hide();
     });
 
-    //remove things that do not need to be there when javascript is working.
-    jq(".schemaeditor-field-mover").html("");
-    jq(".schemaeditor-field-mover").children().remove();
-    //jq("span.option").remove(); 
-    //jq("input.button-field").remove();
-
     jq("a.schemaeditor-field-options-link").click(function(){
     	//do ajax magic here
     });
 
     jq(".schemaeditor-delete-field a").click(function(){
     	//ajax call to delete fields
+    	
+    	//should we be rendering the page with an absolute url so we don't have to 
+    	//assemble this in javascript?
+    	jq.get(jq(this).attr('href'), 
+        // XXX make this nicer
+        // once there is an agreement on a lightbox frame mechanism, we can 
+        // deal with it that way
+        function (data, textStatus) {
+          //
+        }
+    	);
+    	
+    	//remove node
+    	var field_node = jq(this).parents('li.schemaeditor-field');
+    	field_node.remove()
     	
     	return false;
     });
@@ -30,19 +39,20 @@ jq(function() {
     jq("#schemaeditor-fields").sortable({
         axis: 'y',
         placeholder: 'schemaeditor-field',
-    	update: function(event, ui){
-    		var field = jq('.schemaeditor-field-id', ui.item).val();
-    		var pos = jq('.schemaeditor-field').index(ui.item);
-            jq.ajax({
-              type: "POST",
-              url: location.href + '/' + field + '/@@order',
-              data: { 'pos': pos },
-              // XXX make this nicer
-              error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert( 'Error: ' + textStatus );
-              }
-            });
-    	}
+        forcePlaceholderSize: true,
+    	  update: function(event, ui){
+    		  var field = jq(ui.item).find('input.schemaeditor-field-id').val();
+      		var pos = jq('.schemaeditor-field').index(ui.item);
+          jq.ajax({
+            type: "POST",
+            url: location.href + '/' + field + '/@@order',
+            data: { 'pos': pos },
+            // XXX again, we need to decide on a nice ui error message approach
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+              alert( 'Error: ' + textStatus );
+            }
+          });
+    	  }
     });
 });
 </script>

@@ -7,10 +7,12 @@ li.schemaeditor-field{
 	border: 1px solid black;
 	padding: 5px;
 	width:600px;
+	height:28px;
 	position:relative;
 	background-color:#f3f3f3;
 	list-style-image:none;
 	list-style-type:none;
+	cursor:pointer;
 }
 .schemaeditor-field span{
 	margin: 5px;
