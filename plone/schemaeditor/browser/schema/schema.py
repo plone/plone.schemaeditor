@@ -100,6 +100,7 @@ class SchemaListing(crud.CrudForm):
     
     javascript = ViewPageTemplateFile('schema-js.pt')
     
+    label = u'Schema'
     add_schema = IFieldFactorySchema
     update_schema = IFieldNameSchema
     view_schema = field.Fields(IField).select('title', 'description')
