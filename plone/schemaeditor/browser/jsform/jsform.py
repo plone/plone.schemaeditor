@@ -8,7 +8,10 @@ class JavascriptFormWrapper(FormWrapper):
     implements(IJavascriptFormWrapper)
     
     def javascript(self):
-        return self.form_instance.javascript()
+        if hasattr(self.form_instance, 'javascript'):
+            return self.form_instance.javascript()
+        else:
+            return ''
 
 path = lambda p: os.path.join(os.path.dirname(__file__), p)
 layout_factory = ZopeTwoFormTemplateFactory(
