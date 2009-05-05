@@ -15,7 +15,7 @@
       component=".fields.IntFactory"
       />
   <utility
-      name="zope.schema._bootstrapfields.Float"
+      name="zope.schema._field.Float"
       component=".fields.FloatFactory"
       />
   <utility
@@ -27,11 +27,11 @@
       component=".fields.PasswordFactory"
       />
   <utility
-      name="zope.schema._bootstrapfields.Bytes"
+      name="zope.schema._field.Bytes"
       component=".fields.BytesFactory"
       />
   <utility
-      name="zope.schema._bootstrapfields.Datetime"
+      name="zope.schema._field.Datetime"
       component=".fields.DatetimeFactory"
       />
 

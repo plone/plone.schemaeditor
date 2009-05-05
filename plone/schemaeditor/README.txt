@@ -210,6 +210,26 @@ And confirm that the real schema was updated::
     False
 
 
+Miscellaneous field types
+-------------------------
+
+Demonstrate that we can add and edit a date field::
+
+    >>> browser.getControl('Field title').value = 'Birthdate'
+    >>> browser.getControl('Field type').value = ['Date/Time']
+    >>> browser.getControl('Add').click()
+    [event: ObjectAddedEvent on Datetime]
+    >>> 'Item added successfully.' in browser.contents
+    True
+    >>> 'birthdate' in IDummySchema
+    True
+    >>> from zope.schema import Datetime
+    >>> isinstance(IDummySchema['birthdate'], Datetime)
+    True
+    >>> browser.getLink('Birthdate').click()
+    >>> browser.getControl('Save').click()
+    [event: ObjectModifiedEvent on Datetime]
+
 Authors
 =======
 

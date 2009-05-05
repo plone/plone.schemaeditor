@@ -5,6 +5,7 @@ from ZPublisher.BaseRequest import DefaultPublishTraverse
 from zope.interface import implements, implementer, Interface
 from zope.component import getMultiAdapter, queryMultiAdapter, adapter, adapts
 from zope.publisher.interfaces.browser import IBrowserPublisher
+from zope import schema
 from zope.schema.interfaces import IField
 from zope.schema._bootstrapinterfaces import RequiredMissing
 
@@ -56,9 +57,10 @@ class FieldEditForm(form.EditForm):
         
         # The 'default' and 'missing_value' metafields are just a generic Field in the
         # zope.schema.interfaces.IField schema, so let's use the widget for the actual
-        # field we're editing.
-        fields['default'].widgetFactory = MetaFieldWidgetFactory(self.field)
-        fields['missing_value'].widgetFactory = MetaFieldWidgetFactory(self.field)
+        # field we're editing.  Also the case for 'min' and 'max' if they're present.
+        for f in fields:
+            if fields[f].field.__class__ is schema.Field:
+                fields[f].widgetFactory = MetaFieldWidgetFactory(self.field)
         return fields
 
     @button.buttonAndHandler(u'Save', name='save')
