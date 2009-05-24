@@ -28,7 +28,7 @@ def test_suite():
     return unittest.TestSuite([
 
         ztc.FunctionalDocFileSuite(
-            '../README.txt',
+            'editing.txt',
             setUp=setUp,
             tearDown=tearDown,
             optionflags=optionflags

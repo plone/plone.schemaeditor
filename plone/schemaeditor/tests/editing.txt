@@ -1,0 +1,196 @@
+Note that for the sake of the test, the test setup has installed a dummy schema
+context that will allow us to demonstrate editing a dummy IDummySchema schema, via the
+/schemaeditor URL.  It also registers an event handler for various schema events that
+will print out the event, so that we can make sure events are getting raised properly.
+
+Let's set up the test browser::
+    
+    >>> from Products.Five.testbrowser import Browser
+    >>> browser = Browser()
+    >>> portal_url = 'http://nohost'
+    >>> browser.handleErrors = False
+
+
+Navigating to a schema
+----------------------
+
+If we try to access the schema editor without logging in, we should get an Unauthorized
+error::
+
+    >>> browser.open(portal_url + '/@@schemaeditor')
+    Traceback (most recent call last):
+    ...
+    Unauthorized: ...You are not authorized to access this resource...
+    
+We need to log in as a manager, because by default only managers get the 'Manage Schemata' permission::
+
+    >>> self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
+    >>> browser.addHeader('Authorization', 'Basic root:secret')
+
+Now we should be able to navigate to the IDummySchema schema in the browser::
+
+    >>> browser.open(portal_url + '/@@schemaeditor')
+    >>> 'Edit @@schemaeditor' in browser.contents
+    True
+
+
+Adding a field
+--------------
+
+Let's add a 'favorite-color' field to the IDummySchema schema::
+
+    >>> browser.getControl('Field title').value = 'Favorite Color'
+    >>> browser.getControl('Field type').value = ['Text line']
+    >>> browser.getControl('Add').click()
+    [event: ObjectAddedEvent on TextLine]
+    >>> 'Item added successfully.' in browser.contents
+    True
+
+Now the actual IDummySchema schema should have the new field (the field id is a
+normalized form of the title)::
+
+    >>> from plone.schemaeditor.tests.fixtures import IDummySchema
+    >>> 'favorite-color' in IDummySchema
+    True
+    >>> from zope.schema import TextLine
+    >>> isinstance(IDummySchema['favorite-color'], TextLine)
+    True
+    >>> IDummySchema['favorite-color'].title
+    u'Favorite Color'
+
+
+Editing a schema field attribute
+--------------------------------
+
+Let's navigate to the 'favorite-color' field we just created::
+
+    >>> browser.getLink('Color').click()
+    >>> browser.url
+    'http://nohost/@@schemaeditor/favorite-color'
+    >>> "Edit Field 'favorite-color'" in browser.contents
+    True
+
+Now we can change various attributes.  For instance, let's change the default
+value of the 'color' field to 'orange'::
+
+    >>> browser.getControl('Default Value').value = 'orange'
+
+And now click the button to save the change.  This should take us back to the list
+of schema fields, which should reflect the change::
+
+    >>> browser.getControl('Save').click()
+    [event: ObjectModifiedEvent on TextLine]
+    >>> browser.url
+    'http://nohost/@@schemaeditor'
+    
+Let's confirm that the new default value was correctly saved to the actual schema::
+
+    >>> IDummySchema['favorite-color'].default
+    u'orange'
+
+Let's go back and try to make an invalid change.  The form won't let us::
+
+    >>> browser.getLink('Color').click()
+    >>> browser.url
+    'http://nohost/@@schemaeditor/favorite-color'
+    >>> browser.getControl('Minimum length').value = 'asdf'
+    >>> browser.getControl('Save').click()
+    >>> browser.url
+    'http://nohost/@@schemaeditor/favorite-color'
+    >>> 'The entered value is not a valid integer literal.' in browser.contents
+    True
+
+We can give up and hit the Cancel button, which should take us back to the schema listing,
+without trying to save changes::
+
+    >>> browser.getControl('Cancel').click()
+    >>> browser.url
+    'http://nohost/@@schemaeditor'
+
+
+Re-ordering a field
+-------------------
+
+The field we added was created in a position following the 5 existing fields on the
+interface::
+
+    >>> from zope.schema import getFieldsInOrder
+    >>> getFieldsInOrder(IDummySchema)[5][0]
+    'favorite-color'
+
+Fields can be reordered via drag-and-drop.  Let's simulate the AJAX request that would
+result from dragging the 'favorite-color' field to the 3rd position (since the
+testbrowser doesn't support Javascript)::
+
+    >>> browser.open('http://nohost/@@schemaeditor/favorite-color/@@order?pos=2')
+    [event: ContainerModifiedEvent on InterfaceClass]
+    >>> browser.contents
+    ''
+
+Now the field should be the third field of the schema::
+
+    >>> getFieldsInOrder(IDummySchema)[2][0]
+    'favorite-color'
+
+
+Renaming a field
+----------------
+
+We can change the id of the field using the textbox on the schema edit page::
+
+    >>> browser.goBack()
+    >>> browser.getControl(name='crud-edit.favorite-color.widgets.__name__').value = 'hue'
+    >>> browser.getControl('Apply changes').click()
+    [event: ObjectMovedEvent on TextLine]
+    [event: ObjectModifiedEvent on TextLine]
+    >>> 'Successfully updated' in browser.contents
+    True
+
+And confirm that the real schema was updated, keeping the field in the same position::
+
+    >>> 'favorite-color' in IDummySchema
+    False
+    >>> 'hue' in IDummySchema
+    True
+    >>> IDummySchema['hue'].__name__
+    'hue'
+    >>> getFieldsInOrder(IDummySchema)[2][0]
+    'hue'
+
+
+Removing a field
+----------------
+
+We can also remove a field::
+
+    >>> browser.getControl(name='crud-edit.hue.widgets.select:list').value = ['0']
+    >>> browser.getControl('Delete').click()
+    [event: ObjectRemovedEvent on TextLine]
+    >>> 'Successfully deleted items.' in browser.contents
+    True
+
+And confirm that the real schema was updated::
+
+    >>> 'hue' in IDummySchema
+    False
+
+
+Miscellaneous field types
+-------------------------
+
+Demonstrate that we can add and edit a date field::
+
+    >>> browser.getControl('Field title').value = 'Birthdate'
+    >>> browser.getControl('Field type').value = ['Date/Time']
+    >>> browser.getControl('Add').click()
+    [event: ObjectAddedEvent on Datetime]
+    >>> 'Item added successfully.' in browser.contents
+    True
+    >>> 'birthdate' in IDummySchema
+    True
+    >>> from zope.schema import Datetime
+    >>> isinstance(IDummySchema['birthdate'], Datetime)
+    True
+    >>> browser.getLink('Birthdate').click()
+    >>> browser.getControl('Save').click()
+    [event: ObjectModifiedEvent on Datetime]
