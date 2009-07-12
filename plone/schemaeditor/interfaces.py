@@ -35,13 +35,13 @@ class IEditableSchema(Interface):
     """ Interface for adding/removing fields to/from a schema.
     """
     
-    def add_field(field, name=None):
+    def addField(field, name=None):
         """ Add a field to a schema
         
             If not provided, the field's name will be taken from its __name__ attribute.
         """
         
-    def remove_field(name):
+    def removeField(name):
         """ Remove a field from a schema
         """
 

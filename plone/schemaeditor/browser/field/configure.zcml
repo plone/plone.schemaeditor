@@ -35,7 +35,7 @@
         name="move-up"
         for="...interfaces.IFieldContext"
         class=".order.FieldOrderView"
-        attribute="move_up"
+        attribute="moveUp"
         permission="plone.schemaeditor.ManageSchemata"
         />
     
@@ -43,7 +43,7 @@
         name="move-down"
         for="...interfaces.IFieldContext"
         class=".order.FieldOrderView"
-        attribute="move_down"
+        attribute="moveDown"
         permission="plone.schemaeditor.ManageSchemata"
         />
 

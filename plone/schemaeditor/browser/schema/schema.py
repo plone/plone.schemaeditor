@@ -18,7 +18,7 @@ from plone.z3cform.crud import crud
 from plone.schemaeditor.interfaces import ISchemaContext, IFieldFactory, IEditableSchema, IJavascriptForm
 from plone.schemaeditor.browser.field.edit import FieldContext
 from plone.schemaeditor.browser.jsform.jsform import JavascriptFormWrapper
-from plone.schemaeditor.utils import sorted_fields
+from plone.schemaeditor.utils import sortedFields
 
 # We need this interface and adapter so that we can get/set the __name__
 # attribute of a schema field.
@@ -112,7 +112,7 @@ class SchemaListing(crud.CrudForm):
         self.schema = context.schema
 
     def get_items(self):
-        return sorted_fields(self.schema)
+        return sortedFields(self.schema)
 
     def add(self, data):
         """ Add field to schema
@@ -125,14 +125,14 @@ class SchemaListing(crud.CrudForm):
         field = factory(**data)
         
         schema = IEditableSchema(self.schema)
-        schema.add_field(field)
+        schema.addField(field)
         notify(ObjectAddedEvent(field, self.schema))
 
     def remove(self, (id, field)):
         """ Remove field from schema
         """
         schema = IEditableSchema(self.schema)
-        schema.remove_field(id)
+        schema.removeField(id)
         notify(ObjectRemovedEvent(field, self.schema))
 
     def before_update(self, field, data):
@@ -142,8 +142,8 @@ class SchemaListing(crud.CrudForm):
         newname = data['__name__']
         if newname != oldname:
             schema = IEditableSchema(self.schema)
-            schema.remove_field(oldname)
-            schema.add_field(field, name=newname)
+            schema.removeField(oldname)
+            schema.addField(field, name=newname)
             # (You might expect us to update the __name__ attribute on the field
             # also, but the z3c.form update handler will take care of that --
             # and this will ensure that the user sees the correct form status message.)

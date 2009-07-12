@@ -4,7 +4,7 @@ from zope.component import adapts
 from zope.schema.interfaces import IField
 from plone.schemaeditor.interfaces import IEditableSchema
 
-def sorted_fields(schema):
+def sortedFields(schema):
     """ Like getFieldsInOrder, but does not include fields from bases
     
         This is verbatim from plone.supermodel's utils.py but I didn't
@@ -29,7 +29,7 @@ class EditableSchema(object):
     def __init__(self, schema):
         self.schema = schema
         
-    def add_field(self, field, name=None):
+    def addField(self, field, name=None):
         """ Add a field
         """
         if name is None:
@@ -44,7 +44,7 @@ class EditableSchema(object):
             
         field.interface = self.schema
 
-    def remove_field(self, name):
+    def removeField(self, name):
         """ Remove a field
         """
         try:
@@ -55,7 +55,7 @@ class EditableSchema(object):
         except KeyError:
             raise ValueError, "%s schema has no '%s' field" % (self.schema.__identifier__, name)
 
-    def move_field(self, field_id, new_pos):
+    def moveField(self, field_id, new_pos):
         """ Move a field to the (new_pos)th position in the schema's sort order (indexed beginning
             at 0).
         
@@ -63,7 +63,7 @@ class EditableSchema(object):
             instance.  We shuffle these around in case it matters anywhere that they're unique.
         """
         moving_field = self.schema[field_id]
-        ordered_field_ids = [name for (name, field) in sorted_fields(self.schema)]
+        ordered_field_ids = [name for (name, field) in sortedFields(self.schema)]
 
         # make sure this is sane
         if not isinstance(new_pos, int):
