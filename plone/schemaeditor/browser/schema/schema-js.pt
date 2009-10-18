@@ -54,5 +54,6 @@ jq(document).ready(function() {
           });
     	  }
     });
+    jq('.schemaeditor-field').css('cursor', 'move');
 });
 </script>

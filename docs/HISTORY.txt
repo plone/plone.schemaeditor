@@ -1,6 +1,15 @@
 Changelog
 =========
 
+1.0b1 - unreleased
+------------------
+
+* Added ReadOnlySchemaListing for listing fields without making them editable.
+  [davisagli]
+
+* CSS tweaks
+  [davisagli]
+
 1.0a2 - 2009-07-12
 ------------------
 

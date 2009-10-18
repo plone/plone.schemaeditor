@@ -15,7 +15,8 @@
                   idx repeat/tup/index;
                   colwidth python:colwidths[idx]"
       tal:attributes="class python:'field' + (error and ' error' or '');
-                      style string: width: ${colwidth}%;;">
+                      style string: width: ${colwidth}%;;"
+      tal:condition="python:view.editable or tup[0].mode != 'input'">
     <tal:block repeat="widget tup">
 
     <a href=""
@@ -35,7 +36,7 @@
 </tal:block>
 
   <noscript>
-    <td class="schemaeditor-field-mover">
+    <td class="schemaeditor-field-mover" tal:condition="view/editable">
     	<a 
     	  class="schemaeditor-move-field-up" 
     	  tal:attributes="href string:${view/type_url}/${view/content_id}/@@move-up" >
@@ -47,7 +48,7 @@
     </td>
   </noscript>
   
-    <td class="schemaeditor-delete-field">
+    <td class="schemaeditor-delete-field" tal:condition="view/editable">
     	<a tal:attributes="href string:${view/type_url}/${view/content_id}/@@delete" >delete</a>
     </td>
 

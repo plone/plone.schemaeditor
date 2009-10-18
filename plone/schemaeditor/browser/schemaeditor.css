@@ -1,9 +1,9 @@
 #schemaeditor-fields{
 	width:600px;
-	margin:10px;
+	margin: 0;
 }
 li.schemaeditor-field{
-	margin:5px;
+	margin:5px 0;
 	border: 1px solid black;
 	padding: 5px;
 	width:600px;
@@ -12,7 +12,6 @@ li.schemaeditor-field{
 	background-color:#f3f3f3;
 	list-style-image:none;
 	list-style-type:none;
-	cursor:pointer;
 }
 .schemaeditor-field span{
 	margin: 5px;

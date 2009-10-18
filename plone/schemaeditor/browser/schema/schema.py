@@ -12,7 +12,7 @@ from zope.event import notify
 from zope.app.container.contained import ObjectAddedEvent, ObjectRemovedEvent, ObjectMovedEvent
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 
-from z3c.form import field
+from z3c.form import field, button
 from plone.z3cform.crud import crud
 
 from plone.schemaeditor.interfaces import ISchemaContext, IFieldFactory, IEditableSchema, IJavascriptForm
@@ -79,6 +79,11 @@ class FieldSubForm(crud.EditSubForm):
             self.updateWidgets()
             del data['_schemaeditor_newname']
         return super(FieldSubForm, self).applyChanges(data)
+    
+    @property
+    def editable(self):
+        # make sure ReadOnlySchemaListings are immutable
+        return isinstance(self.context.context, SchemaListing)
 
 class FieldAddForm(crud.AddForm):
     """ Just a normal CRUD add form with a custom template to show a form title.
@@ -162,6 +167,22 @@ class SchemaListing(crud.CrudForm):
             return '%s/%s' % (self.context.absolute_url(), item.__name__)
         else:
             return None
+
+class ReadOnlyFieldEditForm(FieldEditForm):
+    buttons = button.Buttons()
+
+class ReadOnlySchemaListing(crud.CrudForm):
+    view_schema = field.Fields(IField).select('title', 'description')
+    editform_factory = ReadOnlyFieldEditForm
+    addform_factory = crud.NullForm
+    buttons = button.Buttons()
+    
+    def __init__(self, context, request):
+        super(ReadOnlySchemaListing, self).__init__(context, request)
+        self.schema = context.schema
+
+    def get_items(self):
+        return sortedFields(self.schema)
 
 class SchemaListingPage(JavascriptFormWrapper):
     """ Form wrapper so we can get a form with layout.
