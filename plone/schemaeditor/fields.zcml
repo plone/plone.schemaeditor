@@ -27,10 +27,6 @@
       component=".fields.PasswordFactory"
       />
   <utility
-      name="zope.schema._field.Bytes"
-      component=".fields.BytesFactory"
-      />
-  <utility
       name="zope.schema._field.Datetime"
       component=".fields.DatetimeFactory"
       />

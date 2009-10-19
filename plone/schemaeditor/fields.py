@@ -21,5 +21,4 @@ IntFactory = FieldFactory(schema.Int, _(u'label_integer_field', default=u'Intege
 FloatFactory = FieldFactory(schema.Float, _(u'label_float_field', default=u'Floating-point number'))
 BoolFactory = FieldFactory(schema.Bool, _(u'label_boolean_field', default=u'Boolean'))
 PasswordFactory = FieldFactory(schema.Password, _(u'label_password_field', default=u'Password'))
-BytesFactory = FieldFactory(schema.Bytes, _(u'label_file_field', default=u'File'))
 DatetimeFactory = FieldFactory(schema.Datetime, _(u'label_datetime_field', default=u'Date/Time'))

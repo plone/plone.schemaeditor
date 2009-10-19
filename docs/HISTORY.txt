@@ -4,6 +4,11 @@ Changelog
 1.0b1 - unreleased
 ------------------
 
+* No longer provide a field factory for zope.schema.Bytes, since
+  plone.namedfile provides a better file field and now registers its own field
+  factories.
+  [davisagli]
+
 * Fix inline validation for the field edit form.
   [davisagli]
 
