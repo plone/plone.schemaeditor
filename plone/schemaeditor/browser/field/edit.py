@@ -32,6 +32,11 @@ class FieldContext(SimpleItem):
     def publishTraverse(self, request, name):
         """ It's not valid to traverse to anything below a field context.
         """
+        # hack to make inline validation work
+        # (plone.app.z3cform doesn't know the form is the default view)
+        if name == self.__name__:
+            return EditView(self, request).__of__(self)
+
         return DefaultPublishTraverse(self, request).publishTraverse(request, name)
 
     def browserDefault(self, request):

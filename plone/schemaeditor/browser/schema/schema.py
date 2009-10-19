@@ -198,8 +198,8 @@ class SchemaListingPage(JavascriptFormWrapper):
         return u'Edit %s' % self.context.__name__
 
 class SchemaContext(SimpleItem):
-    """ This is a transient item that allows us to traverse through (a wrapper of) a zope 3 schema
-        to (a wrapper of) a zope 3 schema field.
+    """ This is a transient item that allows us to traverse through (a wrapper
+        of) a zope 3 schema to (a wrapper of) a zope 3 schema field.
     """
     # Implementing IBrowserPublisher tells the Zope 2 publish traverser to pay attention
     # to the publishTraverse and browserDefault methods.

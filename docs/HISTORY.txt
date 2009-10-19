@@ -4,6 +4,9 @@ Changelog
 1.0b1 - unreleased
 ------------------
 
+* Fix inline validation for the field edit form.
+  [davisagli]
+
 * Added ReadOnlySchemaListing for listing fields without making them editable.
   [davisagli]
 
