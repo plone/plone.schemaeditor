@@ -45,7 +45,8 @@ provideAdapter(FieldNameProperty)
 
 def FieldsVocabularyFactory(context):
     field_factories = getUtilitiesFor(IFieldFactory)
-    items = [(translate(factory.title), factory) for (id, factory) in field_factories]
+    titled_factories = [(translate(factory.title), factory) for (id, factory) in field_factories]
+    items = sorted(titled_factories, key=lambda x: x[0])
     return SimpleVocabulary.fromItems(items)
 
 class IFieldFactorySchema(Interface):

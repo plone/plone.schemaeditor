@@ -4,6 +4,9 @@ Changelog
 1.0b1 - unreleased
 ------------------
 
+* List the available field type vocabulary alphabetically.
+  [davisagli]
+
 * No longer provide a field factory for zope.schema.Bytes, since
   plone.namedfile provides a better file field and now registers its own field
   factories.
