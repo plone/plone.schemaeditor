@@ -12,6 +12,7 @@ li.schemaeditor-field{
 	background-color:#f3f3f3;
 	list-style-image:none;
 	list-style-type:none;
+	display: block;
 }
 .schemaeditor-field span{
 	margin: 5px;
