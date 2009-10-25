@@ -132,13 +132,21 @@ Now the field should be the third field of the schema::
     >>> getFieldsInOrder(IDummySchema)[2][0]
     'favorite-color'
 
+Now let's move it to be the first field (as there is an edge case in the ordering
+algorithm that we need to test)::
+
+    >>> browser.open('http://nohost/@@schemaeditor/favorite-color/@@order?pos=0')
+    [event: ContainerModifiedEvent on InterfaceClass]
+    >>> getFieldsInOrder(IDummySchema)[0][0]
+    'favorite-color'
+
 
 Renaming a field
 ----------------
 
 We can change the id of the field using the textbox on the schema edit page::
 
-    >>> browser.goBack()
+    >>> browser.open('http://nohost/@@schemaeditor')
     >>> browser.getControl(name='crud-edit.favorite-color.widgets.__name__').value = 'hue'
     >>> browser.getControl('Apply changes').click()
     [event: ObjectMovedEvent on TextLine]
@@ -154,7 +162,7 @@ And confirm that the real schema was updated, keeping the field in the same posi
     True
     >>> IDummySchema['hue'].__name__
     'hue'
-    >>> getFieldsInOrder(IDummySchema)[2][0]
+    >>> getFieldsInOrder(IDummySchema)[0][0]
     'hue'
 
 

@@ -4,6 +4,9 @@ Changelog
 1.0b1 - unreleased
 ------------------
 
+* Fix issue with moving fields to position 0 in a schema.
+  [davisagli]
+
 * List the available field type vocabulary alphabetically.
   [davisagli]
 

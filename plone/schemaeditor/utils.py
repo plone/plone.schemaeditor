@@ -79,7 +79,12 @@ class EditableSchema(object):
             # no change; short circuit
             return
         elif new_pos < cur_pos:
-            intervening_fields = [self.schema[field_id] for field_id in ordered_field_ids[cur_pos - 1:new_pos - 1:-1]]
+            # walking backwards, we can't use -1 as the endpoint b/c that means
+            # the end of the list
+            slice_end = new_pos - 1
+            if slice_end == -1:
+                slice_end = None
+            intervening_fields = [self.schema[field_id] for field_id in ordered_field_ids[cur_pos - 1:slice_end:-1]]
         elif new_pos > cur_pos:
             intervening_fields = [self.schema[field_id] for field_id in ordered_field_ids[cur_pos + 1:new_pos + 1]]
         
