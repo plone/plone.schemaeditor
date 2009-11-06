@@ -16,6 +16,9 @@ def setUp(self):
     zcml.load_config('configure.zcml', Products.Five)
     zcml.load_config('configure.zcml', plone.schemaeditor)
     zcml.load_config('tests.zcml', plone.schemaeditor.tests)
+
+    # make sure we use the correct vocabulary registry
+    import zope.app.schema.vocabulary
     
     # add a test layer to the request so we can use special form templates that don't
     # pull in main_template
