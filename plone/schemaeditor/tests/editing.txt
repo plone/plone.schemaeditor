@@ -96,7 +96,7 @@ Let's go back and try to make an invalid change.  The form won't let us::
     >>> browser.getControl('Minimum length').value = 'asdf'
     >>> browser.getControl('Save').click()
     >>> browser.url
-    'http://nohost/@@schemaeditor/favorite-color'
+    'http://nohost/@@schemaeditor/favorite-color/@@edit'
     >>> 'The entered value is not a valid integer literal.' in browser.contents
     True
 

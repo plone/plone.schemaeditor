@@ -21,7 +21,7 @@ class FieldContext(SimpleItem):
     implements(IFieldContext, IBrowserPublisher)
     
     def __init__(self, context, request):
-        super(FieldContext, self).__init__(context, request)
+        super(FieldContext, self).__init__()
         self.field = context
         self.request = request
         
