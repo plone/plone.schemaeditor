@@ -4,6 +4,10 @@ Changelog
 1.0b1 - unreleased
 ------------------
 
+* Make sure that normalized ids for new fields use _ instead of -, so that they
+  can be accessed without using getattr.
+  [davisagli]
+
 * Fix issue with moving fields to position 0 in a schema.
   [davisagli]
 

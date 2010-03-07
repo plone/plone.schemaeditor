@@ -50,12 +50,12 @@ Now the actual IDummySchema schema should have the new field (the field id is a
 normalized form of the title)::
 
     >>> from plone.schemaeditor.tests.fixtures import IDummySchema
-    >>> 'favorite-color' in IDummySchema
+    >>> 'favorite_color' in IDummySchema
     True
     >>> from zope.schema import TextLine
-    >>> isinstance(IDummySchema['favorite-color'], TextLine)
+    >>> isinstance(IDummySchema['favorite_color'], TextLine)
     True
-    >>> IDummySchema['favorite-color'].title
+    >>> IDummySchema['favorite_color'].title
     u'Favorite Color'
 
 
@@ -66,8 +66,8 @@ Let's navigate to the 'favorite-color' field we just created::
 
     >>> browser.getLink('Color').click()
     >>> browser.url
-    'http://nohost/@@schemaeditor/favorite-color'
-    >>> "Edit Field 'favorite-color'" in browser.contents
+    'http://nohost/@@schemaeditor/favorite_color'
+    >>> "Edit Field 'favorite_color'" in browser.contents
     True
 
 Now we can change various attributes.  For instance, let's change the default
@@ -85,18 +85,18 @@ of schema fields, which should reflect the change::
     
 Let's confirm that the new default value was correctly saved to the actual schema::
 
-    >>> IDummySchema['favorite-color'].default
+    >>> IDummySchema['favorite_color'].default
     u'orange'
 
 Let's go back and try to make an invalid change.  The form won't let us::
 
     >>> browser.getLink('Color').click()
     >>> browser.url
-    'http://nohost/@@schemaeditor/favorite-color'
+    'http://nohost/@@schemaeditor/favorite_color'
     >>> browser.getControl('Minimum length').value = 'asdf'
     >>> browser.getControl('Save').click()
     >>> browser.url
-    'http://nohost/@@schemaeditor/favorite-color/@@edit'
+    'http://nohost/@@schemaeditor/favorite_color/@@edit'
     >>> 'The entered value is not a valid integer literal.' in browser.contents
     True
 
@@ -116,13 +116,13 @@ interface::
 
     >>> from zope.schema import getFieldsInOrder
     >>> getFieldsInOrder(IDummySchema)[5][0]
-    'favorite-color'
+    'favorite_color'
 
 Fields can be reordered via drag-and-drop.  Let's simulate the AJAX request that would
-result from dragging the 'favorite-color' field to the 3rd position (since the
+result from dragging the 'favorite_color' field to the 3rd position (since the
 testbrowser doesn't support Javascript)::
 
-    >>> browser.open('http://nohost/@@schemaeditor/favorite-color/@@order?pos=2')
+    >>> browser.open('http://nohost/@@schemaeditor/favorite_color/@@order?pos=2')
     [event: ContainerModifiedEvent on InterfaceClass]
     >>> browser.contents
     ''
@@ -130,15 +130,15 @@ testbrowser doesn't support Javascript)::
 Now the field should be the third field of the schema::
 
     >>> getFieldsInOrder(IDummySchema)[2][0]
-    'favorite-color'
+    'favorite_color'
 
 Now let's move it to be the first field (as there is an edge case in the ordering
 algorithm that we need to test)::
 
-    >>> browser.open('http://nohost/@@schemaeditor/favorite-color/@@order?pos=0')
+    >>> browser.open('http://nohost/@@schemaeditor/favorite_color/@@order?pos=0')
     [event: ContainerModifiedEvent on InterfaceClass]
     >>> getFieldsInOrder(IDummySchema)[0][0]
-    'favorite-color'
+    'favorite_color'
 
 
 Renaming a field
@@ -147,7 +147,7 @@ Renaming a field
 We can change the id of the field using the textbox on the schema edit page::
 
     >>> browser.open('http://nohost/@@schemaeditor')
-    >>> browser.getControl(name='crud-edit.favorite-color.widgets.__name__').value = 'hue'
+    >>> browser.getControl(name='crud-edit.favorite_color.widgets.__name__').value = 'hue'
     >>> browser.getControl('Apply changes').click()
     [event: ObjectMovedEvent on TextLine]
     [event: ObjectModifiedEvent on TextLine]
@@ -156,7 +156,7 @@ We can change the id of the field using the textbox on the schema edit page::
 
 And confirm that the real schema was updated, keeping the field in the same position::
 
-    >>> 'favorite-color' in IDummySchema
+    >>> 'favorite_color' in IDummySchema
     False
     >>> 'hue' in IDummySchema
     True

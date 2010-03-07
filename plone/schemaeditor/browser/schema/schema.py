@@ -125,6 +125,7 @@ class SchemaListing(crud.CrudForm):
         """
  
         id = getUtility(IIDNormalizer).normalize(data['title'])
+        id = id.replace('-', '_')
         # XXX validation
         data['__name__'] = id
         factory = data.pop('factory')
