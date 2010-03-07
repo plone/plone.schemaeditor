@@ -31,6 +31,8 @@ The following field types (from zope.schema) are currently supported:
  * Bytes
  * Datetime
 
+Third-party packages can make additional field types available by registering
+new IFieldFactory utilities.
 
 Dependencies
 ============
@@ -40,7 +42,7 @@ Dependencies
 * z3c.form
 * plone.z3cform
 
-Despite the name, Plone is not a dependency.
+Despite the namespace, Plone is not a dependency.
 
 
 Credits
@@ -48,7 +50,7 @@ Credits
 
 Author:
 
- * David Glick (davidglick@onenw.org)
+ * David Glick (dglick@gmail.com)
 
 Thanks to:
 
