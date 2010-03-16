@@ -15,7 +15,7 @@ class FieldFactory(object):
     def __call__(self, *args, **kw):
         return self.fieldcls(*args, **kw)
 
-TextLineFactory = FieldFactory(schema.TextLine, _(u'label_textline_field', default=u'Text line'))
+TextLineFactory = FieldFactory(schema.TextLine, _(u'label_textline_field', default=u'Text line (String)'))
 TextFactory = FieldFactory(schema.Text, _(u'label_text_field', default=u'Text'))
 IntFactory = FieldFactory(schema.Int, _(u'label_integer_field', default=u'Integer'))
 FloatFactory = FieldFactory(schema.Float, _(u'label_float_field', default=u'Floating-point number'))
