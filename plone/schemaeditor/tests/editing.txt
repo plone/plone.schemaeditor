@@ -40,7 +40,7 @@ Adding a field
 Let's add a 'favorite-color' field to the IDummySchema schema::
 
     >>> browser.getControl('Field title').value = 'Favorite Color'
-    >>> browser.getControl('Field type').value = ['Text line']
+    >>> browser.getControl('Field type').value = ['Text line (String)']
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on TextLine]
     >>> 'Item added successfully.' in browser.contents
