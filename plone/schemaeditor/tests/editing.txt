@@ -39,12 +39,13 @@ Adding a field
 
 Let's add a 'favorite-color' field to the IDummySchema schema::
 
+    >>> browser.getControl('Add Field').click()
     >>> browser.getControl('Field title').value = 'Favorite Color'
     >>> browser.getControl('Field type').value = ['Text line (String)']
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on TextLine]
-    >>> 'Item added successfully.' in browser.contents
-    True
+    >>> browser.url
+    'http://nohost/@@schemaeditor'
 
 Now the actual IDummySchema schema should have the new field (the field id is a
 normalized form of the title)::
@@ -64,7 +65,7 @@ Editing a schema field attribute
 
 Let's navigate to the 'favorite-color' field we just created::
 
-    >>> browser.getLink('Color').click()
+    >>> browser.getLink('Edit', index=5).click()
     >>> browser.url
     'http://nohost/@@schemaeditor/favorite_color'
     >>> "Edit Field 'favorite_color'" in browser.contents
@@ -90,7 +91,7 @@ Let's confirm that the new default value was correctly saved to the actual schem
 
 Let's go back and try to make an invalid change.  The form won't let us::
 
-    >>> browser.getLink('Color').click()
+    >>> browser.getLink('Edit', index=5).click()
     >>> browser.url
     'http://nohost/@@schemaeditor/favorite_color'
     >>> browser.getControl('Minimum length').value = 'asdf'
@@ -141,31 +142,6 @@ algorithm that we need to test)::
     'favorite_color'
 
 
-Renaming a field
-----------------
-
-We can change the id of the field using the textbox on the schema edit page::
-
-    >>> browser.open('http://nohost/@@schemaeditor')
-    >>> browser.getControl(name='crud-edit.favorite_color.widgets.__name__').value = 'hue'
-    >>> browser.getControl('Apply changes').click()
-    [event: ObjectMovedEvent on TextLine]
-    [event: ObjectModifiedEvent on TextLine]
-    >>> 'Successfully updated' in browser.contents
-    True
-
-And confirm that the real schema was updated, keeping the field in the same position::
-
-    >>> 'favorite_color' in IDummySchema
-    False
-    >>> 'hue' in IDummySchema
-    True
-    >>> IDummySchema['hue'].__name__
-    'hue'
-    >>> getFieldsInOrder(IDummySchema)[0][0]
-    'hue'
-
-
 Removing a field
 ----------------
 
@@ -188,6 +164,7 @@ Miscellaneous field types
 
 Demonstrate that we can add and edit a date field::
 
+    >>> browser.getControl('Add Field').click()
     >>> browser.getControl('Field title').value = 'Birthdate'
     >>> browser.getControl('Field type').value = ['Date/Time']
     >>> browser.getControl('Add').click()

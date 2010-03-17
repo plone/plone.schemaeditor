@@ -1,6 +1,6 @@
 from zope.interface.interfaces import Interface, IInterface
 from zope.publisher.interfaces.browser import IBrowserPage
-from zope.schema import Object, TextLine
+from zope.schema import Object, TextLine, Choice
 from zope.schema.interfaces import IField
 from z3c.form.interfaces import IFieldWidget, IEditForm
 from plone.z3cform.interfaces import IFormWrapper
@@ -64,3 +64,16 @@ class IFieldEditForm(IEditForm):
 class IMetaFieldWidget(IFieldWidget):
     """ Marker interface for a z3c.form widget that is a meta field widget.
     """
+
+class INewField(Interface):
+
+    title = TextLine(
+        title = u'Field title',
+        required=True
+        )
+
+    factory = Choice(
+        title=u"Field type",
+        vocabulary="Fields",
+        required=True
+        )

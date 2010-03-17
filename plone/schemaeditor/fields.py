@@ -1,6 +1,9 @@
+from zope.component import getUtilitiesFor
 from zope.interface import implements
+from zope.i18n import translate
 from zope import schema
-from interfaces import IFieldFactory
+from zope.schema.vocabulary import SimpleVocabulary
+from plone.schemaeditor.interfaces import IFieldFactory
 from plone.schemaeditor import SchemaEditorMessageFactory as _
 
 class FieldFactory(object):
@@ -14,6 +17,12 @@ class FieldFactory(object):
 
     def __call__(self, *args, **kw):
         return self.fieldcls(*args, **kw)
+
+def FieldsVocabularyFactory(context):
+    field_factories = getUtilitiesFor(IFieldFactory)
+    titled_factories = [(translate(factory.title), factory) for (id, factory) in field_factories]
+    items = sorted(titled_factories, key=lambda x: x[0])
+    return SimpleVocabulary.fromItems(items)
 
 TextLineFactory = FieldFactory(schema.TextLine, _(u'label_textline_field', default=u'Text line (String)'))
 TextFactory = FieldFactory(schema.Text, _(u'label_text_field', default=u'Text'))

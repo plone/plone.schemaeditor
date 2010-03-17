@@ -3,6 +3,12 @@
     i18n_domain="plone.schemaeditor">
 
   <utility
+      component=".fields.FieldsVocabularyFactory"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="Fields"
+      />
+
+  <utility
       name="zope.schema._bootstrapfields.TextLine"
       component=".fields.TextLineFactory"
       />
