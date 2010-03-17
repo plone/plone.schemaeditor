@@ -25,3 +25,26 @@ class ITextLine(interfaces.ITextLine):
         description=interfaces.ITextLine['missing_value'].description,
         required=False)
     
+class IDatetime(interfaces.IDatetime):
+
+    default = schema.Datetime(
+        title=interfaces.IDatetime['default'].title,
+        description=interfaces.IDatetime['default'].description,
+        required=False)
+
+    missing_value = schema.Datetime(
+        title=interfaces.IDatetime['missing_value'].title,
+        description=interfaces.IDatetime['missing_value'].description,
+        required=False)
+
+    min = schema.Datetime(
+        title=interfaces.IDatetime['min'].title,
+        required=interfaces.IDatetime['min'].required,
+        default=interfaces.IDatetime['min'].default,
+        )
+
+    max = schema.Datetime(
+        title=interfaces.IDatetime['max'].title,
+        required=interfaces.IDatetime['max'].required,
+        default=interfaces.IDatetime['max'].default,
+        )

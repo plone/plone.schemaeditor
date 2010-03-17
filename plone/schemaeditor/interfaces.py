@@ -60,7 +60,3 @@ class IJavascriptFormWrapper(IFormWrapper, IJavascriptForm):
 class IFieldEditForm(IEditForm):
     """ Marker interface for field edit forms
     """
-
-class IMetaFieldWidget(IFieldWidget):
-    """ Marker interface for a z3c.form widget that is a meta field widget.
-    """

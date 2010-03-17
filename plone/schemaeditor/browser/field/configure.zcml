@@ -9,11 +9,6 @@
         for="...interfaces.IFieldContext"
         class=".edit.EditView"
         permission="plone.schemaeditor.ManageSchemata" />
-
-    <adapter
-        factory=".edit.MetaFieldWidgetDataConverter" />
-    <adapter
-        factory=".edit.MetaFieldValidator" />
         
     <browser:page
         name="order"

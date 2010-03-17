@@ -32,3 +32,29 @@ missing_value types.
     <InterfaceClass plone.schemaeditor.schema.IText>
     >>> form.schema['default']
     <zope.schema._bootstrapfields.Text object at ...>
+
+    >>> field = schema.TextLine()
+    >>> context = edit.FieldContext(field, None)
+    >>> form = edit.FieldEditForm(context, None)
+    >>> form.schema
+    <InterfaceClass plone.schemaeditor.schema.ITextLine>
+    >>> form.schema['default']
+    <zope.schema._bootstrapfields.TextLine object at ...>
+
+    >>> field = schema.Datetime()
+    >>> context = edit.FieldContext(field, None)
+    >>> form = edit.FieldEditForm(context, None)
+    >>> form.schema
+    <InterfaceClass plone.schemaeditor.schema.IDatetime>
+    >>> form.schema['default']
+    <zope.schema._field.Datetime object at ...>
+
+The Datetime fields also have corrected min/max field types.
+
+    >>> field = schema.Datetime()
+    >>> context = edit.FieldContext(field, None)
+    >>> form = edit.FieldEditForm(context, None)
+    >>> form.schema['min']
+    <zope.schema._field.Datetime object at ...>
+    >>> form.schema['max']
+    <zope.schema._field.Datetime object at ...>

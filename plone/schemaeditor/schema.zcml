@@ -9,4 +9,8 @@
     <implements interface=".schema.ITextLine" />
   </class>
 
+  <class class="zope.schema.Datetime">
+    <implements interface=".schema.IDatetime" />
+  </class>
+
 </configure>
