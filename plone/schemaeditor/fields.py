@@ -8,12 +8,16 @@ class FieldFactory(object):
     
     title = u''
     
-    def __init__(self, fieldcls, title):
+    def __init__(self, fieldcls, title, *args, **kw):
         self.fieldcls = fieldcls
         self.title = title
+        self.args = args
+        self.kw = kw
 
     def __call__(self, *args, **kw):
-        return self.fieldcls(*args, **kw)
+        kwargs = self.kw.copy()
+        kwargs.update(**kw)
+        return self.fieldcls(*(self.args+args), **kwargs)
 
 TextLineFactory = FieldFactory(schema.TextLine, _(u'label_textline_field', default=u'Text line (String)'))
 TextFactory = FieldFactory(schema.Text, _(u'label_text_field', default=u'Text'))
