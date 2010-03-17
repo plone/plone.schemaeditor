@@ -4,8 +4,6 @@
 
     <include package="Products.Five" file="meta.zcml" />
     <include package="Products.Five" />
-    <include package="z3c.form" file="meta.zcml" />
-    <include package="collective.z3cform.datetimewidget" />
     <include package="plone.schemaeditor"/>
 
     <!-- dummy schema editing context -->
