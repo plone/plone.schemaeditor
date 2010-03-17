@@ -30,6 +30,5 @@
 
     <!-- use a form layout that doesn't pull in main_template -->
     <adapter factory=".tests.layout_factory"/>
-    <adapter factory=".tests.js_layout_factory"/>
 
 </configure>

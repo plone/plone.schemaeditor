@@ -44,8 +44,6 @@ class ITestLayer(Interface):
     pass
 from plone.z3cform.templates import ZopeTwoFormTemplateFactory
 from plone.z3cform.interfaces import IFormWrapper
-from plone.schemaeditor.interfaces import IJavascriptFormWrapper
 import os
 path = lambda p: os.path.join(os.path.dirname(__file__), p)
 layout_factory = ZopeTwoFormTemplateFactory(path('layout.pt'), form=IFormWrapper, request=ITestLayer)
-js_layout_factory = ZopeTwoFormTemplateFactory(path('layout.pt'), form=IJavascriptFormWrapper, request=ITestLayer)

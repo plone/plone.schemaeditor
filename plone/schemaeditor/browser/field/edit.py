@@ -1,10 +1,7 @@
 from Acquisition import aq_parent, aq_inner
-from OFS.SimpleItem import SimpleItem
-from ZPublisher.BaseRequest import DefaultPublishTraverse
 
 from zope.interface import implements, implementer, Interface
 from zope.component import getMultiAdapter, queryMultiAdapter, adapter, adapts
-from zope.publisher.interfaces.browser import IBrowserPublisher
 from zope import schema
 from zope.schema.interfaces import IField
 from zope.schema._bootstrapinterfaces import RequiredMissing
@@ -13,36 +10,7 @@ from z3c.form import form, field, button, validator
 from z3c.form.interfaces import IFieldWidget, IDataConverter
 from plone.z3cform import layout
 
-from plone.schemaeditor.interfaces import IFieldContext, IFieldEditForm, IMetaFieldWidget
-
-class FieldContext(SimpleItem):
-    """ wrapper for published zope 3 schema fields
-    """
-    implements(IFieldContext, IBrowserPublisher)
-    
-    def __init__(self, context, request):
-        super(FieldContext, self).__init__()
-        self.field = context
-        self.request = request
-        
-        # make sure breadcrumbs are correct
-        self.id = None
-        self.__name__ = self.field.__name__
-
-    def publishTraverse(self, request, name):
-        """ It's not valid to traverse to anything below a field context.
-        """
-        # hack to make inline validation work
-        # (plone.app.z3cform doesn't know the form is the default view)
-        if name == self.__name__:
-            return EditView(self, request).__of__(self)
-
-        return DefaultPublishTraverse(self, request).publishTraverse(request, name)
-
-    def browserDefault(self, request):
-        """ Really we want to show the field EditView.
-        """
-        return self, ('@@edit',)
+from plone.schemaeditor.interfaces import IFieldEditForm, IMetaFieldWidget
 
 class FieldEditForm(form.EditForm):
     implements(IFieldEditForm)

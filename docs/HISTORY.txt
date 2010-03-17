@@ -4,6 +4,15 @@ Changelog
 1.0b1 - unreleased
 ------------------
 
+* Revamped UI to show WYSIWYG representation of fields.
+  [davisagli, limi]
+
+* Removed the JavsacriptFormWrapper.
+  [davisagli]
+
+* Major package cleanup.
+  [davisagli]
+
 * Make sure that normalized ids for new fields use _ instead of -, so that they
   can be accessed without using getattr.
   [davisagli]

@@ -3,19 +3,7 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="plone.schemaeditor">
 
-    <adapter factory=".jsform.jsform.layout_factory" />
-
     <include package=".field"/>
-	<include package=".schema" />
-	
-	<browser:resource
-	    name="schemaeditor.css"
-	    file="schemaeditor.css"
-	    />
-	    
-	<browser:resource
-	    name="jquery-ui-sortable.js"
-	    file="jquery-ui-sortable.js"
-	    />
+    <include package=".schema" />
 
 </configure>

@@ -7,7 +7,7 @@
   <browser:page
     name="edit"
     for="plone.schemaeditor.interfaces.ISchemaContext"
-    class=".schema.SchemaListingPage"
+    class=".listing.SchemaListingPage"
     permission="plone.schemaeditor.ManageSchemata"
     />
 
