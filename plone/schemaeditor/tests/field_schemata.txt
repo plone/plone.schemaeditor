@@ -1,0 +1,22 @@
+.. -*-doctest-*-
+
+==============
+Field Schemata
+==============
+
+There are several places in the schemaeditor where we need to complete
+and or improve on the schema provided by field instances in order to
+fully support the field edit forms.
+
+The schema used on an edit form for a field is retrieved by looking up
+an adapter on the field which provides IEditFormFieldSchema.  The
+default/fallback adapter introspects the interfaces provided by the
+file looking for the first which is or extends
+zope.schema.interfaces.IField.
+
+    >>> from zope import schema
+    >>> from plone.schemaeditor import interfaces
+    >>> field = schema.Field()
+    >>> interfaces.IEditFormFieldSchema(field)
+    <InterfaceClass zope.schema.interfaces.IField>
+

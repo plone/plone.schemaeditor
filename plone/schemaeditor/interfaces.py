@@ -61,6 +61,10 @@ class IFieldEditForm(IEditForm):
     """ Marker interface for field edit forms
     """
 
+class IEditFormFieldSchema(IField):
+    """ The schema used for a field instance on edit forms.
+    """
+
 class IMetaFieldWidget(IFieldWidget):
     """ Marker interface for a z3c.form widget that is a meta field widget.
     """

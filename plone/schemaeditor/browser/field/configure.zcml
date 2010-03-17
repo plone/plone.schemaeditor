@@ -11,6 +11,8 @@
         permission="plone.schemaeditor.ManageSchemata" />
         
     <adapter
+        factory=".edit.getFirstFieldSchema" />
+    <adapter
         factory=".edit.MetaFieldWidgetDataConverter" />
     <adapter
         factory=".edit.MetaFieldValidator" />

@@ -31,6 +31,7 @@ def test_suite():
     return unittest.TestSuite([
 
         ztc.FunctionalDocFileSuite(
+            'field_schemata.txt',
             'editing.txt',
             setUp=setUp,
             tearDown=tearDown,
