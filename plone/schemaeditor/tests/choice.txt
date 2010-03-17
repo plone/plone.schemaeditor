@@ -60,6 +60,13 @@ If duplicate values are entered an error is raised.
       <div class="error">The 'United States' vocabulary value conflicts with 'United States'.</div>
     ...
 
+For now, the default and missing_value fields are TextLine fields.
+
+    >>> browser.getControl('Default')
+    <Control name='form.widgets.default' type='text'>
+    >>> browser.getControl('Missing Value')
+    <Control name='form.widgets.missing_value' type='text'>
+
 Enter unique values and save the field settings.
 
     >>> browser.getControl('Vocabulary').value = '\n'.join(
@@ -132,6 +139,13 @@ If duplicate values are entered an error is raised.
     <...
       <div class="error">The 'Lisp' vocabulary value conflicts with 'Lisp'.</div>
     ...
+
+For now, the default and missing_value fields are Text fields.
+
+    >>> browser.getControl('Default')
+    <Control name='form.widgets.default' type='textarea'>
+    >>> browser.getControl('Missing Value')
+    <Control name='form.widgets.missing_value' type='textarea'>
 
 Enter unique values and save the field settings.
 

@@ -153,6 +153,16 @@ class ITextLineChoiceBase(interfaces.IField):
 class ITextLineChoice(IChoiceBase, ITextLineChoiceBase):
     """A simple choice field with user entered vocabulary values."""
 
+    default = schema.TextLine(
+        title=interfaces.IChoice['default'].title,
+        description=interfaces.IChoice['default'].description,
+        required=False)
+
+    missing_value = schema.TextLine(
+        title=interfaces.IChoice['missing_value'].title,
+        description=interfaces.IChoice['missing_value'].description,
+        required=False)
+
 class IListBase(interfaces.IField):
 
     default = schema.List(
@@ -178,9 +188,11 @@ class ITextLineMultiChoice(IListBase, ITextLineChoiceBase):
         description=interfaces.IList['default'].description,
         required=False,
         value_type=schema.TextLine())
+    interface.alsoProvides(default, ITextLinesField)
 
     missing_value = schema.List(
         title=interfaces.IList['missing_value'].title,
         description=interfaces.IList['missing_value'].description,
         required=False,
         value_type=schema.TextLine())
+    interface.alsoProvides(missing_value, ITextLinesField)
