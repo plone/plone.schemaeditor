@@ -2,6 +2,8 @@ from zope import interface
 from zope.schema import interfaces 
 from zope import schema
 
+from plone.schemaeditor import SchemaEditorMessageFactory as _
+
 class IText(interfaces.IText):
 
     default = schema.Text(
@@ -25,6 +27,66 @@ class ITextLine(interfaces.ITextLine):
         title=interfaces.ITextLine['missing_value'].title,
         description=interfaces.ITextLine['missing_value'].description,
         required=False)
+
+class IBool(interfaces.IBool):
+
+    default = schema.Bool(
+        title=interfaces.IBool['default'].title,
+        description=interfaces.IBool['default'].description,
+        required=False)
+
+    missing_value = schema.Bool(
+        title=interfaces.IBool['missing_value'].title,
+        description=interfaces.IBool['missing_value'].description,
+        required=False)
+
+class IInt(interfaces.IInt):
+
+    default = schema.Int(
+        title=interfaces.IInt['default'].title,
+        description=interfaces.IInt['default'].description,
+        required=False)
+
+    missing_value = schema.Int(
+        title=interfaces.IInt['missing_value'].title,
+        description=interfaces.IInt['missing_value'].description,
+        required=False)
+
+class IPassword(interfaces.IPassword):
+
+    default = schema.Password(
+        title=interfaces.IPassword['default'].title,
+        description=interfaces.IPassword['default'].description,
+        required=False)
+
+    missing_value = schema.Password(
+        title=interfaces.IPassword['missing_value'].title,
+        description=interfaces.IPassword['missing_value'].description,
+        required=False)
+
+class IFloat(interfaces.IFloat):
+
+    default = schema.Float(
+        title=interfaces.IFloat['default'].title,
+        description=interfaces.IFloat['default'].description,
+        required=False)
+
+    missing_value = schema.Float(
+        title=interfaces.IFloat['missing_value'].title,
+        description=interfaces.IFloat['missing_value'].description,
+        required=False)
+
+    min = schema.Float(
+        title=interfaces.IFloat['min'].title,
+        required=interfaces.IFloat['min'].required,
+        default=interfaces.IFloat['min'].default,
+        )
+
+    max = schema.Float(
+        title=interfaces.IFloat['max'].title,
+        required=interfaces.IFloat['max'].required,
+        default=interfaces.IFloat['max'].default,
+        )
     
 class IDatetime(interfaces.IDatetime):
 
@@ -75,7 +137,7 @@ class ITextLineChoice(IChoiceBase):
 
     values = schema.List(
         title=interfaces.IChoice['vocabulary'].title,
-        description=interfaces.IChoice['vocabulary'].description,
+        description=_(u'Enter vocabulary values one per line.'),
         required=interfaces.IChoice['vocabulary'].required,
         default=interfaces.IChoice['vocabulary'].default,
         value_type=schema.TextLine())

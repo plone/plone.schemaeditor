@@ -187,19 +187,62 @@ And confirm that the real schema was updated::
 Miscellaneous field types
 -------------------------
 
-Demonstrate that we can add and edit a date field::
+Demonstrate that all the registered field types can be added edited
+and saved.
 
-    >>> browser.getControl('Field title').value = 'Birthdate'
-    >>> browser.getControl('Field type').value = ['Date/Time']
-    >>> browser.getControl('Add').click()
+    >>> from zope import component
+    >>> from plone.schemaeditor import interfaces
+    >>> for name, factory in sorted(component.getUtilitiesFor(
+    ...     interfaces.IFieldFactory)):
+    ...     browser.open(portal_url + '/@@schemaeditor')
+    ...     browser.getControl('Field title').value = name
+    ...     browser.getControl('Field type').getControl(
+    ...         value=factory.title.default).selected = True
+    ...     browser.getControl('Add').click()
+    ...     'Item added successfully.' in browser.contents
+    ...     field_name = name.replace('.', '_').lower()
+    ...     field_name in IDummySchema
+    ...     factory.fieldcls._type is None or isinstance(
+    ...         IDummySchema[field_name], factory.fieldcls)
+    ...     browser.getLink(name).click()
+    ...     browser.getControl('Save').click()
+    [event: ObjectAddedEvent on Bool]
+    True
+    True
+    True
+    [event: ObjectModifiedEvent on Bool]
+    [event: ObjectAddedEvent on Int]
+    True
+    True
+    True
+    [event: ObjectModifiedEvent on Int]
+    [event: ObjectAddedEvent on Password]
+    True
+    True
+    True
+    [event: ObjectModifiedEvent on Password]
+    [event: ObjectAddedEvent on Text]
+    True
+    True
+    True
+    [event: ObjectModifiedEvent on Text]
+    [event: ObjectAddedEvent on TextLine]
+    True
+    True
+    True
+    [event: ObjectModifiedEvent on TextLine]
+    [event: ObjectAddedEvent on Choice]
+    True
+    True
+    True
+    [event: ObjectModifiedEvent on Choice]
     [event: ObjectAddedEvent on Datetime]
-    >>> 'Item added successfully.' in browser.contents
     True
-    >>> 'birthdate' in IDummySchema
     True
-    >>> from zope.schema import Datetime
-    >>> isinstance(IDummySchema['birthdate'], Datetime)
     True
-    >>> browser.getLink('Birthdate').click()
-    >>> browser.getControl('Save').click()
     [event: ObjectModifiedEvent on Datetime]
+    [event: ObjectAddedEvent on Float]
+    True
+    True
+    True
+    [event: ObjectModifiedEvent on Float]
