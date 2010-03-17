@@ -9,9 +9,7 @@
         for="...interfaces.IFieldContext"
         class=".edit.EditView"
         permission="plone.schemaeditor.ManageSchemata" />
-        
-    <adapter
-        factory=".edit.getFirstFieldSchema" />
+
     <adapter
         factory=".edit.MetaFieldWidgetDataConverter" />
     <adapter

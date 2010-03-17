@@ -5,6 +5,8 @@
 
     <include package="plone.i18n"/>
     <include package="plone.z3cform"/>
+
+    <include file="schema.zcml"/>
     
     <permission
         id="plone.schemaeditor.ManageSchemata"

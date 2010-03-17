@@ -14,13 +14,6 @@ from z3c.form.interfaces import IFieldWidget, IDataConverter
 from plone.z3cform import layout
 
 from plone.schemaeditor.interfaces import IFieldContext, IFieldEditForm, IMetaFieldWidget
-from plone.schemaeditor.interfaces import IEditFormFieldSchema
-
-@implementer(IEditFormFieldSchema)
-@adapter(IField)
-def getFirstFieldSchema(field):
-    return [s for s in field.__provides__.__iro__
-            if s.isOrExtends(IField)][0]
 
 class FieldContext(SimpleItem):
     """ wrapper for published zope 3 schema fields
@@ -57,13 +50,10 @@ class FieldEditForm(form.EditForm):
     def __init__(self, context, request):
         super(form.EditForm, self).__init__(context, request)
         self.field = context.field
+        self.schema = [s for s in self.field.__provides__.__iro__ if s.isOrExtends(IField)][0]
     
     def getContent(self):
         return self.field
-
-    def update(self):
-        self.schema = IEditFormFieldSchema(self.field)
-        return super(FieldEditForm, self).update()
     
     @property
     def fields(self):

@@ -1,0 +1,12 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope">
+
+  <class class="zope.schema.Text">
+    <implements interface=".interfaces.IText" />
+  </class>
+
+  <class class="zope.schema.TextLine">
+    <implements interface=".interfaces.ITextLine" />
+  </class>
+
+</configure>
