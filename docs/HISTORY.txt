@@ -7,6 +7,10 @@ Changelog
 * Omit the 'required' field for Bool fields.
   [davisagli]
 
+* Add the ability to define vocabularies of simple TextLine values.
+  Both single and multiple select fields are provided.
+  [rossp]
+
 * Make sure that normalized ids for new fields use _ instead of -, so that they
   can be accessed without using getattr.
   [davisagli]

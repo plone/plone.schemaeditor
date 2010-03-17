@@ -30,7 +30,7 @@ Add a Choice field.
 
     >>> browser.getControl('Field title').value = 'Country'
     >>> browser.getControl('Field type').getControl(
-    ...     'Choice').selected = True
+    ...     value='Choice').selected = True
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on Choice]
     >>> print browser.contents
@@ -71,6 +71,96 @@ When the edit form for the content type is loaded, the vocabulary
 values specified can be selected.
 
     >>> browser.open(portal_url + '/@@contexteditor')
-    >>> browser.getControl('Country').getControl('Russia')
+    >>> ctl = browser.getControl('Country')
+    >>> item = ctl.getControl('Russia')
+    >>> item
     <ItemControl name='form.widgets.country:list' type='select'
     optionValue='Russia' selected=False>
+    >>> item.selected = True
+    >>> ctl.value
+    ['Russia']
+    >>> item = ctl.getControl('Alaska')
+    >>> item.selected
+    False
+    >>> item.selected = True
+    >>> ctl.getControl('Russia').selected
+    False
+    >>> ctl.value
+    ['Alaska']
+
+Multiple Choice
+===============
+
+A vocabulary of simple values can also be used with a multiple
+selection field.
+
+Open the schema editor in the browser.
+
+    >>> browser.open(portal_url + '/@@schemaeditor')
+    >>> 'Edit @@schemaeditor' in browser.contents
+    True
+
+Add a Choice field.
+
+    >>> browser.getControl('Field title').value = 'Categories'
+    >>> browser.getControl('Field type').getControl(
+    ...     'Multiple Choice').selected = True
+    >>> browser.getControl('Add').click()
+    [event: ObjectAddedEvent on List]
+    >>> print browser.contents
+    <...
+            <div class="portalMessage">Item added successfully.</div>
+    ...
+
+Open the new fields edit form.
+
+    >>> browser.getLink('Categories').click()
+
+The edit form for choice fields includes a widget for specifying the
+vocabulary.
+
+    >>> ctl = browser.getControl('Vocabulary')
+    >>> ctl
+    <Control name='form.widgets.values' type='textarea'>
+
+If duplicate values are entered an error is raised.
+
+    >>> ctl.value = '\n'.join(
+    ...     ['Lisp', 'Plone', 'Python', 'Lisp'])
+    >>> browser.getControl('Save').click()
+    >>> print browser.contents
+    <...
+      <div class="error">The 'Lisp' vocabulary value conflicts with 'Lisp'.</div>
+    ...
+
+Enter unique values and save the field settings.
+
+    >>> browser.getControl('Vocabulary').value = '\n'.join(
+    ...     ['Plone', 'Python', 'Lisp'])
+    >>> browser.getControl('Save').click()
+    [event: ObjectModifiedEvent on List]
+
+When the edit form for the content type is loaded, the vocabulary
+values specified can be selected.
+
+    >>> browser.open(portal_url + '/@@contexteditor')
+    >>> from_ctl = browser.getControl(name="form.widgets.categories.from")
+    >>> from_ctl
+    <ListControl name='form.widgets.categories.from' type='select'>
+    >>> item = from_ctl.getControl('Plone')
+    >>> item
+    <ItemControl name='form.widgets.categories.from' type='select'
+    optionValue='Plone' selected=False>
+
+    >>> to_ctl = browser.getControl(name="form.widgets.categories.to")
+    >>> to_ctl.mech_control.items.append(item.mech_item)
+    >>> to_ctl.getControl(item.optionValue).selected = True
+
+    >>> item = from_ctl.getControl('Python')
+    >>> to_ctl.mech_control.items.append(item.mech_item)
+    >>> to_ctl.getControl(item.optionValue).selected = True
+
+    >>> from_ctl.getControl('Lisp').selected
+    False
+    >>> to_ctl.value
+    ['Plone', 'Python']

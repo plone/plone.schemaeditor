@@ -41,4 +41,11 @@
   <adapter factory=".fields.TextLineChoiceField" />
   <adapter factory=".fields.VocabularyValuesValidator" />
 
+  <adapter factory=".fields.getMultiChoiceFieldSchema" />
+  <utility
+      name="zope.schema._field.List"
+      component=".fields.MultiChoiceFactory"
+      />
+  <adapter factory=".fields.TextLineMultiChoiceField" />
+
 </configure>

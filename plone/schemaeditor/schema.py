@@ -133,8 +133,7 @@ class IChoice(IChoiceBase, interfaces.IChoice,
 class ITextLinesField(interfaces.IList):
     """A marker for fields which should get the textlines widget"""
 
-class ITextLineChoice(IChoiceBase):
-    """A simple choice field with user entered vocabulary values."""
+class ITextLineChoiceBase(interfaces.IField):
 
     values = schema.List(
         title=interfaces.IChoice['vocabulary'].title,
@@ -143,3 +142,38 @@ class ITextLineChoice(IChoiceBase):
         default=interfaces.IChoice['vocabulary'].default,
         value_type=schema.TextLine())
     interface.alsoProvides(values, ITextLinesField)
+
+class ITextLineChoice(IChoiceBase, ITextLineChoiceBase):
+    """A simple choice field with user entered vocabulary values."""
+
+class IListBase(interfaces.IField):
+
+    default = schema.List(
+        title=interfaces.IList['default'].title,
+        description=interfaces.IList['default'].description,
+        required=False)
+
+    missing_value = schema.List(
+        title=interfaces.IList['missing_value'].title,
+        description=interfaces.IList['missing_value'].description,
+        required=False)
+
+class IList(IListBase, interfaces.IList):
+    """Fix the IList default and missing_value"""
+
+class ITextLineMultiChoice(IListBase, ITextLineChoiceBase):
+    """
+    A multuple choice field with user entered vocabulary values.
+    """
+
+    default = schema.List(
+        title=interfaces.IList['default'].title,
+        description=interfaces.IList['default'].description,
+        required=False,
+        value_type=schema.TextLine())
+
+    missing_value = schema.List(
+        title=interfaces.IList['missing_value'].title,
+        description=interfaces.IList['missing_value'].description,
+        required=False,
+        value_type=schema.TextLine())

@@ -248,3 +248,8 @@ and saved.
     True
     True
     [event: ObjectModifiedEvent on Float]
+    [event: ObjectAddedEvent on List]
+    True
+    True
+    True
+    [event: ObjectModifiedEvent on List]
