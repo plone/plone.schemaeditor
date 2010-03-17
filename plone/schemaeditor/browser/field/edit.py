@@ -5,6 +5,7 @@ from ZPublisher.BaseRequest import DefaultPublishTraverse
 from zope.interface import implements
 from zope.publisher.interfaces.browser import IBrowserPublisher
 from zope.cachedescriptors import property
+from zope.schema.interfaces import IBool
 
 from z3c.form import form, field, button
 from plone.z3cform import layout
@@ -58,7 +59,10 @@ class FieldEditForm(form.EditForm):
     @property.Lazy
     def fields(self):
         # omit the order attribute since it's managed elsewhere
-        return field.Fields(self.schema).omit('order')
+        fields = field.Fields(self.schema).omit('order')
+        if self.schema.isOrExtends(IBool):
+            fields = fields.omit('required')
+        return fields
 
     @button.buttonAndHandler(u'Save', name='save')
     def handleSave(self, action):

@@ -4,6 +4,9 @@ Changelog
 1.0b1 - unreleased
 ------------------
 
+* Omit the 'required' field for Bool fields.
+  [davisagli]
+
 * Make sure that normalized ids for new fields use _ instead of -, so that they
   can be accessed without using getattr.
   [davisagli]

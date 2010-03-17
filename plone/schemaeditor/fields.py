@@ -37,7 +37,7 @@ TextLineFactory = FieldFactory(schema.TextLine, _(u'label_textline_field', defau
 TextFactory = FieldFactory(schema.Text, _(u'label_text_field', default=u'Text'))
 IntFactory = FieldFactory(schema.Int, _(u'label_integer_field', default=u'Integer'))
 FloatFactory = FieldFactory(schema.Float, _(u'label_float_field', default=u'Floating-point number'))
-BoolFactory = FieldFactory(schema.Bool, _(u'label_boolean_field', default=u'Boolean'))
+BoolFactory = FieldFactory(schema.Bool, _(u'label_boolean_field', default=u'Boolean'), required=False)
 PasswordFactory = FieldFactory(schema.Password, _(u'label_password_field', default=u'Password'))
 DatetimeFactory = FieldFactory(schema.Datetime, _(u'label_datetime_field', default=u'Date/Time'))
 

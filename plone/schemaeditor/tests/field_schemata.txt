@@ -58,3 +58,11 @@ The Datetime fields also have corrected min/max field types.
     <zope.schema._field.Datetime object at ...>
     >>> form.schema['max']
     <zope.schema._field.Datetime object at ...>
+
+The Bool edit form omits the 'required' field.
+
+    >>> field = schema.Bool()
+    >>> context = edit.FieldContext(field, None)
+    >>> form = edit.FieldEditForm(context, None)
+    >>> 'required' in form.fields
+    False
