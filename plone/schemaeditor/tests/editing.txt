@@ -65,7 +65,7 @@ Editing a schema field attribute
 
 Let's navigate to the 'favorite-color' field we just created::
 
-    >>> browser.getLink('Edit', index=5).click()
+    >>> browser.getLink('Settings', index=5).click()
     >>> browser.url
     'http://nohost/@@schemaeditor/favorite_color'
     >>> "Edit Field 'favorite_color'" in browser.contents
@@ -91,7 +91,7 @@ Let's confirm that the new default value was correctly saved to the actual schem
 
 Let's go back and try to make an invalid change.  The form won't let us::
 
-    >>> browser.getLink('Edit', index=5).click()
+    >>> browser.getLink('Settings', index=5).click()
     >>> browser.url
     'http://nohost/@@schemaeditor/favorite_color'
     >>> browser.getControl('Minimum length').value = 'asdf'
@@ -175,6 +175,6 @@ Demonstrate that we can add and edit a date field::
     >>> from zope.schema import Datetime
     >>> isinstance(IDummySchema['birthdate'], Datetime)
     True
-    >>> browser.getLink('Edit', index=5).click()
+    >>> browser.getLink('Settings', index=5).click()
     >>> browser.getControl('Save').click()
     [event: ObjectModifiedEvent on Datetime]
