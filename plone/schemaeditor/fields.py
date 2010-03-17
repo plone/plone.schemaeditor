@@ -64,7 +64,7 @@ class TextLineChoiceField(object):
     def __setattr__(self, name, value):
         if name == 'values':
             self.field.vocabulary = SimpleVocabulary.fromValues(
-                value)
+                value or [])
         return setattr(self.field, name, value)
 
     def __delattr__(self, name):
