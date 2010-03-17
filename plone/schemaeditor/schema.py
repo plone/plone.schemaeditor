@@ -2,6 +2,13 @@ from zope import interface
 from zope.schema import interfaces 
 from zope import schema
 
+try:
+    from collective.z3cform.datetimewidget.interfaces import (
+        IDatetimeField as IDatetime)
+    IDatetime # pyflakes
+except ImportError:
+    IDatetime = interfaces.IDatetime
+
 from plone.schemaeditor import SchemaEditorMessageFactory as _
 
 class IText(interfaces.IText):
@@ -88,7 +95,7 @@ class IFloat(interfaces.IFloat, interfaces.IFromUnicode):
         default=interfaces.IFloat['max'].default,
         )
     
-class IDatetime(interfaces.IDatetime):
+class IDatetime(IDatetime):
 
     default = schema.Datetime(
         title=interfaces.IDatetime['default'].title,

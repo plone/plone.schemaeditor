@@ -12,8 +12,6 @@ optionflags =  (doctest.ELLIPSIS |
                 doctest.REPORT_ONLY_FIRST_FAILURE)
 
 def setUp(self):
-    zcml.load_config('meta.zcml', Products.Five)
-    zcml.load_config('configure.zcml', Products.Five)
     zcml.load_config('tests.zcml', plone.schemaeditor.tests)
 
     # make sure we use the correct vocabulary registry
