@@ -48,11 +48,22 @@ vocabulary.
     >>> ctl = browser.getControl('Vocabulary')
     >>> ctl
     <Control name='form.widgets.values' type='textarea'>
+
+If duplicate values are entered an error is raised.
+
     >>> ctl.value = '\n'.join(
+    ...     ['Alaska', 'Russia', 'United States', 'United States',
+    ...      'Other'])
+    >>> browser.getControl('Save').click()
+    >>> print browser.contents
+    <...
+      <div class="error">The 'United States' vocabulary value conflicts with 'United States'.</div>
+    ...
+
+Enter unique values and save the field settings.
+
+    >>> browser.getControl('Vocabulary').value = '\n'.join(
     ...     ['Alaska', 'Russia', 'United States', 'Other'])
-
-Save the field settings.
-
     >>> browser.getControl('Save').click()
     [event: ObjectModifiedEvent on Choice]
 

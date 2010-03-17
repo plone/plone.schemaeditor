@@ -2,7 +2,8 @@ from zope import interface
 from zope.interface import implements
 from zope import schema
 from zope.schema import interfaces as schema_ifaces
-from zope.schema.vocabulary import SimpleVocabulary
+from zope.schema import vocabulary
+from z3c.form import validator
 from interfaces import IFieldFactory
 from plone.schemaeditor import SchemaEditorMessageFactory as _
 
@@ -63,11 +64,40 @@ class TextLineChoiceField(object):
 
     def __setattr__(self, name, value):
         if name == 'values':
-            self.field.vocabulary = SimpleVocabulary.fromValues(
-                value or [])
+            self.field.vocabulary = (
+                vocabulary.SimpleVocabulary.fromValues(value or []))
         return setattr(self.field, name, value)
 
     def __delattr__(self, name):
         if name == 'values':
             del self.field.vocabulary
         return delattr(self.field, name)
+
+class VocabularyValuesValidator(validator.SimpleFieldValidator):
+    """Ensure duplicate vocabulary terms are not submitted"""
+    component.adapts(interface.Interface, interface.Interface,
+                     interfaces.IFieldEditForm,
+                     se_schema.ITextLinesField, interface.Interface)
+
+    def validate(self, values):
+        if values is None:
+            return super(VocabularyValuesValidator, self).validate(
+                values)
+            
+        by_value = {}
+        by_token = {}
+        for value in values:
+            term = vocabulary.SimpleVocabulary.createTerm(value)
+            if term.value in by_value:
+                raise interface.Invalid(
+                    u"The '%s' vocabulary value conflicts with '%s'."
+                    % (value, by_value[term.value].value))
+            if term.token in by_token:
+                raise interface.Invalid(
+                    u"The '%s' vocabulary value conflicts with '%s'."
+                    % (value, by_token[term.token].value))
+            by_value[term.value] = term
+            by_token[term.token] = term
+                
+        return super(VocabularyValuesValidator, self).validate(values)
+
