@@ -1,6 +1,5 @@
 <metal:form metal:use-macro="context/@@ploneform-macros/form">
-  <metal:field-slot metal:fill-slot="field">
-    <metal:field metal:use-macro="context/@@ploneform-macros/field"/>
+  <metal:field-slot metal:fill-slot="fieldbottom">
     <a tal:define="edit_url python:view.edit_url(widget.field)"
        tal:condition="edit_url"
        tal:attributes="href edit_url">Edit</a>
