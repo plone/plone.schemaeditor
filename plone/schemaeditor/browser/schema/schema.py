@@ -41,7 +41,6 @@ class FieldNameProperty(object):
         def set(self, value):
             self.field.__name__ = value
         return property(get, set)
-provideAdapter(FieldNameProperty)
 
 def FieldsVocabularyFactory(context):
     field_factories = getUtilitiesFor(IFieldFactory)
