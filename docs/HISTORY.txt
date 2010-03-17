@@ -4,6 +4,9 @@ Changelog
 1.0b1 - unreleased
 ------------------
 
+* Added overlay support to the field edit screens.
+  [limi]
+
 * Revamped UI to show WYSIWYG representation of fields.
   [davisagli, limi]
 

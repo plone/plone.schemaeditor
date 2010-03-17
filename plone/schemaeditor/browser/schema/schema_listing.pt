@@ -4,16 +4,23 @@
             tal:attributes="src context/++resource++schemaeditor.js"></script>
   </metal:top-slot>
   <metal:field-slot metal:fill-slot="field">
-    <div class="fieldPreview">
+    <div class="fieldPreview" style="background: #eee; padding: 1em; margin: 1em -1em; -moz-border-radius: 0.5em; position:relative;">
+
+      <div class="fieldControls" style="position: absolute; top: 1em; right: 1em">
+          <a class="fieldSettings"
+             tal:define="edit_url python:view.edit_url(widget.field)"
+             tal:condition="edit_url"
+             tal:attributes="href edit_url">Settings&hellip;</a>
+          <a class="schemaeditor-delete-field"
+             title="Delete field"
+             style="margin-left: 1em; font-size: 150%; border: none"
+             tal:define="delete_url python:view.delete_url(widget.field)"
+             tal:condition="delete_url"
+             tal:attributes="href delete_url">&times;</a>
+      </div>
+
       <metal:field metal:use-macro="context/@@ploneform-macros/field"/>
-      <a tal:define="edit_url python:view.edit_url(widget.field)"
-         tal:condition="edit_url"
-         tal:attributes="href edit_url">Edit</a>
-      <a class="schemaeditor-delete-field"
-         title="Delete field"
-         tal:define="delete_url python:view.delete_url(widget.field)"
-         tal:condition="delete_url"
-         tal:attributes="href delete_url">&times;</a>
+      
     </div>
   </metal:field-slot>
 </metal:form>
