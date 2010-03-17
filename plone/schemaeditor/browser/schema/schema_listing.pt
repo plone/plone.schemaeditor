@@ -1,7 +1,19 @@
 <metal:form metal:use-macro="context/@@ploneform-macros/form">
-  <metal:field-slot metal:fill-slot="fieldbottom">
-    <a tal:define="edit_url python:view.edit_url(widget.field)"
-       tal:condition="edit_url"
-       tal:attributes="href edit_url">Edit</a>
+  <metal:top-slot metal:fill-slot="formtop">
+    <script type="text/javascript"
+            tal:attributes="src context/++resource++schemaeditor.js"></script>
+  </metal:top-slot>
+  <metal:field-slot metal:fill-slot="field">
+    <div class="fieldPreview">
+      <metal:field metal:use-macro="context/@@ploneform-macros/field"/>
+      <a tal:define="edit_url python:view.edit_url(widget.field)"
+         tal:condition="edit_url"
+         tal:attributes="href edit_url">Edit</a>
+      <a class="schemaeditor-delete-field"
+         title="Delete field"
+         tal:define="delete_url python:view.delete_url(widget.field)"
+         tal:condition="delete_url"
+         tal:attributes="href delete_url">&times;</a>
+    </div>
   </metal:field-slot>
 </metal:form>

@@ -17,5 +17,10 @@
     class=".add_field.FieldAddFormPage"
     permission="plone.schemaeditor.ManageSchemata"
     />
+  
+  <browser:resource
+    name="schemaeditor.js"
+    file="schemaeditor.js"
+    />
 
 </configure>

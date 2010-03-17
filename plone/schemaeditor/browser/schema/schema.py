@@ -3,28 +3,13 @@ from OFS.SimpleItem import SimpleItem
 from zope.interface import implements
 from zope.component import queryUtility
 from zope.publisher.interfaces.browser import IBrowserPublisher
-from zope.event import notify
-from zope.app.container.contained import ObjectRemovedEvent
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
-
 from z3c.form import form, field, button
-from plone.z3cform.crud import crud
 
 from plone.schemaeditor import SchemaEditorMessageFactory as _
-from plone.schemaeditor.interfaces import ISchemaContext, IFieldFactory, IEditableSchema
+from plone.schemaeditor.interfaces import ISchemaContext, IFieldFactory
 from plone.schemaeditor.browser.field.edit import FieldContext
 from plone.schemaeditor.browser.jsform.jsform import JavascriptFormWrapper
-
-class SchemaListing(crud.CrudForm):
-    """ A plone.z3cform CRUD form for editing a zope 3 schema.
-    """
-
-    def remove(self, (id, field)):
-        """ Remove field from schema
-        """
-        schema = IEditableSchema(self.schema)
-        schema.removeField(id)
-        notify(ObjectRemovedEvent(field, self.schema))
 
 class SchemaListing(form.Form):
     ignoreContext = True
@@ -35,11 +20,19 @@ class SchemaListing(form.Form):
     def fields(self):
         return field.Fields(self.context.schema)
     
+    def updateWidgets(self):
+        super(SchemaListing, self).updateWidgets()
+        for widget in self.widgets.values():
+            widget.disabled = 'disabled'
+    
     def edit_url(self, field):
         field_identifier = u'%s.%s' % (field.__module__, field.__class__.__name__)
         field_factory = queryUtility(IFieldFactory, name=field_identifier)
         if field_factory is not None:
             return '%s/%s' % (self.context.absolute_url(), field.__name__)
+    
+    def delete_url(self, field):
+        return '%s/%s/@@delete' % (self.context.absolute_url(), field.__name__)
     
     @button.buttonAndHandler(_(u"Add Field"))
     def handleAddField(self, action):
@@ -51,6 +44,7 @@ class ReadOnlySchemaListing(SchemaListing):
     
     def edit_url(self, field):
         return
+    delete_url = edit_url
 
 class SchemaListingPage(JavascriptFormWrapper):
     """ Form wrapper so we can get a form with layout.
@@ -63,7 +57,10 @@ class SchemaListingPage(JavascriptFormWrapper):
     
     @property
     def label(self):
-        return u'Edit %s (%s)' % (self.context.Title, self.context.__name__)
+        if self.context.Title() != self.context.__name__:
+            return u'Edit %s (%s)' % (self.context.Title(), self.context.__name__)
+        else:
+            return u'Edit %s' % self.context.__name__
 
 class SchemaContext(SimpleItem):
     """ This is a transient item that allows us to traverse through (a wrapper

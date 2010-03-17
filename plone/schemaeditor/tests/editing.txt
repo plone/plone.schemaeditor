@@ -147,11 +147,9 @@ Removing a field
 
 We can also remove a field::
 
-    >>> browser.getControl(name='crud-edit.hue.widgets.select:list').value = ['0']
-    >>> browser.getControl('Delete').click()
+    >>> browser.open('http://nohost/@@schemaeditor')
+    >>> browser.getLink(url='@@delete', index=5).click()
     [event: ObjectRemovedEvent on TextLine]
-    >>> 'Successfully deleted items.' in browser.contents
-    True
 
 And confirm that the real schema was updated::
 
@@ -164,18 +162,19 @@ Miscellaneous field types
 
 Demonstrate that we can add and edit a date field::
 
+    >>> browser.open('http://nohost/@@schemaeditor')
     >>> browser.getControl('Add Field').click()
     >>> browser.getControl('Field title').value = 'Birthdate'
     >>> browser.getControl('Field type').value = ['Date/Time']
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on Datetime]
-    >>> 'Item added successfully.' in browser.contents
-    True
+    >>> browser.url
+    'http://nohost/@@schemaeditor'
     >>> 'birthdate' in IDummySchema
     True
     >>> from zope.schema import Datetime
     >>> isinstance(IDummySchema['birthdate'], Datetime)
     True
-    >>> browser.getLink('Birthdate').click()
+    >>> browser.getLink('Edit', index=5).click()
     >>> browser.getControl('Save').click()
     [event: ObjectModifiedEvent on Datetime]
