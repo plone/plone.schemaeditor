@@ -2,11 +2,11 @@
     xmlns="http://namespaces.zope.org/zope">
 
   <class class="zope.schema.Text">
-    <implements interface=".interfaces.IText" />
+    <implements interface=".schema.IText" />
   </class>
 
   <class class="zope.schema.TextLine">
-    <implements interface=".interfaces.ITextLine" />
+    <implements interface=".schema.ITextLine" />
   </class>
 
 </configure>

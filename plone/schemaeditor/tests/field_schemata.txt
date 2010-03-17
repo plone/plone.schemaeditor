@@ -29,6 +29,6 @@ missing_value types.
     >>> context = edit.FieldContext(field, None)
     >>> form = edit.FieldEditForm(context, None)
     >>> form.schema
-    <InterfaceClass plone.schemaeditor.interfaces.IText>
+    <InterfaceClass plone.schemaeditor.schema.IText>
     >>> form.schema['default']
     <zope.schema._bootstrapfields.Text object at ...>
