@@ -194,62 +194,41 @@ and saved.
     >>> from plone.i18n.normalizer.interfaces import IIDNormalizer
     >>> from plone.schemaeditor import interfaces
     >>> normalizer = component.getUtility(IIDNormalizer)
+    >>> schema = IDummySchema
     >>> for name, factory in sorted(component.getUtilitiesFor(
     ...     interfaces.IFieldFactory)):
     ...     browser.open(portal_url + '/@@schemaeditor')
     ...     browser.getControl('Field title').value = name
     ...     browser.getControl('Field type').getControl(
-    ...         value=factory.title.default).selected = True
+    ...         value=getattr(factory.title, 'default', factory.title)
+    ...         ).selected = True
     ...     browser.getControl('Add').click()
-    ...     'Item added successfully.' in browser.contents
+    ...     assert 'Item added successfully.' in browser.contents, (
+    ...         'No success message for adding %r' % name)
     ...     field_name = normalizer.normalize(name).replace('-', '_')
-    ...     field_name in IDummySchema
-    ...     factory.fieldcls._type is None or isinstance(
-    ...         IDummySchema[field_name], factory.fieldcls)
+    ...     assert field_name in schema, '%r not in %r' % (
+    ...         field_name, schema)
+    ...     assert factory.fieldcls._type is None or isinstance(
+    ...         schema[field_name], factory.fieldcls
+    ...         ), '%r is not an instance of %r' % (
+    ...             schema[field_name], factory.fieldcls)
     ...     browser.getLink(name).click()
     ...     browser.getControl('Save').click()
     [event: ObjectAddedEvent on Bool]
-    True
-    True
-    True
     [event: ObjectModifiedEvent on Bool]
     [event: ObjectAddedEvent on Int]
-    True
-    True
-    True
     [event: ObjectModifiedEvent on Int]
     [event: ObjectAddedEvent on Password]
-    True
-    True
-    True
     [event: ObjectModifiedEvent on Password]
     [event: ObjectAddedEvent on Text]
-    True
-    True
-    True
     [event: ObjectModifiedEvent on Text]
     [event: ObjectAddedEvent on TextLine]
-    True
-    True
-    True
     [event: ObjectModifiedEvent on TextLine]
     [event: ObjectAddedEvent on Choice]
-    True
-    True
-    True
     [event: ObjectModifiedEvent on Choice]
     [event: ObjectAddedEvent on Datetime]
-    True
-    True
-    True
     [event: ObjectModifiedEvent on Datetime]
     [event: ObjectAddedEvent on Float]
-    True
-    True
-    True
     [event: ObjectModifiedEvent on Float]
     [event: ObjectAddedEvent on List]
-    True
-    True
-    True
     [event: ObjectModifiedEvent on List]
