@@ -14,7 +14,6 @@ optionflags =  (doctest.ELLIPSIS |
 def setUp(self):
     zcml.load_config('meta.zcml', Products.Five)
     zcml.load_config('configure.zcml', Products.Five)
-    zcml.load_config('configure.zcml', plone.schemaeditor)
     zcml.load_config('tests.zcml', plone.schemaeditor.tests)
 
     # make sure we use the correct vocabulary registry
@@ -33,6 +32,7 @@ def test_suite():
         ztc.FunctionalDocFileSuite(
             'field_schemata.txt',
             'editing.txt',
+            'choice.txt',
             setUp=setUp,
             tearDown=tearDown,
             optionflags=optionflags

@@ -32,4 +32,10 @@
     <adapter factory=".tests.layout_factory"/>
     <adapter factory=".tests.js_layout_factory"/>
 
+    <browser:page
+        name="contexteditor"
+        for="*"
+        class=".fixtures.EditView"
+        permission="plone.schemaeditor.ManageSchemata" />
+
 </configure>

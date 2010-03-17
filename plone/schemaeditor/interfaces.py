@@ -60,3 +60,8 @@ class IJavascriptFormWrapper(IFormWrapper, IJavascriptForm):
 class IFieldEditForm(IEditForm):
     """ Marker interface for field edit forms
     """
+
+class IFieldEditFormSchema(Interface):
+    """ The schema describing the form fields for a field.
+    """
+

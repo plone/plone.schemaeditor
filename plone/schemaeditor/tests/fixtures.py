@@ -16,3 +16,17 @@ class DummySchemaContext(SchemaContext):
 
 def log_event(object, event):
     print '[event: %s on %s]' % (event.__class__.__name__, object.__class__.__name__)
+
+from z3c.form import form, field
+from plone.z3cform import layout
+
+class EditForm(form.EditForm):
+
+    ignoreContext = True
+    ignoreRequest = True
+
+    def update(self):
+        self.fields = field.Fields(IDummySchema)
+        super(EditForm, self).update()
+
+EditView = layout.wrap_form(EditForm)

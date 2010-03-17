@@ -4,12 +4,13 @@ from ZPublisher.BaseRequest import DefaultPublishTraverse
 
 from zope.interface import implements
 from zope.publisher.interfaces.browser import IBrowserPublisher
-from zope.schema.interfaces import IField
+from zope.cachedescriptors import property
 
 from z3c.form import form, field, button
 from plone.z3cform import layout
 
 from plone.schemaeditor.interfaces import IFieldContext, IFieldEditForm
+from plone.schemaeditor import interfaces
 
 class FieldContext(SimpleItem):
     """ wrapper for published zope 3 schema fields
@@ -46,12 +47,15 @@ class FieldEditForm(form.EditForm):
     def __init__(self, context, request):
         super(form.EditForm, self).__init__(context, request)
         self.field = context.field
-        self.schema = [s for s in self.field.__provides__.__iro__ if s.isOrExtends(IField)][0]
     
     def getContent(self):
         return self.field
     
-    @property
+    @property.Lazy
+    def schema(self):
+        return interfaces.IFieldEditFormSchema(self.field)
+    
+    @property.Lazy
     def fields(self):
         # omit the order attribute since it's managed elsewhere
         return field.Fields(self.schema).omit('order')
@@ -77,6 +81,6 @@ class EditView(layout.FormWrapper):
         super(EditView, self).__init__(context, request)
         self.field = context.field
 
-    @property
+    @property.Lazy
     def label(self):
         return u"Edit Field '%s'" % self.field.__name__
