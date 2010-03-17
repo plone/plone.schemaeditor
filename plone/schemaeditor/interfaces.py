@@ -2,7 +2,7 @@ from zope.interface.interfaces import Interface, IInterface
 from zope.publisher.interfaces.browser import IBrowserPage
 from zope.schema import Object, TextLine
 from zope.schema.interfaces import IField
-from z3c.form.interfaces import IFieldWidget, IEditForm
+from z3c.form.interfaces import IEditForm
 from plone.z3cform.interfaces import IFormWrapper
 from OFS.interfaces import IItem
 
