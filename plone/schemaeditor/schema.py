@@ -28,7 +28,7 @@ class ITextLine(interfaces.ITextLine):
         description=interfaces.ITextLine['missing_value'].description,
         required=False)
 
-class IBool(interfaces.IBool):
+class IBool(interfaces.IBool, interfaces.IFromUnicode):
 
     default = schema.Bool(
         title=interfaces.IBool['default'].title,
@@ -64,7 +64,7 @@ class IPassword(interfaces.IPassword):
         description=interfaces.IPassword['missing_value'].description,
         required=False)
 
-class IFloat(interfaces.IFloat):
+class IFloat(interfaces.IFloat, interfaces.IFromUnicode):
 
     default = schema.Float(
         title=interfaces.IFloat['default'].title,
@@ -126,7 +126,8 @@ class IChoiceBase(interfaces.IField):
         required=False,
         values=[])
 
-class IChoice(IChoiceBase, interfaces.IChoice):
+class IChoice(IChoiceBase, interfaces.IChoice,
+              interfaces.IFromUnicode):
     """Fix the IChoice default and missing_value"""
 
 class ITextLinesField(interfaces.IList):
