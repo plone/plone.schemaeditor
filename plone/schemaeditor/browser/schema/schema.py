@@ -63,7 +63,7 @@ class SchemaListingPage(JavascriptFormWrapper):
     
     @property
     def label(self):
-        return u'Edit %s' % self.context.__name__
+        return u'Edit %s (%s)' % (self.context.Title, self.context.__name__)
 
 class SchemaContext(SimpleItem):
     """ This is a transient item that allows us to traverse through (a wrapper
