@@ -3,7 +3,6 @@ from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from z3c.form import form, field, button
 from plone.z3cform.layout import FormWrapper
 
-from plone.schemaeditor import SchemaEditorMessageFactory as _
 from plone.schemaeditor.interfaces import IFieldFactory
 
 class SchemaListing(form.Form):
@@ -28,11 +27,7 @@ class SchemaListing(form.Form):
     
     def delete_url(self, field):
         return '%s/%s/@@delete' % (self.context.absolute_url(), field.__name__)
-    
-    @button.buttonAndHandler(_(u"Add Field"))
-    def handleAddField(self, action):
-        url = self.context.absolute_url() + '/@@add-field'
-        self.request.response.redirect(url)
+
 
 class ReadOnlySchemaListing(SchemaListing):
     buttons = button.Buttons()

@@ -10,7 +10,7 @@ from plone.schemaeditor.interfaces import INewField
 from plone.schemaeditor.utils import IEditableSchema
 
 class FieldAddForm(form.AddForm):
-    
+
     fields = field.Fields(INewField)
     label = "Add new field"
 
