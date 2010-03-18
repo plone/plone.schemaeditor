@@ -12,7 +12,8 @@ from plone.schemaeditor.utils import IEditableSchema
 class FieldAddForm(form.AddForm):
     
     fields = field.Fields(INewField)
-    
+    label = "Add new field"
+
     def create(self, data):
         id = getUtility(IIDNormalizer).normalize(data['title'])
         id = id.replace('-', '_')

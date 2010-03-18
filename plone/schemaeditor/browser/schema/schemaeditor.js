@@ -20,6 +20,15 @@ $(document).ready(function() {
         }
     );
 
+    // add new field form
+    $('#add-field').prepOverlay(
+        {
+            subtype: 'ajax',
+            filter: common_content_filter,
+        }
+    );
+
+
 
 });
 })(jQuery);

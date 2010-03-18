@@ -2,9 +2,19 @@
   <metal:top-slot metal:fill-slot="formtop">
     <script type="text/javascript"
             tal:attributes="src context/++resource++schemaeditor.js"></script>
+
+    <a id="add-field" 
+       style="float: right; display: block; margin-top: -3.5em"
+       tal:attributes="href string:${context/absolute_url}/@@add-field"
+       >Add new field&hellip;</a>
+
   </metal:top-slot>
+  
+  
   <metal:field-slot metal:fill-slot="field">
-    <div class="fieldPreview" style="background: #eee; padding: 1em; margin: 1em -1em; -moz-border-radius: 0.5em; position:relative;">
+
+
+    <div class="fieldPreview" style="background: #eee; padding: 1em; margin: 1em -0.5em; -moz-border-radius: 0.5em; position:relative;">
 
       <div class="fieldControls" style="position: absolute; top: 1em; right: 1em">
           <a class="fieldSettings"
@@ -19,7 +29,9 @@
              tal:attributes="href delete_url">&times;</a>
       </div>
 
+      <div style="width: 80%">
       <metal:field metal:use-macro="context/@@ploneform-macros/field"/>
+      </div>
       
     </div>
   </metal:field-slot>
