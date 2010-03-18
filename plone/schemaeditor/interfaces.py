@@ -59,6 +59,11 @@ class INewField(Interface):
         required=True
         )
 
+    description = TextLine(
+        title = u'Description',
+        required=False
+    )
+
     factory = Choice(
         title=u"Field type",
         vocabulary="Fields",
