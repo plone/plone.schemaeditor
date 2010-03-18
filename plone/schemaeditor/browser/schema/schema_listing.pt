@@ -14,7 +14,7 @@
   <metal:field-slot metal:fill-slot="field">
 
 
-    <div class="fieldPreview" style="background: #eee; padding: 1em; margin: 1em -0.5em; -moz-border-radius: 0.5em; position:relative;">
+    <div class="fieldPreview" style="background: #eee; padding: 1em; margin: 1em -1em; -moz-border-radius: 0.5em; position:relative;">
 
       <div class="fieldControls" style="position: absolute; top: 1em; right: 1em">
           <a class="fieldSettings"
