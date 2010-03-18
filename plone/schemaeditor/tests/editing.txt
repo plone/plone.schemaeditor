@@ -176,5 +176,6 @@ Demonstrate that we can add and edit a date field::
     >>> isinstance(IDummySchema['birthdate'], Datetime)
     True
     >>> browser.getLink('Settings', index=5).click()
+    >>> browser.getControl('Title').value = 'Birthdate, yo'
     >>> browser.getControl('Save').click()
     [event: ObjectModifiedEvent on Datetime]
