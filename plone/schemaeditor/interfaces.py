@@ -1,6 +1,6 @@
 from zope.interface.interfaces import Interface, IInterface
 from zope.publisher.interfaces.browser import IBrowserPage
-from zope.schema import Object, TextLine, Choice
+from zope.schema import Object, TextLine, Text, Choice
 from zope.schema.interfaces import IField
 from z3c.form.interfaces import IFieldWidget, IEditForm
 from OFS.interfaces import IItem
@@ -55,12 +55,13 @@ class IMetaFieldWidget(IFieldWidget):
 class INewField(Interface):
 
     title = TextLine(
-        title = u'Field title',
+        title = u'Title',
         required=True
         )
 
-    description = TextLine(
-        title = u'Description',
+    description = Text(
+        title = u'Help Text',
+        description=u'Shows up in the form as help text for the field.',
         required=False
     )
 
