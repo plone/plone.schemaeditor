@@ -39,7 +39,7 @@ Adding a field
 
 Let's add a 'favorite-color' field to the IDummySchema schema::
 
-    >>> browser.getLink('Add new field').click()
+    >>> browser.getControl('Add new field').click()
     >>> browser.getControl('Title').value = 'Favorite Color'
     >>> browser.getControl('Field type').value = ['Text line (String)']
     >>> browser.getControl('Add').click()
@@ -163,7 +163,7 @@ Miscellaneous field types
 Demonstrate that we can add and edit a date field::
 
     >>> browser.open('http://nohost/@@schemaeditor')
-    >>> browser.getLink('Add new field').click()
+    >>> browser.getControl('Add new field').click()
     >>> browser.getControl('Title').value = 'Birthdate'
     >>> browser.getControl('Field type').value = ['Date/Time']
     >>> browser.getControl('Add').click()

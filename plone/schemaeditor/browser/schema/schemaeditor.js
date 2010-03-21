@@ -3,6 +3,9 @@ $(document).ready(function() {
 
     $("a.schemaeditor-delete-field").click(function(e){
         e.preventDefault();
+        if (!confirm("Are you sure you want to delete this field?")) {
+            return;
+        }
         var trigger = $(this);
         $.post(trigger.attr('href'), null, function (data) {
           trigger.closest('.fieldPreview').remove();
