@@ -12,6 +12,27 @@ from plone.z3cform import layout
 
 from plone.schemaeditor.interfaces import IFieldEditForm, IMetaFieldWidget
 
+class IFieldTitle(Interface):
+    title = schema.TextLine(
+        title=schema.interfaces.ITextLine['title'].title,
+        description=schema.interfaces.ITextLine['title'].description,
+        default=u"",
+        required=True,
+        )
+
+class FieldTitleAdapter(object):
+    implements(IFieldTitle)
+    adapts(IField)
+    
+    def __init__(self, field):
+        self.field = field
+    
+    def _read_title(self):
+        return self.field.title
+    def _write_title(self, value):
+        self.field.title = value
+    title = property(_read_title, _write_title)
+
 class FieldEditForm(form.EditForm):
     implements(IFieldEditForm)
 
@@ -25,8 +46,11 @@ class FieldEditForm(form.EditForm):
     
     @property
     def fields(self):
+        # use a custom 'title' field to make sure it is required
+        fields = field.Fields(IFieldTitle)
+        
         # omit the order attribute since it's managed elsewhere
-        fields = field.Fields(self.schema).omit('order')
+        fields += field.Fields(self.schema).omit('order', 'title')
         
         # The 'default' and 'missing_value' metafields are just a generic Field in the
         # zope.schema.interfaces.IField schema, so let's use the widget for the actual
@@ -35,7 +59,7 @@ class FieldEditForm(form.EditForm):
             if fields[f].field.__class__ is schema.Field:
                 fields[f].widgetFactory = MetaFieldWidgetFactory(self.field)
         return fields
-
+    
     @button.buttonAndHandler(u'Save', name='save')
     def handleSave(self, action):
         self.handleApply(self, action)

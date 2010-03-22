@@ -14,6 +14,8 @@
         factory=".edit.MetaFieldWidgetDataConverter" />
     <adapter
         factory=".edit.MetaFieldValidator" />
+    <adapter
+        factory=".edit.FieldTitleAdapter" />
         
     <browser:page
         name="order"

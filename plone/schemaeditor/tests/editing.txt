@@ -102,6 +102,17 @@ Let's go back and try to make an invalid change.  The form won't let us::
     >>> 'The entered value is not a valid integer literal.' in browser.contents
     True
 
+We also cannot set the field title to an empty string, even though the field is
+not required in zope.schema.interfaces.IField::
+
+    >>> browser.open('http://nohost/@@schemaeditor/favorite_color')
+    >>> browser.getControl('Title').value = ''
+    >>> browser.getControl('Save').click()
+    >>> browser.url
+    'http://nohost/@@schemaeditor/favorite_color/@@edit'
+    >>> 'Required input is missing.' in browser.contents
+    True
+
 We can give up and hit the Cancel button, which should take us back to the schema listing,
 without trying to save changes::
 
