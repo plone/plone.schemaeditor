@@ -2,6 +2,7 @@ from zope.component import queryUtility
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from z3c.form import form, field, button
 from plone.z3cform.layout import FormWrapper
+from plone.memoize.instance import memoize
 
 from plone.schemaeditor.interfaces import IFieldFactory
 
@@ -18,10 +19,21 @@ class SchemaListing(form.Form):
         super(SchemaListing, self).updateWidgets()
         for widget in self.widgets.values():
             widget.disabled = 'disabled'
+
+    @memoize
+    def _field_factory(self, field):
+        field_identifier = u'%s.%s' % (field.__module__, field.__class__.__name__)
+        return queryUtility(IFieldFactory, name=field_identifier)
+    
+    def field_type(self, field):
+        field_factory = self._field_factory(field)
+        if field_factory is not None:
+            return field_factory.title
+        else:
+            return field.__class__.__name__
     
     def edit_url(self, field):
-        field_identifier = u'%s.%s' % (field.__module__, field.__class__.__name__)
-        field_factory = queryUtility(IFieldFactory, name=field_identifier)
+        field_factory = self._field_factory(field)
         if field_factory is not None:
             return '%s/%s' % (self.context.absolute_url(), field.__name__)
     

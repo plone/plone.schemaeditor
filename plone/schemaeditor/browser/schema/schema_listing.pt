@@ -15,6 +15,11 @@
 
     <div class="fieldPreview" style="background: #eee; padding: 1em; margin: 1em -1em; -moz-border-radius: 0.5em; position:relative;">
 
+      <div class="fieldLabel" style="float: left; background: #ddd; -moz-border-radius-topleft: 0.5em; outline: solid 1px #fff; -moz-outline-radius-topleft: 0.5em; -moz-outline-radius-bottomright: 0.5em; margin: -1em; padding: 0 0.5em;">
+          <em tal:content="python:view.field_type(widget.field)"/>:
+          <span tal:replace="widget/field/__name__"/>
+      </div>
+
       <div class="fieldControls" style="position: absolute; top: 1em; right: 1em">
           <a class="fieldSettings"
              tal:define="edit_url python:view.edit_url(widget.field)"
