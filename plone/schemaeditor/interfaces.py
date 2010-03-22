@@ -1,6 +1,6 @@
 from zope.interface.interfaces import Interface, IInterface
 from zope.publisher.interfaces.browser import IBrowserPage
-from zope.schema import Object, TextLine, Text, Choice
+from zope.schema import Object, TextLine, Text, Choice, ASCIILine
 from zope.schema.interfaces import IField
 from z3c.form.interfaces import IFieldWidget, IEditForm
 from OFS.interfaces import IItem
@@ -58,12 +58,18 @@ class INewField(Interface):
         title = u'Title',
         required=True
         )
+    
+    __name__ = ASCIILine(
+        title = u'Short Name',
+        description = u'Used for programmatic access to the field.',
+        required=True,
+        )
 
     description = Text(
         title = u'Help Text',
         description=u'Shows up in the form as help text for the field.',
         required=False
-    )
+        )
 
     factory = Choice(
         title=u"Field type",

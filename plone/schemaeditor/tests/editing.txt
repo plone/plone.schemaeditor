@@ -41,6 +41,7 @@ Let's add a 'favorite-color' field to the IDummySchema schema::
 
     >>> browser.getControl('Add new field').click()
     >>> browser.getControl('Title').value = 'Favorite Color'
+    >>> browser.getControl('Short Name').value = 'favorite_color'
     >>> browser.getControl('Field type').value = ['Text line (String)']
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on TextLine]
@@ -165,6 +166,7 @@ Demonstrate that we can add and edit a date field::
     >>> browser.open('http://nohost/@@schemaeditor')
     >>> browser.getControl('Add new field').click()
     >>> browser.getControl('Title').value = 'Birthdate'
+    >>> browser.getControl('Short Name').value = 'birthdate'
     >>> browser.getControl('Field type').value = ['Date/Time']
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on Datetime]

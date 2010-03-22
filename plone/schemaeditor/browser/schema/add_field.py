@@ -13,6 +13,7 @@ class FieldAddForm(form.AddForm):
 
     fields = field.Fields(INewField)
     label = "Add new field"
+    id = 'add-field-form'
 
     def create(self, data):
         id = getUtility(IIDNormalizer).normalize(data['title'])

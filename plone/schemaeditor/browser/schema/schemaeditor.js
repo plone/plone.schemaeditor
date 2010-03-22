@@ -1,6 +1,7 @@
 (function($){
 $(document).ready(function() {
 
+    // delete field
     $("a.schemaeditor-delete-field").click(function(e){
         e.preventDefault();
         if (!confirm("Are you sure you want to delete this field?")) {
@@ -19,7 +20,7 @@ $(document).ready(function() {
     $('a.fieldSettings').prepOverlay(
         {
             subtype: 'ajax',
-            filter: common_content_filter,
+            filter: common_content_filter
         }
     );
 
@@ -28,10 +29,16 @@ $(document).ready(function() {
         {
             subtype: 'ajax',
             filter: common_content_filter,
+            formselector: 'form#add-field-form',
+            noform: 'reload'
         }
     );
 
-
+    // set id from title
+    $('#form-widgets-title').live('keyup', function() {
+        var val = $(this).val().toLowerCase().replace(/[^A-Za-z0-9_]/g, '_');
+        $('#form-widgets-__name__').val(val);
+    });
 
 });
 })(jQuery);
