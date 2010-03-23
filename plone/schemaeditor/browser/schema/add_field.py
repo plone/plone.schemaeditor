@@ -1,8 +1,8 @@
-from zope.component import getUtility
 from zope.event import notify
+from zope.interface import Invalid
 from zope.app.container.contained import ObjectAddedEvent
 from z3c.form import form, field
-from plone.i18n.normalizer.interfaces import IIDNormalizer
+from z3c.form.interfaces import WidgetActionExecutionError
 from plone.z3cform.layout import wrap_form
 
 from plone.schemaeditor import SchemaEditorMessageFactory as _
@@ -16,17 +16,16 @@ class FieldAddForm(form.AddForm):
     id = 'add-field-form'
 
     def create(self, data):
-        id = getUtility(IIDNormalizer).normalize(data['title'])
-        id = id.replace('-', '_')
-        # XXX validation
-
-        data['__name__'] = id
         factory = data.pop('factory')
         return factory(**data)
 
     def add(self, field):
         schema = IEditableSchema(self.context.schema)
-        schema.addField(field)
+        try:
+            schema.addField(field)
+        except ValueError:
+            raise WidgetActionExecutionError('__name__',
+                Invalid(u'Please select a field name that is not already used.'))
         notify(ObjectAddedEvent(field, self.context.schema))
         self.status = _(u"Field added successfully.")
 
