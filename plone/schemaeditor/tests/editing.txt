@@ -66,7 +66,7 @@ Editing a schema field attribute
 
 Let's navigate to the 'favorite-color' field we just created::
 
-    >>> browser.getLink('Settings', index=5).click()
+    >>> browser.getLink(url='favorite_color').click()
     >>> browser.url
     'http://nohost/@@schemaeditor/favorite_color'
     >>> "Edit Field 'favorite_color'" in browser.contents
@@ -92,7 +92,7 @@ Let's confirm that the new default value was correctly saved to the actual schem
 
 Let's go back and try to make an invalid change.  The form won't let us::
 
-    >>> browser.getLink('Settings', index=5).click()
+    >>> browser.getLink(url='favorite_color').click()
     >>> browser.url
     'http://nohost/@@schemaeditor/favorite_color'
     >>> browser.getControl('Minimum length').value = 'asdf'
@@ -160,12 +160,12 @@ Removing a field
 We can also remove a field::
 
     >>> browser.open('http://nohost/@@schemaeditor')
-    >>> browser.getLink(url='@@delete', index=5).click()
+    >>> browser.getLink(url='favorite_color/@@delete').click()
     [event: ObjectRemovedEvent on TextLine]
 
 And confirm that the real schema was updated::
 
-    >>> 'hue' in IDummySchema
+    >>> 'favorite_color' in IDummySchema
     False
 
 
@@ -181,8 +181,8 @@ and saved.
     >>> normalizer = component.getUtility(IIDNormalizer)
     >>> schema = IDummySchema
     >>> start_field_count = len(IDummySchema.names())
-    >>> for i, (name, factory) in enumerate(sorted(component.getUtilitiesFor(
-    ...     interfaces.IFieldFactory))):
+    >>> for name, factory in sorted(component.getUtilitiesFor(
+    ...     interfaces.IFieldFactory)):
     ...     browser.open(portal_url + '/@@schemaeditor')
     ...     browser.getControl('Add new field').click()
     ...     browser.getControl('Title').value = name
@@ -200,7 +200,7 @@ and saved.
     ...         schema[field_id], factory.fieldcls
     ...         ), '%r is not an instance of %r' % (
     ...             schema[field_id], factory.fieldcls)
-    ...     browser.getLink('Settings', index=i + start_field_count).click()
+    ...     browser.getLink(url=field_id).click()
     ...     browser.getControl('Title').value += ' '
     ...     browser.getControl('Save').click()
     [event: ObjectAddedEvent on Bool]
