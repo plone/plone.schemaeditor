@@ -5,6 +5,12 @@
   <adapter factory=".fields.getFirstFieldSchema" />
 
   <utility
+      component=".fields.FieldsVocabularyFactory"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="Fields"
+      />
+
+  <utility
       name="zope.schema._bootstrapfields.TextLine"
       component=".fields.TextLineFactory"
       />

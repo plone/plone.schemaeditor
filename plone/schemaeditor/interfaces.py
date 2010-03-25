@@ -1,9 +1,8 @@
 from zope.interface.interfaces import Interface, IInterface
 from zope.publisher.interfaces.browser import IBrowserPage
-from zope.schema import Object, TextLine
+from zope.schema import Object, TextLine, Text, Choice, ASCIILine
 from zope.schema.interfaces import IField
 from z3c.form.interfaces import IEditForm
-from plone.z3cform.interfaces import IFormWrapper
 from OFS.interfaces import IItem
 
 class ISchemaView(IBrowserPage):
@@ -45,18 +44,6 @@ class IEditableSchema(Interface):
         """ Remove a field from a schema
         """
 
-class IJavascriptForm(Interface):
-    """ A z3c form that includes Javascript
-    """
-    
-    def javascript():
-        """ Returns the Javascript that should be rendered with the form.
-        """
-
-class IJavascriptFormWrapper(IFormWrapper, IJavascriptForm):
-    """ A form wrapper that knows how to render javascript.
-    """
-
 class IFieldEditForm(IEditForm):
     """ Marker interface for field edit forms
     """
@@ -65,3 +52,27 @@ class IFieldEditFormSchema(Interface):
     """ The schema describing the form fields for a field.
     """
 
+class INewField(Interface):
+
+    title = TextLine(
+        title = u'Title',
+        required=True
+        )
+    
+    __name__ = ASCIILine(
+        title = u'Short Name',
+        description = u'Used for programmatic access to the field.',
+        required=True,
+        )
+
+    description = Text(
+        title = u'Help Text',
+        description=u'Shows up in the form as help text for the field.',
+        required=False
+        )
+
+    factory = Choice(
+        title=u"Field type",
+        vocabulary="Fields",
+        required=True
+        )

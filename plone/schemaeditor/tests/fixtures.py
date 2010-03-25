@@ -1,6 +1,6 @@
 from zope.interface import Interface
 from zope import schema
-from plone.schemaeditor.browser.schema.schema import SchemaContext
+from plone.schemaeditor.browser.schema.traversal import SchemaContext
 
 class IDummySchema(Interface):
     

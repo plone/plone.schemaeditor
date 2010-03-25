@@ -21,20 +21,6 @@ class FieldOrderView(BrowserView):
         schema.moveField(fieldname, int(pos))
         notifyContainerModified(self.schema)
 
-    def moveUp(self):
-        """
-        method to move field up
-        this is used when user does not have js enabled
-        """
-        pass
-        
-    def moveDown(self):
-        """
-        method to move field down
-        this is used when user does not have js enabled
-        """
-        pass
-
     def delete(self):
         """
         AJAX method to delete a field
@@ -42,3 +28,4 @@ class FieldOrderView(BrowserView):
         schema = IEditableSchema(self.schema)
         schema.removeField(self.field.getName())
         notify(ObjectRemovedEvent(self.field, self.schema))
+        self.request.response.setHeader('Content-Type', 'text/html')

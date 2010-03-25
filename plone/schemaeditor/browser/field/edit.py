@@ -1,46 +1,37 @@
 from Acquisition import aq_parent, aq_inner
-from OFS.SimpleItem import SimpleItem
-from ZPublisher.BaseRequest import DefaultPublishTraverse
 
-from zope.interface import implements
-from zope.publisher.interfaces.browser import IBrowserPublisher
-from zope.cachedescriptors import property
-from zope.schema.interfaces import IBool
+from zope.interface import implements, Interface
+from zope.cachedescriptors.property import Lazy as lazy_property
+from zope.component import adapts
+from zope.schema.interfaces import IField, IBool
+from zope import schema
 
 from z3c.form import form, field, button
 from plone.z3cform import layout
 
-from plone.schemaeditor.interfaces import IFieldContext, IFieldEditForm
+from plone.schemaeditor.interfaces import IFieldEditForm
 from plone.schemaeditor import interfaces
 
-class FieldContext(SimpleItem):
-    """ wrapper for published zope 3 schema fields
-    """
-    implements(IFieldContext, IBrowserPublisher)
+class IFieldTitle(Interface):
+    title = schema.TextLine(
+        title=schema.interfaces.ITextLine['title'].title,
+        description=schema.interfaces.ITextLine['title'].description,
+        default=u"",
+        required=True,
+        )
+
+class FieldTitleAdapter(object):
+    implements(IFieldTitle)
+    adapts(IField)
     
-    def __init__(self, context, request):
-        super(FieldContext, self).__init__()
-        self.field = context
-        self.request = request
-        
-        # make sure breadcrumbs are correct
-        self.id = None
-        self.__name__ = self.field.__name__
-
-    def publishTraverse(self, request, name):
-        """ It's not valid to traverse to anything below a field context.
-        """
-        # hack to make inline validation work
-        # (plone.app.z3cform doesn't know the form is the default view)
-        if name == self.__name__:
-            return EditView(self, request).__of__(self)
-
-        return DefaultPublishTraverse(self, request).publishTraverse(request, name)
-
-    def browserDefault(self, request):
-        """ Really we want to show the field EditView.
-        """
-        return self, ('@@edit',)
+    def __init__(self, field):
+        self.field = field
+    
+    def _read_title(self):
+        return self.field.title
+    def _write_title(self, value):
+        self.field.title = value
+    title = property(_read_title, _write_title)
 
 class FieldEditForm(form.EditForm):
     implements(IFieldEditForm)
@@ -52,18 +43,21 @@ class FieldEditForm(form.EditForm):
     def getContent(self):
         return self.field
     
-    @property.Lazy
+    @lazy_property
     def schema(self):
         return interfaces.IFieldEditFormSchema(self.field)
     
-    @property.Lazy
+    @lazy_property
     def fields(self):
+        # use a custom 'title' field to make sure it is required
+        fields = field.Fields(IFieldTitle)
+        
         # omit the order attribute since it's managed elsewhere
-        fields = field.Fields(self.schema).omit('order')
+        fields += field.Fields(self.schema).omit('order', 'title')
         if self.schema.isOrExtends(IBool):
-            fields = fields.omit('required')
+            fields = fields.omit('required', 'missing_value')
         return fields
-
+    
     @button.buttonAndHandler(u'Save', name='save')
     def handleSave(self, action):
         self.handleApply(self, action)
@@ -85,6 +79,6 @@ class EditView(layout.FormWrapper):
         super(EditView, self).__init__(context, request)
         self.field = context.field
 
-    @property.Lazy
+    @lazy_property
     def label(self):
         return u"Edit Field '%s'" % self.field.__name__

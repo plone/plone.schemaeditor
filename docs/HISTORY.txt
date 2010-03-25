@@ -4,11 +4,27 @@ Changelog
 1.0b1 - unreleased
 ------------------
 
+* Added overlay support to the field edit screens.
+  [limi]
+
+* Revamped UI to show WYSIWYG representation of fields.
+  [davisagli, limi]
+
+* Removed the JavascriptFormWrapper.
+  [davisagli]
+
+* Major package cleanup.
+  [davisagli]
+
 * Omit the 'required' field for Bool fields.
   [davisagli]
 
 * Add the ability to define vocabularies of simple TextLine values.
   Both single and multiple select fields are provided.
+  [rossp]
+
+* Override base field interfaces to get the correct field types for the default
+  and missing_value fields, rather than using the MetaFieldWidgetFactory.
   [rossp]
 
 * Make sure that normalized ids for new fields use _ instead of -, so that they
@@ -34,6 +50,7 @@ Changelog
 
 * CSS tweaks
   [davisagli]
+
 
 1.0a2 - 2009-07-12
 ------------------

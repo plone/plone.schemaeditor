@@ -13,9 +13,9 @@ introspecting the interfaces provided by the field looking for the
 first which is or extends zope.schema.interfaces.IField.
 
     >>> from zope import schema
-    >>> from plone.schemaeditor.browser.field import edit
+    >>> from plone.schemaeditor.browser.field import traversal, edit
     >>> field = schema.Field()
-    >>> context = edit.FieldContext(field, None)
+    >>> context = traversal.FieldContext(field, None)
     >>> form = edit.FieldEditForm(context, None)
     >>> form.schema
     <InterfaceClass zope.schema.interfaces.IField>
@@ -26,7 +26,7 @@ field classes implement schemata with correct default and
 missing_value types.
 
     >>> field = schema.Text()
-    >>> context = edit.FieldContext(field, None)
+    >>> context = traversal.FieldContext(field, None)
     >>> form = edit.FieldEditForm(context, None)
     >>> form.schema
     <InterfaceClass plone.schemaeditor.schema.IText>
@@ -34,7 +34,7 @@ missing_value types.
     <zope.schema._bootstrapfields.Text object at ...>
 
     >>> field = schema.TextLine()
-    >>> context = edit.FieldContext(field, None)
+    >>> context = traversal.FieldContext(field, None)
     >>> form = edit.FieldEditForm(context, None)
     >>> form.schema
     <InterfaceClass plone.schemaeditor.schema.ITextLine>
@@ -42,7 +42,7 @@ missing_value types.
     <zope.schema._bootstrapfields.TextLine object at ...>
 
     >>> field = schema.Datetime()
-    >>> context = edit.FieldContext(field, None)
+    >>> context = traversal.FieldContext(field, None)
     >>> form = edit.FieldEditForm(context, None)
     >>> form.schema
     <InterfaceClass plone.schemaeditor.schema.IDatetime>
@@ -52,7 +52,7 @@ missing_value types.
 The Datetime fields also have corrected min/max field types.
 
     >>> field = schema.Datetime()
-    >>> context = edit.FieldContext(field, None)
+    >>> context = traversal.FieldContext(field, None)
     >>> form = edit.FieldEditForm(context, None)
     >>> form.schema['min']
     <zope.schema._field.Datetime object at ...>
@@ -62,7 +62,7 @@ The Datetime fields also have corrected min/max field types.
 The Bool edit form omits the 'required' field.
 
     >>> field = schema.Bool()
-    >>> context = edit.FieldContext(field, None)
+    >>> context = traversal.FieldContext(field, None)
     >>> form = edit.FieldEditForm(context, None)
     >>> 'required' in form.fields
     False

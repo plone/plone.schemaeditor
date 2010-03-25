@@ -28,19 +28,19 @@ Open the schema editor in the browser.
 
 Add a Choice field.
 
-    >>> browser.getControl('Field title').value = 'Country'
+    >>> browser.getControl('Add new field').click()
+    >>> browser.getControl('Title').value = 'Country'
+    >>> browser.getControl('Short Name').value = 'country'
     >>> browser.getControl('Field type').getControl(
     ...     value='Choice').selected = True
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on Choice]
-    >>> print browser.contents
-    <...
-            <div class="portalMessage">Item added successfully.</div>
-    ...
+    >>> browser.url
+    'http://nohost/@@schemaeditor'
 
 Open the new fields edit form.
 
-    >>> browser.getLink('Country').click()
+    >>> browser.getLink(url='country').click()
 
 The edit form for choice fields includes a widget for specifying the
 vocabulary.
@@ -109,19 +109,19 @@ Open the schema editor in the browser.
 
 Add a Choice field.
 
-    >>> browser.getControl('Field title').value = 'Categories'
+    >>> browser.getControl('Add new field').click()
+    >>> browser.getControl('Title').value = 'Categories'
+    >>> browser.getControl('Short Name').value = 'categories'
     >>> browser.getControl('Field type').getControl(
     ...     'Multiple Choice').selected = True
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on List]
-    >>> print browser.contents
-    <...
-            <div class="portalMessage">Item added successfully.</div>
-    ...
+    >>> browser.url
+    'http://nohost/@@schemaeditor'
 
 Open the new fields edit form.
 
-    >>> browser.getLink('Categories').click()
+    >>> browser.getLink(url='categories').click()
 
 The edit form for choice fields includes a widget for specifying the
 vocabulary.

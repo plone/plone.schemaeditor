@@ -10,6 +10,9 @@
         class=".edit.EditView"
         permission="plone.schemaeditor.ManageSchemata" />
         
+    <adapter
+        factory=".edit.FieldTitleAdapter" />
+        
     <browser:page
         name="order"
         for="...interfaces.IFieldContext"
@@ -26,20 +29,4 @@
         permission="plone.schemaeditor.ManageSchemata"
         />
         
-    <browser:page
-        name="move-up"
-        for="...interfaces.IFieldContext"
-        class=".order.FieldOrderView"
-        attribute="moveUp"
-        permission="plone.schemaeditor.ManageSchemata"
-        />
-    
-    <browser:page
-        name="move-down"
-        for="...interfaces.IFieldContext"
-        class=".order.FieldOrderView"
-        attribute="moveDown"
-        permission="plone.schemaeditor.ManageSchemata"
-        />
-
 </configure>

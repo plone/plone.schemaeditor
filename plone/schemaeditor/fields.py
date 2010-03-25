@@ -1,10 +1,13 @@
 from zope import interface
+from zope.component import getUtilitiesFor
 from zope.interface import implements
+from zope.i18n import translate
 from zope import schema
 from zope.schema import interfaces as schema_ifaces
 from zope.schema import vocabulary
 from z3c.form import validator
-from interfaces import IFieldFactory
+from zope.schema.vocabulary import SimpleVocabulary
+from plone.schemaeditor.interfaces import IFieldFactory
 from plone.schemaeditor import SchemaEditorMessageFactory as _
 
 from plone.schemaeditor import interfaces
@@ -32,6 +35,12 @@ class FieldFactory(object):
         kwargs = self.kw.copy()
         kwargs.update(**kw)
         return self.fieldcls(*(self.args+args), **kwargs)
+
+def FieldsVocabularyFactory(context):
+    field_factories = getUtilitiesFor(IFieldFactory)
+    titled_factories = [(translate(factory.title), factory) for (id, factory) in field_factories]
+    items = sorted(titled_factories, key=lambda x: x[0])
+    return SimpleVocabulary.fromItems(items)
 
 TextLineFactory = FieldFactory(schema.TextLine, _(u'label_textline_field', default=u'Text line (String)'))
 TextFactory = FieldFactory(schema.Text, _(u'label_text_field', default=u'Text'))

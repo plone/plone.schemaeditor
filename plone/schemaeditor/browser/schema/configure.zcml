@@ -4,18 +4,22 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="plone.schemaeditor">
 
-  <adapter factory=".schema.FieldNameProperty" />
-
-    <browser:page
-        name="edit"
-        for="plone.schemaeditor.interfaces.ISchemaContext"
-        class=".schema.SchemaListingPage"
-        permission="plone.schemaeditor.ManageSchemata" />
-        
-    <utility
-        component=".schema.FieldsVocabularyFactory"
-        provides="zope.schema.interfaces.IVocabularyFactory"
-        name="Fields"
-        />
+  <browser:page
+      name="edit"
+      for="plone.schemaeditor.interfaces.ISchemaContext"
+      class=".listing.SchemaListingPage"
+      permission="plone.schemaeditor.ManageSchemata" />
+  
+  <browser:page
+    name="add-field"
+    for="plone.schemaeditor.interfaces.ISchemaContext"
+    class=".add_field.FieldAddFormPage"
+    permission="plone.schemaeditor.ManageSchemata"
+    />
+  
+  <browser:resource
+    name="schemaeditor.js"
+    file="schemaeditor.js"
+    />
 
 </configure>

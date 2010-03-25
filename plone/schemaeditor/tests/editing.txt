@@ -39,13 +39,14 @@ Adding a field
 
 Let's add a 'favorite-color' field to the IDummySchema schema::
 
-    >>> browser.getControl('Field title').value = 'Favorite Color'
-    >>> browser.getControl('Field type').getControl(
-    ...     'Text line (String)').selected = True
+    >>> browser.getControl('Add new field').click()
+    >>> browser.getControl('Title').value = 'Favorite Color'
+    >>> browser.getControl('Short Name').value = 'favorite_color'
+    >>> browser.getControl('Field type').value = ['Text line (String)']
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on TextLine]
-    >>> 'Item added successfully.' in browser.contents
-    True
+    >>> browser.url
+    'http://nohost/@@schemaeditor'
 
 Now the actual IDummySchema schema should have the new field (the field id is a
 normalized form of the title)::
@@ -65,7 +66,7 @@ Editing a schema field attribute
 
 Let's navigate to the 'favorite-color' field we just created::
 
-    >>> browser.getLink('Color').click()
+    >>> browser.getLink('Settings', index=5).click()
     >>> browser.url
     'http://nohost/@@schemaeditor/favorite_color'
     >>> "Edit Field 'favorite_color'" in browser.contents
@@ -91,7 +92,7 @@ Let's confirm that the new default value was correctly saved to the actual schem
 
 Let's go back and try to make an invalid change.  The form won't let us::
 
-    >>> browser.getLink('Color').click()
+    >>> browser.getLink('Settings', index=5).click()
     >>> browser.url
     'http://nohost/@@schemaeditor/favorite_color'
     >>> browser.getControl('Minimum length').value = 'asdf'
@@ -99,6 +100,17 @@ Let's go back and try to make an invalid change.  The form won't let us::
     >>> browser.url
     'http://nohost/@@schemaeditor/favorite_color/@@edit'
     >>> 'The entered value is not a valid integer literal.' in browser.contents
+    True
+
+We also cannot set the field title to an empty string, even though the field is
+not required in zope.schema.interfaces.IField::
+
+    >>> browser.open('http://nohost/@@schemaeditor/favorite_color')
+    >>> browser.getControl('Title').value = ''
+    >>> browser.getControl('Save').click()
+    >>> browser.url
+    'http://nohost/@@schemaeditor/favorite_color/@@edit'
+    >>> 'Required input is missing.' in browser.contents
     True
 
 We can give up and hit the Cancel button, which should take us back to the schema listing,
@@ -142,41 +154,14 @@ algorithm that we need to test)::
     'favorite_color'
 
 
-Renaming a field
-----------------
-
-We can change the id of the field using the textbox on the schema edit page::
-
-    >>> browser.open('http://nohost/@@schemaeditor')
-    >>> browser.getControl(name='crud-edit.favorite_color.widgets.__name__').value = 'hue'
-    >>> browser.getControl('Apply changes').click()
-    [event: ObjectMovedEvent on TextLine]
-    [event: ObjectModifiedEvent on TextLine]
-    >>> 'Successfully updated' in browser.contents
-    True
-
-And confirm that the real schema was updated, keeping the field in the same position::
-
-    >>> 'favorite_color' in IDummySchema
-    False
-    >>> 'hue' in IDummySchema
-    True
-    >>> IDummySchema['hue'].__name__
-    'hue'
-    >>> getFieldsInOrder(IDummySchema)[0][0]
-    'hue'
-
-
 Removing a field
 ----------------
 
 We can also remove a field::
 
-    >>> browser.getControl(name='crud-edit.hue.widgets.select:list').value = ['0']
-    >>> browser.getControl('Delete').click()
+    >>> browser.open('http://nohost/@@schemaeditor')
+    >>> browser.getLink(url='@@delete', index=5).click()
     [event: ObjectRemovedEvent on TextLine]
-    >>> 'Successfully deleted items.' in browser.contents
-    True
 
 And confirm that the real schema was updated::
 
@@ -195,24 +180,28 @@ and saved.
     >>> from plone.schemaeditor import interfaces
     >>> normalizer = component.getUtility(IIDNormalizer)
     >>> schema = IDummySchema
-    >>> for name, factory in sorted(component.getUtilitiesFor(
-    ...     interfaces.IFieldFactory)):
+    >>> start_field_count = len(IDummySchema.names())
+    >>> for i, (name, factory) in enumerate(sorted(component.getUtilitiesFor(
+    ...     interfaces.IFieldFactory))):
     ...     browser.open(portal_url + '/@@schemaeditor')
-    ...     browser.getControl('Field title').value = name
+    ...     browser.getControl('Add new field').click()
+    ...     browser.getControl('Title').value = name
+    ...     field_id = normalizer.normalize(name).replace('-', '_')
+    ...     browser.getControl('Short Name').value = field_id
     ...     browser.getControl('Field type').getControl(
     ...         value=getattr(factory.title, 'default', factory.title)
     ...         ).selected = True
     ...     browser.getControl('Add').click()
-    ...     assert 'Item added successfully.' in browser.contents, (
-    ...         'No success message for adding %r' % name)
-    ...     field_name = normalizer.normalize(name).replace('-', '_')
-    ...     assert field_name in schema, '%r not in %r' % (
-    ...         field_name, schema)
+    ...     assert browser.url == portal_url + '/@@schemaeditor', (
+    ...         'Failed to create %r' % name)
+    ...     assert field_id in schema, '%r not in %r' % (
+    ...         field_id, schema)
     ...     assert factory.fieldcls._type is None or isinstance(
-    ...         schema[field_name], factory.fieldcls
+    ...         schema[field_id], factory.fieldcls
     ...         ), '%r is not an instance of %r' % (
-    ...             schema[field_name], factory.fieldcls)
-    ...     browser.getLink(name).click()
+    ...             schema[field_id], factory.fieldcls)
+    ...     browser.getLink('Settings', index=i + start_field_count).click()
+    ...     browser.getControl('Title').value += ' '
     ...     browser.getControl('Save').click()
     [event: ObjectAddedEvent on Bool]
     [event: ObjectModifiedEvent on Bool]
