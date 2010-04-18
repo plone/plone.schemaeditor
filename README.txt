@@ -28,8 +28,9 @@ The following field types (from zope.schema) are currently supported:
  * Float
  * Bool
  * Password
- * Bytes
  * Datetime
+ * Choice (with simple list of values)
+ * List of Choice (with simple list of values)
 
 Third-party packages can make additional field types available by registering
 new IFieldFactory utilities.
@@ -37,8 +38,7 @@ new IFieldFactory utilities.
 Dependencies
 ============
 
-* Zope 2 (Though the actual forms are z3c.form-based and not Zope 2 dependent, so it shouldn't take
-  too much work to refactor to work in Zope 3 as well.)
+* Zope 2
 * z3c.form
 * plone.z3cform
 
@@ -57,3 +57,4 @@ Thanks to:
  * Nathan Van Gheem
  * Martin Aspeli
  * Alex Limi
+ * Ross Patterson

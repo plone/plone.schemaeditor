@@ -1,13 +1,12 @@
 from setuptools import setup, find_packages
-import os
 
 version = '1.0a4'
 
 setup(name='plone.schemaeditor',
       version=version,
       description="Provides through-the-web editing of a zope 3 schema/interface.",
-      long_description=open(os.path.join('plone', 'schemaeditor', "README.txt")).read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+      long_description=open("README.txt").read() + "\n" +
+                       open("CHANGES.txt").read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Zope2",
@@ -17,7 +16,7 @@ setup(name='plone.schemaeditor',
         ],
       keywords='plone schema ttw',
       author='David Glick',
-      author_email='davidglick@onenw.org',
+      author_email='dglick@gmail.com',
       url='http://svn.plone.org/svn/plone/plone.schemaeditor',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
