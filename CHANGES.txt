@@ -1,11 +1,11 @@
 Changelog
 =========
 
-1.0b1 - unreleased
+1.0b1 - 2010-04-18
 ------------------
 
 * Added overlay support to the field edit screens.
-  [limi]
+  [davisagli, limi]
 
 * Revamped UI to show WYSIWYG representation of fields.
   [davisagli, limi]
@@ -16,7 +16,7 @@ Changelog
 * Major package cleanup.
   [davisagli]
 
-* Omit the 'required' field for Bool fields.
+* Omit the 'required' and 'missing_value' fields for Bool fields.
   [davisagli]
 
 * Add the ability to define vocabularies of simple TextLine values.
