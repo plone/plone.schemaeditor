@@ -42,7 +42,10 @@ def FieldsVocabularyFactory(context):
     items = sorted(titled_factories, key=lambda x: x[0])
     return SimpleVocabulary.fromItems(items)
 
+# TextLineFactory is the default. We need to set that here to avoid a circular import.
 TextLineFactory = FieldFactory(schema.TextLine, _(u'label_textline_field', default=u'Text line (String)'))
+interfaces.INewField['factory'].__dict__['default'] = TextLineFactory
+
 TextFactory = FieldFactory(schema.Text, _(u'label_text_field', default=u'Text'))
 IntFactory = FieldFactory(schema.Int, _(u'label_integer_field', default=u'Integer'))
 FloatFactory = FieldFactory(schema.Float, _(u'label_float_field', default=u'Floating-point number'))

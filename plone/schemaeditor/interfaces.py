@@ -5,6 +5,7 @@ from zope.schema.interfaces import IField
 from z3c.form.interfaces import IEditForm
 from OFS.interfaces import IItem
 
+
 class ISchemaView(IBrowserPage):
     """ A publishable view of a zope 3 schema
     """
@@ -74,5 +75,8 @@ class INewField(Interface):
     factory = Choice(
         title=u"Field type",
         vocabulary="Fields",
-        required=True
+        required=True,
+        # This can't be done yet or we'll create circular import problem.
+        # So it will be injected from fields.py
+        # default=TextLineFactory,
         )
