@@ -3,11 +3,15 @@ from zope.schema import interfaces
 from zope import schema
 
 try:
-    from collective.z3cform.datetimewidget.interfaces import (
-        IDatetimeField as IDatetime)
+    from plone.app.z3cform.widget import IDatetimeField as IDatetime
     IDatetime # pyflakes
 except ImportError:
-    IDatetime = interfaces.IDatetime
+    try:
+        from collective.z3cform.datetimewidget.interfaces import (
+                IDatetimeField as IDatetime)
+        IDatetime # pyflakes
+    except ImportError:
+        IDatetime = interfaces.IDatetime
 
 from plone.schemaeditor import SchemaEditorMessageFactory as _
 

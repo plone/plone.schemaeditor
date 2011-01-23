@@ -1,8 +1,12 @@
 Changelog
 =========
 
-1.0b2 - unreleased
+1.0b2 - 2011-01-22
 ------------------
+
+* Add another possible base to try for our fixed IDatetime, since
+  plone.app.z3cform may change which one takes precedence.
+  [davisagli]
 
 * Default to adding Textline fields.
   [davisagli]
