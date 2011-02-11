@@ -11,7 +11,7 @@ selected.
 Log in as a user who can edit content type schemata and open the
 schema editor.
 
-    >>> app.acl_users.userFolderAddUser(
+    >>> user = app.acl_users.userFolderAddUser(
     ...     'root', 'secret', ['Manager'], [])
 
     >>> from Products.Five import testbrowser

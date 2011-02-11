@@ -24,7 +24,7 @@ error::
     
 We need to log in as a manager, because by default only managers get the 'Manage Schemata' permission::
 
-    >>> self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
+    >>> user = self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
     >>> browser.addHeader('Authorization', 'Basic root:secret')
 
 Now we should be able to navigate to the IDummySchema schema in the browser::
