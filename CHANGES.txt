@@ -4,6 +4,9 @@ Changelog
 1.0b3 - unreleased
 ------------------
 
+* jslintify schemaeditor.js
+  [smcmahon]
+
 * Honor cancel button in field editor popup.
   [smcmahon]
 
