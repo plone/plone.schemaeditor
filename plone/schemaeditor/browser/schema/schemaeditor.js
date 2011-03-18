@@ -77,7 +77,8 @@ $(document).ready(function() {
     $('a.fieldSettings').prepOverlay(
         {
             subtype: 'ajax',
-            filter: common_content_filter
+            filter: common_content_filter,
+            closeselector: 'input[name=form.buttons.cancel]'
         }
     );
 
