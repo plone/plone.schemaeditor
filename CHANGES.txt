@@ -4,6 +4,10 @@ Changelog
 1.0b3 - unreleased
 ------------------
 
+* Change js event used to dynamically set id from title from keyup to change;
+  autocompletion does not raise a keyup event, but does fire change.
+  [smcmahon]
+
 * jslintify schemaeditor.js
   [smcmahon]
 

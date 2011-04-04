@@ -112,7 +112,7 @@
         );
 
         // set id from title
-        $('#form-widgets-title').live('keyup', function () {
+        $('#form-widgets-title').live('change', function () {
             var val = $(this).val().toLowerCase().replace(/[^A-Za-z0-9_]/g, '_');
             $('#form-widgets-__name__').val(val);
         });
