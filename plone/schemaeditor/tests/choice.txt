@@ -70,7 +70,7 @@ For now, the default and missing_value fields are TextLine fields.
 Enter unique values and save the field settings.
 
     >>> browser.getControl('Vocabulary').value = '\n'.join(
-    ...     ['Alaska', 'Russia', 'United States', 'Other'])
+    ...     ['Alaska', 'Russia', 'United States', "C\xc3\xb4te d'Ivoire", 'Other'])
     >>> browser.getControl('Save').click()
     [event: ObjectModifiedEvent on Choice]
 

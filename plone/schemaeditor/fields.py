@@ -76,8 +76,15 @@ class TextLineChoiceField(object):
 
     def __setattr__(self, name, value):
         if name == 'values':
-            self.field.vocabulary = (
-                vocabulary.SimpleVocabulary.fromValues(value or []))
+            terms = []
+            if value:
+                for value in value:
+                    term = vocabulary.SimpleTerm(
+                        token=value.encode('unicode_escape'),
+                        value=value, title=value)
+                    terms.append(term)
+            vocab = vocabulary.SimpleVocabulary(terms)
+            return setattr(self.field, 'vocabulary', vocab)
         return setattr(self.field, name, value)
 
     def __delattr__(self, name):
@@ -99,7 +106,8 @@ class VocabularyValuesValidator(validator.SimpleFieldValidator):
         by_value = {}
         by_token = {}
         for value in values:
-            term = vocabulary.SimpleVocabulary.createTerm(value)
+            term = vocabulary.SimpleTerm(token=value.encode('unicode_escape'),
+                                         value=value, title=value)
             if term.value in by_value:
                 raise interface.Invalid(
                     u"The '%s' vocabulary value conflicts with '%s'."
