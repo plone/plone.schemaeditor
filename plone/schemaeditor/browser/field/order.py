@@ -3,6 +3,8 @@ from plone.schemaeditor.interfaces import IEditableSchema
 from zope.app.container.contained import notifyContainerModified
 from zope.event import notify
 from zope.app.container.contained import ObjectRemovedEvent
+from plone.schemaeditor.utils import SchemaModifiedEvent
+
 
 class FieldOrderView(BrowserView):
     
@@ -20,6 +22,7 @@ class FieldOrderView(BrowserView):
         fieldname = self.field.__name__
         schema.moveField(fieldname, int(pos))
         notifyContainerModified(self.schema)
+        notify(SchemaModifiedEvent(self.context.aq_parent))
 
     def delete(self):
         """
@@ -28,4 +31,5 @@ class FieldOrderView(BrowserView):
         schema = IEditableSchema(self.schema)
         schema.removeField(self.field.getName())
         notify(ObjectRemovedEvent(self.field, self.schema))
+        notify(SchemaModifiedEvent(self.context.aq_parent))
         self.request.response.setHeader('Content-Type', 'text/html')

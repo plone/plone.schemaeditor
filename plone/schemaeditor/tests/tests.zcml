@@ -29,6 +29,11 @@
              zope.app.container.interfaces.IContainerModifiedEvent"
         handler=".fixtures.log_event"
         />
+    <subscriber
+        for="plone.schemaeditor.interfaces.ISchemaContext
+             plone.schemaeditor.interfaces.ISchemaModifiedEvent"
+        handler=".fixtures.log_event"
+        />
 
     <!-- use a form layout that doesn't pull in main_template -->
     <adapter factory=".tests.layout_factory"/>

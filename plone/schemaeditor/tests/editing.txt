@@ -45,6 +45,7 @@ Let's add a 'favorite-color' field to the IDummySchema schema::
     >>> browser.getControl('Field type').value = ['Text line (String)']
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on TextLine]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     >>> browser.url
     'http://nohost/@@schemaeditor'
 
@@ -82,6 +83,7 @@ of schema fields, which should reflect the change::
 
     >>> browser.getControl('Save').click()
     [event: ObjectModifiedEvent on TextLine]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     >>> browser.url
     'http://nohost/@@schemaeditor'
     
@@ -137,6 +139,7 @@ testbrowser doesn't support Javascript)::
 
     >>> browser.open('http://nohost/@@schemaeditor/favorite_color/@@order?pos=2')
     [event: ContainerModifiedEvent on InterfaceClass]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     >>> browser.contents
     ''
 
@@ -150,6 +153,7 @@ algorithm that we need to test)::
 
     >>> browser.open('http://nohost/@@schemaeditor/favorite_color/@@order?pos=0')
     [event: ContainerModifiedEvent on InterfaceClass]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     >>> getFieldsInOrder(IDummySchema)[0][0]
     'favorite_color'
 
@@ -162,6 +166,7 @@ We can also remove a field::
     >>> browser.open('http://nohost/@@schemaeditor')
     >>> browser.getLink(url='favorite_color/@@delete').click()
     [event: ObjectRemovedEvent on TextLine]
+    [event: SchemaModifiedEvent on DummySchemaContext]
 
 And confirm that the real schema was updated::
 
@@ -204,20 +209,38 @@ and saved.
     ...     browser.getControl('Title').value += ' '
     ...     browser.getControl('Save').click()
     [event: ObjectAddedEvent on Bool]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectModifiedEvent on Bool]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectAddedEvent on Int]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectModifiedEvent on Int]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectAddedEvent on Password]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectModifiedEvent on Password]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectAddedEvent on Text]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectModifiedEvent on Text]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectAddedEvent on TextLine]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectModifiedEvent on TextLine]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectAddedEvent on Choice]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectModifiedEvent on Choice]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectAddedEvent on Datetime]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectModifiedEvent on Datetime]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectAddedEvent on Float]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectModifiedEvent on Float]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectAddedEvent on List]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectModifiedEvent on List]
+    [event: SchemaModifiedEvent on DummySchemaContext]

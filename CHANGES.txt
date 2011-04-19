@@ -4,6 +4,12 @@ Changelog
 1.0b3 - unreleased
 ------------------
 
+* In addition to the normal object events raised when fields are added, edited,
+  and removed, raise a SchemaModifiedEvent on the schema context. This greatly
+  simplifies writing code to serialize schema changes, and helps with keeping
+  track of the schema origin so that we know where to serialize it.
+  [davisagli]
+
 * Support non-ASCII characters in vocabularies for Choice fields.
   [davisagli]
 

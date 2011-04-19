@@ -1,3 +1,4 @@
+from zope.component.interfaces import IObjectEvent
 from zope.interface.interfaces import Interface, IInterface
 from zope.publisher.interfaces.browser import IBrowserPage
 from zope.schema import Object, TextLine, Text, Choice, ASCIILine
@@ -16,6 +17,12 @@ class ISchemaContext(IItem):
 
     schema = Object(
         schema = IInterface
+        )
+
+class ISchemaModifiedEvent(IObjectEvent):
+    
+    object = Object(
+        schema = ISchemaContext
         )
 
 class IFieldContext(IItem):

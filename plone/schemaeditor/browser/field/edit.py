@@ -3,6 +3,7 @@ from Acquisition import aq_parent, aq_inner
 from zope.interface import implements, Interface
 from zope.cachedescriptors.property import Lazy as lazy_property
 from zope.component import adapts
+from zope.event import notify
 from zope.schema.interfaces import IField, IBool
 from zope import schema
 
@@ -11,6 +12,8 @@ from plone.z3cform import layout
 
 from plone.schemaeditor.interfaces import IFieldEditForm
 from plone.schemaeditor import interfaces
+from plone.schemaeditor.utils import SchemaModifiedEvent
+
 
 class IFieldTitle(Interface):
     title = schema.TextLine(
@@ -62,6 +65,7 @@ class FieldEditForm(form.EditForm):
     def handleSave(self, action):
         self.handleApply(self, action)
         if self.status != self.formErrorsMessage:
+            notify(SchemaModifiedEvent(self.context.aq_parent))
             self.redirectToParent()
 
     @button.buttonAndHandler(u'Cancel', name='cancel')

@@ -1,8 +1,11 @@
 from zope.interface import implements
 from zope.interface.interfaces import IInterface
 from zope.component import adapts
+from zope.component.interfaces import ObjectEvent
 from zope.schema.interfaces import IField
 from plone.schemaeditor.interfaces import IEditableSchema
+from plone.schemaeditor.interfaces import ISchemaModifiedEvent
+
 
 def sortedFields(schema):
     """ Like getFieldsInOrder, but does not include fields from bases
@@ -95,3 +98,7 @@ class EditableSchema(object):
             field.order = prev_order
             prev_order = order_buffer
         moving_field.order = prev_order
+
+
+class SchemaModifiedEvent(ObjectEvent):
+    implements(ISchemaModifiedEvent)

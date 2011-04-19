@@ -35,6 +35,7 @@ Add a Choice field.
     ...     value='Choice').selected = True
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on Choice]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     >>> browser.url
     'http://nohost/@@schemaeditor'
 
@@ -73,6 +74,7 @@ Enter unique values and save the field settings.
     ...     ['Alaska', 'Russia', 'United States', "C\xc3\xb4te d'Ivoire", 'Other'])
     >>> browser.getControl('Save').click()
     [event: ObjectModifiedEvent on Choice]
+    [event: SchemaModifiedEvent on DummySchemaContext]
 
 When the edit form for the content type is loaded, the vocabulary
 values specified can be selected.
@@ -116,6 +118,7 @@ Add a Choice field.
     ...     'Multiple Choice').selected = True
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on List]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     >>> browser.url
     'http://nohost/@@schemaeditor'
 
@@ -153,6 +156,7 @@ Enter unique values and save the field settings.
     ...     ['Plone', 'Python', 'Lisp'])
     >>> browser.getControl('Save').click()
     [event: ObjectModifiedEvent on List]
+    [event: SchemaModifiedEvent on DummySchemaContext]
 
 When the edit form for the content type is loaded, the vocabulary
 values specified can be selected.
