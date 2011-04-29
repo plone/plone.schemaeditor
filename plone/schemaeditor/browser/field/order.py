@@ -22,7 +22,7 @@ class FieldOrderView(BrowserView):
         fieldname = self.field.__name__
         schema.moveField(fieldname, int(pos))
         notifyContainerModified(self.schema)
-        notify(SchemaModifiedEvent(self.context.aq_parent))
+        notify(SchemaModifiedEvent(self.aq_parent.aq_parent))
 
     def delete(self):
         """
@@ -31,5 +31,5 @@ class FieldOrderView(BrowserView):
         schema = IEditableSchema(self.schema)
         schema.removeField(self.field.getName())
         notify(ObjectRemovedEvent(self.field, self.schema))
-        notify(SchemaModifiedEvent(self.context.aq_parent))
+        notify(SchemaModifiedEvent(self.aq_parent.aq_parent))
         self.request.response.setHeader('Content-Type', 'text/html')
