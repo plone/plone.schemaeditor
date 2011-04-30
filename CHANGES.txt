@@ -1,12 +1,12 @@
 Changelog
 =========
 
-1.0b3 - unreleased
-------------------
+1.0 - 2011-04-30
+----------------
 
 * In addition to the normal object events raised when fields are added, edited,
   and removed, raise a SchemaModifiedEvent on the schema context. This greatly
-  simplifies writing code to serialize schema changes, and helps with keeping
+  simplifies writing code to serialize schema changes, and makes it possible to
   track of the schema origin so that we know where to serialize it.
   [davisagli]
 
