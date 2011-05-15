@@ -33,7 +33,6 @@ setup(name='plone.schemaeditor',
           'zope.app.schema',
           'z3c.form',
           'plone.z3cform',
-          'plone.i18n',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

@@ -181,9 +181,7 @@ Demonstrate that all the registered field types can be added edited
 and saved.
 
     >>> from zope import component
-    >>> from plone.i18n.normalizer.interfaces import IIDNormalizer
     >>> from plone.schemaeditor import interfaces
-    >>> normalizer = component.getUtility(IIDNormalizer)
     >>> schema = IDummySchema
     >>> start_field_count = len(IDummySchema.names())
     >>> for name, factory in sorted(component.getUtilitiesFor(
@@ -191,7 +189,7 @@ and saved.
     ...     browser.open(portal_url + '/@@schemaeditor')
     ...     browser.getControl('Add new field').click()
     ...     browser.getControl('Title').value = name
-    ...     field_id = normalizer.normalize(name).replace('-', '_')
+    ...     field_id = name.replace('-', '_')
     ...     browser.getControl('Short Name').value = field_id
     ...     browser.getControl('Field type').getControl(
     ...         value=getattr(factory.title, 'default', factory.title)
