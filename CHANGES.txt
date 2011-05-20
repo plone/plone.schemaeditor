@@ -1,8 +1,12 @@
 Changelog
 =========
 
-1.0.1 - unreleased
+1.0.1 - 2011-05-20
 ------------------
+
+* Relicense under the BSD license.
+  See http://plone.org/foundation/materials/foundation-resolutions/plone-framework-components-relicensing-policy
+  [davisagli]
 
 * On multiple choice fields (List of Choice), read/write attributes other than
   ``values`` in the correct place (on the List rather than its value_type

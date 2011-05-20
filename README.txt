@@ -44,6 +44,8 @@ Dependencies
 
 Despite the namespace, Plone is not a dependency.
 
+Note: This package is released under a BSD license. Contributors, please do not
+add dependencies on GPL code.
 
 Credits
 =======
@@ -58,3 +60,4 @@ Thanks to:
  * Martin Aspeli
  * Alex Limi
  * Ross Patterson
+ * Steve McMahon
