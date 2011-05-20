@@ -74,16 +74,19 @@ class TextLineChoiceField(object):
             return [term.value for term in self.field.vocabulary]
         return getattr(self.field, name)
 
+    def _constructVocabulary(self, value):
+        terms = []
+        if value:
+            for value in value:
+                term = vocabulary.SimpleTerm(
+                    token=value.encode('unicode_escape'),
+                    value=value, title=value)
+                terms.append(term)
+        return vocabulary.SimpleVocabulary(terms)
+
     def __setattr__(self, name, value):
         if name == 'values':
-            terms = []
-            if value:
-                for value in value:
-                    term = vocabulary.SimpleTerm(
-                        token=value.encode('unicode_escape'),
-                        value=value, title=value)
-                    terms.append(term)
-            vocab = vocabulary.SimpleVocabulary(terms)
+            vocab = self._constructVocabulary(value)
             return setattr(self.field, 'vocabulary', vocab)
         return setattr(self.field, name, value)
 
@@ -136,4 +139,15 @@ class TextLineMultiChoiceField(TextLineChoiceField):
     component.adapts(schema_ifaces.IList)
 
     def __init__(self, field):
-        self.__dict__['field'] = field.value_type
+        self.__dict__['field'] = field
+
+    def __getattr__(self, name):
+        if name == 'values':
+            return [term.value for term in self.field.value_type.vocabulary]
+        return getattr(self.field, name)
+
+    def __setattr__(self, name, value):
+        if name == 'values':
+            vocab = self._constructVocabulary(value)
+            return setattr(self.field.value_type, 'vocabulary', vocab)
+        return setattr(self.field, name, value)

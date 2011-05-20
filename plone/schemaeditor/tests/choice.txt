@@ -154,6 +154,7 @@ Enter unique values and save the field settings.
 
     >>> browser.getControl('Vocabulary').value = '\n'.join(
     ...     ['Plone', 'Python', 'Lisp'])
+    >>> browser.getControl('Default').value = 'Plone'
     >>> browser.getControl('Save').click()
     [event: ObjectModifiedEvent on List]
     [event: SchemaModifiedEvent on DummySchemaContext]
@@ -165,20 +166,16 @@ values specified can be selected.
     >>> from_ctl = browser.getControl(name="form.widgets.categories.from")
     >>> from_ctl
     <ListControl name='form.widgets.categories.from' type='select'>
-    >>> item = from_ctl.getControl('Plone')
-    >>> item
-    <ItemControl name='form.widgets.categories.from' type='select'
-    optionValue='Plone' selected=False>
-
     >>> to_ctl = browser.getControl(name="form.widgets.categories.to")
-    >>> to_ctl.mech_control.items.append(item.mech_item)
-    >>> to_ctl.getControl(item.optionValue).selected = True
+    >>> item = to_ctl.getControl('Plone')
+    >>> item
+    <ItemControl name='form.widgets.categories.to' type='select'
+    optionValue='Plone' selected=False>
 
     >>> item = from_ctl.getControl('Python')
     >>> to_ctl.mech_control.items.append(item.mech_item)
-    >>> to_ctl.getControl(item.optionValue).selected = True
 
     >>> from_ctl.getControl('Lisp').selected
     False
-    >>> to_ctl.value
+    >>> to_ctl.options
     ['Plone', 'Python']

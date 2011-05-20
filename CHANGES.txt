@@ -4,6 +4,11 @@ Changelog
 1.0.1 - unreleased
 ------------------
 
+* On multiple choice fields (List of Choice), read/write attributes other than
+  ``values`` in the correct place (on the List rather than its value_type
+  Choice).
+  [davisagli]
+
 * Remove unneeded dependency on plone.i18n.
   [davisagli]
 

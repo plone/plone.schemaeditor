@@ -184,7 +184,7 @@ class IList(IListBase, interfaces.IList):
 
 class ITextLineMultiChoice(IListBase, ITextLineChoiceBase):
     """
-    A multuple choice field with user entered vocabulary values.
+    A multiple choice field with user entered vocabulary values.
     """
 
     default = schema.List(
