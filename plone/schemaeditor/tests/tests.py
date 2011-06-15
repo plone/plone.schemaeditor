@@ -14,7 +14,13 @@ def setUp(self):
     try:
         from Zope2.App.schema import configure_vocabulary_registry
     except ImportError:
-        pass
+        try:
+            from zope.schema.vocabulary import setVocabularyRegistry
+            from Products.Five.schema import Zope2VocabularyRegistry
+        except ImportError:
+            pass
+        else:
+            setVocabularyRegistry(Zope2VocabularyRegistry())
     else:
         configure_vocabulary_registry()
 
