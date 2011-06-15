@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.2 - unreleased
+1.0.2 - 2011-06-14
 ------------------
 
 * Make FieldFactory do a deep copy of its arguments to avoid problems with
