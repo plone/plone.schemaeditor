@@ -1,7 +1,6 @@
 import unittest
 import doctest
 from Testing import ZopeTestCase as ztc
-import Products.Five
 from Products.Five import zcml
 import plone.schemaeditor
 from zope.interface import classImplements, implementedBy
@@ -12,10 +11,14 @@ optionflags =  (doctest.ELLIPSIS |
                 doctest.REPORT_ONLY_FIRST_FAILURE)
 
 def setUp(self):
-    zcml.load_config('tests.zcml', plone.schemaeditor.tests)
+    try:
+        from Zope2.App.schema import configure_vocabulary_registry
+    except ImportError:
+        pass
+    else:
+        configure_vocabulary_registry()
 
-    # make sure we use the correct vocabulary registry
-    import zope.app.schema.vocabulary
+    zcml.load_config('tests.zcml', plone.schemaeditor.tests)
     
     # add a test layer to the request so we can use special form templates that don't
     # pull in main_template

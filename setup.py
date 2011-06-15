@@ -27,11 +27,11 @@ setup(name='plone.schemaeditor',
       install_requires=[
           'setuptools',
           # Zope 2,
+          'zope.app.container',
           'zope.interface',
           'zope.component',
           'zope.schema',
           'zope.publisher',
-          'zope.app.schema',
           'z3c.form',
           'plone.z3cform',
           # -*- Extra requirements: -*-

@@ -1,3 +1,4 @@
+import copy
 from zope import interface
 from zope.component import getUtilitiesFor
 from zope.interface import implements
@@ -32,7 +33,7 @@ class FieldFactory(object):
         self.kw = kw
 
     def __call__(self, *args, **kw):
-        kwargs = self.kw.copy()
+        kwargs = copy.deepcopy(self.kw)
         kwargs.update(**kw)
         return self.fieldcls(*(self.args+args), **kwargs)
 

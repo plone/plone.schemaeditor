@@ -4,6 +4,14 @@ Changelog
 1.0.2 - unreleased
 ------------------
 
+* Make FieldFactory do a deep copy of its arguments to avoid problems with
+  mutable defaults getting shared between field instances.
+  This fixes http://code.google.com/p/dexterity/issues/detail?id=133
+  [davisagli]
+
+* Remove dependency on zope.app.schema.
+  [davisagli]
+
 1.0.1 - 2011-05-20
 ------------------
 
