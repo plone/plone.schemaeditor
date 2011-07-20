@@ -38,6 +38,10 @@
       name="zope.schema._field.Datetime"
       component=".fields.DatetimeFactory"
       />
+  <utility
+      name="zope.schema._field.Date"
+      component=".fields.DateFactory"
+      />
 
   <adapter factory=".fields.getChoiceFieldSchema" />
   <utility

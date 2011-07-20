@@ -4,14 +4,18 @@ from zope import schema
 
 try:
     from plone.app.z3cform.widget import IDatetimeField as IDatetime
-    IDatetime # pyflakes
+    from plone.app.z3cform.widget import IDateField as IDate
+    IDatetime, IDate # pyflakes
 except ImportError:
     try:
         from collective.z3cform.datetimewidget.interfaces import (
                 IDatetimeField as IDatetime)
-        IDatetime # pyflakes
+        from collective.z3cform.datetimewidget.interfaces import (
+                IDateField as IDate)
+        IDatetime, IDate # pyflakes
     except ImportError:
         IDatetime = interfaces.IDatetime
+        IDate = interfaces.IDate
 
 from plone.schemaeditor import SchemaEditorMessageFactory as _
 
@@ -122,6 +126,31 @@ class IDatetime(IDatetime):
         required=interfaces.IDatetime['max'].required,
         default=interfaces.IDatetime['max'].default,
         )
+
+class IDate(IDate):
+
+    default = schema.Date(
+        title=interfaces.IDate['default'].title,
+        description=interfaces.IDate['default'].description,
+        required=False)
+
+    missing_value = schema.Date(
+        title=interfaces.IDate['missing_value'].title,
+        description=interfaces.IDate['missing_value'].description,
+        required=False)
+
+    min = schema.Date(
+        title=interfaces.IDate['min'].title,
+        required=interfaces.IDate['min'].required,
+        default=interfaces.IDate['min'].default,
+        )
+
+    max = schema.Date(
+        title=interfaces.IDate['max'].title,
+        required=interfaces.IDate['max'].required,
+        default=interfaces.IDate['max'].default,
+        )
+
 
 class IChoiceBase(interfaces.IField):
 

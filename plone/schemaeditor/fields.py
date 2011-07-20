@@ -53,6 +53,7 @@ FloatFactory = FieldFactory(schema.Float, _(u'label_float_field', default=u'Floa
 BoolFactory = FieldFactory(schema.Bool, _(u'label_boolean_field', default=u'Boolean'), required=False)
 PasswordFactory = FieldFactory(schema.Password, _(u'label_password_field', default=u'Password'))
 DatetimeFactory = FieldFactory(schema.Datetime, _(u'label_datetime_field', default=u'Date/Time'))
+DateFactory = FieldFactory(schema.Date, _(u'label_date_field', default=u'Date'))
 
 @interface.implementer(interfaces.IFieldEditFormSchema)
 @component.adapter(schema_ifaces.IChoice)

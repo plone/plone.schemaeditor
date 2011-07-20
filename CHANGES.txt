@@ -4,6 +4,9 @@ Changelog
 1.0.4 - unreleased
 ------------------
 
+* Add a date-only field with no time component.
+  [davisagli]
+
 * Bugfix: Validate short names of fields.
   [davisagli]
 

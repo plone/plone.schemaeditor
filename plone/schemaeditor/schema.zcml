@@ -29,6 +29,10 @@
     <implements interface=".schema.IDatetime" />
   </class>
 
+  <class class="zope.schema.Date">
+    <implements interface=".schema.IDate" />
+  </class>
+
   <class class="zope.schema.List">
     <implements interface=".schema.IList" />
   </class>
