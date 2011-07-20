@@ -4,6 +4,9 @@ Changelog
 1.0.4 - unreleased
 ------------------
 
+* Bugfix: Validate short names of fields.
+  [davisagli]
+
 1.0.3 - 2011-06-15
 ------------------
 

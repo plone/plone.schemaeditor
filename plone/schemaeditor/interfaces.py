@@ -1,10 +1,13 @@
+import re
 from zope.component.interfaces import IObjectEvent
 from zope.interface.interfaces import Interface, IInterface
 from zope.publisher.interfaces.browser import IBrowserPage
 from zope.schema import Object, TextLine, Text, Choice, ASCIILine
+from zope.schema import ValidationError
 from zope.schema.interfaces import IField
 from z3c.form.interfaces import IEditForm
 from OFS.interfaces import IItem
+from plone.schemaeditor import SchemaEditorMessageFactory as _
 
 
 class ISchemaView(IBrowserPage):
@@ -60,6 +63,19 @@ class IFieldEditFormSchema(Interface):
     """ The schema describing the form fields for a field.
     """
 
+
+class InvalidIdError(ValidationError):
+    __doc__ = _(u'Please use only letters, numbers and the following characters: _.')
+
+# a letter followed by letters, numbers, or underscore
+ID_RE = re.compile(r'^[a-z][\w\d\.]*$')
+
+def isValidFieldId(value):
+    if ID_RE.match(value):
+        return True
+    raise InvalidIdError
+
+
 class INewField(Interface):
 
     title = TextLine(
@@ -70,7 +86,8 @@ class INewField(Interface):
     __name__ = ASCIILine(
         title = u'Short Name',
         description = u'Used for programmatic access to the field.',
-        required=True,
+        required = True,
+        constraint = isValidFieldId,
         )
 
     description = Text(
