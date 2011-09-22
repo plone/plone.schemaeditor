@@ -40,6 +40,7 @@ def test_suite():
             'field_schemata.txt',
             'editing.txt',
             'choice.txt',
+            'minmax.txt',
             setUp=setUp,
             tearDown=tearDown,
             optionflags=optionflags

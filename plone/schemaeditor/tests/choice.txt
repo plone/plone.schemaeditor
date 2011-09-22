@@ -165,6 +165,7 @@ Enter unique values and save the field settings.
     >>> browser.getControl('Default').value = 'Plone'
     >>> browser.getControl('Save').click()
     [event: ObjectModifiedEvent on List]
+    [event: ObjectModifiedEvent on List]
     [event: SchemaModifiedEvent on DummySchemaContext]
 
 When the edit form for the content type is loaded, the vocabulary

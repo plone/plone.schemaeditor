@@ -16,6 +16,8 @@ from plone.schemaeditor import interfaces
 from plone.schemaeditor.utils import SchemaModifiedEvent
 from plone.schemaeditor import SchemaEditorMessageFactory as _
 
+_marker = object()
+
 
 class IFieldTitle(Interface):
     title = schema.TextLine(
@@ -83,7 +85,24 @@ class FieldEditForm(form.EditForm):
             self.status = self.formErrorsMessage
             return
         
+        # clear current min/max to avoid range errors
+        if 'min' in data:
+            self.field.min = None
+        if 'max' in data:
+            self.field.max = None
+
+        default = data.pop('default', _marker)
         changes = self.applyChanges(data)
+        
+        # make sure we can report invalid defaults
+        if default is not _marker:
+            try:
+                changes2 = self.applyChanges({'default': default})
+            except schema.ValidationError, e:
+                raise WidgetActionExecutionError('default', e)
+            else:
+                changes = changes or changes2
+        
         if changes:
             self.status = self.successMessage
         else:
