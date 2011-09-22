@@ -4,6 +4,14 @@ Changelog
 1.0.4 - unreleased
 ------------------
 
+* Validate input for the `default` attribute of Choice fields based on the
+  field's vocabulary.
+  [davisagli]
+
+* Removed support for setting the `missing_value` attribute of fields through
+  the web.
+  [davisagli]
+
 * Add a date-only field with no time component.
   [davisagli]
 

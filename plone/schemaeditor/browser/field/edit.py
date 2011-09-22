@@ -1,6 +1,6 @@
 from Acquisition import aq_parent, aq_inner
 
-from zope.interface import implements, Interface
+from zope.interface import implements, Interface, Invalid
 from zope.cachedescriptors.property import Lazy as lazy_property
 from zope.component import adapts
 from zope.event import notify
@@ -8,11 +8,13 @@ from zope.schema.interfaces import IField, IBool
 from zope import schema
 
 from z3c.form import form, field, button
+from z3c.form.interfaces import WidgetActionExecutionError
 from plone.z3cform import layout
 
 from plone.schemaeditor.interfaces import IFieldEditForm
 from plone.schemaeditor import interfaces
 from plone.schemaeditor.utils import SchemaModifiedEvent
+from plone.schemaeditor import SchemaEditorMessageFactory as _
 
 
 class IFieldTitle(Interface):
@@ -56,17 +58,39 @@ class FieldEditForm(form.EditForm):
         fields = field.Fields(IFieldTitle)
         
         # omit the order attribute since it's managed elsewhere
-        fields += field.Fields(self.schema).omit('order', 'title')
+        fields += field.Fields(self.schema).omit('order', 'title', 'missing_value')
         if self.schema.isOrExtends(IBool):
-            fields = fields.omit('required', 'missing_value')
+            fields = fields.omit('required')
         return fields
     
     @button.buttonAndHandler(u'Save', name='save')
     def handleSave(self, action):
-        self.handleApply(self, action)
-        if self.status != self.formErrorsMessage:
-            notify(SchemaModifiedEvent(self.context.aq_parent))
-            self.redirectToParent()
+        data, errors = self.extractData()
+        
+        # For choice fields, make sure default is in the valid values
+        if 'values' in data:
+            values = data['values'] or []
+            if 'default' in data and data['default']:
+                default = data['default']
+                if type(default) is not list:
+                    default = [default]
+                for value in default:
+                    if value not in values:
+                        raise WidgetActionExecutionError('default',
+                            Invalid(_(u'Please enter a valid vocabulary value.')))
+        
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+        
+        changes = self.applyChanges(data)
+        if changes:
+            self.status = self.successMessage
+        else:
+            self.status = self.noChangesMessage
+
+        notify(SchemaModifiedEvent(self.context.aq_parent))
+        self.redirectToParent()
 
     @button.buttonAndHandler(u'Cancel', name='cancel')
     def handleCancel(self, action):

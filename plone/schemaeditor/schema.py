@@ -26,21 +26,11 @@ class IText(interfaces.IText):
         description=interfaces.IText['default'].description,
         required=False)
 
-    missing_value = schema.Text(
-        title=interfaces.IText['missing_value'].title,
-        description=interfaces.IText['missing_value'].description,
-        required=False)
-
 class ITextLine(interfaces.ITextLine):
 
     default = schema.TextLine(
         title=interfaces.ITextLine['default'].title,
         description=interfaces.ITextLine['default'].description,
-        required=False)
-
-    missing_value = schema.TextLine(
-        title=interfaces.ITextLine['missing_value'].title,
-        description=interfaces.ITextLine['missing_value'].description,
         required=False)
 
 class IBool(interfaces.IBool, interfaces.IFromUnicode):
@@ -50,21 +40,11 @@ class IBool(interfaces.IBool, interfaces.IFromUnicode):
         description=interfaces.IBool['default'].description,
         required=False)
 
-    missing_value = schema.Bool(
-        title=interfaces.IBool['missing_value'].title,
-        description=interfaces.IBool['missing_value'].description,
-        required=False)
-
 class IInt(interfaces.IInt):
 
     default = schema.Int(
         title=interfaces.IInt['default'].title,
         description=interfaces.IInt['default'].description,
-        required=False)
-
-    missing_value = schema.Int(
-        title=interfaces.IInt['missing_value'].title,
-        description=interfaces.IInt['missing_value'].description,
         required=False)
 
 class IPassword(interfaces.IPassword):
@@ -74,21 +54,11 @@ class IPassword(interfaces.IPassword):
         description=interfaces.IPassword['default'].description,
         required=False)
 
-    missing_value = schema.Password(
-        title=interfaces.IPassword['missing_value'].title,
-        description=interfaces.IPassword['missing_value'].description,
-        required=False)
-
 class IFloat(interfaces.IFloat, interfaces.IFromUnicode):
 
     default = schema.Float(
         title=interfaces.IFloat['default'].title,
         description=interfaces.IFloat['default'].description,
-        required=False)
-
-    missing_value = schema.Float(
-        title=interfaces.IFloat['missing_value'].title,
-        description=interfaces.IFloat['missing_value'].description,
         required=False)
 
     min = schema.Float(
@@ -110,11 +80,6 @@ class IDatetime(IDatetime):
         description=interfaces.IDatetime['default'].description,
         required=False)
 
-    missing_value = schema.Datetime(
-        title=interfaces.IDatetime['missing_value'].title,
-        description=interfaces.IDatetime['missing_value'].description,
-        required=False)
-
     min = schema.Datetime(
         title=interfaces.IDatetime['min'].title,
         required=interfaces.IDatetime['min'].required,
@@ -132,11 +97,6 @@ class IDate(IDate):
     default = schema.Date(
         title=interfaces.IDate['default'].title,
         description=interfaces.IDate['default'].description,
-        required=False)
-
-    missing_value = schema.Date(
-        title=interfaces.IDate['missing_value'].title,
-        description=interfaces.IDate['missing_value'].description,
         required=False)
 
     min = schema.Date(
@@ -160,15 +120,9 @@ class IChoiceBase(interfaces.IField):
         required=False,
         values=[])
 
-    missing_value = schema.Choice(
-        title=interfaces.IChoice['missing_value'].title,
-        description=interfaces.IChoice['missing_value'].description,
-        required=False,
-        values=[])
-
 class IChoice(IChoiceBase, interfaces.IChoice,
               interfaces.IFromUnicode):
-    """Fix the IChoice default and missing_value"""
+    """Fix the IChoice default"""
 
 class ITextLinesField(interfaces.IList):
     """A marker for fields which should get the textlines widget"""
@@ -191,11 +145,6 @@ class ITextLineChoice(IChoiceBase, ITextLineChoiceBase):
         description=interfaces.IChoice['default'].description,
         required=False)
 
-    missing_value = schema.TextLine(
-        title=interfaces.IChoice['missing_value'].title,
-        description=interfaces.IChoice['missing_value'].description,
-        required=False)
-
 class IListBase(interfaces.IField):
 
     default = schema.List(
@@ -203,13 +152,8 @@ class IListBase(interfaces.IField):
         description=interfaces.IList['default'].description,
         required=False)
 
-    missing_value = schema.List(
-        title=interfaces.IList['missing_value'].title,
-        description=interfaces.IList['missing_value'].description,
-        required=False)
-
 class IList(IListBase, interfaces.IList):
-    """Fix the IList default and missing_value"""
+    """Fix the IList default"""
 
 class ITextLineMultiChoice(IListBase, ITextLineChoiceBase):
     """
@@ -222,10 +166,3 @@ class ITextLineMultiChoice(IListBase, ITextLineChoiceBase):
         required=False,
         value_type=schema.TextLine())
     interface.alsoProvides(default, ITextLinesField)
-
-    missing_value = schema.List(
-        title=interfaces.IList['missing_value'].title,
-        description=interfaces.IList['missing_value'].description,
-        required=False,
-        value_type=schema.TextLine())
-    interface.alsoProvides(missing_value, ITextLinesField)

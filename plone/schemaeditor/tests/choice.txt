@@ -61,17 +61,27 @@ If duplicate values are entered an error is raised.
       <div class="error">The 'United States' vocabulary value conflicts with 'United States'.</div>
     ...
 
-For now, the default and missing_value fields are TextLine fields.
+For now, the 'default' field type is a TextLine field.
 
     >>> browser.getControl('Default')
     <Control name='form.widgets.default' type='text'>
-    >>> browser.getControl('Missing Value')
-    <Control name='form.widgets.missing_value' type='text'>
 
-Enter unique values and save the field settings.
+If set, the default field must be a valid option from the vocabulary.
 
     >>> browser.getControl('Vocabulary').value = '\n'.join(
     ...     ['Alaska', 'Russia', 'United States', "C\xc3\xb4te d'Ivoire", 'Other'])
+    >>> browser.getControl('Default').value = 'Germany'
+    >>> browser.getControl('Save').click()
+    >>> print browser.contents
+    <...
+      <div class="error">Please enter a valid vocabulary value.</div>
+    ...
+
+Enter valid values and save the field settings.
+
+    >>> browser.getControl('Vocabulary').value = '\n'.join(
+    ...     ['Alaska', 'Russia', 'United States', "C\xc3\xb4te d'Ivoire", 'Other'])
+    >>> browser.getControl('Default').value = ''
     >>> browser.getControl('Save').click()
     [event: ObjectModifiedEvent on Choice]
     [event: SchemaModifiedEvent on DummySchemaContext]
@@ -143,12 +153,10 @@ If duplicate values are entered an error is raised.
       <div class="error">The 'Lisp' vocabulary value conflicts with 'Lisp'.</div>
     ...
 
-For now, the default and missing_value fields are Text fields.
+For now, the 'default' field type is a Text field.
 
     >>> browser.getControl('Default')
     <Control name='form.widgets.default' type='textarea'>
-    >>> browser.getControl('Missing Value')
-    <Control name='form.widgets.missing_value' type='textarea'>
 
 Enter unique values and save the field settings.
 

@@ -22,8 +22,7 @@ first which is or extends zope.schema.interfaces.IField.
 
 The default values for fields should generally be the same type as the
 field itself.  The plone.schemaeditor declares that the zope.schema
-field classes implement schemata with correct default and
-missing_value types.
+field classes implement schemata with correct default types.
 
     >>> field = schema.Text()
     >>> context = traversal.FieldContext(field, None)
@@ -59,12 +58,10 @@ The Datetime fields also have corrected min/max field types.
     >>> form.schema['max']
     <zope.schema._field.Datetime object at ...>
 
-The Bool edit form omits the 'required' and 'missing_value' fields.
+The Bool edit form omits the 'required' field.
 
     >>> field = schema.Bool()
     >>> context = traversal.FieldContext(field, None)
     >>> form = edit.FieldEditForm(context, None)
     >>> 'required' in form.fields
-    False
-    >>> 'missing_value' in form.fields
     False
