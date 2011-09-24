@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.0.4 - unreleased
-------------------
+1.1 - 2011-09-24
+----------------
 
 * Avoid errors when expanding the range of `min` and `max` attributes on a
   field, and when entering a `default` outside the range.
