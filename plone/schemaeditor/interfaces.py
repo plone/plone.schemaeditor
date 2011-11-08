@@ -23,7 +23,7 @@ class ISchemaContext(IItem):
         )
 
 class ISchemaModifiedEvent(IObjectEvent):
-    
+
     object = Object(
         schema = ISchemaContext
         )
@@ -44,13 +44,13 @@ class IFieldFactory(IField):
 class IEditableSchema(Interface):
     """ Interface for adding/removing fields to/from a schema.
     """
-    
+
     def addField(field, name=None):
         """ Add a field to a schema
-        
+
             If not provided, the field's name will be taken from its __name__ attribute.
         """
-        
+
     def removeField(name):
         """ Remove a field from a schema
         """
@@ -79,25 +79,25 @@ def isValidFieldId(value):
 class INewField(Interface):
 
     title = TextLine(
-        title = u'Title',
+        title = _(u'Title'),
         required=True
         )
-    
+
     __name__ = ASCIILine(
-        title = u'Short Name',
-        description = u'Used for programmatic access to the field.',
-        required = True,
-        constraint = isValidFieldId,
+        title=_(u'Short Name'),
+        description=_(u'Used for programmatic access to the field.'),
+        required=True,
+        constraint=isValidFieldId,
         )
 
     description = Text(
-        title = u'Help Text',
-        description=u'Shows up in the form as help text for the field.',
+        title=_(u'Help Text'),
+        description=_(u'Shows up in the form as help text for the field.'),
         required=False
         )
 
     factory = Choice(
-        title=u"Field type",
+        title=_(u"Field type"),
         vocabulary="Fields",
         required=True,
         # This can't be done yet or we'll create circular import problem.

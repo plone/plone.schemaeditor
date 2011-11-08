@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-11-08 22:40+0000\n"
+"POT-Creation-Date: 2011-11-08 22:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,6 +46,14 @@ msgstr ""
 msgid "Field added successfully."
 msgstr ""
 
+#: ../interfaces.py:100
+msgid "Field type"
+msgstr ""
+
+#: ../interfaces.py:94
+msgid "Help Text"
+msgstr ""
+
 #: ../browser/field/edit.py:85
 msgid "Please enter a valid vocabulary value."
 msgstr ""
@@ -56,6 +64,22 @@ msgstr ""
 
 #: ../browser/schema/schema_listing.pt:27
 msgid "Settings&hellip;"
+msgstr ""
+
+#: ../interfaces.py:87
+msgid "Short Name"
+msgstr ""
+
+#: ../interfaces.py:95
+msgid "Shows up in the form as help text for the field."
+msgstr ""
+
+#: ../interfaces.py:82
+msgid "Title"
+msgstr ""
+
+#: ../interfaces.py:88
+msgid "Used for programmatic access to the field."
 msgstr ""
 
 #. Default: "Boolean"
