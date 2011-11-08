@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-11-08 22:19+0000\n"
+"POT-Creation-Date: 2011-11-08 22:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,12 +22,20 @@ msgstr ""
 msgid "Add new field…"
 msgstr ""
 
-#: ../browser/schema/listing.py:67
+#: ../browser/schema/schema_listing.pt:32
+msgid "Delete field"
+msgstr ""
+
+#: ../browser/schema/listing.py:70
 msgid "Edit ${name}"
 msgstr ""
 
-#: ../browser/schema/listing.py:63
+#: ../browser/schema/listing.py:66
 msgid "Edit ${title} (${name})"
+msgstr ""
+
+#: ../browser/field/edit.py:134
+msgid "Edit Field '${fieldname}'"
 msgstr ""
 
 #: ../schema.py:134
@@ -38,12 +46,16 @@ msgstr ""
 msgid "Field added successfully."
 msgstr ""
 
-#: ../browser/field/edit.py:82
+#: ../browser/field/edit.py:85
 msgid "Please enter a valid vocabulary value."
 msgstr ""
 
 #: ../interfaces.py:68
 msgid "Please use only letters, numbers and the following characters: _."
+msgstr ""
+
+#: ../browser/schema/schema_listing.pt:27
+msgid "Settings&hellip;"
 msgstr ""
 
 #. Default: "Boolean"

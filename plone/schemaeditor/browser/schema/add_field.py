@@ -14,7 +14,7 @@ from plone.schemaeditor.utils import SchemaModifiedEvent
 class FieldAddForm(form.AddForm):
 
     fields = field.Fields(INewField)
-    label = "Add new field"
+    label = _("Add new field")
     id = 'add-field-form'
 
     def create(self, data):
