@@ -1,0 +1,137 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-11-08 22:54+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone.schemaeditor\n"
+
+#: ../browser/schema/add_field.py:17
+msgid "Add new field"
+msgstr ""
+
+#: ../browser/schema/schema_listing.pt:3
+msgid "Add new field…"
+msgstr ""
+
+#: ../browser/schema/schema_listing.pt:32
+msgid "Delete field"
+msgstr ""
+
+#: ../browser/schema/listing.py:70
+msgid "Edit ${name}"
+msgstr ""
+
+#: ../browser/schema/listing.py:66
+msgid "Edit ${title} (${name})"
+msgstr ""
+
+#: ../browser/field/edit.py:134
+msgid "Edit Field '${fieldname}'"
+msgstr ""
+
+#: ../schema.py:134
+msgid "Enter vocabulary values one per line."
+msgstr ""
+
+#: ../browser/schema/add_field.py:33
+msgid "Field added successfully."
+msgstr ""
+
+#: ../interfaces.py:100
+msgid "Field type"
+msgstr ""
+
+#: ../interfaces.py:94
+msgid "Help Text"
+msgstr ""
+
+#: ../browser/field/edit.py:85
+msgid "Please enter a valid vocabulary value."
+msgstr ""
+
+#: ../interfaces.py:68
+msgid "Please use only letters, numbers and the following characters: _."
+msgstr ""
+
+#: ../browser/schema/schema_listing.pt:27
+msgid "Settings&hellip;"
+msgstr ""
+
+#: ../interfaces.py:87
+msgid "Short Name"
+msgstr ""
+
+#: ../interfaces.py:95
+msgid "Shows up in the form as help text for the field."
+msgstr ""
+
+#: ../interfaces.py:82
+msgid "Title"
+msgstr ""
+
+#: ../interfaces.py:88
+msgid "Used for programmatic access to the field."
+msgstr ""
+
+#. Default: "Boolean"
+#: ../fields.py:53
+msgid "label_boolean_field"
+msgstr ""
+
+#. Default: "Choice"
+#: ../fields.py:64
+msgid "label_choice_field"
+msgstr ""
+
+#. Default: "Date"
+#: ../fields.py:56
+msgid "label_date_field"
+msgstr ""
+
+#. Default: "Date/Time"
+#: ../fields.py:55
+msgid "label_datetime_field"
+msgstr ""
+
+#. Default: "Floating-point number"
+#: ../fields.py:52
+msgid "label_float_field"
+msgstr ""
+
+#. Default: "Integer"
+#: ../fields.py:51
+msgid "label_integer_field"
+msgstr ""
+
+#. Default: "Multiple Choice"
+#: ../fields.py:136
+msgid "label_multi_choice_field"
+msgstr ""
+
+#. Default: "Password"
+#: ../fields.py:54
+msgid "label_password_field"
+msgstr ""
+
+#. Default: "Text"
+#: ../fields.py:50
+msgid "label_text_field"
+msgstr ""
+
+#. Default: "Text line (String)"
+#: ../fields.py:47
+msgid "label_textline_field"
+msgstr ""
+
