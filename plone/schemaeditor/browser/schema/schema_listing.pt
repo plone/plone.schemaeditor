@@ -1,6 +1,15 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="plone.schemaeditor"
+      tal:omit-tag="">
+
 <form id="add-field" method="GET"
       tal:attributes="action string:${context/absolute_url}/@@add-field">
   <input type="submit" style="float: right; display: block; margin-top: -3.5em;"
+        i18n:attributes="value"
          value="Add new field&hellip;"/>
 </form>
 
@@ -24,9 +33,10 @@
           <a class="fieldSettings"
              tal:define="edit_url python:view.edit_url(widget.field)"
              tal:condition="edit_url"
-             tal:attributes="href edit_url">Settings&hellip;</a>
+             tal:attributes="href edit_url" i18n:translate="">Settings&hellip;</a>
           <a class="schemaeditor-delete-field"
              title="Delete field"
+             i18n:attributes="title"
              style="margin-left: 1em; font-size: 150%; border: none"
              tal:define="delete_url python:view.delete_url(widget.field)"
              tal:condition="delete_url"
@@ -40,3 +50,4 @@
     </div>
   </metal:field-slot>
 </metal:form>
+</html>

@@ -70,11 +70,11 @@ class EditableSchema(object):
 
         # make sure this is sane
         if not isinstance(new_pos, int):
-            raise IndexError, 'The new field position must be an integer.'
+            raise IndexError, _('The new field position must be an integer.')
         if new_pos < 0:
-            raise IndexError, 'The new field position must be greater than 0.'
+            raise IndexError, _('The new field position must be greater than 0.')
         if new_pos >= len(ordered_field_ids):
-            raise IndexError, 'The new field position must be less than the number of fields.'
+            raise IndexError, _('The new field position must be less than the number of fields.')
         
         # determine which fields we have to update the order attribute on
         cur_pos = ordered_field_ids.index(field_id)

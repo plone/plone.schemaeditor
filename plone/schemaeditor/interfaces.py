@@ -79,25 +79,25 @@ def isValidFieldId(value):
 class INewField(Interface):
 
     title = TextLine(
-        title = u'Title',
+        title = _(u'Title'),
         required=True
         )
     
     __name__ = ASCIILine(
-        title = u'Short Name',
-        description = u'Used for programmatic access to the field.',
+        title = _(u'Short Name'),
+        description = _(u'Used for programmatic access to the field.'),
         required = True,
         constraint = isValidFieldId,
         )
 
     description = Text(
-        title = u'Help Text',
-        description=u'Shows up in the form as help text for the field.',
+        title = _(u'Help Text'),
+        description=_(u'Shows up in the form as help text for the field.'),
         required=False
         )
 
     factory = Choice(
-        title=u"Field type",
+        title=_(u"Field type"),
         vocabulary="Fields",
         required=True,
         # This can't be done yet or we'll create circular import problem.
