@@ -65,7 +65,7 @@ class FieldEditForm(form.EditForm):
             fields = fields.omit('required')
         return fields
     
-    @button.buttonAndHandler(u'Save', name='save')
+    @button.buttonAndHandler(_(u'Save'), name='save')
     def handleSave(self, action):
         data, errors = self.extractData()
         
@@ -111,7 +111,7 @@ class FieldEditForm(form.EditForm):
         notify(SchemaModifiedEvent(self.context.aq_parent))
         self.redirectToParent()
 
-    @button.buttonAndHandler(u'Cancel', name='cancel')
+    @button.buttonAndHandler(_(u'Cancel'), name='cancel')
     def handleCancel(self, action):
         self.redirectToParent()
     

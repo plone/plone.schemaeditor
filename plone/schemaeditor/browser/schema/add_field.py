@@ -14,7 +14,7 @@ from plone.schemaeditor.utils import SchemaModifiedEvent
 class FieldAddForm(form.AddForm):
 
     fields = field.Fields(INewField)
-    label = "Add new field"
+    label = _("Add new field")
     id = 'add-field-form'
 
     def create(self, data):
@@ -27,7 +27,7 @@ class FieldAddForm(form.AddForm):
             schema.addField(field)
         except ValueError:
             raise WidgetActionExecutionError('__name__',
-                Invalid(u'Please select a field name that is not already used.'))
+                Invalid(_(u'Please select a field name that is not already used.')))
         notify(ObjectAddedEvent(field, self.context.schema))
         notify(SchemaModifiedEvent(self.context))
         self.status = _(u"Field added successfully.")
