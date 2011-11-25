@@ -4,10 +4,14 @@ Changelog
 1.1.1 - unreleased
 ------------------
 
-* Internationalization,
-  messages extracted for main languages,
-  french translation.
+* Added internationalization and extracted messages for main languages.
   [thomasdesvenain]
+  
+* Added French translation.
+  [thomasdesvenain]
+
+* Added Italian translation.
+  [giacomos]
 
 1.1 - 2011-09-24
 ----------------
