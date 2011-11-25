@@ -1,6 +1,8 @@
 <form id="add-field" method="GET"
       tal:attributes="action string:${context/absolute_url}/@@add-field">
   <input type="submit" style="float: right; display: block; margin-top: -3.5em;"
+         i18n:domain="plone.schemaeditor"
+         i18n:attributes="value"
          value="Add new field&hellip;"/>
 </form>
 
@@ -9,7 +11,7 @@
     <script type="text/javascript"
             tal:attributes="src context/++resource++schemaeditor.js"></script>
   </metal:top-slot>
-  
+
   <metal:field-slot metal:fill-slot="field">
 
 
@@ -20,12 +22,15 @@
           <span tal:replace="widget/field/__name__"/>
       </div>
 
-      <div class="fieldControls" style="position: absolute; top: 1em; right: 1em">
+      <div class="fieldControls" style="position: absolute; top: 1em; right: 1em"
+           i18n:domain="plone.schemaeditor">
           <a class="fieldSettings"
              tal:define="edit_url python:view.edit_url(widget.field)"
              tal:condition="edit_url"
+             i18n:translate=""
              tal:attributes="href edit_url">Settings&hellip;</a>
           <a class="schemaeditor-delete-field"
+             i18n:attributes="title"
              title="Delete field"
              style="margin-left: 1em; font-size: 150%; border: none"
              tal:define="delete_url python:view.delete_url(widget.field)"
@@ -36,7 +41,7 @@
       <div style="width: 80%">
       <metal:field metal:use-macro="context/@@ploneform-macros/field"/>
       </div>
-      
+
     </div>
   </metal:field-slot>
 </metal:form>
