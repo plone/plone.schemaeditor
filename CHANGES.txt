@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1.1 - unreleased
+1.1.1 - 2011-11-26
 ------------------
 
 * Added internationalization and extracted messages for main languages.
