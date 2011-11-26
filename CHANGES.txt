@@ -1,8 +1,11 @@
 Changelog
 =========
 
-1.1.2 - unreleased
+1.1.2 - 2011-11-26
 ------------------
+
+* Add .mo files which were missing in 1.1.1.
+  [davisagli]
 
 1.1.1 - 2011-11-26
 ------------------
