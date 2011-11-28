@@ -1,134 +1,136 @@
+# Héctor Velarde <hector.velarde@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2011-11-08 22:54+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2011-11-27 23:20-0600\n"
+"Last-Translator: Héctor Velarde <hector.velarde@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language-Code: es\n"
+"Language-Name: Español\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: DOMAIN\n"
+"Domain: plone.app.dexterity\n"
+"X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
 
 #: ../browser/schema/add_field.py:17
 msgid "Add new field"
-msgstr ""
+msgstr "Agregar nuevo campo"
 
 #: ../browser/schema/schema_listing.pt:3
 msgid "Add new field…"
-msgstr ""
+msgstr "Agregar nuevo campo…"
 
 #: ../browser/schema/schema_listing.pt:32
 msgid "Delete field"
-msgstr ""
+msgstr "Eliminar campo"
 
 #: ../browser/schema/listing.py:70
 msgid "Edit ${name}"
-msgstr ""
+msgstr "Editar ${name}"
 
 #: ../browser/schema/listing.py:66
 msgid "Edit ${title} (${name})"
-msgstr ""
+msgstr "Editar ${title} (${name})"
 
 #: ../browser/field/edit.py:134
 msgid "Edit Field '${fieldname}'"
-msgstr ""
+msgstr "Editar campo '${fieldname}'"
 
 #: ../schema.py:134
 msgid "Enter vocabulary values one per line."
-msgstr ""
+msgstr "Introduzca los valores del vocabulario, uno por línea."
 
 #: ../browser/schema/add_field.py:33
 msgid "Field added successfully."
-msgstr ""
+msgstr "El campo se agregó exitosamente."
 
 #: ../interfaces.py:100
 msgid "Field type"
-msgstr ""
+msgstr "Tipo de campo"
 
 #: ../interfaces.py:94
 msgid "Help Text"
-msgstr ""
+msgstr "Texto de ayuda"
 
 #: ../browser/field/edit.py:85
 msgid "Please enter a valid vocabulary value."
-msgstr ""
+msgstr "Por favor introduzca un valor válido del vocabulario."
 
 #: ../interfaces.py:68
 msgid "Please use only letters, numbers and the following characters: _."
-msgstr ""
+msgstr "Por favor utilice únicamente letras, números y los siguientes caracteres: _."
 
 #: ../browser/schema/schema_listing.pt:27
 msgid "Settings&hellip;"
-msgstr ""
+msgstr "Configuración&hellip;"
 
 #: ../interfaces.py:87
 msgid "Short Name"
-msgstr ""
+msgstr "Nombre corto"
 
 #: ../interfaces.py:95
 msgid "Shows up in the form as help text for the field."
-msgstr ""
+msgstr "Se muestra en el formulario como texto de ayuda para el campo."
 
 #: ../interfaces.py:82
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: ../interfaces.py:88
 msgid "Used for programmatic access to the field."
-msgstr ""
+msgstr "Empleado para acceso programático al campo."
 
 #. Default: "Boolean"
 #: ../fields.py:53
 msgid "label_boolean_field"
-msgstr ""
+msgstr "Booleano"
 
 #. Default: "Choice"
 #: ../fields.py:64
 msgid "label_choice_field"
-msgstr ""
+msgstr "Selección"
 
 #. Default: "Date"
 #: ../fields.py:56
 msgid "label_date_field"
-msgstr ""
+msgstr "Fecha"
 
 #. Default: "Date/Time"
 #: ../fields.py:55
 msgid "label_datetime_field"
-msgstr ""
+msgstr "Fecha/Hora"
 
 #. Default: "Floating-point number"
 #: ../fields.py:52
 msgid "label_float_field"
-msgstr ""
+msgstr "Número de punto flotante"
 
 #. Default: "Integer"
 #: ../fields.py:51
 msgid "label_integer_field"
-msgstr ""
+msgstr "Entero"
 
 #. Default: "Multiple Choice"
 #: ../fields.py:136
 msgid "label_multi_choice_field"
-msgstr ""
+msgstr "Selección múltiple"
 
 #. Default: "Password"
 #: ../fields.py:54
 msgid "label_password_field"
-msgstr ""
+msgstr "Contraseña"
 
 #. Default: "Text"
 #: ../fields.py:50
 msgid "label_text_field"
-msgstr ""
+msgstr "Texto"
 
 #. Default: "Text line (String)"
 #: ../fields.py:47
 msgid "label_textline_field"
-msgstr ""
+msgstr "Línea de texto (cadena de caracteres)"
 

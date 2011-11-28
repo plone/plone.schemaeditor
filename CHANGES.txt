@@ -4,6 +4,9 @@ Changelog
 1.1.3 - unreleased
 ------------------
 
+* Added Spanish translation.
+  [hvelarde]
+
 1.1.2 - 2011-11-26
 ------------------
 
@@ -15,7 +18,7 @@ Changelog
 
 * Added internationalization and extracted messages for main languages.
   [thomasdesvenain]
-  
+
 * Added French translation.
   [thomasdesvenain]
 
@@ -164,7 +167,7 @@ Changelog
 * Changed API methods and arguments to mixedCase to be more consistent with
   the rest of Zope. This is a non-backwards-compatible change. Our profuse
   apologies, but it's now or never. :-/
-  
+
   If you find that you get import errors or unknown keyword arguments in your
   code, please change names from foo_bar too fooBar, e.g. add_field() becomes
   addField().
