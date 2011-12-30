@@ -33,6 +33,9 @@ class FieldAddForm(form.AddForm):
         self.status = _(u"Field added successfully.")
 
     def nextURL(self):
-        return self.context.absolute_url()
+        url = self.context.absolute_url()
+        if getattr(self.context, 'schemaEditorView', None) is not None:
+            url += '/@@' + self.context.schemaEditorView
+        return url
 
 FieldAddFormPage = wrap_form(FieldAddForm)

@@ -4,6 +4,16 @@ Changelog
 1.1.3 - unreleased
 ------------------
 
+* Fall back to normal traversal if a field isn't found when traversing the
+  schema context. This fixes inline validation for forms on the schema
+  context.
+  [davisagli]
+
+* Make it possible to make the schemaeditor not be the default view of the
+  schema context, by specifying the ``schemaEditorView`` attribute on the
+  schema context.
+  [davisagli]
+
 * Added Spanish translation.
   [hvelarde]
 

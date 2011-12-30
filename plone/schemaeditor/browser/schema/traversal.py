@@ -1,5 +1,6 @@
 from zope.interface import implements
 from zope.publisher.interfaces.browser import IBrowserPublisher
+from ZPublisher.BaseRequest import DefaultPublishTraverse
 from OFS.SimpleItem import SimpleItem
 
 from plone.schemaeditor.browser.field.traversal import FieldContext
@@ -13,6 +14,8 @@ class SchemaContext(SimpleItem):
     # to the publishTraverse and browserDefault methods.
     implements(ISchemaContext, IBrowserPublisher)
     
+    schemaeditor_view = None
+    
     def __init__(self, context, request, name=u'schema', title=None):
         super(SchemaContext, self).__init__(context, request)
         self.schema = context
@@ -25,10 +28,13 @@ class SchemaContext(SimpleItem):
             title = name
         self.Title = lambda: title
     
-    def publishTraverse(self, traverse, name):
+    def publishTraverse(self, request, name):
         """ Look up the field whose name matches the next URL path element, and wrap it.
         """
-        return FieldContext(self.schema[name], self.request).__of__(self)
+        try:
+            return FieldContext(self.schema[name], self.request).__of__(self)
+        except KeyError:
+            return DefaultPublishTraverse(self, request).publishTraverse(request, name)
     
     def browserDefault(self, request):
         """ If not traversing through the schema to a field, show the SchemaListingPage.

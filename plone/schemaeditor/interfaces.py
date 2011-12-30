@@ -1,6 +1,6 @@
 import re
 from zope.component.interfaces import IObjectEvent
-from zope.interface.interfaces import Interface, IInterface
+from zope.interface.interfaces import Interface, IInterface, Attribute
 from zope.publisher.interfaces.browser import IBrowserPage
 from zope.schema import Object, TextLine, Text, Choice, ASCIILine
 from zope.schema import ValidationError
@@ -21,6 +21,8 @@ class ISchemaContext(IItem):
     schema = Object(
         schema = IInterface
         )
+    
+    schemaEditorView = Attribute("""Name of the schema editor view. Optional.""")
 
 class ISchemaModifiedEvent(IObjectEvent):
 
