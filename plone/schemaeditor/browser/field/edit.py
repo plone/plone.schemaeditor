@@ -4,7 +4,7 @@ from zope.interface import implements, Interface
 from zope.cachedescriptors.property import Lazy as lazy_property
 from zope.component import adapts
 from zope.event import notify
-from zope.schema.interfaces import IField, IBool
+from zope.schema.interfaces import IField
 from zope import schema
 from zope.i18nmessageid import MessageFactory
 
@@ -64,8 +64,6 @@ class FieldEditForm(form.EditForm):
         # omit the order attribute since it's managed elsewhere
         fields += field.Fields(self.schema).omit(
             'order', 'title', 'default', 'missing_value', 'readonly')
-        if self.schema.isOrExtends(IBool):
-            fields = fields.omit('required')
         return fields
 
     @button.buttonAndHandler(PMF(u'Save'), name='save')

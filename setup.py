@@ -34,6 +34,7 @@ setup(name='plone.schemaeditor',
           'zope.publisher',
           'z3c.form',
           'plone.z3cform',
+          'plone.autoform',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

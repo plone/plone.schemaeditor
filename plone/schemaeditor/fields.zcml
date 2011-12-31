@@ -57,5 +57,7 @@
       component=".fields.MultiChoiceFactory"
       />
   <adapter factory=".fields.TextLineMultiChoiceField" />
+  
+  <subscriber handler=".fields.setBoolWidget" />
 
 </configure>

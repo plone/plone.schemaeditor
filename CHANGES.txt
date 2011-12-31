@@ -4,6 +4,14 @@ Changelog
 1.2.0 - unreleased
 ------------------
 
+* The schema listing preview now respects autoform hints (such as custom
+  widgets).
+  [davisagli]
+
+* Make new boolean fields use the radio widget by default. The field now
+  appears as "Yes/No" in the list of field types.
+  [davisagli]
+
 * Hide the 'read only' setting for fields.
   [davisagli]
 

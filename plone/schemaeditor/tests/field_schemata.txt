@@ -36,11 +36,3 @@ fields are also Datetimes.
     <zope.schema._field.Datetime object at ...>
     >>> form.schema['max']
     <zope.schema._field.Datetime object at ...>
-
-The Bool edit form omits the 'required' field.
-
-    >>> field = schema.Bool()
-    >>> context = traversal.FieldContext(field, None)
-    >>> form = edit.FieldEditForm(context, None)
-    >>> 'required' in form.fields
-    False
