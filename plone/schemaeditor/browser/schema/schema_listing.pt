@@ -15,9 +15,9 @@
   <metal:field-slot metal:fill-slot="field">
 
 
-    <div class="fieldPreview" style="background: #eee; padding: 1em; margin: 1em -1em; -moz-border-radius: 0.5em; position:relative;" tal:attributes="data-field_id widget/field/__name__">
+    <div class="fieldPreview" style="background: #eee; padding: 1em 1em 1px 1em; margin: 0.5em 0em; -moz-border-radius: 0.5em; position:relative;" tal:attributes="data-field_id widget/field/__name__">
 
-      <div class="fieldLabel" style="float: left; background: #ddd; -moz-border-radius-topleft: 0.5em; outline: solid 1px #fff; -moz-outline-radius-topleft: 0.5em; -moz-outline-radius-bottomright: 0.5em; margin: -1em; padding: 0 0.5em;">
+      <div class="fieldLabel" style="float: left; background: #ddd; -moz-border-radius-topleft: 0.5em; outline: solid 1px #fff; -moz-outline-radius-topleft: 0.5em; -moz-outline-radius-bottomright: 0.5em; margin: -1em -1em 0; padding: 0 0.5em;">
           <em tal:content="python:view.field_type(widget.field)"/>:
           <span tal:replace="widget/field/__name__"/>
       </div>

@@ -26,10 +26,10 @@
                     marker = $('#drop-marker');
                 marker.css('border-bottom', '5px dotted red');
                 if (e.pageY < ($(this).offset().top + height / 2)) {
-                    marker.css('top', position.top + 4 + 'px');
+                    marker.css('top', position.top + 1 + 'px');
                     $(this).attr('draghalf', 'top');
                 } else {
-                    marker.css('top', position.top + height + 42 + 'px');
+                    marker.css('top', position.top + height + 21 + 'px');
                     $(this).attr('draghalf', 'bottom');
                 }
                 // window autoscroll
