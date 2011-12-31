@@ -62,7 +62,8 @@ class FieldEditForm(form.EditForm):
         fields = field.Fields(IFieldTitle)
 
         # omit the order attribute since it's managed elsewhere
-        fields += field.Fields(self.schema).omit('order', 'title', 'default', 'missing_value')
+        fields += field.Fields(self.schema).omit(
+            'order', 'title', 'default', 'missing_value', 'readonly')
         if self.schema.isOrExtends(IBool):
             fields = fields.omit('required')
         return fields

@@ -4,6 +4,9 @@ Changelog
 1.2.0 - unreleased
 ------------------
 
+* Hide the 'read only' setting for fields.
+  [davisagli]
+
 * Edit field defaults from the schema listing instead of in the field
   overlays. This simplifies making sure that the default can't be set
   to invalid values.
