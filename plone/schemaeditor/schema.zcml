@@ -1,24 +1,8 @@
 <configure
     xmlns="http://namespaces.zope.org/zope">
 
-  <class class="zope.schema.Text">
-    <implements interface=".schema.IText" />
-  </class>
-
-  <class class="zope.schema.TextLine">
-    <implements interface=".schema.ITextLine" />
-  </class>
-
   <class class="zope.schema.Bool">
     <implements interface=".schema.IBool" />
-  </class>
-
-  <class class="zope.schema.Int">
-    <implements interface=".schema.IInt" />
-  </class>
-
-  <class class="zope.schema.Password">
-    <implements interface=".schema.IPassword" />
   </class>
 
   <class class="zope.schema.Float">
@@ -31,10 +15,6 @@
 
   <class class="zope.schema.Date">
     <implements interface=".schema.IDate" />
-  </class>
-
-  <class class="zope.schema.List">
-    <implements interface=".schema.IList" />
   </class>
 
   <class class="zope.schema.Choice">

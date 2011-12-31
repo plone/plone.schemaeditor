@@ -129,7 +129,7 @@ class VocabularyValuesValidator(validator.SimpleFieldValidator):
 @interface.implementer(interfaces.IFieldEditFormSchema)
 @component.adapter(schema_ifaces.IList)
 def getMultiChoiceFieldSchema(field):
-    return se_schema.ITextLineMultiChoice
+    return se_schema.ITextLineChoice
 
 MultiChoiceFactory = FieldFactory(
     schema.List,
@@ -137,7 +137,7 @@ MultiChoiceFactory = FieldFactory(
     value_type=schema.Choice(values=[]))
 
 class TextLineMultiChoiceField(TextLineChoiceField):
-    interface.implementsOnly(se_schema.ITextLineMultiChoice)
+    interface.implementsOnly(se_schema.ITextLineChoice)
     component.adapts(schema_ifaces.IList)
 
     def __init__(self, field):

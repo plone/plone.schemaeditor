@@ -24,31 +24,10 @@ The default values for fields should generally be the same type as the
 field itself.  The plone.schemaeditor declares that the zope.schema
 field classes implement schemata with correct default types.
 
-    >>> field = schema.Text()
-    >>> context = traversal.FieldContext(field, None)
-    >>> form = edit.FieldEditForm(context, None)
-    >>> form.schema
-    <InterfaceClass plone.schemaeditor.schema.IText>
-    >>> form.schema['default']
-    <zope.schema._bootstrapfields.Text object at ...>
-
-    >>> field = schema.TextLine()
-    >>> context = traversal.FieldContext(field, None)
-    >>> form = edit.FieldEditForm(context, None)
-    >>> form.schema
-    <InterfaceClass plone.schemaeditor.schema.ITextLine>
-    >>> form.schema['default']
-    <zope.schema._bootstrapfields.TextLine object at ...>
-
-    >>> field = schema.Datetime()
-    >>> context = traversal.FieldContext(field, None)
-    >>> form = edit.FieldEditForm(context, None)
-    >>> form.schema
-    <InterfaceClass plone.schemaeditor.schema.IDatetime>
-    >>> form.schema['default']
-    <zope.schema._field.Datetime object at ...>
-
-The Datetime fields also have corrected min/max field types.
+Some field types are declared generically as Object fields in zope.schema,
+but we want to use the correct field types for our edit form. For example,
+plone.schemaeditor declares that the min and max fields for Datetime
+fields are also Datetimes.
 
     >>> field = schema.Datetime()
     >>> context = traversal.FieldContext(field, None)
