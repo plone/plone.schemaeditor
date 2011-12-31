@@ -4,6 +4,11 @@ Changelog
 1.2.0 - unreleased
 ------------------
 
+* Prevent the user from creating fields with names that are reserved for
+  Dublin Core metadata. ``title`` and ``description`` can still be used
+  as long as the fields are of the correct type.
+  [davisagli]
+
 * Remove unhelpful help text for min_length and max_length fields.
   [davisagli]
 

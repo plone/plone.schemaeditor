@@ -246,3 +246,39 @@ and saved.
     [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectModifiedEvent on List]
     [event: SchemaModifiedEvent on DummySchemaContext]
+
+Reserved field names
+--------------------
+
+Since fields are accessible by names as attributes of a content item, we
+reserve some field names that are already in use by Dublin Core metadata
+attributes. Users cannot add fields with these names.
+
+    >>> for fname in ("subject", "format", "language",
+    ...               "creators", "contributors", "rights",
+    ...               "effective_date", "expiration_date"):
+    ...     browser.open(portal_url + '/@@schemaeditor')
+    ...     browser.getControl('Add new field').click()
+    ...     browser.getControl('Title').value = fname
+    ...     browser.getControl('Short Name').value = fname
+    ...     browser.getControl('Add').click()
+    ...     assert 'is a reserved field name' in browser.contents
+
+The ``title`` and ``description`` field names are also reserved, but since
+it's a common need to customize the wording of the label and help text for
+these fields, they are allowed as long as the field is of the correct type.
+
+    >>> browser.open(portal_url + '/@@schemaeditor')
+    >>> browser.getControl('Add new field').click()
+    >>> browser.getControl('Title').value = 'title'
+    >>> browser.getControl('Short Name').value = 'title'
+    >>> browser.getControl('Field type').getControl('Integer').selected = True
+    >>> browser.getControl('Add').click()
+    >>> browser.url
+    'http://nohost/@@schemaeditor/@@add-field'
+    >>> browser.getControl('Field type').getControl('String').selected = True
+    >>> browser.getControl('Add').click()
+    [event: ObjectAddedEvent on TextLine]
+    [event: SchemaModifiedEvent on DummySchemaContext]
+    >>> browser.url
+    'http://nohost/@@schemaeditor'

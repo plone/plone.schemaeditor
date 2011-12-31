@@ -1,9 +1,9 @@
 import re
 from zope.component.interfaces import IObjectEvent
+from zope.interface import Invalid, invariant
 from zope.interface.interfaces import Interface, IInterface, Attribute
 from zope.publisher.interfaces.browser import IBrowserPage
 from zope.schema import Object, TextLine, Text, Choice, ASCIILine
-from zope.schema import ValidationError
 from zope.schema.interfaces import IField
 from z3c.form.interfaces import IEditForm
 from OFS.interfaces import IItem
@@ -65,17 +65,20 @@ class IFieldEditFormSchema(Interface):
     """ The schema describing the form fields for a field.
     """
 
-
-class InvalidIdError(ValidationError):
-    __doc__ = _(u'Please use only letters, numbers and the following characters: _.')
+RESERVED_NAMES = (
+    "subject", "format", "language", "creators", "contributors", "rights",
+    "effective_date", "expiration_date"
+    )
 
 # a letter followed by letters, numbers, or underscore
 ID_RE = re.compile(r'^[a-z][\w\d\.]*$')
 
-def isValidFieldId(value):
-    if ID_RE.match(value):
-        return True
-    raise InvalidIdError
+def isValidFieldName(value):
+    if not ID_RE.match(value):
+        raise Invalid(_(u'Please use only letters, numbers and the following characters: _.'))
+    if value in RESERVED_NAMES:
+        raise Invalid(_(u'"${name}" is a reserved field name.', mapping={'name': value}))
+    return True
 
 
 class INewField(Interface):
@@ -89,7 +92,7 @@ class INewField(Interface):
         title=_(u'Short Name'),
         description=_(u'Used for programmatic access to the field.'),
         required=True,
-        constraint=isValidFieldId,
+        constraint=isValidFieldName,
         )
 
     description = Text(
@@ -106,3 +109,11 @@ class INewField(Interface):
         # So it will be injected from fields.py
         # default=TextLineFactory,
         )
+    
+    @invariant
+    def checkTitleAndDescriptionTypes(data):
+        if data.__name__ is not None and data.factory is not None:
+            if data.__name__ == 'title' and data.factory.fieldcls is not TextLine:
+                raise Invalid(_(u'The "title" field must be a Text line (string) field.'))
+            if data.__name__ == 'description' and data.factory.fieldcls is not Text:
+                raise Invalid(_(u'The "description" field must be a Text field.'))
