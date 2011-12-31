@@ -61,27 +61,10 @@ If duplicate values are entered an error is raised.
       <div class="error">The 'United States' vocabulary value conflicts with 'United States'.</div>
     ...
 
-For now, the 'default' field type is a TextLine field.
-
-    >>> browser.getControl('Default')
-    <Control name='form.widgets.default' type='text'>
-
-If set, the default field must be a valid option from the vocabulary.
-
-    >>> browser.getControl('Vocabulary').value = '\n'.join(
-    ...     ['Alaska', 'Russia', 'United States', "C\xc3\xb4te d'Ivoire", 'Other'])
-    >>> browser.getControl('Default').value = 'Germany'
-    >>> browser.getControl('Save').click()
-    >>> print browser.contents
-    <...
-      <div class="error">Please enter a valid vocabulary value.</div>
-    ...
-
 Enter valid values and save the field settings.
 
     >>> browser.getControl('Vocabulary').value = '\n'.join(
     ...     ['Alaska', 'Russia', 'United States', "C\xc3\xb4te d'Ivoire", 'Other'])
-    >>> browser.getControl('Default').value = ''
     >>> browser.getControl('Save').click()
     [event: ObjectModifiedEvent on Choice]
     [event: SchemaModifiedEvent on DummySchemaContext]
@@ -153,18 +136,11 @@ If duplicate values are entered an error is raised.
       <div class="error">The 'Lisp' vocabulary value conflicts with 'Lisp'.</div>
     ...
 
-For now, the 'default' field type is a Text field.
-
-    >>> browser.getControl('Default')
-    <Control name='form.widgets.default' type='textarea'>
-
 Enter unique values and save the field settings.
 
     >>> browser.getControl('Vocabulary').value = '\n'.join(
     ...     ['Plone', 'Python', 'Lisp'])
-    >>> browser.getControl('Default').value = 'Plone'
     >>> browser.getControl('Save').click()
-    [event: ObjectModifiedEvent on List]
     [event: ObjectModifiedEvent on List]
     [event: SchemaModifiedEvent on DummySchemaContext]
 
@@ -176,10 +152,6 @@ values specified can be selected.
     >>> from_ctl
     <ListControl name='form.widgets.categories.from' type='select'>
     >>> to_ctl = browser.getControl(name="form.widgets.categories.to")
-    >>> item = to_ctl.getControl('Plone')
-    >>> item
-    <ItemControl name='form.widgets.categories.to' type='select'
-    optionValue='Plone' selected=False>
 
     >>> item = from_ctl.getControl('Python')
     >>> to_ctl.mech_control.items.append(item.mech_item)
@@ -187,4 +159,4 @@ values specified can be selected.
     >>> from_ctl.getControl('Lisp').selected
     False
     >>> to_ctl.options
-    ['Plone', 'Python']
+    ['Python']

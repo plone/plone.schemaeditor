@@ -1,8 +1,13 @@
 Changelog
 =========
 
-1.1.3 - unreleased
+1.2.0 - unreleased
 ------------------
+
+* Edit field defaults from the schema listing instead of in the field
+  overlays. This simplifies making sure that the default can't be set
+  to invalid values.
+  [davisagli]
 
 * Limit the height of text areas in the schema listing to avoid extra
   scrolling.

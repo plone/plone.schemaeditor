@@ -1,6 +1,6 @@
 from Acquisition import aq_parent, aq_inner
 
-from zope.interface import implements, Interface, Invalid
+from zope.interface import implements, Interface
 from zope.cachedescriptors.property import Lazy as lazy_property
 from zope.component import adapts
 from zope.event import notify
@@ -9,7 +9,6 @@ from zope import schema
 from zope.i18nmessageid import MessageFactory
 
 from z3c.form import form, field, button
-from z3c.form.interfaces import WidgetActionExecutionError
 from plone.z3cform import layout
 
 from plone.schemaeditor.interfaces import IFieldEditForm
@@ -63,7 +62,7 @@ class FieldEditForm(form.EditForm):
         fields = field.Fields(IFieldTitle)
 
         # omit the order attribute since it's managed elsewhere
-        fields += field.Fields(self.schema).omit('order', 'title', 'missing_value')
+        fields += field.Fields(self.schema).omit('order', 'title', 'default', 'missing_value')
         if self.schema.isOrExtends(IBool):
             fields = fields.omit('required')
         return fields
@@ -71,19 +70,6 @@ class FieldEditForm(form.EditForm):
     @button.buttonAndHandler(PMF(u'Save'), name='save')
     def handleSave(self, action):
         data, errors = self.extractData()
-
-        # For choice fields, make sure default is in the valid values
-        if 'values' in data:
-            values = data['values'] or []
-            if 'default' in data and data['default']:
-                default = data['default']
-                if type(default) is not list:
-                    default = [default]
-                for value in default:
-                    if value not in values:
-                        raise WidgetActionExecutionError('default',
-                            Invalid(_(u'Please enter a valid vocabulary value.')))
-
         if errors:
             self.status = self.formErrorsMessage
             return
@@ -94,17 +80,7 @@ class FieldEditForm(form.EditForm):
         if 'max' in data:
             self.field.max = None
 
-        default = data.pop('default', _marker)
         changes = self.applyChanges(data)
-
-        # make sure we can report invalid defaults
-        if default is not _marker:
-            try:
-                changes2 = self.applyChanges({'default': default})
-            except schema.ValidationError, e:
-                raise WidgetActionExecutionError('default', e)
-            else:
-                changes = changes or changes2
 
         if changes:
             self.status = self.successMessage
@@ -119,7 +95,12 @@ class FieldEditForm(form.EditForm):
         self.redirectToParent()
 
     def redirectToParent(self):
-        self.request.response.redirect(aq_parent(aq_inner(self.context)).absolute_url())
+        parent = aq_parent(aq_inner(self.context))
+        url = parent.absolute_url()
+        if hasattr(parent, 'schemaEditorView'):
+            url += '/@@' + parent.schemaEditorView
+        self.request.response.redirect(url)
+
 
 # form wrapper to use Plone form template
 class EditView(layout.FormWrapper):

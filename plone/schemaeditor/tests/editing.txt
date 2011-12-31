@@ -73,10 +73,10 @@ Let's navigate to the 'favorite-color' field we just created::
     >>> "Edit Field 'favorite_color'" in browser.contents
     True
 
-Now we can change various attributes.  For instance, let's change the default
-value of the 'color' field to 'orange'::
+Now we can change various attributes.  For instance, let's change the help text
+for the 'color' field::
 
-    >>> browser.getControl('Default Value').value = 'orange'
+    >>> browser.getControl('Description').value = 'Enter your favorite color.'
 
 And now click the button to save the change.  This should take us back to the list
 of schema fields, which should reflect the change::
@@ -89,8 +89,8 @@ of schema fields, which should reflect the change::
     
 Let's confirm that the new default value was correctly saved to the actual schema::
 
-    >>> IDummySchema['favorite_color'].default
-    u'orange'
+    >>> IDummySchema['favorite_color'].description
+    u'Enter your favorite color.'
 
 Let's go back and try to make an invalid change.  The form won't let us::
 

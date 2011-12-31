@@ -1,5 +1,6 @@
 from zope.component import queryUtility
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+from zope.event import notify
 from z3c.form import form, field, button
 
 from plone.z3cform.layout import FormWrapper
@@ -7,6 +8,7 @@ from plone.memoize.instance import memoize
 
 from plone.schemaeditor import SchemaEditorMessageFactory as _
 from plone.schemaeditor.interfaces import IFieldFactory
+from plone.schemaeditor.utils import SchemaModifiedEvent
 
 
 class SchemaListing(form.Form):
@@ -21,8 +23,6 @@ class SchemaListing(form.Form):
     def updateWidgets(self):
         super(SchemaListing, self).updateWidgets()
         for widget in self.widgets.values():
-            widget.disabled = 'disabled'
-            
             # limit size of the preview for text areas
             if hasattr(widget, 'rows'):
                 if widget.rows is None or widget.rows > 5:
@@ -47,6 +47,20 @@ class SchemaListing(form.Form):
 
     def delete_url(self, field):
         return '%s/%s/@@delete' % (self.context.absolute_url(), field.__name__)
+
+    @button.buttonAndHandler(_(u'Save Defaults'))
+    def handleSaveDefaults(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+        
+        for fname, value in data.items():
+            self.context.schema[fname].default = value
+        notify(SchemaModifiedEvent(self.context.schema))
+        
+        # update widgets to take the new defaults into account
+        self.updateWidgets()
 
 
 class ReadOnlySchemaListing(SchemaListing):

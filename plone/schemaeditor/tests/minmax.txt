@@ -50,24 +50,12 @@ Set the range to 13 to 100.
     [event: ObjectModifiedEvent on Int]
     [event: SchemaModifiedEvent on DummySchemaContext]
 
-Return to the form and try to set a default outside the range. This is
-disallowed.
-
-    >>> browser.getLink(url='age').click()
-    >>> browser.getControl(name='form.widgets.default').value = '1'
-    >>> browser.getControl('Save').click()
-    [event: ObjectModifiedEvent on Int]
-    >>> print browser.contents
-    <...
-      <div class="error">Value is too small</div>
-    ...
-
 Return to the form and set the range to values outside the current range.
 
+    >>> browser.getLink(url='age').click()
     >>> browser.getControl(name='form.widgets.min').value = '0'
     >>> browser.getControl(name='form.widgets.max').value = '200'
     >>> browser.getControl('Save').click()
-    [event: ObjectModifiedEvent on Int]
     [event: ObjectModifiedEvent on Int]
     [event: SchemaModifiedEvent on DummySchemaContext]
 
