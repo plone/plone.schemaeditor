@@ -4,6 +4,9 @@ Changelog
 1.2.0 - unreleased
 ------------------
 
+* Remove unhelpful help text for min_length and max_length fields.
+  [davisagli]
+
 * The schema listing preview now respects autoform hints (such as custom
   widgets).
   [davisagli]

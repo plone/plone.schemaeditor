@@ -19,6 +19,14 @@ except ImportError:
 
 from plone.schemaeditor import SchemaEditorMessageFactory as _
 
+
+# get rid of unhelpful help text
+interfaces.IMinMaxLen['min_length'].description = u''
+interfaces.IMinMaxLen['max_length'].description = u''
+
+
+# now fix up some of the schemas with missing details
+
 class IBool(interfaces.IBool, interfaces.IFromUnicode):
     pass
 
