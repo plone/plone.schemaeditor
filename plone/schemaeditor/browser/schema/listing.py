@@ -22,6 +22,11 @@ class SchemaListing(form.Form):
         super(SchemaListing, self).updateWidgets()
         for widget in self.widgets.values():
             widget.disabled = 'disabled'
+            
+            # limit size of the preview for text areas
+            if hasattr(widget, 'rows'):
+                if widget.rows is None or widget.rows > 5:
+                    widget.rows = 5
 
     @memoize
     def _field_factory(self, field):

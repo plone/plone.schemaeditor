@@ -4,6 +4,10 @@ Changelog
 1.1.3 - unreleased
 ------------------
 
+* Limit the height of text areas in the schema listing to avoid extra
+  scrolling.
+  [davisagli]
+
 * Fall back to normal traversal if a field isn't found when traversing the
   schema context. This fixes inline validation for forms on the schema
   context.
