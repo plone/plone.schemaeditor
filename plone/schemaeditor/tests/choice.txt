@@ -46,7 +46,7 @@ Open the new fields edit form.
 The edit form for choice fields includes a widget for specifying the
 vocabulary.
 
-    >>> ctl = browser.getControl('Vocabulary')
+    >>> ctl = browser.getControl('Possible values')
     >>> ctl
     <Control name='form.widgets.values' type='textarea'>
 
@@ -63,7 +63,7 @@ If duplicate values are entered an error is raised.
 
 Enter valid values and save the field settings.
 
-    >>> browser.getControl('Vocabulary').value = '\n'.join(
+    >>> browser.getControl('Possible values').value = '\n'.join(
     ...     ['Alaska', 'Russia', 'United States', "C\xc3\xb4te d'Ivoire", 'Other'])
     >>> browser.getControl('Save').click()
     [event: ObjectModifiedEvent on Choice]
@@ -122,7 +122,7 @@ Open the new fields edit form.
 The edit form for choice fields includes a widget for specifying the
 vocabulary.
 
-    >>> ctl = browser.getControl('Vocabulary')
+    >>> ctl = browser.getControl('Possible values')
     >>> ctl
     <Control name='form.widgets.values' type='textarea'>
 
@@ -138,7 +138,7 @@ If duplicate values are entered an error is raised.
 
 Enter unique values and save the field settings.
 
-    >>> browser.getControl('Vocabulary').value = '\n'.join(
+    >>> browser.getControl('Possible values').value = '\n'.join(
     ...     ['Plone', 'Python', 'Lisp'])
     >>> browser.getControl('Save').click()
     [event: ObjectModifiedEvent on List]

@@ -84,8 +84,8 @@ class ITextLinesField(interfaces.IList):
 class ITextLineChoice(interfaces.IField):
 
     values = schema.List(
-        title=interfaces.IChoice['vocabulary'].title,
-        description=_(u'Enter vocabulary values one per line.'),
+        title=_(u'Possible values'),
+        description=_(u'Enter allowed choices one per line.'),
         required=interfaces.IChoice['vocabulary'].required,
         default=interfaces.IChoice['vocabulary'].default,
         value_type=schema.TextLine())
