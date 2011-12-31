@@ -88,7 +88,7 @@
 
         // reorder fields
         $('.fieldPreview').plone_schemaeditor_html5_sortable(function (i) {
-            $.post(window.location.href + '/' + this.attr('data-field_id') + '/@@order', {pos: i});
+            $.post(window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@order', {pos: i});
         });
 
 
