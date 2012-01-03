@@ -17,6 +17,11 @@
   margin: 0.5em 0;
   -moz-border-radius: 0.5em;
   position: relative;
+  border: solid 2px #ccc;
+}
+
+.fieldFromBehavior {
+  border: dashed 2px #ccc;
 }
 
 .fieldFromBehavior .disabled-field-overlay {
@@ -33,14 +38,18 @@
 .fieldLabel {
   float: left;
   background: #ddd;
-  -moz-border-radius-topleft: 0.5em;
-  outline: solid 1px #fff;
-  -moz-outline-radius-topleft: 0.5em;
-  -moz-outline-radius-bottomright: 0.5em;
+  border-right: solid 1px #fff;
+  border-bottom: solid 1px #fff;
+  -moz-border-radius-bottomright: 0.5em;
   margin: -1em -1em 0;
   padding: 0 0.5em;
   position: relative;
   z-index: 3;
+}
+
+.fieldFromBehavior .fieldLabel {
+  outline-width-top: 0;
+  outline-left: none;
 }
 
 .fieldControls {
@@ -55,8 +64,10 @@
 
     <div tal:condition="widget/disabled|nothing" class="fieldPreview fieldFromBehavior">
       <div class="fieldLabel">
-          <em tal:content="python:view.field_type(widget.field)"/>
-          <span tal:replace="widget/field/__name__"/>
+          <tal:block i18n:translate="">From the
+            <tal:block i18n:name="behavior_name" tal:replace="python:widget.__name__.split('.')[0]"/> behavior:</tal:block>
+          <strong tal:content="widget/field/__name__" /> &ndash;
+          <tal:block tal:content="python:view.field_type(widget.field)"/>
       </div>
       <metal:field metal:use-macro="context/@@ploneform-macros/field"/>
       <div class="disabled-field-overlay"></div>
@@ -66,8 +77,8 @@
          class="fieldPreview" tal:attributes="data-field_id widget/field/__name__">
 
       <div class="fieldLabel">
-          <em tal:content="python:view.field_type(widget.field)"/>
-          <span tal:replace="widget/field/__name__"/>
+          <strong tal:content="widget/field/__name__" /> &ndash;
+          <tal:block tal:content="python:view.field_type(widget.field)"/>
       </div>
 
       <div class="fieldControls"
