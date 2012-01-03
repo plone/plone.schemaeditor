@@ -23,6 +23,8 @@ class ISchemaContext(IItem):
         )
     
     schemaEditorView = Attribute("""Name of the schema editor view. Optional.""")
+    
+    additionalSchemata = Attribute("""Additional schemas that may modify this one.""")
 
 class ISchemaModifiedEvent(IObjectEvent):
 

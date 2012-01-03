@@ -10,19 +10,67 @@
   <metal:top-slot metal:fill-slot="formtop">
     <script type="text/javascript"
             tal:attributes="src context/++resource++schemaeditor.js"></script>
+    <style type="text/css">
+.fieldPreview {
+  background: #eee;
+  padding: 1em 1em 1px 1em;
+  margin: 0.5em 0;
+  -moz-border-radius: 0.5em;
+  position: relative;
+}
+
+.fieldFromBehavior .disabled-field-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  background: #fff;
+  opacity: 0.6;
+}
+
+.fieldLabel {
+  float: left;
+  background: #ddd;
+  -moz-border-radius-topleft: 0.5em;
+  outline: solid 1px #fff;
+  -moz-outline-radius-topleft: 0.5em;
+  -moz-outline-radius-bottomright: 0.5em;
+  margin: -1em -1em 0;
+  padding: 0 0.5em;
+  position: relative;
+  z-index: 3;
+}
+
+.fieldControls {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+    </style>
   </metal:top-slot>
 
   <metal:field-slot metal:fill-slot="field">
 
+    <div tal:condition="widget/disabled|nothing" class="fieldPreview fieldFromBehavior">
+      <div class="fieldLabel">
+          <em tal:content="python:view.field_type(widget.field)"/>
+          <span tal:replace="widget/field/__name__"/>
+      </div>
+      <metal:field metal:use-macro="context/@@ploneform-macros/field"/>
+      <div class="disabled-field-overlay"></div>
+    </div>
 
-    <div class="fieldPreview" style="background: #eee; padding: 1em 1em 1px 1em; margin: 0.5em 0em; -moz-border-radius: 0.5em; position:relative;" tal:attributes="data-field_id widget/field/__name__">
+    <div tal:condition="not:widget/disabled|nothing"
+         class="fieldPreview" tal:attributes="data-field_id widget/field/__name__">
 
-      <div class="fieldLabel" style="float: left; background: #ddd; -moz-border-radius-topleft: 0.5em; outline: solid 1px #fff; -moz-outline-radius-topleft: 0.5em; -moz-outline-radius-bottomright: 0.5em; margin: -1em -1em 0; padding: 0 0.5em;">
-          <em tal:content="python:view.field_type(widget.field)"/>:
+      <div class="fieldLabel">
+          <em tal:content="python:view.field_type(widget.field)"/>
           <span tal:replace="widget/field/__name__"/>
       </div>
 
-      <div class="fieldControls" style="position: absolute; top: 1em; right: 1em"
+      <div class="fieldControls"
            i18n:domain="plone.schemaeditor">
           <a class="fieldSettings"
              tal:define="edit_url python:view.edit_url(widget.field)"
