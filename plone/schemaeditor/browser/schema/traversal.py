@@ -14,7 +14,8 @@ class SchemaContext(SimpleItem):
     # to the publishTraverse and browserDefault methods.
     implements(ISchemaContext, IBrowserPublisher)
     
-    schemaeditor_view = None
+    schemaEditorView = None
+    additionalSchemata = ()
     
     def __init__(self, context, request, name=u'schema', title=None):
         super(SchemaContext, self).__init__(context, request)
@@ -40,8 +41,3 @@ class SchemaContext(SimpleItem):
         """ If not traversing through the schema to a field, show the SchemaListingPage.
         """
         return self, ('@@edit',)
-
-    @property
-    def additionalSchemata(self):
-        from plone.app.dexterity.behaviors.metadata import IDublinCore
-        return (IDublinCore,)
