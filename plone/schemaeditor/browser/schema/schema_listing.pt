@@ -93,7 +93,7 @@
           </div>
 
           <div tal:condition="not:widget/disabled|nothing"
-               class="fieldPreview" tal:attributes="data-field_id widget/field/__name__">
+               class="fieldPreview orderable" tal:attributes="data-field_id widget/field/__name__">
 
             <div class="fieldLabel">
                 <strong tal:content="widget/field/__name__" /> &ndash;

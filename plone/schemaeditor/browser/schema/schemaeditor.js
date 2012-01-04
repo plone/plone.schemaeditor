@@ -61,7 +61,7 @@
             });
         $('<span class="draghandle">&#x28FF;</span>')
             .css('cursor', 'ns-resize')
-            .prependTo('.fieldLabel');
+            .prependTo('.fieldPreview.orderable .fieldLabel');
     };
 
     $(function () {
@@ -87,7 +87,7 @@
         });
 
         // reorder fields
-        $('.fieldPreview').plone_schemaeditor_html5_sortable(function (i) {
+        $('.fieldPreview.orderable').plone_schemaeditor_html5_sortable(function (i) {
             $.post(window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@order', {pos: i});
         });
 
