@@ -4,6 +4,9 @@ Changelog
 1.2.0 - unreleased
 ------------------
 
+* Display fields from behaviors in the schema preview too.
+  [davisagli]
+
 * Prevent the user from creating fields with names that are reserved for
   Dublin Core metadata. ``title`` and ``description`` can still be used
   as long as the fields are of the correct type.
