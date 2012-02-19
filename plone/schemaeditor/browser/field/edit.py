@@ -96,8 +96,9 @@ class FieldEditForm(form.EditForm):
     def redirectToParent(self):
         parent = aq_parent(aq_inner(self.context))
         url = parent.absolute_url()
-        if hasattr(parent, 'schemaEditorView'):
+        if hasattr(parent, 'schemaEditorView') and parent.schemaEditorView:
             url += '/@@' + parent.schemaEditorView
+
         self.request.response.redirect(url)
 
 
