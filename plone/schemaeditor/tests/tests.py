@@ -51,6 +51,11 @@ def test_suite():
 from zope.interface import Interface
 class ITestLayer(Interface):
     pass
+class RenderWidget(object):
+    def __init__(self, widget, request):
+        self.widget = widget
+    def __call__(self):
+        return self.widget.render()
 from plone.z3cform.templates import ZopeTwoFormTemplateFactory
 from plone.z3cform.interfaces import IFormWrapper
 import os

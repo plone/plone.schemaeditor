@@ -38,6 +38,14 @@
     <!-- use a form layout that doesn't pull in main_template -->
     <adapter factory=".tests.layout_factory"/>
 
+    <!-- provide a widget renderer a la plone.app.z3cform -->
+    <browser:page
+        name="ploneform-render-widget"
+        for="z3c.form.interfaces.IWidget"
+        class=".tests.RenderWidget"
+        permission="zope2.View"
+        />
+
     <browser:page
         name="contexteditor"
         for="*"
