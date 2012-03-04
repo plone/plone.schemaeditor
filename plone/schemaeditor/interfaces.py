@@ -40,6 +40,10 @@ class IFieldContext(IItem):
         schema = IField
         )
 
+class IFieldEditorExtender(IInterface):
+    """ An additional schema for use when editing a field."""
+
+
 class IFieldFactory(IField):
     """ A component that instantiates a field when called.
     """

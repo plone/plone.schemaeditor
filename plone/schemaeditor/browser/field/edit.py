@@ -2,7 +2,7 @@ from Acquisition import aq_parent, aq_inner
 
 from zope.interface import implements, Interface
 from zope.cachedescriptors.property import Lazy as lazy_property
-from zope.component import adapts
+from zope.component import adapts, getAdapters
 from zope.event import notify
 from zope.schema.interfaces import IField
 from zope import schema
@@ -10,6 +10,7 @@ from zope.i18nmessageid import MessageFactory
 
 from z3c.form import form, field, button
 from plone.z3cform import layout
+from plone.autoform.form import AutoExtensibleForm
 
 from plone.schemaeditor.interfaces import IFieldEditForm
 from plone.schemaeditor import interfaces
@@ -42,7 +43,7 @@ class FieldTitleAdapter(object):
         self.field.title = value
     title = property(_read_title, _write_title)
 
-class FieldEditForm(form.EditForm):
+class FieldEditForm(AutoExtensibleForm, form.EditForm):
     implements(IFieldEditForm)
 
     def __init__(self, context, request):
@@ -52,19 +53,26 @@ class FieldEditForm(form.EditForm):
     def getContent(self):
         return self.field
 
-    @lazy_property
-    def schema(self):
-        return interfaces.IFieldEditFormSchema(self.field)
+    # This is a trick: we want autoform to handle the additionalSchemata,
+    # but want to provide our own base schema below in updateFields.
+    schema = Interface
 
     @lazy_property
-    def fields(self):
+    def additionalSchemata(self):
+        schema_context = self.context.aq_parent
+        return [v for k, v in getAdapters((schema_context, self.field), interfaces.IFieldEditorExtender)]
+
+    def updateFields(self):
         # use a custom 'title' field to make sure it is required
         fields = field.Fields(IFieldTitle)
 
         # omit the order attribute since it's managed elsewhere
-        fields += field.Fields(self.schema).omit(
+        schema = interfaces.IFieldEditFormSchema(self.field)
+        fields += field.Fields(schema).omit(
             'order', 'title', 'default', 'missing_value', 'readonly')
-        return fields
+        self.fields = fields
+
+        self.updateFieldsFromSchemata()
 
     @button.buttonAndHandler(PMF(u'Save'), name='save')
     def handleSave(self, action):
