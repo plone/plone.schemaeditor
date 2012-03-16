@@ -17,7 +17,7 @@ first which is or extends zope.schema.interfaces.IField.
     >>> field = schema.Field()
     >>> context = traversal.FieldContext(field, None)
     >>> form = edit.FieldEditForm(context, None)
-    >>> form.schema
+    >>> form._schema
     <InterfaceClass zope.schema.interfaces.IField>
 
 The default values for fields should generally be the same type as the
@@ -32,7 +32,7 @@ fields are also Datetimes.
     >>> field = schema.Datetime()
     >>> context = traversal.FieldContext(field, None)
     >>> form = edit.FieldEditForm(context, None)
-    >>> form.schema['min']
+    >>> form._schema['min']
     <zope.schema._field.Datetime object at ...>
-    >>> form.schema['max']
+    >>> form._schema['max']
     <zope.schema._field.Datetime object at ...>

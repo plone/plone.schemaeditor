@@ -58,6 +58,10 @@ class FieldEditForm(AutoExtensibleForm, form.EditForm):
     schema = Interface
 
     @lazy_property
+    def _schema(self):
+        return interfaces.IFieldEditFormSchema(self.field)
+
+    @lazy_property
     def additionalSchemata(self):
         schema_context = self.context.aq_parent
         return [v for k, v in getAdapters((schema_context, self.field), interfaces.IFieldEditorExtender)]
@@ -67,8 +71,7 @@ class FieldEditForm(AutoExtensibleForm, form.EditForm):
         fields = field.Fields(IFieldTitle)
 
         # omit the order attribute since it's managed elsewhere
-        schema = interfaces.IFieldEditFormSchema(self.field)
-        fields += field.Fields(schema).omit(
+        fields += field.Fields(self._schema).omit(
             'order', 'title', 'default', 'missing_value', 'readonly')
         self.fields = fields
 

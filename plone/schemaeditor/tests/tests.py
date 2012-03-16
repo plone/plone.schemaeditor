@@ -39,6 +39,7 @@ def test_suite():
         ztc.FunctionalDocFileSuite(
             'field_schemata.txt',
             'editing.txt',
+            'extending.txt',
             'choice.txt',
             'minmax.txt',
             setUp=setUp,
