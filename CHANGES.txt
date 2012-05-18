@@ -4,6 +4,9 @@ Changelog
 1.3.0 - unreleased
 ------------------
 
+* Use zope.lifecycleevent.
+  [hannosch]
+
 * The field edit form now respects autoform hints. Additional schemata can
   be provided by registering an adapter of the schema context and field to
   ``plone.schemaeditor.interfaces.IFieldEditorExtender``.

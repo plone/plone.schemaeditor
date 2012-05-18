@@ -1,8 +1,8 @@
 from Products.Five import BrowserView
 from plone.schemaeditor.interfaces import IEditableSchema
-from zope.app.container.contained import notifyContainerModified
+from zope.container.contained import notifyContainerModified
 from zope.event import notify
-from zope.app.container.contained import ObjectRemovedEvent
+from zope.lifecycleevent import ObjectRemovedEvent
 from plone.schemaeditor.utils import SchemaModifiedEvent
 
 

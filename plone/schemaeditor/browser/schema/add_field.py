@@ -1,6 +1,6 @@
 from zope.event import notify
 from zope.interface import Invalid
-from zope.app.container.contained import ObjectAddedEvent
+from zope.lifecycleevent import ObjectAddedEvent
 from z3c.form import form, field
 from z3c.form.interfaces import WidgetActionExecutionError
 from plone.z3cform.layout import wrap_form

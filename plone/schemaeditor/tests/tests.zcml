@@ -21,12 +21,12 @@
         />
     <subscriber
         for="plone.schemaeditor.interfaces.IField
-             zope.app.container.interfaces.IObjectMovedEvent"
+             zope.lifecycleevent.interfaces.IObjectMovedEvent"
         handler=".fixtures.log_event"
         />
     <subscriber
         for="zope.interface.interfaces.IInterface
-             zope.app.container.interfaces.IContainerModifiedEvent"
+             zope.lifecycleevent.interfaces.IContainerModifiedEvent"
         handler=".fixtures.log_event"
         />
     <subscriber
