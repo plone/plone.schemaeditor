@@ -1,5 +1,4 @@
 from zope.component import queryUtility
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope.event import notify
 from zope.interface import implements
 from z3c.form import button, form
@@ -8,6 +7,7 @@ from z3c.form.interfaces import IEditForm, DISPLAY_MODE
 from plone.z3cform.layout import FormWrapper
 from plone.memoize.instance import memoize
 from plone.autoform.form import AutoExtensibleForm
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone.schemaeditor import SchemaEditorMessageFactory as _
 from plone.schemaeditor.interfaces import IFieldFactory

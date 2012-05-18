@@ -4,10 +4,9 @@ version = '1.2.1dev'
 
 setup(name='plone.schemaeditor',
       version=version,
-      description="Provides through-the-web editing of a zope 3 schema/interface.",
+      description="Provides through-the-web editing of a zope schema/interface.",
       long_description=open("README.rst").read() + "\n" +
                        open("CHANGES.txt").read(),
-      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Zope2",
         "Framework :: Plone",
@@ -26,7 +25,7 @@ setup(name='plone.schemaeditor',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          # Zope 2,
+          'Zope2',
           'zope.component',
           'zope.container',
           'zope.interface',
@@ -37,7 +36,4 @@ setup(name='plone.schemaeditor',
           'plone.z3cform',
           'plone.autoform',
       ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
       )
