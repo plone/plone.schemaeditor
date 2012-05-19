@@ -26,7 +26,7 @@
         />
     <subscriber
         for="zope.interface.interfaces.IInterface
-             zope.lifecycleevent.interfaces.IContainerModifiedEvent"
+             zope.container.interfaces.IContainerModifiedEvent"
         handler=".fixtures.log_event"
         />
     <subscriber
