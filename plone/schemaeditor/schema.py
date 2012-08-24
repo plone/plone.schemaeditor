@@ -88,5 +88,6 @@ class ITextLineChoice(interfaces.IField):
         description=_(u'Enter allowed choices one per line.'),
         required=interfaces.IChoice['vocabulary'].required,
         default=interfaces.IChoice['vocabulary'].default,
+        constraint=all,
         value_type=schema.TextLine())
     interface.alsoProvides(values, ITextLinesField)
