@@ -4,7 +4,7 @@ from zope.container.contained import notifyContainerModified
 from zope.event import notify
 from zope.lifecycleevent import ObjectRemovedEvent
 from plone.schemaeditor.utils import SchemaModifiedEvent
-from plone.schemaeditor.utils import FieldAddedEvent
+from plone.schemaeditor.utils import FieldRemovedEvent
 
 
 class FieldOrderView(BrowserView):

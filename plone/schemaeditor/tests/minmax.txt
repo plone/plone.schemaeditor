@@ -34,7 +34,7 @@ Add an Int field.
     ...     value='Integer').selected = True
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on Int]
-    [event: SchemaModifiedEvent on DummySchemaContext]
+    [event: FieldAddedEvent on DummySchemaContext]
     >>> browser.url
     'http://nohost/@@schemaeditor'
 
