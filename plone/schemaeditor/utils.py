@@ -102,3 +102,18 @@ class EditableSchema(object):
 
 class SchemaModifiedEvent(ObjectEvent):
     implements(ISchemaModifiedEvent)
+
+
+class FieldModifiedEvent(SchemaModifiedEvent):
+
+    def __init__(self, object, field):
+        super(FieldModifiedEvent, self).__init__(object)
+        self.field = field
+
+
+class FieldAddedEvent(FieldModifiedEvent):
+    pass
+
+
+class FieldRemovedEvent(FieldModifiedEvent):
+    pass

@@ -4,6 +4,7 @@ from zope.container.contained import notifyContainerModified
 from zope.event import notify
 from zope.lifecycleevent import ObjectRemovedEvent
 from plone.schemaeditor.utils import SchemaModifiedEvent
+from plone.schemaeditor.utils import FieldAddedEvent
 
 
 class FieldOrderView(BrowserView):
@@ -31,5 +32,5 @@ class FieldOrderView(BrowserView):
         schema = IEditableSchema(self.schema)
         schema.removeField(self.field.getName())
         notify(ObjectRemovedEvent(self.field, self.schema))
-        notify(SchemaModifiedEvent(self.aq_parent.aq_parent))
+        notify(FieldRemovedEvent(self.aq_parent.aq_parent, self.field))
         self.request.response.setHeader('Content-Type', 'text/html')

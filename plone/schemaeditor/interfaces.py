@@ -32,6 +32,7 @@ class ISchemaModifiedEvent(IObjectEvent):
         schema = ISchemaContext
         )
 
+
 class IFieldContext(IItem):
     """ A publishable wrapper of a zope 3 schema field
     """
