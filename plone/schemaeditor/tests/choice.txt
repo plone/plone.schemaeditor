@@ -110,7 +110,7 @@ Add a Choice field.
     >>> browser.getControl('Field type').getControl(
     ...     'Multiple Choice').selected = True
     >>> browser.getControl('Add').click()
-    [event: ObjectAddedEvent on List]
+    [event: ObjectAddedEvent on Set]
     [event: FieldAddedEvent on DummySchemaContext]
     >>> browser.url
     'http://nohost/@@schemaeditor'
@@ -141,22 +141,13 @@ Enter unique values and save the field settings.
     >>> browser.getControl('Possible values').value = '\n'.join(
     ...     ['Plone', 'Python', 'Lisp'])
     >>> browser.getControl('Save').click()
-    [event: ObjectModifiedEvent on List]
+    [event: ObjectModifiedEvent on Set]
     [event: SchemaModifiedEvent on DummySchemaContext]
 
 When the edit form for the content type is loaded, the vocabulary
 values specified can be selected.
 
     >>> browser.open(portal_url + '/@@contexteditor')
-    >>> from_ctl = browser.getControl(name="form.widgets.categories.from")
-    >>> from_ctl
-    <ListControl name='form.widgets.categories.from' type='select'>
-    >>> to_ctl = browser.getControl(name="form.widgets.categories.to")
-
-    >>> item = from_ctl.getControl('Python')
-    >>> to_ctl.mech_control.items.append(item.mech_item)
-
-    >>> from_ctl.getControl('Lisp').selected
-    False
-    >>> to_ctl.options
+    >>> browser.getControl('Categories').getControl('Python').selected = True
+    >>> browser.getControl('Categories').value
     ['Python']
