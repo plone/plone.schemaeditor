@@ -41,6 +41,8 @@ class FieldFactory(object):
 
 def FieldsVocabularyFactory(context):
     field_factories = getUtilitiesFor(IFieldFactory)
+    if context.allowedFields is not None:
+        field_factories = [(id, factory) for id, factory in field_factories if id in context.allowedFields]
     titled_factories = [(translate(factory.title), factory) for (id, factory) in field_factories]
     items = sorted(titled_factories, key=lambda x: x[0])
     return SimpleVocabulary.fromItems(items)

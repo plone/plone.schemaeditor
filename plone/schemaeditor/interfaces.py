@@ -26,6 +26,12 @@ class ISchemaContext(IItem):
     
     additionalSchemata = Attribute("""Additional schemas that may modify this one.""")
 
+    allowedFields = Attribute(
+        """List of field factory ids that may be added to this schema.
+        Or None to allow all fields.
+        """)
+
+
 class ISchemaModifiedEvent(IObjectEvent):
 
     object = Object(
