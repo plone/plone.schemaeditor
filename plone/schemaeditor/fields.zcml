@@ -53,7 +53,7 @@
 
   <adapter factory=".fields.getMultiChoiceFieldSchema" />
   <utility
-      name="zope.schema._field.List"
+      name="zope.schema._field.Set"
       component=".fields.MultiChoiceFactory"
       />
   <adapter factory=".fields.TextLineMultiChoiceField" />

@@ -4,6 +4,11 @@ Changelog
 1.3.0 (unreleased)
 ------------------
 
+- Use a *set* of choice fields for the "multiple choice" field option in the UI,
+  instead of a *list* of choice fields. The latter is orderable and is a less
+  common use case (plus we need a better widget for it).
+  [davisagli]
+
 - Make it possible for schema contexts to restrict the fields that can be added
   by defining an allowedFields property.
   [davisagli]
