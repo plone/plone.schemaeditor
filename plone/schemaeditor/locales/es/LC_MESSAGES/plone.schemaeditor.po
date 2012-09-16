@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: plone.schemaeditor\n"
-"POT-Creation-Date: 2011-11-08 22:54+0000\n"
+"POT-Creation-Date: 2012-09-16 23:10+0000\n"
 "PO-Revision-Date: 2011-11-28 00:20-0600\n"
 "Last-Translator: Héctor Velarde <hector.velarde@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,121 +16,142 @@ msgstr ""
 "Domain: plone.schemaeditor\n"
 "X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
 
-#: ../browser/schema/add_field.py:17
+#: ../interfaces.py:93
+msgid "'${name}' is a reserved field name."
+msgstr ""
+
+#: ../browser/schema/add_field.py:18
 msgid "Add new field"
 msgstr "Agregar nuevo campo"
 
-#: ../browser/schema/schema_listing.pt:3
+#: ../browser/schema/schema_listing.pt:4
 msgid "Add new field…"
 msgstr "Agregar nuevo campo…"
 
-#: ../browser/schema/schema_listing.pt:32
+#: ../browser/schema/schema_listing.pt:110
 msgid "Delete field"
 msgstr "Eliminar campo"
 
-#: ../browser/schema/listing.py:70
+#: ../browser/schema/listing.py:125
 msgid "Edit ${name}"
 msgstr "Editar ${name}"
 
-#: ../browser/schema/listing.py:66
+#: ../browser/schema/listing.py:121
 msgid "Edit ${title} (${name})"
 msgstr "Editar ${title} (${name})"
 
-#: ../browser/field/edit.py:134
+#: ../browser/field/edit.py:126
 msgid "Edit Field '${fieldname}'"
 msgstr "Editar campo '${fieldname}'"
 
-#: ../schema.py:134
-msgid "Enter vocabulary values one per line."
-msgstr "Introduzca los valores del vocabulario, uno por línea."
+#: ../schema.py:88
+msgid "Enter allowed choices one per line."
+msgstr ""
 
-#: ../browser/schema/add_field.py:33
+#: ../browser/schema/add_field.py:34
 msgid "Field added successfully."
 msgstr "El campo se agregó exitosamente."
 
-#: ../interfaces.py:100
+#: ../interfaces.py:118
 msgid "Field type"
 msgstr "Tipo de campo"
 
-#: ../interfaces.py:94
+#: ../browser/schema/schema_listing.pt:87
+msgid "From the ${behavior_name} behavior:"
+msgstr ""
+
+#: ../interfaces.py:112
 msgid "Help Text"
 msgstr "Texto de ayuda"
 
-#: ../browser/field/edit.py:85
-msgid "Please enter a valid vocabulary value."
-msgstr "Por favor introduzca un valor válido del vocabulario."
-
-#: ../interfaces.py:68
+#: ../interfaces.py:91
 msgid "Please use only letters, numbers and the following characters: _."
 msgstr "Por favor utilice únicamente letras, números y los siguientes caracteres: _."
 
-#: ../browser/schema/schema_listing.pt:27
+#: ../schema.py:87
+msgid "Possible values"
+msgstr ""
+
+#: ../browser/schema/listing.py:75
+msgid "Save Defaults"
+msgstr ""
+
+#: ../browser/schema/schema_listing.pt:105
 msgid "Settings&hellip;"
 msgstr "Configuración&hellip;"
 
-#: ../interfaces.py:87
+#: ../interfaces.py:105
 msgid "Short Name"
 msgstr "Nombre corto"
 
-#: ../interfaces.py:95
+#: ../interfaces.py:113
 msgid "Shows up in the form as help text for the field."
 msgstr "Se muestra en el formulario como texto de ayuda para el campo."
 
-#: ../interfaces.py:82
+#: ../interfaces.py:132
+msgid "The 'description' field must be a Text field."
+msgstr ""
+
+#: ../interfaces.py:130
+msgid "The 'title' field must be a Text line (string) field."
+msgstr ""
+
+#: ../interfaces.py:100
 msgid "Title"
 msgstr "Título"
 
-#: ../interfaces.py:88
+#: ../interfaces.py:106
 msgid "Used for programmatic access to the field."
 msgstr "Empleado para acceso programático al campo."
 
-#. Default: "Boolean"
-#: ../fields.py:53
+#. Default: "Yes/No"
+#: ../fields.py:57
+#, fuzzy
 msgid "label_boolean_field"
 msgstr "Booleano"
 
 #. Default: "Choice"
-#: ../fields.py:64
+#: ../fields.py:68
 msgid "label_choice_field"
 msgstr "Selección"
 
 #. Default: "Date"
-#: ../fields.py:56
+#: ../fields.py:60
 msgid "label_date_field"
 msgstr "Fecha"
 
 #. Default: "Date/Time"
-#: ../fields.py:55
+#: ../fields.py:59
 msgid "label_datetime_field"
 msgstr "Fecha/Hora"
 
 #. Default: "Floating-point number"
-#: ../fields.py:52
+#: ../fields.py:56
 msgid "label_float_field"
 msgstr "Número de punto flotante"
 
 #. Default: "Integer"
-#: ../fields.py:51
+#: ../fields.py:55
 msgid "label_integer_field"
 msgstr "Entero"
 
 #. Default: "Multiple Choice"
-#: ../fields.py:136
+#: ../fields.py:140
 msgid "label_multi_choice_field"
 msgstr "Selección múltiple"
 
 #. Default: "Password"
-#: ../fields.py:54
+#: ../fields.py:58
 msgid "label_password_field"
 msgstr "Contraseña"
 
 #. Default: "Text"
-#: ../fields.py:50
+#: ../fields.py:54
 msgid "label_text_field"
 msgstr "Texto"
 
 #. Default: "Text line (String)"
-#: ../fields.py:47
+#: ../fields.py:51
 msgid "label_textline_field"
 msgstr "Línea de texto (cadena de caracteres)"
 

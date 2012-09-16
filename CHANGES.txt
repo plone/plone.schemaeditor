@@ -16,6 +16,9 @@ Changelog
 - Add more specific events for when a field is added or removed.
   [davisagli]
 
+- I18n improved by adding many missing strings
+  [giacomos]
+
 
 1.2.1 (2012-08-29)
 ------------------

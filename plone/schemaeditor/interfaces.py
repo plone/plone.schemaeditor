@@ -90,7 +90,7 @@ def isValidFieldName(value):
     if not ID_RE.match(value):
         raise Invalid(_(u'Please use only letters, numbers and the following characters: _.'))
     if value in RESERVED_NAMES:
-        raise Invalid(_(u'"${name}" is a reserved field name.', mapping={'name': value}))
+        raise Invalid(_(u"'${name}' is a reserved field name.", mapping={'name': value}))
     return True
 
 
@@ -127,6 +127,6 @@ class INewField(Interface):
     def checkTitleAndDescriptionTypes(data):
         if data.__name__ is not None and data.factory is not None:
             if data.__name__ == 'title' and data.factory.fieldcls is not TextLine:
-                raise Invalid(_(u'The "title" field must be a Text line (string) field.'))
+                raise Invalid(_(u"The 'title' field must be a Text line (string) field."))
             if data.__name__ == 'description' and data.factory.fieldcls is not Text:
-                raise Invalid(_(u'The "description" field must be a Text field.'))
+                raise Invalid(_(u"The 'description' field must be a Text field."))
