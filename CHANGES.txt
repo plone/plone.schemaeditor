@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.3.0 (unreleased)
+1.3.0 (2013-01-17)
 ------------------
 
 - Use a *set* of choice fields for the "multiple choice" field option in the UI,
