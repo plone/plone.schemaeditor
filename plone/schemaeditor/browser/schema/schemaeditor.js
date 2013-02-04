@@ -14,7 +14,7 @@
                 e.originalEvent.dataTransfer.setData('Text', $(this).attr('data-drag_id'));
                 $('<div id="drop-marker" style="position: absolute; width: 100%;"></div>').insertBefore(this);
             })
-            .bind('dragenter', function (e) { 
+            .bind('dragenter', function (e) {
                 return false;
             })
             .bind('dragleave', function (e) {
@@ -97,7 +97,7 @@
             {
                 subtype: 'ajax',
                 filter: common_content_filter,
-                closeselector: 'input[name=form.buttons.cancel]'
+                closeselector: 'input[name="form.buttons.cancel"]'
             }
         );
 
