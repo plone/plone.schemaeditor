@@ -41,11 +41,10 @@ class FieldFactory(object):
 
 def FieldsVocabularyFactory(context):
     field_factories = getUtilitiesFor(IFieldFactory)
-    if context.allowedFields is not None:
-        field_factories = [(id, factory) for id, factory in field_factories if id in context.allowedFields]
-    titled_factories = [(translate(factory.title), factory) for (id, factory) in field_factories]
-    items = sorted(titled_factories, key=lambda x: x[0])
-    return SimpleVocabulary.fromItems(items)
+    terms = []
+    for (id, factory) in field_factories:
+        terms.append(SimpleVocabulary.createTerm(factory, translate(factory.title), factory.title))
+    return SimpleVocabulary(terms)
 
 # TextLineFactory is the default. We need to set that here to avoid a circular import.
 TextLineFactory = FieldFactory(schema.TextLine, _(u'label_textline_field', default=u'Text line (String)'))
