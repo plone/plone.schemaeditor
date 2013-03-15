@@ -31,6 +31,14 @@
       component=".fields.BoolFactory"
       />
   <utility
+      name="zope.schema._field.ASCII"
+      component=".fields.ASCIIFactory"
+      />
+  <utility
+      name="zope.schema._field.ASCIILine"
+      component=".fields.ASCIILineFactory"
+      />
+  <utility
       name="zope.schema._bootstrapfields.Password"
       component=".fields.PasswordFactory"
       />
@@ -57,7 +65,7 @@
       component=".fields.MultiChoiceFactory"
       />
   <adapter factory=".fields.TextLineMultiChoiceField" />
-  
+
   <subscriber handler=".fields.setBoolWidget" />
 
 </configure>
