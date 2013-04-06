@@ -4,7 +4,8 @@ Changelog
 1.3.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added pt_BR translation
+  [ericof]
 
 
 1.3.1 (2013-03-05)
