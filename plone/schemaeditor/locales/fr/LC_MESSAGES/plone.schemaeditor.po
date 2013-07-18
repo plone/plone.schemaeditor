@@ -16,7 +16,7 @@ msgstr ""
 
 #: ../interfaces.py:93
 msgid "'${name}' is a reserved field name."
-msgstr ""
+msgstr "'${name}' est un nom réservé."
 
 #: ../browser/schema/add_field.py:18
 msgid "Add new field"
@@ -44,7 +44,7 @@ msgstr "Modifier le champ '${fieldname}'"
 
 #: ../schema.py:88
 msgid "Enter allowed choices one per line."
-msgstr ""
+msgstr "Saisissez les choix possibles, un par ligne."
 
 #: ../browser/schema/add_field.py:34
 msgid "Field added successfully."
@@ -56,7 +56,7 @@ msgstr "Type de champ"
 
 #: ../browser/schema/schema_listing.pt:87
 msgid "From the ${behavior_name} behavior:"
-msgstr ""
+msgstr "Du comportement ${behavior_name} :"
 
 #: ../interfaces.py:112
 msgid "Help Text"
@@ -68,11 +68,11 @@ msgstr "Veuillez n'utiliser que des lettres, chiffres et les caractères _ et ."
 
 #: ../schema.py:87
 msgid "Possible values"
-msgstr ""
+msgstr "Valeurs possibles"
 
 #: ../browser/schema/listing.py:75
 msgid "Save Defaults"
-msgstr ""
+msgstr "Enregistrer les valeurs par défaut"
 
 #: ../browser/schema/schema_listing.pt:105
 msgid "Settings&hellip;"
@@ -88,11 +88,11 @@ msgstr "S'affiche dans le formulaire comme texte d'aide pour le champ"
 
 #: ../interfaces.py:132
 msgid "The 'description' field must be a Text field."
-msgstr ""
+msgstr "Le champ 'description' doit être un champ Texte."
 
 #: ../interfaces.py:130
 msgid "The 'title' field must be a Text line (string) field."
-msgstr ""
+msgstr "Le champ 'titre' doit être un champ Ligne de texte."
 
 #: ../interfaces.py:100
 msgid "Title"
@@ -104,9 +104,8 @@ msgstr "Utilisé pour l'accès programmatique au champ"
 
 #. Default: "Yes/No"
 #: ../fields.py:57
-#, fuzzy
 msgid "label_boolean_field"
-msgstr "Booléen"
+msgstr "Oui/Non"
 
 #. Default: "Choice"
 #: ../fields.py:68

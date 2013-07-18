@@ -4,7 +4,10 @@ Changelog
 1.3.2 (unreleased)
 ------------------
 
-- Added pt_BR translation
+- Updated fr translation.
+  [thomasdesvenain]
+
+- Added pt_BR translation.
   [ericof]
 
 
