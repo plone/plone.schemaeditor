@@ -150,7 +150,7 @@
             }
         );
 
-        // add new fieldset form
+        // add new field to form
         $('#add-field').prepOverlay(
             {
                 subtype: 'ajax',
@@ -160,7 +160,7 @@
             }
         );
 
-        // add new field form
+        // add new fieldset to form
         $('#add-fieldset').prepOverlay(
                 {
                     subtype: 'ajax',
