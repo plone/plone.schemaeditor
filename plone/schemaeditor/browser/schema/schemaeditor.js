@@ -76,7 +76,6 @@
                     var tab_height = $(this).height(),
                         tab_width = $(this).width(),
                         tab_position = $(this).position();
-                    console.log({height: tab_height, width: tab_width})
                     node.animate({top: tab_position.top - node.position().top,
                     			  left: tab_position.left - node.position().left,
                     			  width: '50%',
@@ -135,12 +134,10 @@
         // reorder fields and change fieldsets
         $('.fieldPreview.orderable').plone_schemaeditor_html5_sortable(function (i) {
         	var url = window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@order';
-        	console.log(url);
             $.post(url, {pos: i});
         },
         function(i) {
         	var url = window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@changefieldset';
-        	console.log(url);
         	$.post(url, {fieldset_index: i});
         });
 
