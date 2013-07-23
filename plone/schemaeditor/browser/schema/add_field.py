@@ -7,7 +7,8 @@ from plone.z3cform.layout import wrap_form
 
 from plone.schemaeditor import SchemaEditorMessageFactory as _
 from plone.schemaeditor.interfaces import INewField
-from plone.schemaeditor.utils import IEditableSchema
+from plone.schemaeditor.utils import IEditableSchema, non_fieldset_fields,\
+    sortedFields
 from plone.schemaeditor.utils import FieldAddedEvent
 
 
@@ -22,15 +23,23 @@ class FieldAddForm(form.AddForm):
         return factory(**data)
 
     def add(self, field):
-        schema = IEditableSchema(self.context.schema)
+        context = self.context
+        schema = IEditableSchema(context.schema)
+
+        # move it after the last field that is not in a fieldset
+        ordered_fields = [name for (name, f) in sortedFields(context.schema)]
+        last_non_fieldset_field = non_fieldset_fields(context.schema)[-1]
+        position = ordered_fields.index(last_non_fieldset_field) + 1
+
         try:
             schema.addField(field)
         except ValueError:
             raise WidgetActionExecutionError('__name__',
                 Invalid(u'Please select a field name that is not already used.'))
 
-        notify(ObjectAddedEvent(field, self.context.schema))
-        notify(FieldAddedEvent(self.context, field))
+        schema.moveField(field.__name__, position)
+        notify(ObjectAddedEvent(field, context.schema))
+        notify(FieldAddedEvent(context, field))
         self.status = _(u"Field added successfully.")
 
     def nextURL(self):
