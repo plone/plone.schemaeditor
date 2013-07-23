@@ -21,9 +21,9 @@ class ISchemaContext(IItem):
     schema = Object(
         schema = IInterface
         )
-    
+
     schemaEditorView = Attribute("""Name of the schema editor view. Optional.""")
-    
+
     additionalSchemata = Attribute("""Additional schemas that may modify this one.""")
 
     allowedFields = Attribute(
@@ -122,7 +122,7 @@ class INewField(Interface):
         # So it will be injected from fields.py
         # default=TextLineFactory,
         )
-    
+
     @invariant
     def checkTitleAndDescriptionTypes(data):
         if data.__name__ is not None and data.factory is not None:
@@ -130,3 +130,18 @@ class INewField(Interface):
                 raise Invalid(_(u"The 'title' field must be a Text line (string) field."))
             if data.__name__ == 'description' and data.factory.fieldcls is not Text:
                 raise Invalid(_(u"The 'description' field must be a Text field."))
+
+
+class INewFieldset(Interface):
+
+    label = TextLine(
+        title = _(u'Title'),
+        required=True
+        )
+
+    __name__ = ASCIILine(
+        title=_(u'Short Name'),
+        description=_(u'Used for programmatic access to the fieldset.'),
+        required=True,
+        constraint=isValidFieldName,
+        )

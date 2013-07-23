@@ -150,7 +150,7 @@
             }
         );
 
-        // add new field form
+        // add new fieldset form
         $('#add-field').prepOverlay(
             {
                 subtype: 'ajax',
@@ -160,8 +160,18 @@
             }
         );
 
+        // add new field form
+        $('#add-fieldset').prepOverlay(
+                {
+                    subtype: 'ajax',
+                    filter: common_content_filter,
+                    formselector: 'form#add-fieldset-form',
+                    noform: 'reload'
+                }
+            );
+
         // set id from title
-        $('#form-widgets-title').live('change', function () {
+        $('#form-widgets-title, #form-widgets-label').live('change', function () {
             var val = $(this).val().toLowerCase().replace(/[^A-Za-z0-9_]/g, '_');
             $('#form-widgets-__name__').val(val);
         });
