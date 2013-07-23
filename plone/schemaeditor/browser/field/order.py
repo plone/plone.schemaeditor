@@ -40,8 +40,9 @@ class FieldOrderView(BrowserView):
         schema.moveField(fieldname, absolute_position)
         # if field is in a fieldset, also reorder fieldset tagged value
         ordered_field_ids = [name for (name, field) in sortedFields(self.schema)]
-        fieldset.fields = sorted(fieldset.fields,
-                                 key=lambda x: ordered_field_ids.index(x))
+        if fieldset is not None:
+            fieldset.fields = sorted(fieldset.fields,
+                                     key=lambda x: ordered_field_ids.index(x))
 
         notifyContainerModified(self.schema)
         notify(SchemaModifiedEvent(self.aq_parent.aq_parent))
