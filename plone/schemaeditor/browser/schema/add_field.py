@@ -8,7 +8,6 @@ from plone.z3cform.layout import wrap_form
 from plone.schemaeditor import SchemaEditorMessageFactory as _
 from plone.schemaeditor.interfaces import INewField
 from plone.schemaeditor.utils import IEditableSchema
-from plone.schemaeditor.utils import SchemaModifiedEvent
 from plone.schemaeditor.utils import FieldAddedEvent
 
 
@@ -29,6 +28,7 @@ class FieldAddForm(form.AddForm):
         except ValueError:
             raise WidgetActionExecutionError('__name__',
                 Invalid(u'Please select a field name that is not already used.'))
+
         notify(ObjectAddedEvent(field, self.context.schema))
         notify(FieldAddedEvent(self.context, field))
         self.status = _(u"Field added successfully.")
