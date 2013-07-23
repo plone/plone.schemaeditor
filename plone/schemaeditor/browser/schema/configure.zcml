@@ -9,14 +9,21 @@
       for="plone.schemaeditor.interfaces.ISchemaContext"
       class=".listing.SchemaListingPage"
       permission="plone.schemaeditor.ManageSchemata" />
-  
+
   <browser:page
     name="add-field"
     for="plone.schemaeditor.interfaces.ISchemaContext"
     class=".add_field.FieldAddFormPage"
     permission="plone.schemaeditor.ManageSchemata"
     />
-  
+
+  <browser:page
+    name="add-fieldset"
+    for="plone.schemaeditor.interfaces.ISchemaContext"
+    class=".add_fieldset.FieldsetAddFormPage"
+    permission="plone.schemaeditor.ManageSchemata"
+    />
+
   <browser:resource
     name="schemaeditor.js"
     file="schemaeditor.js"
