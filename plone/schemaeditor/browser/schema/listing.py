@@ -19,7 +19,7 @@ class SchemaListing(AutoExtensibleForm, form.Form):
 
     ignoreContext = True
     ignoreRequest = True
-    show_empty_groups = True
+    showEmptyGroups = True
     template = ViewPageTemplateFile('schema_listing.pt')
 
     @property
