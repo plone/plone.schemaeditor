@@ -2,12 +2,13 @@ from zope.interface import Interface
 from zope import schema
 from plone.schemaeditor.browser.schema.traversal import SchemaContext
 from plone.directives import form
+from plone.supermodel.interfaces import FIELDSETS_KEY
 
 
 class IDummySchema(Interface):
 
-    form.fieldset('default',
-        fields=['creators']
+    form.fieldset('alpha',
+        fields=['fieldA']
     )
 
     field1 = schema.TextLine()
@@ -15,7 +16,16 @@ class IDummySchema(Interface):
     field3 = schema.TextLine()
     field4 = schema.TextLine()
     field5 = schema.TextLine()
-    field6 = schema.TextLine()
+    fieldA = schema.TextLine()
+
+
+def get_field_fieldset(field_id, schema):
+    fieldsets = schema.getTaggedValue(FIELDSETS_KEY)
+    for fieldset in fieldsets:
+        if field_id in fieldset.fields:
+            return fieldset
+    else:
+        return None
 
 
 class DummySchemaContext(SchemaContext):
