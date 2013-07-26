@@ -290,6 +290,8 @@ and saved.
     [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectAddedEvent on Choice]
     [event: FieldAddedEvent on DummySchemaContext]
+    [event: ObjectModifiedEvent on Choice]
+    [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectAddedEvent on Date]
     [event: FieldAddedEvent on DummySchemaContext]
     [event: ObjectModifiedEvent on Date]
@@ -304,6 +306,9 @@ and saved.
     [event: SchemaModifiedEvent on DummySchemaContext]
     [event: ObjectAddedEvent on Set]
     [event: FieldAddedEvent on DummySchemaContext]
+    [event: ObjectModifiedEvent on Set]
+    [event: SchemaModifiedEvent on DummySchemaContext]
+
 
 
 Reserved field names
