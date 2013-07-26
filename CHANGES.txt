@@ -4,6 +4,9 @@ Changelog
 1.3.2 (unreleased)
 ------------------
 
+- Avoid error when we edit a choice field with a vocabulary factory.
+  We can set vocabulary factory on a choice field.
+
 - Fieldsets wysiwyg management.
   We can add fieldsets to a schema.
   We can change the fieldset of a field by drag and drop.

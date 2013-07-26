@@ -25,9 +25,9 @@ def getFirstFieldSchema(field):
 
 class FieldFactory(object):
     implements(IFieldFactory)
-    
+
     title = u''
-    
+
     def __init__(self, fieldcls, title, *args, **kw):
         self.fieldcls = fieldcls
         self.title = title
@@ -76,7 +76,7 @@ class TextLineChoiceField(object):
 
     def __getattr__(self, name):
         if name == 'values':
-            return [term.value for term in self.field.vocabulary]
+            return [term.value for term in (self.field.vocabulary or [])]
         return getattr(self.field, name)
 
     def _constructVocabulary(self, value):
@@ -90,9 +90,18 @@ class TextLineChoiceField(object):
         return vocabulary.SimpleVocabulary(terms)
 
     def __setattr__(self, name, value):
-        if name == 'values':
+        if name == 'values' and value:
             vocab = self._constructVocabulary(value)
             return setattr(self.field, 'vocabulary', vocab)
+        elif name == 'values' and not value:
+            return setattr(self.field, 'vocabulary', None)
+        if name == 'vocabularyName' and value:
+            setattr(self.field, 'values', None)
+            setattr(self.field, 'vocabulary', None)
+            return setattr(self.field, 'vocabularyName', value)
+        elif  name == 'vocabularyName' and not value:
+            return setattr(self.field, 'vocabularyName', None)
+
         return setattr(self.field, name, value)
 
     def __delattr__(self, name):
@@ -110,7 +119,7 @@ class VocabularyValuesValidator(validator.SimpleFieldValidator):
         if values is None:
             return super(VocabularyValuesValidator, self).validate(
                 values)
-            
+
         by_value = {}
         by_token = {}
         for value in values:
@@ -126,7 +135,7 @@ class VocabularyValuesValidator(validator.SimpleFieldValidator):
                     % (value, by_token[term.token].value))
             by_value[term.value] = term
             by_token[term.token] = term
-                
+
         return super(VocabularyValuesValidator, self).validate(values)
 
 @interface.implementer(interfaces.IFieldEditFormSchema)
@@ -165,3 +174,4 @@ def setBoolWidget(field, event):
     widgets = schema.queryTaggedValue('plone.autoform.widgets', {})
     widgets[field.__name__] = 'z3c.form.browser.radio.RadioFieldWidget'
     schema.setTaggedValue('plone.autoform.widgets', widgets)
+

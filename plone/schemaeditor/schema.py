@@ -1,5 +1,5 @@
 from zope import interface
-from zope.schema import interfaces 
+from zope.schema import interfaces
 from zope import schema
 
 try:
@@ -44,7 +44,7 @@ class IFloat(interfaces.IFloat, interfaces.IFromUnicode):
         required=interfaces.IFloat['max'].required,
         default=interfaces.IFloat['max'].default,
         )
-    
+
 class IDatetime(IDatetime):
 
     min = schema.Datetime(
@@ -90,3 +90,10 @@ class ITextLineChoice(interfaces.IField):
         default=interfaces.IChoice['vocabulary'].default,
         value_type=schema.TextLine())
     interface.alsoProvides(values, ITextLinesField)
+
+    vocabularyName = schema.ASCIILine(
+        title=interfaces.IChoice['vocabularyName'].title,
+        description=interfaces.IChoice['vocabularyName'].description,
+        default=interfaces.IChoice['vocabularyName'].default,
+        required=False,
+        )
