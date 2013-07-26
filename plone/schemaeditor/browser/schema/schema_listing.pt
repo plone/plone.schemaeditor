@@ -5,7 +5,14 @@
            i18n:attributes="value"
            value="Add new field&hellip;"/>
   </form>
-  
+
+  <form id="add-fieldset" method="GET"
+        tal:attributes="action string:${context/absolute_url}/@@add-fieldset">
+    <input type="submit" style="float: right; display: block; margin-top: -2.5em;"
+           i18n:attributes="value"
+           value="Add new fieldset&hellip;"/>
+  </form>
+
   <metal:form metal:use-macro="context/@@ploneform-macros/form">
     <metal:top-slot metal:fill-slot="formtop">
       <script type="text/javascript"
@@ -19,11 +26,11 @@
     position: relative;
     border: solid 2px #ccc;
   }
-  
+
   .fieldFromBehavior {
     border: dashed 2px #ccc;
   }
-  
+
   .fieldFromBehavior .disabled-field-overlay {
     position: absolute;
     top: 0;
@@ -34,7 +41,7 @@
     background: #fff;
     opacity: 0.6;
   }
-  
+
   .fieldLabel {
     float: left;
     background: #ddd;
@@ -46,12 +53,12 @@
     position: relative;
     z-index: 3;
   }
-  
+
   .fieldFromBehavior .fieldLabel {
     outline-width-top: 0;
     outline-left: none;
   }
-  
+
   .fieldControls {
     position: absolute;
     top: 1em;
@@ -59,17 +66,17 @@
   }
       </style>
     </metal:top-slot>
-  
+
     <metal:fields-slot metal:fill-slot="fields">
-  
+
       <tal:block tal:repeat="group python:[view] + list(view.groups)">
         <fieldset tal:define="fieldset_name repeat/group/index"
                   tal:attributes="id string:fieldset-${fieldset_name};
                                   class string:kssattr-fieldset-${fieldset_name}">
-  
+
           <legend tal:define="group_name python:group.label or view.default_fieldset_label"
                   tal:content="group_name">Fieldset name</legend>
-  
+
           <tal:block tal:define="errors group/widgets/errors"
                      tal:condition="errors"
                      tal:repeat="error errors">
@@ -78,9 +85,9 @@
                   tal:content="structure error/render"
                   />
           </tal:block>
-  
+
           <tal:widgets repeat="widget group/widgets/values">
-  
+
             <div tal:condition="widget/disabled|nothing" class="fieldPreview fieldFromBehavior">
               <div class="fieldLabel">
                   <tal:block i18n:translate="">From the
@@ -91,15 +98,15 @@
               <tal:field tal:replace="structure widget/@@ploneform-render-widget" />
               <div class="disabled-field-overlay"></div>
             </div>
-  
+
             <div tal:condition="not:widget/disabled|nothing"
                  class="fieldPreview orderable" tal:attributes="data-field_id widget/field/__name__">
-  
+
               <div class="fieldLabel">
                   <strong tal:content="widget/field/__name__" /> &ndash;
                   <tal:block tal:content="python:view.field_type(widget.field)"/>
               </div>
-  
+
               <div class="fieldControls"
                    i18n:domain="plone.schemaeditor">
                   <a class="fieldSettings"
@@ -115,15 +122,15 @@
                      tal:condition="delete_url"
                      tal:attributes="href delete_url">&times;</a>
               </div>
-  
+
               <div style="width: 80%">
                 <tal:field tal:replace="structure widget/@@ploneform-render-widget" />
               </div>
-  
+
             </div>
-  
+
           </tal:widgets>
-  
+
         </fieldset>
       </tal:block>
     </metal:fields-slot>

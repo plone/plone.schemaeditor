@@ -4,7 +4,7 @@
 /*globals jQuery, confirm */
 
 (function ($) {
-    $.fn.plone_schemaeditor_html5_sortable = function (callback) {
+    $.fn.plone_schemaeditor_html5_sortable = function (reorder_callback, changefieldset_callback) {
         this.attr('draggable', 'true')
             .css('-webkit-user-drag', 'element')
             .each(function (i) {
@@ -54,11 +54,56 @@
                 } else {
                     node.insertAfter(this);
                 }
-                callback.apply(node, [node.parent().children('[data-drag_id]').index(node)]);
+                reorder_callback.apply(node, [node.parent().children('[data-drag_id]').index(node)]);
             })
             .bind('dragend', function (e) {
                 $('#drop-marker').remove();
             });
+
+        $('.formTabs .formTab').attr('droppable', 'true')
+            .each(function (i) {
+                $(this).attr('data-fieldset_drag_id', i);
+            })
+            .bind('drop', function (e) {
+                e.preventDefault();
+                var src = e.originalEvent.dataTransfer.getData('Text'),
+                node = $('[data-drag_id=' + src + ']');
+                var orig_fieldset = node.parents('fieldset');
+                var orig_fieldset_id = orig_fieldset.attr('id').split('-')[1];
+                var target_fieldset_id = $(this).attr('data-fieldset_drag_id');
+                if(orig_fieldset_id != target_fieldset_id){
+                    var target_fieldset = $('#fieldset-' + target_fieldset_id);
+                    var tab_height = $(this).height(),
+                        tab_width = $(this).width(),
+                        tab_position = $(this).position();
+                    node.animate({top: tab_position.top - node.position().top,
+                    			  left: tab_position.left - node.position().left,
+                    			  width: '50%',
+                    			  opacity: '0'
+                    			  }, 1000,
+                    			  function(){
+                                      node.appendTo(target_fieldset);
+                                      node.css('left', '');
+                                      node.css('top', '');
+                                      node.css('width', '');
+                                      node.css('opacity', '');
+                    			  });;
+                    changefieldset_callback.apply(node, [target_fieldset_id]);
+                    }
+                $(this).css('border', "");
+            })
+            .bind('dragover', function (e) {
+            	e.preventDefault();
+            	$(this).css('border', "3px dotted red");
+            	var position = $(this).position();
+                $('#drop-marker').hide();
+	            return false;
+            })
+            .bind('dragleave', function(e) {
+            	e.preventDefault();
+            	$(this).css('border', "");
+                $('#drop-marker').show();
+        });
         $('<span class="draghandle">&#x28FF;</span>')
             .css('cursor', 'ns-resize')
             .prependTo('.fieldPreview.orderable .fieldLabel');
@@ -86,11 +131,15 @@
             );
         });
 
-        // reorder fields
+        // reorder fields and change fieldsets
         $('.fieldPreview.orderable').plone_schemaeditor_html5_sortable(function (i) {
-            $.post(window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@order', {pos: i});
+        	var url = window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@order';
+            $.post(url, {pos: i});
+        },
+        function(i) {
+        	var url = window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@changefieldset';
+        	$.post(url, {fieldset_index: i});
         });
-
 
         // field settings form
         $('a.fieldSettings').prepOverlay(
@@ -101,7 +150,7 @@
             }
         );
 
-        // add new field form
+        // add new field to form
         $('#add-field').prepOverlay(
             {
                 subtype: 'ajax',
@@ -111,8 +160,18 @@
             }
         );
 
+        // add new fieldset to form
+        $('#add-fieldset').prepOverlay(
+                {
+                    subtype: 'ajax',
+                    filter: common_content_filter,
+                    formselector: 'form#add-fieldset-form',
+                    noform: 'reload'
+                }
+            );
+
         // set id from title
-        $('#form-widgets-title').live('change', function () {
+        $('#form-widgets-title, #form-widgets-label').live('change', function () {
             var val = $(this).val().toLowerCase().replace(/[^A-Za-z0-9_]/g, '_');
             $('#form-widgets-__name__').val(val);
         });

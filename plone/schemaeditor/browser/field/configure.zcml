@@ -9,10 +9,10 @@
         for="...interfaces.IFieldContext"
         class=".edit.EditView"
         permission="plone.schemaeditor.ManageSchemata" />
-        
+
     <adapter
         factory=".edit.FieldTitleAdapter" />
-        
+
     <browser:page
         name="order"
         for="...interfaces.IFieldContext"
@@ -28,5 +28,13 @@
         attribute="delete"
         permission="plone.schemaeditor.ManageSchemata"
         />
-        
+
+    <browser:page
+        name="changefieldset"
+        for="...interfaces.IFieldContext"
+        class=".fieldset.ChangeFieldsetView"
+        attribute="change"
+        permission="plone.schemaeditor.ManageSchemata"
+        />
+
 </configure>

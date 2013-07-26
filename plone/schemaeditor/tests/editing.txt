@@ -4,7 +4,7 @@ context that will allow us to demonstrate editing a dummy IDummySchema schema, v
 will print out the event, so that we can make sure events are getting raised properly.
 
 Let's set up the test browser::
-    
+
     >>> from Products.Five.testbrowser import Browser
     >>> browser = Browser()
     >>> portal_url = 'http://nohost'
@@ -21,7 +21,7 @@ error::
     Traceback (most recent call last):
     ...
     Unauthorized: ...You are not authorized to access this resource...
-    
+
 We need to log in as a manager, because by default only managers get the 'Manage Schemata' permission::
 
     >>> user = self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
@@ -86,7 +86,7 @@ of schema fields, which should reflect the change::
     [event: SchemaModifiedEvent on DummySchemaContext]
     >>> browser.url
     'http://nohost/@@schemaeditor'
-    
+
 Let's confirm that the new default value was correctly saved to the actual schema::
 
     >>> IDummySchema['favorite_color'].description
@@ -158,6 +158,42 @@ algorithm that we need to test)::
     'favorite_color'
 
 
+Moving a field to an other fieldset
+-----------------------------------
+
+Fields can be moved from a fieldset to an other one.
+They are moved to the end of the new fieldset::
+
+    >>> browser.open('http://nohost/@@schemaeditor/favorite_color/@@changefieldset?fieldset_index=1')
+    [event: ContainerModifiedEvent on InterfaceClass]
+    [event: SchemaModifiedEvent on DummySchemaContext]
+    >>> browser.contents
+    ''
+
+Now the field should be the seventh field of the schema::
+
+    >>> getFieldsInOrder(IDummySchema)[6][0]
+    'favorite_color'
+    >>> from plone.schemaeditor.tests.fixtures import get_field_fieldset
+    >>> get_field_fieldset('favorite_color', IDummySchema)
+    <Fieldset 'alpha' of fieldA, favorite_color>
+
+They can be ordered into a fieldset::
+
+    >>> browser.open('http://nohost/@@schemaeditor/favorite_color/@@order?pos=0')
+    [event: ContainerModifiedEvent on InterfaceClass]
+    [event: SchemaModifiedEvent on DummySchemaContext]
+    >>> browser.contents
+    ''
+    >>> get_field_fieldset('favorite_color', IDummySchema)
+    <Fieldset 'alpha' of favorite_color, fieldA>
+
+Now the field should be the sixth field of the schema::
+
+    >>> getFieldsInOrder(IDummySchema)[5][0]
+    'favorite_color'
+
+
 Removing a field
 ----------------
 
@@ -172,6 +208,32 @@ And confirm that the real schema was updated::
 
     >>> 'favorite_color' in IDummySchema
     False
+
+
+Adding a fieldset
+-----------------
+
+Let's add a 'extra-info' fieldset to the IDummySchema schema::
+
+    >>> browser.open(portal_url + '/@@schemaeditor')
+    >>> browser.getControl('Add new fieldset').click()
+    >>> browser.getControl('Title').value = 'Extra information'
+    >>> browser.getControl('Short Name').value = 'extra-info'
+    >>> browser.getControl('Add').click()
+    >>> browser.contents
+    '<...Please use only letters, numbers and the following characters...'
+    >>> browser.getControl('Short Name').value = 'extra_info'
+    >>> browser.getControl('Add').click()
+    [event: ContainerModifiedEvent on InterfaceClass]
+    [event: SchemaModifiedEvent on DummySchemaContext]
+    >>> browser.url
+    'http://nohost/@@schemaeditor'
+
+Now the actual IDummySchema schema should have the new fieldset ::
+
+    >>> from plone.supermodel.interfaces import FIELDSETS_KEY
+    >>> IDummySchema.getTaggedValue(FIELDSETS_KEY)
+    [<Fieldset 'alpha' of favorite_color, fieldA>, <Fieldset 'extra_info' of >]
 
 
 Miscellaneous field types
@@ -246,6 +308,8 @@ and saved.
     [event: FieldAddedEvent on DummySchemaContext]
     [event: ObjectModifiedEvent on Set]
     [event: SchemaModifiedEvent on DummySchemaContext]
+
+
 
 Reserved field names
 --------------------

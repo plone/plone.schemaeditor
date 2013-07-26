@@ -16,9 +16,10 @@ from plone.schemaeditor.utils import SchemaModifiedEvent
 
 class SchemaListing(AutoExtensibleForm, form.Form):
     implements(IEditForm)
-    
+
     ignoreContext = True
     ignoreRequest = True
+    showEmptyGroups = True
     template = ViewPageTemplateFile('schema_listing.pt')
 
     @property
@@ -35,7 +36,7 @@ class SchemaListing(AutoExtensibleForm, form.Form):
         for group in self.groups:
             for widget in group.widgets.values():
                 yield widget
-    
+
     def render(self):
         for widget in self._iterateOverWidgets():
             # disable fields from behaviors
@@ -81,12 +82,12 @@ class SchemaListing(AutoExtensibleForm, form.Form):
             if widget.field.interface is not self.context.schema:
                 widget_modes[widget] = widget.mode
                 widget.mode = DISPLAY_MODE
-        
+
         data, errors = self.extractData()
         if errors:
             self.status = self.formErrorsMessage
             return
-        
+
         for fname, value in data.items():
             self.context.schema[fname].default = value
         notify(SchemaModifiedEvent(self.context))
@@ -94,7 +95,7 @@ class SchemaListing(AutoExtensibleForm, form.Form):
         # restore the actual widget modes so they render a preview
         for widget, mode in widget_modes.items():
             widget.mode = mode
-        
+
         # update widgets to take the new defaults into account
         self.updateWidgets()
 
