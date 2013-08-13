@@ -1,7 +1,7 @@
 <div tal:omit-tag="" i18n:domain="plone.schemaeditor">
   <form id="add-field" method="GET"
         tal:attributes="action string:${context/absolute_url}/@@add-field">
-    <input type="submit" style="float: right; display: block; margin-top: -3.5em;"
+    <input type="submit" style="float: right; display: block; margin-top: -4.5em;"
            i18n:attributes="value"
            value="Add new field&hellip;"/>
   </form>

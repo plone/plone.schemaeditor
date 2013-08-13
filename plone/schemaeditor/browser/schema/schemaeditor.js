@@ -12,6 +12,7 @@
             })
             .bind('dragstart', function (e) {
                 e.originalEvent.dataTransfer.setData('Text', $(this).attr('data-drag_id'));
+                e.originalEvent.dataTransfer.setData('draggable', true);
                 $('<div id="drop-marker" style="position: absolute; width: 100%;"></div>').insertBefore(this);
             })
             .bind('dragenter', function (e) {
@@ -67,7 +68,7 @@
             .bind('drop', function (e) {
                 e.preventDefault();
                 var src = e.originalEvent.dataTransfer.getData('Text'),
-                node = $('[data-drag_id=' + src + ']');
+                    node = $('[data-drag_id=' + src + ']');
                 var orig_fieldset = node.parents('fieldset');
                 var orig_fieldset_id = orig_fieldset.attr('id').split('-')[1];
                 var target_fieldset_id = $(this).attr('data-fieldset_drag_id');
@@ -80,7 +81,7 @@
                     			  left: tab_position.left - node.position().left,
                     			  width: '50%',
                     			  opacity: '0'
-                    			  }, 1000,
+                    			  }, 500,
                     			  function(){
                                       node.appendTo(target_fieldset);
                                       node.css('left', '');
@@ -92,18 +93,20 @@
                     }
                 $(this).css('border', "");
             })
-            .bind('dragover', function (e) {
+            .bind('dragover', function (e) {               
             	e.preventDefault();
-            	$(this).css('border', "3px dotted red");
-            	var position = $(this).position();
-                $('#drop-marker').hide();
-	            return false;
+                var draggable = e.originalEvent.dataTransfer.getData('draggable')
+                if(draggable){
+                    $(this).css('border', "3px dotted red");
+                    $('#drop-marker').hide();
+                }
+                return false;
             })
             .bind('dragleave', function(e) {
-            	e.preventDefault();
-            	$(this).css('border', "");
+                e.preventDefault();                
+                $(this).css('border', "");
                 $('#drop-marker').show();
-        });
+            });
         $('<span class="draghandle">&#x28FF;</span>')
             .css('cursor', 'ns-resize')
             .prependTo('.fieldPreview.orderable .fieldLabel');
