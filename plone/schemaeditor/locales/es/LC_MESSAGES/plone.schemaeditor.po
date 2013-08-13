@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: plone.schemaeditor\n"
-"POT-Creation-Date: 2012-09-16 23:10+0000\n"
+"POT-Creation-Date: 2013-08-13 15:28+0000\n"
 "PO-Revision-Date: 2011-11-28 00:20-0600\n"
 "Last-Translator: Héctor Velarde <hector.velarde@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,19 +24,27 @@ msgstr ""
 msgid "Add new field"
 msgstr "Agregar nuevo campo"
 
+#: ../browser/schema/add_fieldset.py:22
+msgid "Add new fieldset"
+msgstr ""
+
+#: ../browser/schema/schema_listing.pt:11
+msgid "Add new fieldset…"
+msgstr ""
+
 #: ../browser/schema/schema_listing.pt:4
 msgid "Add new field…"
 msgstr "Agregar nuevo campo…"
 
-#: ../browser/schema/schema_listing.pt:110
+#: ../browser/schema/schema_listing.pt:117
 msgid "Delete field"
 msgstr "Eliminar campo"
 
-#: ../browser/schema/listing.py:125
+#: ../browser/schema/listing.py:126
 msgid "Edit ${name}"
 msgstr "Editar ${name}"
 
-#: ../browser/schema/listing.py:121
+#: ../browser/schema/listing.py:122
 msgid "Edit ${title} (${name})"
 msgstr "Editar ${title} (${name})"
 
@@ -48,7 +56,7 @@ msgstr "Editar campo '${fieldname}'"
 msgid "Enter allowed choices one per line."
 msgstr ""
 
-#: ../browser/schema/add_field.py:34
+#: ../browser/schema/add_field.py:47
 msgid "Field added successfully."
 msgstr "El campo se agregó exitosamente."
 
@@ -56,13 +64,21 @@ msgstr "El campo se agregó exitosamente."
 msgid "Field type"
 msgstr "Tipo de campo"
 
-#: ../browser/schema/schema_listing.pt:87
+#: ../browser/schema/add_fieldset.py:41
+msgid "Fieldset added successfully."
+msgstr ""
+
+#: ../browser/schema/schema_listing.pt:94
 msgid "From the ${behavior_name} behavior:"
 msgstr ""
 
 #: ../interfaces.py:112
 msgid "Help Text"
 msgstr "Texto de ayuda"
+
+#: ../browser/schema/add_fieldset.py:35
+msgid "Please select a fieldset name that is not already used."
+msgstr ""
 
 #: ../interfaces.py:91
 msgid "Please use only letters, numbers and the following characters: _."
@@ -72,11 +88,11 @@ msgstr "Por favor utilice únicamente letras, números y los siguientes caracter
 msgid "Possible values"
 msgstr ""
 
-#: ../browser/schema/listing.py:75
+#: ../browser/schema/listing.py:76
 msgid "Save Defaults"
 msgstr ""
 
-#: ../browser/schema/schema_listing.pt:105
+#: ../browser/schema/schema_listing.pt:112
 msgid "Settings&hellip;"
 msgstr "Configuración&hellip;"
 
@@ -104,54 +120,58 @@ msgstr "Título"
 msgid "Used for programmatic access to the field."
 msgstr "Empleado para acceso programático al campo."
 
+#: ../interfaces.py:144
+msgid "Used for programmatic access to the fieldset."
+msgstr ""
+
 #. Default: "Yes/No"
-#: ../fields.py:57
+#: ../fields.py:56
 #, fuzzy
 msgid "label_boolean_field"
 msgstr "Booleano"
 
 #. Default: "Choice"
-#: ../fields.py:68
+#: ../fields.py:67
 msgid "label_choice_field"
 msgstr "Selección"
 
 #. Default: "Date"
-#: ../fields.py:60
+#: ../fields.py:59
 msgid "label_date_field"
 msgstr "Fecha"
 
 #. Default: "Date/Time"
-#: ../fields.py:59
+#: ../fields.py:58
 msgid "label_datetime_field"
 msgstr "Fecha/Hora"
 
 #. Default: "Floating-point number"
-#: ../fields.py:56
+#: ../fields.py:55
 msgid "label_float_field"
 msgstr "Número de punto flotante"
 
 #. Default: "Integer"
-#: ../fields.py:55
+#: ../fields.py:54
 msgid "label_integer_field"
 msgstr "Entero"
 
 #. Default: "Multiple Choice"
-#: ../fields.py:140
+#: ../fields.py:139
 msgid "label_multi_choice_field"
 msgstr "Selección múltiple"
 
 #. Default: "Password"
-#: ../fields.py:58
+#: ../fields.py:57
 msgid "label_password_field"
 msgstr "Contraseña"
 
 #. Default: "Text"
-#: ../fields.py:54
+#: ../fields.py:53
 msgid "label_text_field"
 msgstr "Texto"
 
 #. Default: "Text line (String)"
-#: ../fields.py:51
+#: ../fields.py:50
 msgid "label_textline_field"
 msgstr "Línea de texto (cadena de caracteres)"
 

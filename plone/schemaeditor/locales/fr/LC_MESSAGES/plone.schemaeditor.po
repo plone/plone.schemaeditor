@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-09-16 23:10+0000\n"
+"POT-Creation-Date: 2013-08-13 15:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,19 +22,27 @@ msgstr "'${name}' est un nom réservé."
 msgid "Add new field"
 msgstr "Ajouter un champ"
 
+#: ../browser/schema/add_fieldset.py:22
+msgid "Add new fieldset"
+msgstr "Ajouter un groupe de champs"
+
+#: ../browser/schema/schema_listing.pt:11
+msgid "Add new fieldset…"
+msgstr "Ajouter un groupe de champs…"
+
 #: ../browser/schema/schema_listing.pt:4
 msgid "Add new field…"
 msgstr "Ajouter un champ…"
 
-#: ../browser/schema/schema_listing.pt:110
+#: ../browser/schema/schema_listing.pt:117
 msgid "Delete field"
 msgstr "Supprimer le champ"
 
-#: ../browser/schema/listing.py:125
+#: ../browser/schema/listing.py:126
 msgid "Edit ${name}"
 msgstr "Modifier le schéma ${name}"
 
-#: ../browser/schema/listing.py:121
+#: ../browser/schema/listing.py:122
 msgid "Edit ${title} (${name})"
 msgstr "Modifier le schéma ${title} (${name})"
 
@@ -46,7 +54,7 @@ msgstr "Modifier le champ '${fieldname}'"
 msgid "Enter allowed choices one per line."
 msgstr "Saisissez les choix possibles, un par ligne."
 
-#: ../browser/schema/add_field.py:34
+#: ../browser/schema/add_field.py:47
 msgid "Field added successfully."
 msgstr "Le champ a été ajouté avec succès."
 
@@ -54,13 +62,21 @@ msgstr "Le champ a été ajouté avec succès."
 msgid "Field type"
 msgstr "Type de champ"
 
-#: ../browser/schema/schema_listing.pt:87
+#: ../browser/schema/add_fieldset.py:41
+msgid "Fieldset added successfully."
+msgstr "Le groupe de champs a été ajouté avec succès."
+
+#: ../browser/schema/schema_listing.pt:94
 msgid "From the ${behavior_name} behavior:"
 msgstr "Du comportement ${behavior_name} :"
 
 #: ../interfaces.py:112
 msgid "Help Text"
 msgstr "Message d'aide"
+
+#: ../browser/schema/add_fieldset.py:35
+msgid "Please select a fieldset name that is not already used."
+msgstr "Merci de choisir un nom de groupe qui n'est pas encore utilisé"
 
 #: ../interfaces.py:91
 msgid "Please use only letters, numbers and the following characters: _."
@@ -70,11 +86,11 @@ msgstr "Veuillez n'utiliser que des lettres, chiffres et les caractères _ et ."
 msgid "Possible values"
 msgstr "Valeurs possibles"
 
-#: ../browser/schema/listing.py:75
+#: ../browser/schema/listing.py:76
 msgid "Save Defaults"
 msgstr "Enregistrer les valeurs par défaut"
 
-#: ../browser/schema/schema_listing.pt:105
+#: ../browser/schema/schema_listing.pt:112
 msgid "Settings&hellip;"
 msgstr "Paramètres&hellip;"
 
@@ -102,53 +118,57 @@ msgstr "Titre"
 msgid "Used for programmatic access to the field."
 msgstr "Utilisé pour l'accès programmatique au champ"
 
+#: ../interfaces.py:144
+msgid "Used for programmatic access to the fieldset."
+msgstr "Utilisé pour l'accès programmatique au groupe."
+
 #. Default: "Yes/No"
-#: ../fields.py:57
+#: ../fields.py:56
 msgid "label_boolean_field"
 msgstr "Oui/Non"
 
 #. Default: "Choice"
-#: ../fields.py:68
+#: ../fields.py:67
 msgid "label_choice_field"
 msgstr "Liste de choix"
 
 #. Default: "Date"
-#: ../fields.py:60
+#: ../fields.py:59
 msgid "label_date_field"
 msgstr "Date"
 
 #. Default: "Date/Time"
-#: ../fields.py:59
+#: ../fields.py:58
 msgid "label_datetime_field"
 msgstr "Date et heure"
 
 #. Default: "Floating-point number"
-#: ../fields.py:56
+#: ../fields.py:55
 msgid "label_float_field"
 msgstr "Nombre à virgule"
 
 #. Default: "Integer"
-#: ../fields.py:55
+#: ../fields.py:54
 msgid "label_integer_field"
 msgstr "Entier"
 
 #. Default: "Multiple Choice"
-#: ../fields.py:140
+#: ../fields.py:139
 msgid "label_multi_choice_field"
 msgstr "Liste à choix multiples"
 
 #. Default: "Password"
-#: ../fields.py:58
+#: ../fields.py:57
 msgid "label_password_field"
 msgstr "Mot de passe"
 
 #. Default: "Text"
-#: ../fields.py:54
+#: ../fields.py:53
 msgid "label_text_field"
 msgstr "Texte"
 
 #. Default: "Text line (String)"
-#: ../fields.py:51
+#: ../fields.py:50
 msgid "label_textline_field"
 msgstr "Ligne de texte (chaîne de caractères)"
 
