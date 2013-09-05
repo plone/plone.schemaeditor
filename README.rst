@@ -10,6 +10,7 @@ Currently there is support for:
  * editing attributes of existing fields
  * reordering fields
  * renaming fields
+ * organizing fields into fieldsets
 
 plone.schemaeditor only handles the actual schema editing.  To be useful, it
 requires some integration code to take care of the following pieces:
