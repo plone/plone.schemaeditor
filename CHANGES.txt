@@ -1,11 +1,21 @@
 Changelog
 =========
 
-1.3.2 (unreleased)
+1.3.4 (unreleased)
 ------------------
 
 - Avoid error when we edit a choice field with a vocabulary factory.
   We can set vocabulary factory on a choice field.
+
+
+1.3.3 (2013-08-13)
+------------------
+
+- Correct packaging issues in 1.3.2.
+  [esteele]
+
+1.3.2 (2013-08-13)
+------------------
 
 - Fieldsets wysiwyg management.
   We can add fieldsets to a schema.

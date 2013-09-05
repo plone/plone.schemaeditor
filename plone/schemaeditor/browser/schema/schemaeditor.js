@@ -12,6 +12,7 @@
             })
             .bind('dragstart', function (e) {
                 e.originalEvent.dataTransfer.setData('Text', $(this).attr('data-drag_id'));
+                e.originalEvent.dataTransfer.setData('draggable', true);
                 $('<div id="drop-marker" style="position: absolute; width: 100%;"></div>').insertBefore(this);
             })
             .bind('dragenter', function (e) {
@@ -92,18 +93,20 @@
                     }
                 $(this).css('border', "");
             })
-            .bind('dragover', function (e) {
+            .bind('dragover', function (e) {               
             	e.preventDefault();
-            	$(this).css('border', "3px dotted red");
-            	var position = $(this).position();
-                $('#drop-marker').hide();
-	            return false;
+                var draggable = e.originalEvent.dataTransfer.getData('draggable')
+                if(draggable){
+                    $(this).css('border', "3px dotted red");
+                    $('#drop-marker').hide();
+                }
+                return false;
             })
             .bind('dragleave', function(e) {
-            	e.preventDefault();
-            	$(this).css('border', "");
+                e.preventDefault();                
+                $(this).css('border', "");
                 $('#drop-marker').show();
-        });
+            });
         $('<span class="draghandle">&#x28FF;</span>')
             .css('cursor', 'ns-resize')
             .prependTo('.fieldPreview.orderable .fieldLabel');

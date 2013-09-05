@@ -27,9 +27,13 @@ class FieldAddForm(form.AddForm):
         schema = IEditableSchema(context.schema)
 
         # move it after the last field that is not in a fieldset
+        # or at top if there is no field yet in "default" fieldset
         ordered_fields = [name for (name, f) in sortedFields(context.schema)]
-        last_non_fieldset_field = non_fieldset_fields(context.schema)[-1]
-        position = ordered_fields.index(last_non_fieldset_field) + 1
+        default_fields = non_fieldset_fields(context.schema)
+        if len(default_fields) > 0:    
+            position = ordered_fields.index(default_fields[-1]) + 1
+        else:
+            position = 0
 
         try:
             schema.addField(field)
