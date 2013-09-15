@@ -55,12 +55,8 @@ class EditForm(EditForm):
 EditView = layout.wrap_form(EditForm)
 
 
-class CountriesVocabulary(object):
+class BaseVocabulary(object):
     
-    values_list = [('fr', u'France'),
-                   ('uk', u'United Kingdom'),
-                   ('es', u'Spain')]
-            
     def __call__(self, context):
         terms = [SimpleVocabulary.createTerm(
                      value,
@@ -68,3 +64,17 @@ class CountriesVocabulary(object):
                      label)
                  for value, label in self.values_list]
         return SimpleVocabulary(terms)
+
+
+class CountriesVocabulary(BaseVocabulary):
+    
+    values_list = [('fr', u'France'),
+                   ('uk', u'United Kingdom'),
+                   ('es', u'Spain')]
+            
+
+class CategoriesVocabulary(BaseVocabulary):
+    
+    values_list = [('php', u'PHP'),
+                   ('c', u'C'),
+                   ('ruby', u'Ruby')]

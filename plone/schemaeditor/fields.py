@@ -17,11 +17,13 @@ from plone.schemaeditor import SchemaEditorMessageFactory as _
 from plone.schemaeditor import interfaces
 from plone.schemaeditor import schema as se_schema
 
+
 @interface.implementer(interfaces.IFieldEditFormSchema)
 @component.adapter(schema_ifaces.IField)
 def getFirstFieldSchema(field):
     return [s for s in field.__provides__.__iro__ if
             s.isOrExtends(schema_ifaces.IField)][0]
+
 
 class FieldFactory(object):
     implements(IFieldFactory)
@@ -39,12 +41,15 @@ class FieldFactory(object):
         kwargs.update(**kw)
         return self.fieldcls(*(self.args+args), **kwargs)
 
+
 def FieldsVocabularyFactory(context):
     field_factories = getUtilitiesFor(IFieldFactory)
     terms = []
     for (field_id, factory) in field_factories:
         terms.append(SimpleVocabulary.createTerm(factory, translate(factory.title), factory.title))
+
     return SimpleVocabulary(terms)
+
 
 # TextLineFactory is the default. We need to set that here to avoid a circular import.
 TextLineFactory = FieldFactory(schema.TextLine, _(u'label_textline_field', default=u'Text line (String)'))
@@ -58,14 +63,17 @@ PasswordFactory = FieldFactory(schema.Password, _(u'label_password_field', defau
 DatetimeFactory = FieldFactory(schema.Datetime, _(u'label_datetime_field', default=u'Date/Time'))
 DateFactory = FieldFactory(schema.Date, _(u'label_date_field', default=u'Date'))
 
+
 @interface.implementer(interfaces.IFieldEditFormSchema)
 @component.adapter(schema_ifaces.IChoice)
 def getChoiceFieldSchema(field):
     return se_schema.ITextLineChoice
 
+
 ChoiceFactory = FieldFactory(
     schema.Choice, _(u'label_choice_field', default=u'Choice'),
     values=[])
+
 
 class TextLineChoiceField(object):
     interface.implements(se_schema.ITextLineChoice)
@@ -77,6 +85,7 @@ class TextLineChoiceField(object):
     def __getattr__(self, name):
         if name == 'values':
             return [term.value for term in (self.field.vocabulary or [])]
+
         return getattr(self.field, name)
 
     def _constructVocabulary(self, value):
@@ -87,6 +96,7 @@ class TextLineChoiceField(object):
                     token=value.encode('unicode_escape'),
                     value=value, title=value)
                 terms.append(term)
+
         return vocabulary.SimpleVocabulary(terms)
 
     def __setattr__(self, name, value):
@@ -95,7 +105,7 @@ class TextLineChoiceField(object):
             return setattr(self.field, 'vocabulary', vocab)
         elif name == 'values' and not value:
             return
-        
+
         if name == 'vocabularyName' and value:
             setattr(self.field, 'values', None)
             setattr(self.field, 'vocabulary', None)
@@ -108,7 +118,9 @@ class TextLineChoiceField(object):
     def __delattr__(self, name):
         if name == 'values':
             del self.field.vocabulary
+
         return delattr(self.field, name)
+
 
 class VocabularyValuesValidator(validator.SimpleFieldValidator):
     """Ensure duplicate vocabulary terms are not submitted
@@ -121,7 +133,7 @@ class VocabularyValuesValidator(validator.SimpleFieldValidator):
         if values is None:
             return super(VocabularyValuesValidator, self).validate(
                 values)
-        
+
         by_value = {}
         by_token = {}
         for value in values:
@@ -140,7 +152,7 @@ class VocabularyValuesValidator(validator.SimpleFieldValidator):
                       default=u"The '${value1}' vocabulary value conflicts with '${value2}'.",
                       mapping={'value1': value,
                                'value2': by_value[term.token].value}))
-                
+
             by_value[term.value] = term
             by_token[term.token] = term
 
@@ -155,17 +167,17 @@ class VocabularyNameValidator(validator.SimpleFieldValidator):
         if values is None:
             return super(VocabularyNameValidator, self).validate(
                 values)
-        
+
         if values and self.request.form.get('form.widgets.values', None):
             raise interface.Invalid(
-                _('field_edit_error_values_and_name', 
+                _('field_edit_error_values_and_name',
                   default=u"You can't set a vocabulary name AND vocabulary values. "
                           u"Please clear values field or set no value here."))
-        
+
         return super(VocabularyNameValidator, self).validate(values)
 
 validator.WidgetValidatorDiscriminators(
-                            VocabularyNameValidator, 
+                            VocabularyNameValidator,
                             field=se_schema.ITextLineChoice['vocabularyName'])
 
 
@@ -174,10 +186,12 @@ validator.WidgetValidatorDiscriminators(
 def getMultiChoiceFieldSchema(field):
     return se_schema.ITextLineChoice
 
+
 MultiChoiceFactory = FieldFactory(
     schema.Set,
     _(u'label_multi_choice_field', default=u'Multiple Choice'),
     value_type=schema.Choice(values=[]))
+
 
 class TextLineMultiChoiceField(TextLineChoiceField):
     interface.implementsOnly(se_schema.ITextLineChoice)
@@ -188,13 +202,27 @@ class TextLineMultiChoiceField(TextLineChoiceField):
 
     def __getattr__(self, name):
         if name == 'values':
-            return [term.value for term in self.field.value_type.vocabulary]
+            return [term.value
+                    for term in (self.field.value_type.vocabulary or [])]
+
         return getattr(self.field, name)
 
     def __setattr__(self, name, value):
-        if name == 'values':
+        if name == 'values' and value:
             vocab = self._constructVocabulary(value)
             return setattr(self.field.value_type, 'vocabulary', vocab)
+        elif name == 'values' and not value:
+            return
+
+        if name == 'vocabularyName' and value:
+            setattr(self.field.value_type, 'values', None)
+            setattr(self.field.value_type, 'vocabulary', None)
+            setattr(self.field.value_type, 'vocabularyName', value)
+            return setattr(self.field, 'vocabularyName', value)
+        elif name == 'vocabularyName' and not value:
+            setattr(self.field.value_type, 'vocabularyName', None)
+            return setattr(self.field, 'vocabularyName', None)
+
         return setattr(self.field, name, value)
 
 
