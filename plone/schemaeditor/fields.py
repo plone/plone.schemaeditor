@@ -1,5 +1,6 @@
 import copy
 from zope import interface
+from zope import component
 from zope.component import adapter
 from zope.component import getUtilitiesFor
 from zope.interface import implements
@@ -15,7 +16,6 @@ from plone.schemaeditor import SchemaEditorMessageFactory as _
 
 from plone.schemaeditor import interfaces
 from plone.schemaeditor import schema as se_schema
-from zope import component
 
 @interface.implementer(interfaces.IFieldEditFormSchema)
 @component.adapter(schema_ifaces.IField)
@@ -42,7 +42,7 @@ class FieldFactory(object):
 def FieldsVocabularyFactory(context):
     field_factories = getUtilitiesFor(IFieldFactory)
     terms = []
-    for (id, factory) in field_factories:
+    for (field_id, factory) in field_factories:
         terms.append(SimpleVocabulary.createTerm(factory, translate(factory.title), factory.title))
     return SimpleVocabulary(terms)
 
@@ -94,7 +94,8 @@ class TextLineChoiceField(object):
             vocab = self._constructVocabulary(value)
             return setattr(self.field, 'vocabulary', vocab)
         elif name == 'values' and not value:
-            return setattr(self.field, 'vocabulary', None)
+            return
+        
         if name == 'vocabularyName' and value:
             setattr(self.field, 'values', None)
             setattr(self.field, 'vocabulary', None)
@@ -110,7 +111,8 @@ class TextLineChoiceField(object):
         return delattr(self.field, name)
 
 class VocabularyValuesValidator(validator.SimpleFieldValidator):
-    """Ensure duplicate vocabulary terms are not submitted"""
+    """Ensure duplicate vocabulary terms or a vocabularyName are not submitted
+    """
     component.adapts(interface.Interface, interface.Interface,
                      interfaces.IFieldEditForm,
                      se_schema.ITextLinesField, interface.Interface)
@@ -119,7 +121,13 @@ class VocabularyValuesValidator(validator.SimpleFieldValidator):
         if values is None:
             return super(VocabularyValuesValidator, self).validate(
                 values)
-
+        
+        if values and self.request.form.get('form.widgets.vocabularyName', None):
+            raise interface.Invalid(
+                _('field_edit_error_values_and_name', 
+                  default=u"Please fill some vocabulary values "
+                          u"OR set a vocabulary name."))
+        
         by_value = {}
         by_token = {}
         for value in values:
@@ -127,16 +135,45 @@ class VocabularyValuesValidator(validator.SimpleFieldValidator):
                                          value=value, title=value)
             if term.value in by_value:
                 raise interface.Invalid(
-                    u"The '%s' vocabulary value conflicts with '%s'."
-                    % (value, by_value[term.value].value))
+                    _('field_edit_error_conflicting_values',
+                      default=u"The '${value1}' vocabulary value conflicts with '${value2}'.",
+                      mapping={'value1': value,
+                               'value2': by_value[term.value].value}))
+
             if term.token in by_token:
                 raise interface.Invalid(
-                    u"The '%s' vocabulary value conflicts with '%s'."
-                    % (value, by_token[term.token].value))
+                    _('field_edit_error_conflicting_values',
+                      default=u"The '${value1}' vocabulary value conflicts with '${value2}'.",
+                      mapping={'value1': value,
+                               'value2': by_value[term.token].value}))
+                
             by_value[term.value] = term
             by_token[term.token] = term
 
         return super(VocabularyValuesValidator, self).validate(values)
+
+
+class VocabularyNameValidator(validator.SimpleFieldValidator):
+    """Ensure duplicate vocabulary terms or a vocabularyName are not submitted
+    """
+
+    def validate(self, values):
+        if values is None:
+            return super(VocabularyNameValidator, self).validate(
+                values)
+        
+        if values and self.request.form.get('form.widgets.values', None):
+            raise interface.Invalid(
+                _('field_edit_error_values_and_name', 
+                  default=u"Please fill some vocabulary values "
+                          u"OR set a vocabulary name."))
+        
+        return super(VocabularyNameValidator, self).validate(values)
+
+validator.WidgetValidatorDiscriminators(
+                            VocabularyNameValidator, 
+                            field=se_schema.ITextLineChoice['vocabularyName'])
+
 
 @interface.implementer(interfaces.IFieldEditFormSchema)
 @component.adapter(schema_ifaces.ISet)

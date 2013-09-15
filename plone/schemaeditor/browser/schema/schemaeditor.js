@@ -149,7 +149,9 @@
             {
                 subtype: 'ajax',
                 filter: common_content_filter,
-                closeselector: 'input[name="form.buttons.cancel"]'
+                closeselector: 'input[name="form.buttons.cancel"]',
+                formselector: '#form.kssattr-formname-edit',
+                noform: function(el) {return $.plonepopups.noformerrorshow(el, 'reload');},
             }
         );
 
