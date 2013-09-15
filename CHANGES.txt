@@ -4,9 +4,10 @@ Changelog
 1.3.4 (unreleased)
 ------------------
 
-- Avoid error when we edit a choice field with a vocabulary factory.
-  We can select a vocabulary factory on a choice field, 
+- We can select a vocabulary factory on a choice field, 
   among all registered vocabularies.
+  We don't have an error anymore 
+  when we edit a choice field with a vocabulary factory.
 
 
 1.3.3 (2013-08-13)
