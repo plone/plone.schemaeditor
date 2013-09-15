@@ -91,9 +91,10 @@ class ITextLineChoice(interfaces.IField):
         value_type=schema.TextLine())
     interface.alsoProvides(values, ITextLinesField)
 
-    vocabularyName = schema.ASCIILine(
+    vocabularyName = schema.Choice(
         title=interfaces.IChoice['vocabularyName'].title,
         description=interfaces.IChoice['vocabularyName'].description,
         default=interfaces.IChoice['vocabularyName'].default,
         required=False,
+        vocabulary="plone.schemaeditor.VocabulariesVocabulary",
         )

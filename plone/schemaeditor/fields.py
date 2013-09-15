@@ -122,12 +122,6 @@ class VocabularyValuesValidator(validator.SimpleFieldValidator):
             return super(VocabularyValuesValidator, self).validate(
                 values)
         
-        if values and self.request.form.get('form.widgets.vocabularyName', None):
-            raise interface.Invalid(
-                _('field_edit_error_values_and_name', 
-                  default=u"Please fill some vocabulary values "
-                          u"OR set a vocabulary name."))
-        
         by_value = {}
         by_token = {}
         for value in values:
@@ -165,8 +159,8 @@ class VocabularyNameValidator(validator.SimpleFieldValidator):
         if values and self.request.form.get('form.widgets.values', None):
             raise interface.Invalid(
                 _('field_edit_error_values_and_name', 
-                  default=u"Please fill some vocabulary values "
-                          u"OR set a vocabulary name."))
+                  default=u"You can't set a vocabulary name AND vocabulary values. "
+                          u"Please clear values field or set no value here."))
         
         return super(VocabularyNameValidator, self).validate(values)
 
