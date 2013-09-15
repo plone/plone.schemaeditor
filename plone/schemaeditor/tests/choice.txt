@@ -90,6 +90,37 @@ values specified can be selected.
     >>> ctl.value
     ['Alaska']
 
+
+We can select a vocabulary factory instead of values.
+
+    >>> browser.open(portal_url + '/@@schemaeditor')
+    >>> browser.getLink(url='country').click()
+    >>> browser.getControl('values').value = ""
+    >>> voc_name_ctl = browser.getControl('Vocabulary name')
+    >>> voc_name_ctl.getControl('plone.schemaeditor.test.Countries').selected = True
+    >>> browser.getControl('Save').click()
+    [event: ObjectModifiedEvent on Choice]
+    [event: SchemaModifiedEvent on DummySchemaContext]
+    >>> browser.open(portal_url + '/@@contexteditor')
+    >>> print browser.contents
+    <...
+    <option id="form-widgets-country-0" value="fr">France</option>
+    <option id="form-widgets-country-1" value="uk">United Kingdom</option>
+    <option id="form-widgets-country-2" value="es">Spain</option>
+    ... 
+    
+We can't set a vocabulary name AND values.
+
+    >>> browser.open(portal_url + '/@@schemaeditor')
+    >>> browser.getLink(url='country').click()
+    >>> browser.getControl('values').value = "oups"
+    >>> browser.getControl('Save').click()
+    >>> print browser.contents
+    <...
+      <div class="error">You can't set a vocabulary name AND vocabulary values....
+    ...
+
+
 Multiple Choice
 ===============
 

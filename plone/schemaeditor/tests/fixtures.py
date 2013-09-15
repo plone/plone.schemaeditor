@@ -3,6 +3,7 @@ from zope import schema
 from plone.schemaeditor.browser.schema.traversal import SchemaContext
 from plone.supermodel import model
 from plone.supermodel.interfaces import FIELDSETS_KEY
+from zope.schema.vocabulary import SimpleVocabulary
 
 
 class IDummySchema(Interface):
@@ -53,3 +54,18 @@ class EditForm(EditForm):
         super(EditForm, self).update()
 
 EditView = layout.wrap_form(EditForm)
+
+
+class CountriesVocabulary(object):
+    
+    values_list = [('fr', u'France'),
+                   ('uk', u'United Kingdom'),
+                   ('es', u'Spain')]
+            
+    def __call__(self, context):
+        terms = [SimpleVocabulary.createTerm(
+                     value,
+                     value,
+                     label)
+                 for value, label in self.values_list]
+        return SimpleVocabulary(terms)

@@ -52,4 +52,8 @@
         class=".fixtures.EditView"
         permission="plone.schemaeditor.ManageSchemata" />
 
+    <utility provides="zope.schema.interfaces.IVocabularyFactory"
+             name="plone.schemaeditor.test.Countries"
+             factory=".fixtures.CountriesVocabulary" />
+
 </configure>
