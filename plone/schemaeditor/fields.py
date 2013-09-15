@@ -111,7 +111,7 @@ class TextLineChoiceField(object):
         return delattr(self.field, name)
 
 class VocabularyValuesValidator(validator.SimpleFieldValidator):
-    """Ensure duplicate vocabulary terms or a vocabularyName are not submitted
+    """Ensure duplicate vocabulary terms are not submitted
     """
     component.adapts(interface.Interface, interface.Interface,
                      interfaces.IFieldEditForm,
@@ -148,7 +148,7 @@ class VocabularyValuesValidator(validator.SimpleFieldValidator):
 
 
 class VocabularyNameValidator(validator.SimpleFieldValidator):
-    """Ensure duplicate vocabulary terms or a vocabularyName are not submitted
+    """Ensure user has not submitted a vocabulary values AND a factory
     """
 
     def validate(self, values):

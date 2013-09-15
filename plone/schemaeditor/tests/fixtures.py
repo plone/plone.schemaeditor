@@ -1,9 +1,9 @@
 from zope.interface import Interface
 from zope import schema
+from zope.schema.vocabulary import SimpleVocabulary
 from plone.schemaeditor.browser.schema.traversal import SchemaContext
 from plone.supermodel import model
 from plone.supermodel.interfaces import FIELDSETS_KEY
-from zope.schema.vocabulary import SimpleVocabulary
 
 
 class IDummySchema(Interface):
@@ -31,7 +31,6 @@ class DummySchemaContext(SchemaContext):
     def __init__(self, context, request):
         super(DummySchemaContext, self).__init__(
             IDummySchema, request, name='@@schemaeditor')
-
 
 
 def log_event(object, event):
