@@ -93,7 +93,7 @@
                     }
                 $(this).css('border', "");
             })
-            .bind('dragover', function (e) {               
+            .bind('dragover', function (e) {
             	e.preventDefault();
                 var draggable = e.originalEvent.dataTransfer.getData('draggable')
                 if(draggable){
@@ -103,7 +103,7 @@
                 return false;
             })
             .bind('dragleave', function(e) {
-                e.preventDefault();                
+                e.preventDefault();
                 $(this).css('border', "");
                 $('#drop-marker').show();
             });

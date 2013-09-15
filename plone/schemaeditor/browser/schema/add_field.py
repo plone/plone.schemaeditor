@@ -30,7 +30,7 @@ class FieldAddForm(form.AddForm):
         # or at top if there is no field yet in "default" fieldset
         ordered_fields = [name for (name, f) in sortedFields(context.schema)]
         default_fields = non_fieldset_fields(context.schema)
-        if len(default_fields) > 0:    
+        if len(default_fields) > 0:
             position = ordered_fields.index(default_fields[-1]) + 1
         else:
             position = 0

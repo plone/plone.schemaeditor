@@ -10,12 +10,12 @@ class FieldContext(SimpleItem):
     """ wrapper for published zope 3 schema fields
     """
     implements(IFieldContext, IBrowserPublisher)
-    
+
     def __init__(self, context, request):
         super(FieldContext, self).__init__()
         self.field = context
         self.request = request
-        
+
         # make sure breadcrumbs are correct
         self.id = None
         self.__name__ = self.field.__name__

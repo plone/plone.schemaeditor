@@ -6,7 +6,7 @@ from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 class VocabulariesVocabulary(object):
     """Vocabulary for a list of available vocabulary factories
     """
-    
+
     def __call__(self, context):
         terms = []
         for name, vocabulary in getUtilitiesFor(IVocabularyFactory):
@@ -16,6 +16,6 @@ class VocabulariesVocabulary(object):
                 terms.append(SimpleTerm(name, name, "%s - %s" % (name, doc[0])))
             else:
                 terms.append(SimpleTerm(name, name, name))
-        
+
         terms = sorted(terms, key=lambda term: term.token)
         return SimpleVocabulary(terms)
