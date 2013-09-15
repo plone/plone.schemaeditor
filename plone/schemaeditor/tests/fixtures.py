@@ -1,5 +1,6 @@
 from zope.interface import Interface
 from zope import schema
+from zope.schema.vocabulary import SimpleVocabulary
 from plone.schemaeditor.browser.schema.traversal import SchemaContext
 from plone.supermodel import model
 from plone.supermodel.interfaces import FIELDSETS_KEY
@@ -52,3 +53,28 @@ class EditForm(EditForm):
         super(EditForm, self).update()
 
 EditView = layout.wrap_form(EditForm)
+
+
+class BaseVocabulary(object):
+    
+    def __call__(self, context):
+        terms = [SimpleVocabulary.createTerm(
+                     value,
+                     value,
+                     label)
+                 for value, label in self.values_list]
+        return SimpleVocabulary(terms)
+
+
+class CountriesVocabulary(BaseVocabulary):
+    
+    values_list = [('fr', u'France'),
+                   ('uk', u'United Kingdom'),
+                   ('es', u'Spain')]
+            
+
+class CategoriesVocabulary(BaseVocabulary):
+    
+    values_list = [('php', u'PHP'),
+                   ('c', u'C'),
+                   ('ruby', u'Ruby')]

@@ -50,6 +50,7 @@
       />
   <adapter factory=".fields.TextLineChoiceField" />
   <adapter factory=".fields.VocabularyValuesValidator" />
+  <adapter factory=".fields.VocabularyNameValidator" />
 
   <adapter factory=".fields.getMultiChoiceFieldSchema" />
   <utility
