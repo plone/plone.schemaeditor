@@ -43,7 +43,7 @@ from z3c.form.form import EditForm
 from plone.z3cform import layout
 
 
-Class EditForm(EditForm):
+class EditForm(EditForm):
 
     ignoreContext = True
     ignoreRequest = True
