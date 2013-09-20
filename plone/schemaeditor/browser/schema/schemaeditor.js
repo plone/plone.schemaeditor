@@ -68,7 +68,7 @@
             .bind('drop', function (e) {
                 e.preventDefault();
                 var src = e.originalEvent.dataTransfer.getData('Text'),
-                    node = $('[data-drag_id=' + src + ']');
+                node = $('[data-drag_id=' + src + ']');
                 var orig_fieldset = node.parents('fieldset');
                 var orig_fieldset_id = orig_fieldset.attr('id').split('-')[1];
                 var target_fieldset_id = $(this).attr('data-fieldset_drag_id');
@@ -81,7 +81,7 @@
                     			  left: tab_position.left - node.position().left,
                     			  width: '50%',
                     			  opacity: '0'
-                    			  }, 500,
+                    			  }, 1000,
                     			  function(){
                                       node.appendTo(target_fieldset);
                                       node.css('left', '');
@@ -93,7 +93,7 @@
                     }
                 $(this).css('border', "");
             })
-            .bind('dragover', function (e) {               
+            .bind('dragover', function (e) {
             	e.preventDefault();
                 var draggable = e.originalEvent.dataTransfer.getData('draggable')
                 if(draggable){
@@ -103,7 +103,7 @@
                 return false;
             })
             .bind('dragleave', function(e) {
-                e.preventDefault();                
+                e.preventDefault();
                 $(this).css('border', "");
                 $('#drop-marker').show();
             });
@@ -149,7 +149,9 @@
             {
                 subtype: 'ajax',
                 filter: common_content_filter,
-                closeselector: 'input[name="form.buttons.cancel"]'
+                closeselector: 'input[name="form.buttons.cancel"]',
+                formselector: '#form.kssattr-formname-edit',
+                noform: function(el) {return $.plonepopups.noformerrorshow(el, 'reload');},
             }
         );
 
