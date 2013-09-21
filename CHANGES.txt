@@ -4,9 +4,11 @@ Changelog
 1.3.4 (unreleased)
 ------------------
 
-- We can select a vocabulary factory on a choice field, 
+- Added robot tests
+
+- We can select a vocabulary factory on a choice field,
   among all registered vocabularies.
-  We don't have an error anymore 
+  We don't have an error anymore
   when we edit a choice field with a vocabulary factory.
 
 
