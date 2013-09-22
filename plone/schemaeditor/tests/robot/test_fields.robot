@@ -16,9 +16,8 @@ Wait overlay is closed
 
 
 Add a content type
-    [Arguments]    ${title}
-    [Documentation]    Add a dexterity content type
-
+    [Arguments]  ${title}
+    [Documentation]  Add a dexterity content type
     Go to  ${PLONE_URL}/@@dexterity-types
     Click Overlay Button  Add New Content Type…
     Input text  form-widgets-title  ${title}
@@ -78,6 +77,14 @@ Add fields
     Click Button  Save
 
     Wait until page contains element  form-widgets-hobbies-3
+
+Add accented field
+    Log in as site owner
+    Add a content type  Person
+    Click Overlay Button  Add new field…
+    Input text  form-widgets-title  Prénom
+    Focus  form-widgets-__name__
+    Textfield Value Should Be  form-widgets-__name__  prenom
 
 
 Add a fieldSet and move a field into this fieldset
