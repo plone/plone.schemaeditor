@@ -106,13 +106,13 @@ Add a fieldSet and move a field into this fieldset
 
 	Set Selenium Speed  1 seconds
 
-	Drag And Drop  xpath=//*[@data-field_id="address"]  css=.formTab[data-fieldset_drag_id="1"]
+	Mouse Down  xpath=//*[@data-field_id="address"][1]
 	Mouse Over  css=.formTab[data-fieldset_drag_id="1"]
-	Mouse Up  css=.formTab[data-fieldset_drag_id="1"]
-	Wait Until Keyword Succeeds  60  1  Element should not be visible  css=.fieldPreview[data-field_id="address"]
+	Mouse Up  xpath=//*[@data-fieldset_drag_id="1"][1]
+	Wait Until Keyword Succeeds  10  1  Element should not be visible  css=.fieldPreview[data-field_id="address"]
 
 	Click Element  css=.formTab[data-fieldset_drag_id="1"]
-	Wait Until Keyword Succeeds  60  1  Element should be visible  css=.fieldPreview[data-field_id="address"]
+	Wait Until Keyword Succeeds  10  1  Element should be visible  css=.fieldPreview[data-field_id="address"]
 
 	Comment  PAUSE
 
