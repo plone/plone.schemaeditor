@@ -11,10 +11,15 @@ Test Teardown  Close all browsers
 
 *** Keywords ***
 
+Overlay should close
+   Wait until keyword succeeds  60  1  Page should not contain element  css=div.overlay
+
+Overlay is opened
+   Wait Until Page Contains Element  css=.overlay
+
 *** Test cases ***
 
-Add a field
-    [Documentation]  Log in as site owner
+Add field
     Log in as site owner
 
     Go to  ${PLONE_URL}/@@dexterity-types
@@ -33,6 +38,25 @@ Add a field
     Wait until page contains element  css=#fieldset-0 #form-widgets-languages
 
     Click Overlay Link  ${PLONE_URL}/dexterity-types/curriculum_vitae/languages
+    Select from list  form-widgets-vocabularyName  plone.app.vocabularies.AvailableContentLanguages
+    Click Button  Save
+    Overlay should close
+    Page should contain  French
+
+    Click Overlay Button  Add new field…
+    Input text  form-widgets-title  Hobbies
+    Focus  form-widgets-__name__
+    Textfield Value Should Be  form-widgets-__name__  hobbies
+    Input Text  form-widgets-description  Check what you are fond of
+    Select From List  form-widgets-factory  Multiple Choice
+    Click Button  Add
+    Wait until page contains element  css=#fieldset-0 #form-widgets-hobbies
+
+    Click Overlay Link  ${PLONE_URL}/dexterity-types/curriculum_vitae/hobbies
+    Input text  form-widgets-values  Chess\nSoccer\nBaseball\nVideo games
     Select from list  form-widgets-vocabularyName  Multiple Choice  plone.app.vocabularies.AvailableContentLanguages
     Click Button  Save
-    Wait until page contains  French
+    Wait until page contains element  css=.fieldErrorBox
+    Select from list  form-widgets-vocabularyName  --NOVALUE--
+    Click Button  Save
+    Wait until page contains element  form-widgets-hobbies-3
