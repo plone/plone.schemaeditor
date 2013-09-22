@@ -17,9 +17,34 @@ Overlay should close
 Overlay is opened
    Wait Until Page Contains Element  css=.overlay
 
+
+Add a content type
+    [Arguments]    ${title}
+    [Documentation]    Add a dexterity content type
+
+    Go to  ${PLONE_URL}/@@dexterity-types
+    Click Overlay Button  Add New Content Type…
+    Input text  form-widgets-title  Curriculum vitae
+    Focus  form-widgets-id
+    Click button  form-buttons-add
+    Wait until page contains  Fields
+
+
+Add a field
+    [Arguments]    ${field_title}    ${field_type}
+    [Documentation]    Add a field in current dexterity content type
+
+    Click Overlay Button  Add new field…
+    Input text  form-widgets-title  ${field_title}
+    Focus  form-widgets-__name__
+    Select from list  form-widgets-factory  ${field_type}
+    Click button  form-buttons-add
+    Overlay should close
+
+
 *** Test cases ***
 
-Add field
+Add fields
     Log in as site owner
 
     Go to  ${PLONE_URL}/@@dexterity-types
@@ -43,15 +68,7 @@ Add field
     Overlay should close
     Page should contain  French
 
-    Click Overlay Button  Add new field…
-    Input text  form-widgets-title  Hobbies
-    Focus  form-widgets-__name__
-    Textfield Value Should Be  form-widgets-__name__  hobbies
-    Input Text  form-widgets-description  Check what you are fond of
-    Select From List  form-widgets-factory  Multiple Choice
-    Click Button  Add
-    Wait until page contains element  css=#fieldset-0 #form-widgets-hobbies
-
+	Add a field  Hobbies  Multiple Choice
     Click Overlay Link  ${PLONE_URL}/dexterity-types/curriculum_vitae/hobbies
     Input text  form-widgets-values  Chess\nSoccer\nBaseball\nVideo games
     Select from list  form-widgets-vocabularyName  Multiple Choice  plone.app.vocabularies.AvailableContentLanguages
