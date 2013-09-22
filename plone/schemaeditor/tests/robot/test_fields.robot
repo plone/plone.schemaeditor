@@ -12,7 +12,7 @@ Test Teardown  Close all browsers
 *** Keywords ***
 
 Wait overlay is closed
-   Wait until keyword succeeds  60  1  Page should not contain element  css=div.overlay
+    Wait until keyword succeeds  60  1  Page should not contain element  css=div.overlay
 
 
 Add a content type
@@ -75,4 +75,14 @@ Add fields
     Click Button  Save
 
     Wait until page contains element  form-widgets-hobbies-3
+
+Delete field
+    Log in as site owner
+    Add a content type  Curriculum vitae
+    Add a field  Phone  Text line (String)
+    Wait until page contains element  css=#fieldset-0 #formfield-form-widgets-phone
+    Click link  css=div.fieldControls .schemaeditor-delete-field
+    Confirm Action
+    Page Should Not Contain Element  css=#formfield-form-widgets-phone
+
 
