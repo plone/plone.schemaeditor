@@ -11,11 +11,8 @@ Test Teardown  Close all browsers
 
 *** Keywords ***
 
-Overlay should close
+Wait overlay is closed
    Wait until keyword succeeds  60  1  Page should not contain element  css=div.overlay
-
-Overlay is opened
-   Wait Until Page Contains Element  css=.overlay
 
 
 Add a content type
@@ -39,7 +36,7 @@ Add a field
     Focus  form-widgets-__name__
     Select from list  form-widgets-factory  ${field_type}
     Click button  form-buttons-add
-    Overlay should close
+    Wait overlay is closed
 
 
 *** Test cases ***
@@ -65,7 +62,7 @@ Add fields
     Click Overlay Link  ${PLONE_URL}/dexterity-types/curriculum_vitae/languages
     Select from list  form-widgets-vocabularyName  plone.app.vocabularies.AvailableContentLanguages
     Click Button  Save
-    Overlay should close
+	Wait overlay is closed
     Page should contain  French
 
 	Add a field  Hobbies  Multiple Choice
@@ -78,3 +75,4 @@ Add fields
     Click Button  Save
 
     Wait until page contains element  form-widgets-hobbies-3
+
