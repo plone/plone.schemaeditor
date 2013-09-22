@@ -78,7 +78,7 @@ Add fields
 
     Wait until page contains element  form-widgets-hobbies-3
 
-<<<<<<< HEAD
+
 Add accented field
     Log in as site owner
     Add a content type  Person
@@ -106,7 +106,10 @@ Add a fieldSet and move a field into this fieldset
 
 	Set Selenium Speed  1 seconds
 
-	Drag And Drop  xpath=//*[@data-field_id="address"]  xpath=//*[@data-fieldset_drag_id="1"]
+	Drag And Drop  xpath=//*[@data-field_id="address"]  css=.formTab[data-fieldset_drag_id="1"]
+	Mouse Over  css=.formTab[data-fieldset_drag_id="1"]
+	Mouse Up  css=.formTab[data-fieldset_drag_id="1"]
+	Wait Until Keyword Succeeds  60  1  Element should not be visible  css=.fieldPreview[data-field_id="address"]
 
 	Click Element  css=.formTab[data-fieldset_drag_id="1"]
 	Wait Until Keyword Succeeds  60  1  Element should be visible  css=.fieldPreview[data-field_id="address"]
