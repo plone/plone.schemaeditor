@@ -16,12 +16,11 @@ Wait overlay is closed
 
 
 Add a content type
-    [Arguments]    ${title}
-    [Documentation]    Add a dexterity content type
-
+    [Arguments]  ${title}
+    [Documentation]  Add a dexterity content type
     Go to  ${PLONE_URL}/@@dexterity-types
     Click Overlay Button  Add New Content Type…
-    Input text  form-widgets-title  Curriculum vitae
+    Input text  form-widgets-title  ${title}
     Focus  form-widgets-id
     Click button  form-buttons-add
     Wait until page contains  Fields
