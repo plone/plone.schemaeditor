@@ -56,7 +56,8 @@ Add field
     Input text  form-widgets-values  Chess\nSoccer\nBaseball\nVideo games
     Select from list  form-widgets-vocabularyName  Multiple Choice  plone.app.vocabularies.AvailableContentLanguages
     Click Button  Save
-    Wait until page contains element  css=.fieldErrorBox
-    Select from list  form-widgets-vocabularyName  --NOVALUE--
+    Wait until page contains element  css=#formfield-form-widgets-vocabularyName.error
+    Select from list  form-widgets-vocabularyName  No value
     Click Button  Save
+
     Wait until page contains element  form-widgets-hobbies-3
