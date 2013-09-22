@@ -13,9 +13,6 @@ Test Teardown  Close all browsers
 
 Wait overlay is closed
    Wait until keyword succeeds  60  1  Page should not contain element  css=div.overlay
-
-Overlay is opened
-   Wait Until Page Contains Element  css=.overlay
    
 *** Test cases ***
 
