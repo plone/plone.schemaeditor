@@ -12,7 +12,7 @@ Test Teardown  Close all browsers
 *** Keywords ***
 
 Wait overlay is closed
-   Wait until keyword succeeds  60  1  Page should not contain element  css=div.overlay
+    Wait until keyword succeeds  60  1  Page should not contain element  css=div.overlay
 
 
 Add a content type
@@ -78,6 +78,7 @@ Add fields
 
     Wait until page contains element  form-widgets-hobbies-3
 
+<<<<<<< HEAD
 Add accented field
     Log in as site owner
     Add a content type  Person
@@ -111,3 +112,13 @@ Add a fieldSet and move a field into this fieldset
 	Wait Until Keyword Succeeds  60  1  Element should be visible  css=.fieldPreview[data-field_id="address"]
 
 	Comment  PAUSE
+
+
+Delete field
+    Log in as site owner
+    Add a content type  Somebody
+    Add a field  Phone  Text line (String)
+    Wait until page contains element  css=#fieldset-0 #formfield-form-widgets-phone
+    Click link  css=div.fieldControls .schemaeditor-delete-field
+    Confirm Action
+    Page Should Not Contain Element  css=#formfield-form-widgets-phone
