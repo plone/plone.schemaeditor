@@ -75,3 +75,10 @@ Add fields
 
     Wait until page contains element  form-widgets-hobbies-3
 
+Add accented field
+    Log in as site owner
+    Add a content type  Person
+    Click Overlay Button  Add new field…
+    Input text  form-widgets-title  Prénom
+    Focus  form-widgets-__name__
+    Textfield Value Should Be  form-widgets-__name__  prenom
