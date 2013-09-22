@@ -21,7 +21,7 @@ Add a content type
 
     Go to  ${PLONE_URL}/@@dexterity-types
     Click Overlay Button  Add New Content Type…
-    Input text  form-widgets-title  Curriculum vitae
+    Input text  form-widgets-title  ${title}
     Focus  form-widgets-id
     Click button  form-buttons-add
     Wait until page contains  Fields
@@ -42,6 +42,7 @@ Add a field
 *** Test cases ***
 
 Add fields
+
     Log in as site owner
 
     Go to  ${PLONE_URL}/@@dexterity-types
@@ -55,6 +56,8 @@ Add fields
     Click Overlay Button  Add new field…
     Input text  form-widgets-title  Languages
     Input text  form-widgets-description  Spoken languages
+    Focus  form-widgets-__name__
+    Textfield Value Should Be  form-widgets-__name__  languages
     Select from list  form-widgets-factory  Multiple Choice
     Click button  form-buttons-add
     Wait until page contains element  css=#fieldset-0 #form-widgets-languages
@@ -76,3 +79,28 @@ Add fields
 
     Wait until page contains element  form-widgets-hobbies-3
 
+
+Add a fieldSet and move a field into this fieldset
+
+    Log in as site owner
+
+	Add a content type  Contact info
+
+	Add a field  Address  Text
+
+    Click Overlay Button  Add new fieldset…
+    Input Text  form-widgets-label  Personal information
+    Focus  form-widgets-__name__
+    Textfield Value Should Be  form-widgets-__name__  personal_information
+    Click Button  form-buttons-add
+    Wait overlay is closed
+	Wait until page contains  Personal information
+
+	Set Selenium Speed  1 seconds
+
+	Drag And Drop  xpath=//*[@data-field_id="address"]  xpath=//*[@data-fieldset_drag_id="1"]
+
+	Click Element  css=.formTab[data-fieldset_drag_id="1"]
+	Wait Until Keyword Succeeds  60  1  Element should be visible  css=.fieldPreview[data-field_id="address"]
+
+	Comment  PAUSE
