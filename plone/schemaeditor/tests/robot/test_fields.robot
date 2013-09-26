@@ -16,8 +16,9 @@ Wait overlay is closed
 
 
 Add a content type
-    [Arguments]  ${title}
-    [Documentation]  Add a dexterity content type
+    [Arguments]    ${title}
+    [Documentation]    Add a dexterity content type
+
     Go to  ${PLONE_URL}/@@dexterity-types
     Click Overlay Button  Add New Content Type…
     Input text  form-widgets-title  ${title}
@@ -78,7 +79,6 @@ Add fields
 
     Wait until page contains element  form-widgets-hobbies-3
 
-<<<<<<< HEAD
 Add accented field
     Log in as site owner
     Add a content type  Person
@@ -122,3 +122,5 @@ Delete field
     Click link  css=div.fieldControls .schemaeditor-delete-field
     Confirm Action
     Page Should Not Contain Element  css=#formfield-form-widgets-phone
+
+
