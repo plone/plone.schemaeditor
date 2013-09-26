@@ -123,4 +123,17 @@ Delete field
     Confirm Action
     Page Should Not Contain Element  css=#formfield-form-widgets-phone
 
+#~ Reorder field
+    #~ Log in as site owner
+    #~ Add a content type  
+    #~ Add a field  Lastname  Text line (String)
+    #~ Wait until page contains element  css=#fieldset-0 #formfield-form-widgets-lastname
+    #~ Add a field  Firstname  Text line (String)
+    #~ Wait until page contains element  css=#fieldset-0 #formfield-form-widgets-firstname
+    
+    #comment  PAUSE
+    #~ /html/body/div/div[2]/div/div[2]/div[2]/div/div/form/fieldset/div[3]/div/span
+    #~ Mouse Down  xpath=//div[@data-field_id='phone']/div/span[@class='draghandle']
+    #~ Mouse Over    xpath=//div[@data-field_id='firstname']
+    #~ Mouse Out   xpath=//div[@data-field_id='phone']/div/span[@class='draghandle']
 
