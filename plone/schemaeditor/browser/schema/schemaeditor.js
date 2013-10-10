@@ -4,6 +4,28 @@
 /*globals jQuery, confirm */
 
 (function ($) {
+
+    $.plone_schemaeditor_normalize_string = function (s) {
+        var s = s.toLowerCase();
+        var rules = {
+            'a': /[àáâãäå]/g,
+            'ae': /[æ]/g,
+            'c': /[ç]/g,
+            'e': /[èéêë]/g,
+            'i': /[ìíîï]/g,
+            'n': /[ñ]/g,
+            'o': /[òóôõö]/g,
+            'oe': /[œ]/g,
+            'u': /[ùúûü]/g,
+            'y': /[ýÿ]/g,
+            'th': /[ðþ]/g,
+            'ss': /[ß]/g,
+            '_': /[\s\\]+/g
+        };
+        for (var r in rules) s = s.replace(rules[r], r);
+        return s.replace(/[^a-z0-9_]/g, '_');
+    };
+
     $.fn.plone_schemaeditor_html5_sortable = function (reorder_callback, changefieldset_callback) {
         this.attr('draggable', 'true')
             .css('-webkit-user-drag', 'element')
@@ -177,8 +199,8 @@
 
         // set id from title
         $('#form-widgets-title, #form-widgets-label').live('change', function () {
-            var val = $(this).val().toLowerCase().replace(/[^A-Za-z0-9_]/g, '_');
-            $('#form-widgets-__name__').val(val);
+            var id = $.plone_schemaeditor_normalize_string($(this).val());
+            $('#form-widgets-__name__').val(id);
         });
 
     });

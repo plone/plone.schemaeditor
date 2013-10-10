@@ -1,0 +1,25 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:gs="http://namespaces.zope.org/genericsetup"
+    xmlns:browser="http://namespaces.zope.org/browser">
+
+    <include package="plone.schemaeditor"/>
+
+	<include package="Products.GenericSetup" file="meta.zcml" />
+    <gs:registerProfile
+        name="testing"
+        title="plone.schemaeditor tests"
+        directory="profiles/testing"
+        description="Steps to ease tests of plone.schemaeditor"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <utility provides="zope.schema.interfaces.IVocabularyFactory"
+             name="plone.schemaeditor.test.Countries"
+             factory=".fixtures.CountriesVocabulary" />
+
+    <utility provides="zope.schema.interfaces.IVocabularyFactory"
+             name="plone.schemaeditor.test.Categories"
+             factory=".fixtures.CategoriesVocabulary" />
+
+</configure>
