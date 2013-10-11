@@ -31,7 +31,7 @@ def setUp(self):
     else:
         configure_vocabulary_registry()
 
-    zcml.load_config('tests.zcml', plone.schemaeditor.tests)
+    zcml.load_config('browser_testing.zcml', plone.schemaeditor.tests)
 
     # add a test layer to the request so we can use special form templates that don't
     # pull in main_template
