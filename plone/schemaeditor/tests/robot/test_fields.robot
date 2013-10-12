@@ -49,13 +49,13 @@ Add fields
     Click Overlay Button  Add New Content Type…
     Input text  form-widgets-title  Curriculum vitae
     Focus  form-widgets-id
-    Textfield Value Should Be  form-widgets-id  curriculum_vitae
+    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-id  curriculum_vitae
     Click button  form-buttons-add
     Wait until page contains  Fields
 
     Click Overlay Button  Add new field…
-    Input text  form-widgets-title  Languages
-    Input text  form-widgets-description  Spoken languages
+    Input text for sure  form-widgets-title  Languages
+    Input text for sure  form-widgets-description  Spoken languages
     Focus  form-widgets-__name__
     Textfield Value Should Be  form-widgets-__name__  languages
     Select from list  form-widgets-factory  Multiple Choice
@@ -71,7 +71,7 @@ Add fields
     Add a field  Hobbies  Multiple Choice
     Click Overlay Link  ${PLONE_URL}/dexterity-types/curriculum_vitae/hobbies
     Input text  form-widgets-values  Chess\nSoccer\nBaseball\nVideo games
-    Select from list  form-widgets-vocabularyName  Multiple Choice  plone.app.vocabularies.AvailableContentLanguages
+    Select from list  form-widgets-vocabularyName  plone.app.vocabularies.AvailableContentLanguages
     Click Button  Save
     Wait until page contains element  css=#formfield-form-widgets-vocabularyName.error
     Select from list  form-widgets-vocabularyName  No value
@@ -85,7 +85,7 @@ Add accented field
     Click Overlay Button  Add new field…
     Input text  form-widgets-title  Prénom
     Focus  form-widgets-__name__
-    Textfield Value Should Be  form-widgets-__name__  prenom
+    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  prenom
 
 
 Add a fieldSet and move a field into this fieldset
