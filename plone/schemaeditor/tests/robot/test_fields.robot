@@ -9,36 +9,6 @@ Test Teardown  Close all browsers
 
 *** Variables ***
 
-*** Keywords ***
-
-Wait overlay is closed
-    Wait until keyword succeeds  60  1  Page should not contain element  css=div.overlay
-
-
-Add a content type
-    [Arguments]    ${title}
-    [Documentation]    Add a dexterity content type
-
-    Go to  ${PLONE_URL}/@@dexterity-types
-    Click Overlay Button  Add New Content Type…
-    Input text  form-widgets-title  ${title}
-    Focus  form-widgets-id
-    Click button  form-buttons-add
-    Wait until page contains  Fields
-
-
-Add a field
-    [Arguments]    ${field_title}    ${field_type}
-    [Documentation]    Add a field in current dexterity content type
-
-    Click Overlay Button  Add new field…
-    Input text  form-widgets-title  ${field_title}
-    Focus  form-widgets-__name__
-    Select from list  form-widgets-factory  ${field_type}
-    Click button  form-buttons-add
-    Wait overlay is closed
-
-
 *** Test cases ***
 
 Add fields
@@ -106,7 +76,7 @@ Add a fieldSet and move a field into this fieldset
     #Mouse Over  css=.formTab[data-fieldset_drag_id="1"]
     #Mouse Up  xpath=//*[@data-fieldset_drag_id="1"][1]
     #Wait Until Keyword Succeeds  10  1  Element should not be visible  css=.fieldPreview[data-field_id="address"]
-    
+
     #Click Element  css=.formTab[data-fieldset_drag_id="1"]
     #Wait Until Keyword Succeeds  10  1  Element should be visible  css=.fieldPreview[data-field_id="address"]
 
@@ -123,14 +93,43 @@ Delete field
 
 #~ Reorder field
     #~ Log in as site owner
-    #~ Add a content type  
+    #~ Add a content type
     #~ Add a field  Lastname  Text line (String)
     #~ Wait until page contains element  css=#fieldset-0 #formfield-form-widgets-lastname
     #~ Add a field  Firstname  Text line (String)
     #~ Wait until page contains element  css=#fieldset-0 #formfield-form-widgets-firstname
-    
+
     #~ /html/body/div/div[2]/div/div[2]/div[2]/div/div/form/fieldset/div[3]/div/span
     #~ Mouse Down  xpath=//div[@data-field_id='phone']/div/span[@class='draghandle']
     #~ Mouse Over    xpath=//div[@data-field_id='firstname']
     #~ Mouse Out   xpath=//div[@data-field_id='phone']/div/span[@class='draghandle']
 
+
+*** Keywords ***
+
+Wait overlay is closed
+    Wait until keyword succeeds  60  1  Page should not contain element  css=div.overlay
+
+
+Add a content type
+    [Arguments]    ${title}
+    [Documentation]    Add a dexterity content type
+
+    Go to  ${PLONE_URL}/@@dexterity-types
+    Click Overlay Button  Add New Content Type…
+    Input text  form-widgets-title  ${title}
+    Focus  form-widgets-id
+    Click button  form-buttons-add
+    Wait until page contains  Fields
+
+
+Add a field
+    [Arguments]    ${field_title}    ${field_type}
+    [Documentation]    Add a field in current dexterity content type
+
+    Click Overlay Button  Add new field…
+    Input text  form-widgets-title  ${field_title}
+    Focus  form-widgets-__name__
+    Select from list  form-widgets-factory  ${field_type}
+    Click button  form-buttons-add
+    Wait overlay is closed
