@@ -196,12 +196,13 @@
                     noform: 'reload'
                 }
             );
-
-        // set id from title
-        $('#form-widgets-title, #form-widgets-label').live('change', function () {
+        set_id_from_title = function() {
             var id = $.plone_schemaeditor_normalize_string($(this).val());
             $('#form-widgets-__name__').val(id);
-        });
+        };
+        // set id from title
+        $('#form-widgets-title, #form-widgets-label').live('focusout',
+        		set_id_from_title);
 
     });
 })(jQuery);
