@@ -11,35 +11,41 @@ Test Teardown  Close all browsers
 
 *** Test cases ***
 
-Add fields
+Add a content type
 
-    Log in as site owner
-
-    Go to  ${PLONE_URL}/@@dexterity-types
+    Go to dexterity types configuration
     Click Overlay Button  Add New Content Type…
-    Input text  form-widgets-title  Curriculum vitae
+    Input text  form-widgets-title  New style Article
     Focus  form-widgets-id
-    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-id  curriculum_vitae
-    Click button  form-buttons-add
+    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-id  new_style_article
+    Click button  Add
     Wait until page contains  Fields
 
+
+Add a choice field with a named vocabulary
+
+    Go to dexterity types configuration
+	Add a content type  Curriculum vitae
     Click Overlay Button  Add new field…
     Input text for sure  form-widgets-title  Languages
     Input text for sure  form-widgets-description  Spoken languages
-    Focus  form-widgets-__name__
-    Textfield Value Should Be  form-widgets-__name__  languages
     Select from list  form-widgets-factory  Multiple Choice
-    Click button  form-buttons-add
+    Click button  Add
     Wait until page contains element  css=#fieldset-0 #form-widgets-languages
 
-    Click Overlay Link  ${PLONE_URL}/dexterity-types/curriculum_vitae/languages
+    Open field settings  languages
     Select from list  form-widgets-vocabularyName  plone.app.vocabularies.AvailableContentLanguages
     Click Button  Save
     Wait overlay is closed
     Page should contain  French
 
+
+Add a choice field with vocabulary values
+
+    Go to dexterity types configuration
+	Add a content type  My page
     Add a field  Hobbies  Multiple Choice
-    Click Overlay Link  ${PLONE_URL}/dexterity-types/curriculum_vitae/hobbies
+    Open field settings  hobbies
     Input text  form-widgets-values  Chess\nSoccer\nBaseball\nVideo games
     Select from list  form-widgets-vocabularyName  plone.app.vocabularies.AvailableContentLanguages
     Click Button  Save
@@ -50,7 +56,8 @@ Add fields
 
 
 Add accented field
-    Log in as site owner
+
+    Go to dexterity types configuration
     Add a content type  Person
     Click Overlay Button  Add new field…
     Input text  form-widgets-title  Prénom
@@ -60,14 +67,14 @@ Add accented field
 
 Add a fieldSet and move a field into this fieldset
 
-    Log in as site owner
+    Go to dexterity types configuration
     Add a content type  Contact info
     Add a field  Address  Text
     Click Overlay Button  Add new fieldset…
     Input Text  form-widgets-label  Personal information
     Focus  form-widgets-__name__
     Textfield Value Should Be  form-widgets-__name__  personal_information
-    Click Button  form-buttons-add
+    Click Button  Add
     Wait overlay is closed
     Wait until page contains  Personal information
     Set Selenium Speed  1 seconds
@@ -82,7 +89,7 @@ Add a fieldSet and move a field into this fieldset
 
 
 Delete field
-    Log in as site owner
+    Go to dexterity types configuration
     Add a content type  Somebody
     Add a field  Phone  Text line (String)
     Wait until page contains element  css=#fieldset-0 #formfield-form-widgets-phone
@@ -110,18 +117,19 @@ Delete field
 Wait overlay is closed
     Wait until keyword succeeds  60  1  Page should not contain element  css=div.overlay
 
+Go to dexterity types configuration
+    Login as site owner
+    Go to  ${PLONE_URL}/@@dexterity-types
 
 Add a content type
     [Arguments]    ${title}
     [Documentation]    Add a dexterity content type
 
-    Go to  ${PLONE_URL}/@@dexterity-types
     Click Overlay Button  Add New Content Type…
     Input text  form-widgets-title  ${title}
     Focus  form-widgets-id
-    Click button  form-buttons-add
+    Click button  Add
     Wait until page contains  Fields
-
 
 Add a field
     [Arguments]    ${field_title}    ${field_type}
@@ -131,5 +139,9 @@ Add a field
     Input text  form-widgets-title  ${field_title}
     Focus  form-widgets-__name__
     Select from list  form-widgets-factory  ${field_type}
-    Click button  form-buttons-add
+    Click button  Add
     Wait overlay is closed
+
+Open field settings
+    [Arguments]    ${field_id}
+    Click Overlay Link  xpath=//div[@data-field_id='${field_id}']//a[@class='fieldSettings link-overlay']
