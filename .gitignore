@@ -1,3 +1,6 @@
 *.py?
 plone.schemaeditor.egg-info/
 *.mo
+.project
+.pydevproject
+.settings
