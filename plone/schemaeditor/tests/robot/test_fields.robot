@@ -43,16 +43,24 @@ Add a choice field with a named vocabulary
 Add a choice field with vocabulary values
 
     Go to dexterity types configuration
-	Add a content type  My page
+    Add a content type  My page
+    Add a field  Hobbies  Multiple Choice
+    Open field settings  hobbies
+    Input text  form-widgets-values  Chess\nSoccer\nBaseball\nVideo games
+    Click Button  Save
+    Wait until page contains element  form-widgets-hobbies-3
+
+
+We get an error if we try to select vocabulary name and vocabulary values
+
+    Go to dexterity types configuration
+    Add a content type  My other page
     Add a field  Hobbies  Multiple Choice
     Open field settings  hobbies
     Input text  form-widgets-values  Chess\nSoccer\nBaseball\nVideo games
     Select from list  form-widgets-vocabularyName  plone.app.vocabularies.AvailableContentLanguages
     Click Button  Save
     Wait until page contains element  css=#formfield-form-widgets-vocabularyName.error
-    Select from list  form-widgets-vocabularyName  No value
-    Click Button  Save
-    Wait until page contains element  form-widgets-hobbies-3
 
 
 Add accented field
