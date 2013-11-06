@@ -14,6 +14,7 @@ Test Teardown  Close all browsers
 Add a content type
 
     Go to dexterity types configuration
+    Set Selenium Speed  1 seconds
     Click Overlay Button  Add New Content Type…
     Input text  form-widgets-title  New style Article
     Focus  form-widgets-id
@@ -25,11 +26,12 @@ Add a content type
 Add a choice field with a named vocabulary
 
     Go to dexterity types configuration
-	Add a content type  Curriculum vitae
+	Add content type  Curriculum vitae
     Click Overlay Button  Add new field…
     Input text for sure  form-widgets-title  Languages
     Input text for sure  form-widgets-description  Spoken languages
     Select from list  form-widgets-factory  Multiple Choice
+    Set Selenium Speed  1 seconds
     Click button  Add
     Wait until page contains element  css=#fieldset-0 #form-widgets-languages
 
@@ -43,8 +45,8 @@ Add a choice field with a named vocabulary
 Add a choice field with vocabulary values
 
     Go to dexterity types configuration
-    Add a content type  My page
-    Add a field  Hobbies  Multiple Choice
+    Add content type  My page
+    Add field  Hobbies  Multiple Choice
     Open field settings  hobbies
     Input text  form-widgets-values  Chess\nSoccer\nBaseball\nVideo games
     Click Button  Save
@@ -54,8 +56,8 @@ Add a choice field with vocabulary values
 We get an error if we try to select vocabulary name and vocabulary values
 
     Go to dexterity types configuration
-    Add a content type  My other page
-    Add a field  Hobbies  Multiple Choice
+    Add content type  My other page
+    Add field  Hobbies  Multiple Choice
     Open field settings  hobbies
     Input text  form-widgets-values  Chess\nSoccer\nBaseball\nVideo games
     Select from list  form-widgets-vocabularyName  plone.app.vocabularies.AvailableContentLanguages
@@ -66,7 +68,7 @@ We get an error if we try to select vocabulary name and vocabulary values
 Add accented field
 
     Go to dexterity types configuration
-    Add a content type  Person
+    Add content type  Person
     Click Overlay Button  Add new field…
     Input text  form-widgets-title  Prénom
     Focus  form-widgets-__name__
@@ -76,8 +78,8 @@ Add accented field
 Add a fieldSet and move a field into this fieldset
 
     Go to dexterity types configuration
-    Add a content type  Contact info
-    Add a field  Address  Text
+    Add content type  Contact info
+    Add field  Address  Text
     Click Overlay Button  Add new fieldset…
     Input Text  form-widgets-label  Personal information
     Focus  form-widgets-__name__
@@ -98,8 +100,8 @@ Add a fieldSet and move a field into this fieldset
 
 Delete field
     Go to dexterity types configuration
-    Add a content type  Somebody
-    Add a field  Phone  Text line (String)
+    Add content type  Somebody
+    Add field  Phone  Text line (String)
     Wait until page contains element  css=#fieldset-0 #formfield-form-widgets-phone
     Click link  css=div.fieldControls .schemaeditor-delete-field
     Confirm Action
@@ -108,10 +110,10 @@ Delete field
 
 #~ Reorder field
     #~ Log in as site owner
-    #~ Add a content type
-    #~ Add a field  Lastname  Text line (String)
+    #~ Add content type
+    #~ Add field  Lastname  Text line (String)
     #~ Wait until page contains element  css=#fieldset-0 #formfield-form-widgets-lastname
-    #~ Add a field  Firstname  Text line (String)
+    #~ Add field  Firstname  Text line (String)
     #~ Wait until page contains element  css=#fieldset-0 #formfield-form-widgets-firstname
 
     #~ /html/body/div/div[2]/div/div[2]/div[2]/div/div/form/fieldset/div[3]/div/span
@@ -129,7 +131,7 @@ Go to dexterity types configuration
     Login as site owner
     Go to  ${PLONE_URL}/@@dexterity-types
 
-Add a content type
+Add content type
     [Arguments]    ${title}
     [Documentation]    Add a dexterity content type
 
@@ -139,9 +141,9 @@ Add a content type
     Click button  Add
     Wait until page contains  Fields
 
-Add a field
+Add field
     [Arguments]    ${field_title}    ${field_type}
-    [Documentation]    Add a field in current dexterity content type
+    [Documentation]    Add field in current dexterity content type
 
     Click Overlay Button  Add new field…
     Input text  form-widgets-title  ${field_title}
