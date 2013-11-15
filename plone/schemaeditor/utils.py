@@ -25,10 +25,7 @@ def sortedFields(schema):
 
 def non_fieldset_fields(schema):
     fieldset_fields = []
-    try:
-        fieldsets = schema.getTaggedValue(FIELDSETS_KEY)
-    except KeyError:
-        fieldsets = ()
+    fieldsets = schema.getTaggedValue(FIELDSETS_KEY, [])
 
     for fieldset in fieldsets:
         fieldset_fields.extend(fieldset.fields)

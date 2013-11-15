@@ -19,7 +19,7 @@ class IDummySchema(Interface):
 
 
 def get_field_fieldset(field_id, schema):
-    fieldsets = schema.getTaggedValue(FIELDSETS_KEY)
+    fieldsets = schema.getTaggedValue(FIELDSETS_KEY, [])
     for fieldset in fieldsets:
         if field_id in fieldset.fields:
             return fieldset
@@ -56,7 +56,7 @@ EditView = layout.wrap_form(EditForm)
 
 
 class BaseVocabulary(object):
-    
+
     def __call__(self, context):
         terms = [SimpleVocabulary.createTerm(
                      value,
@@ -67,14 +67,14 @@ class BaseVocabulary(object):
 
 
 class CountriesVocabulary(BaseVocabulary):
-    
+
     values_list = [('fr', u'France'),
                    ('uk', u'United Kingdom'),
                    ('es', u'Spain')]
-            
+
 
 class CategoriesVocabulary(BaseVocabulary):
-    
+
     values_list = [('php', u'PHP'),
                    ('c', u'C'),
                    ('ruby', u'Ruby')]
