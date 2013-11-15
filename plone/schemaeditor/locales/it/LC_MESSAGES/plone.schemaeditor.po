@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: plone.schemaeditor\n"
-"POT-Creation-Date: 2013-08-13 15:28+0000\n"
+"POT-Creation-Date: 2013-11-15 16:48+0000\n"
 "PO-Revision-Date: 2012-09-16 23:50+0100\n"
 "Last-Translator: Giacomo Spettoli <giacomo.spettoli@gmail.com>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
@@ -26,17 +26,9 @@ msgstr "'${name}' è un nome di campo riservato."
 msgid "Add new field"
 msgstr "Aggiungi un nuovo campo"
 
-#: ../browser/schema/add_fieldset.py:22
+#: ../browser/schema/add_fieldset.py:19
 msgid "Add new fieldset"
 msgstr ""
-
-#: ../browser/schema/schema_listing.pt:11
-msgid "Add new fieldset…"
-msgstr ""
-
-#: ../browser/schema/schema_listing.pt:4
-msgid "Add new field…"
-msgstr "Aggiungi un nuovo campo…"
 
 #: ../browser/schema/schema_listing.pt:117
 msgid "Delete field"
@@ -66,7 +58,7 @@ msgstr "Campo aggiunto con successo."
 msgid "Field type"
 msgstr "Tipo di campo"
 
-#: ../browser/schema/add_fieldset.py:41
+#: ../browser/schema/add_fieldset.py:38
 msgid "Fieldset added successfully."
 msgstr ""
 
@@ -78,7 +70,7 @@ msgstr "Dal comportamento ${behavior_name}:"
 msgid "Help Text"
 msgstr "Testo di aiuto"
 
-#: ../browser/schema/add_fieldset.py:35
+#: ../browser/schema/add_fieldset.py:32
 msgid "Please select a fieldset name that is not already used."
 msgstr ""
 
@@ -126,53 +118,73 @@ msgstr "Utilizzato per l'accesso programmatico al campo."
 msgid "Used for programmatic access to the fieldset."
 msgstr ""
 
+#. Default: "Add new fieldset…"
+#: ../browser/schema/schema_listing.pt:11
+msgid "add_fieldset_hellip"
+msgstr ""
+
+#. Default: "Add new field…"
+#: ../browser/schema/schema_listing.pt:4
+msgid "add_new_field_hellip"
+msgstr ""
+
+#. Default: "The '${value1}' vocabulary value conflicts with '${value2}'."
+#: ../fields.py:144
+msgid "field_edit_error_conflicting_values"
+msgstr ""
+
+#. Default: "You can't set a vocabulary name AND vocabulary values. Please clear values field or set no value here."
+#: ../fields.py:173
+msgid "field_edit_error_values_and_name"
+msgstr ""
+
 #. Default: "Yes/No"
-#: ../fields.py:56
+#: ../fields.py:61
 msgid "label_boolean_field"
 msgstr "Si/No"
 
 #. Default: "Choice"
-#: ../fields.py:67
+#: ../fields.py:74
 msgid "label_choice_field"
 msgstr "Scelta singola"
 
 #. Default: "Date"
-#: ../fields.py:59
+#: ../fields.py:64
 msgid "label_date_field"
 msgstr "Data"
 
 #. Default: "Date/Time"
-#: ../fields.py:58
+#: ../fields.py:63
 msgid "label_datetime_field"
 msgstr "Data/Ora"
 
 #. Default: "Floating-point number"
-#: ../fields.py:55
+#: ../fields.py:60
 msgid "label_float_field"
 msgstr "Numero in virgola mobile"
 
 #. Default: "Integer"
-#: ../fields.py:54
+#: ../fields.py:59
 msgid "label_integer_field"
 msgstr "Intero"
 
 #. Default: "Multiple Choice"
-#: ../fields.py:139
+#: ../fields.py:192
 msgid "label_multi_choice_field"
 msgstr "Scelta multipla"
 
 #. Default: "Password"
-#: ../fields.py:57
+#: ../fields.py:62
 msgid "label_password_field"
 msgstr "Password"
 
 #. Default: "Text"
-#: ../fields.py:53
+#: ../fields.py:58
 msgid "label_text_field"
 msgstr "Testo"
 
 #. Default: "Text line (String)"
-#: ../fields.py:50
+#: ../fields.py:55
 msgid "label_textline_field"
 msgstr "Linea di testo (Stringa)"
 

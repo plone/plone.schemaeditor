@@ -4,6 +4,9 @@ Changelog
 1.3.4 (unreleased)
 ------------------
 
+- i18n fixes.
+  [thomasdesvenain]
+
 - Better string normalization when setting field id from field title
   (change accented or special characters with corresponding letters).
   [cedricmessiant]

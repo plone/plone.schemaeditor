@@ -1,6 +1,5 @@
 from zope.event import notify
 from zope.interface import Invalid
-from zope.lifecycleevent import ObjectAddedEvent
 from zope.container.contained import notifyContainerModified
 
 from z3c.form import form, field
@@ -9,9 +8,7 @@ from plone.z3cform.layout import wrap_form
 
 from plone.schemaeditor import SchemaEditorMessageFactory as _
 from plone.schemaeditor.interfaces import INewFieldset
-from plone.schemaeditor.utils import IEditableSchema, non_fieldset_fields,\
-    sortedFields, SchemaModifiedEvent
-from plone.schemaeditor.utils import FieldAddedEvent
+from plone.schemaeditor.utils import SchemaModifiedEvent
 from plone.supermodel.model import Fieldset
 from plone.supermodel.interfaces import FIELDSETS_KEY
 

@@ -2,14 +2,14 @@
   <form id="add-field" method="GET"
         tal:attributes="action string:${context/absolute_url}/@@add-field">
     <input type="submit" style="float: right; display: block; margin-top: -4.5em;"
-           i18n:attributes="value"
+           i18n:attributes="value add_new_field_hellip"
            value="Add new field&hellip;"/>
   </form>
 
   <form id="add-fieldset" method="GET"
         tal:attributes="action string:${context/absolute_url}/@@add-fieldset">
     <input type="submit" style="float: right; display: block; margin-top: -2.5em;"
-           i18n:attributes="value"
+           i18n:attributes="value add_fieldset_hellip"
            value="Add new fieldset&hellip;"/>
   </form>
 
