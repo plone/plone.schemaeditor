@@ -26,7 +26,7 @@ class FieldOrderView(BrowserView):
 
 
         ordered_field_ids = [name for (name, field) in sortedFields(self.schema)]
-        fieldsets = self.schema.getTaggedValue(FIELDSETS_KEY, [])
+        fieldsets = self.schema.queryTaggedValue(FIELDSETS_KEY, [])
 
         for fieldset in fieldsets:
             # if we are in a fieldset, pos is the position relative to the fieldset

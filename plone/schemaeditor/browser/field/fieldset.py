@@ -18,7 +18,7 @@ class ChangeFieldsetView(BrowserView):
         """ AJAX method to change the fieldset of a field
         """
         fieldset_index = int(fieldset_index)
-        fieldsets = self.schema.getTaggedValue(FIELDSETS_KEY, [])
+        fieldsets = self.schema.queryTaggedValue(FIELDSETS_KEY, [])
         field_name = self.field.__name__
 
         # get current fieldset

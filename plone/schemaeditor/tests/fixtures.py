@@ -19,7 +19,7 @@ class IDummySchema(Interface):
 
 
 def get_field_fieldset(field_id, schema):
-    fieldsets = schema.getTaggedValue(FIELDSETS_KEY, [])
+    fieldsets = schema.queryTaggedValue(FIELDSETS_KEY, [])
     for fieldset in fieldsets:
         if field_id in fieldset.fields:
             return fieldset

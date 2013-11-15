@@ -24,7 +24,7 @@ class FieldsetAddForm(form.AddForm):
 
     def add(self, new_fieldset):
         schema = self.context.schema
-        fieldsets = schema.getTaggedValue(FIELDSETS_KEY, [])
+        fieldsets = schema.queryTaggedValue(FIELDSETS_KEY, [])
 
         for fieldset in fieldsets:
             if fieldset.__name__ == new_fieldset.__name__:
