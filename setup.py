@@ -36,7 +36,7 @@ setup(name='plone.schemaeditor',
           'plone.z3cform',
           'plone.autoform',
       ],
-      extra_requires={'test': [
+      extras_require={'test': [
             'plone.app.dexterity',
             'plone.app.testing',
             'plone.app.robotframework',
