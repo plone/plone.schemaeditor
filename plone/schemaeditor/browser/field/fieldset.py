@@ -31,9 +31,7 @@ class ChangeFieldsetView(BrowserView):
             fieldset_fields.extend(fieldset.fields)
 
         # get future fieldset
-        if len(sortedFields(self.schema)) != len(fieldset_fields):
-            # we have a default fieldset
-            fieldset_index -= 1
+        fieldset_index -= 1
 
         if fieldset_index >= 0:
             # the field has not been moved into default
