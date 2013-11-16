@@ -5,6 +5,8 @@ Changelog
 ------------------
 
 - Fixed drag and drop fields in fieldsets when form tabbing is disabled.
+  We can drop a field into the fieldset legend (for example, when the fieldset is empty),
+  or directly positioning it in an other fieldset.
   [thomasdesvenain]
 
 - i18n fixes.

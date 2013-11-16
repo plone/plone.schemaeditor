@@ -137,7 +137,7 @@ Fields can be reordered via drag-and-drop.  Let's simulate the AJAX request that
 result from dragging the 'favorite_color' field to the 3rd position (since the
 testbrowser doesn't support Javascript)::
 
-    >>> browser.open('http://nohost/@@schemaeditor/favorite_color/@@order?pos=2')
+    >>> browser.open('http://nohost/@@schemaeditor/favorite_color/@@order?pos=2&fieldset_index=0')
     [event: ContainerModifiedEvent on InterfaceClass]
     [event: SchemaModifiedEvent on DummySchemaContext]
     >>> browser.contents
@@ -151,7 +151,7 @@ Now the field should be the third field of the schema::
 Now let's move it to be the first field (as there is an edge case in the ordering
 algorithm that we need to test)::
 
-    >>> browser.open('http://nohost/@@schemaeditor/favorite_color/@@order?pos=0')
+    >>> browser.open('http://nohost/@@schemaeditor/favorite_color/@@order?pos=0&fieldset_index=0')
     [event: ContainerModifiedEvent on InterfaceClass]
     [event: SchemaModifiedEvent on DummySchemaContext]
     >>> getFieldsInOrder(IDummySchema)[0][0]
@@ -174,23 +174,39 @@ Now the field should be the seventh field of the schema::
 
     >>> getFieldsInOrder(IDummySchema)[6][0]
     'favorite_color'
-    >>> from plone.schemaeditor.tests.fixtures import get_field_fieldset
-    >>> get_field_fieldset('favorite_color', IDummySchema)
+    >>> from plone.schemaeditor.utils import get_field_fieldset
+    >>> get_field_fieldset(IDummySchema, 'favorite_color')
     <Fieldset 'alpha' of fieldA, favorite_color>
 
 They can be ordered into a fieldset::
 
-    >>> browser.open('http://nohost/@@schemaeditor/favorite_color/@@order?pos=0')
+    >>> browser.open('http://nohost/@@schemaeditor/favorite_color/@@order?pos=0&fieldset_index=1')
     [event: ContainerModifiedEvent on InterfaceClass]
     [event: SchemaModifiedEvent on DummySchemaContext]
     >>> browser.contents
     ''
-    >>> get_field_fieldset('favorite_color', IDummySchema)
+    >>> get_field_fieldset(IDummySchema, 'favorite_color')
     <Fieldset 'alpha' of favorite_color, fieldA>
 
 Now the field should be the sixth field of the schema::
 
     >>> getFieldsInOrder(IDummySchema)[5][0]
+    'favorite_color'
+
+
+Moving a field into an other fieldset and directly set the position
+-------------------------------------------------------------------
+
+If form tabbing is disabled, you can move a field from a fieldset directly to
+a position in the new fieldset.
+
+    >>> browser.open('http://nohost/@@schemaeditor/favorite_color/@@order?pos=1&fieldset_index=0')
+    [event: ContainerModifiedEvent on InterfaceClass]
+    [event: SchemaModifiedEvent on DummySchemaContext]
+
+Now the field should be the second field of the schema, in the default fieldset ::
+
+    >>> getFieldsInOrder(IDummySchema)[1][0]
     'favorite_color'
 
 
@@ -233,7 +249,7 @@ Now the actual IDummySchema schema should have the new fieldset ::
 
     >>> from plone.supermodel.interfaces import FIELDSETS_KEY
     >>> IDummySchema.getTaggedValue(FIELDSETS_KEY)
-    [<Fieldset 'alpha' of favorite_color, fieldA>, <Fieldset 'extra_info' of >]
+    [<Fieldset 'alpha' of fieldA>, <Fieldset 'extra_info' of >]
 
 
 Miscellaneous field types

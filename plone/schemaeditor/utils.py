@@ -30,8 +30,17 @@ def non_fieldset_fields(schema):
     for fieldset in fieldsets:
         fieldset_fields.extend(fieldset.fields)
 
-    fields = [name for (name, field) in sortedFields(schema)]
+    fields = [info[0] for info in sortedFields(schema)]
     return [f for f in fields if f not in fieldset_fields]
+
+
+def get_field_fieldset(schema, field_name):
+    fieldsets = schema.queryTaggedValue(FIELDSETS_KEY, [])
+    for fieldset in fieldsets:
+        if field_name in fieldset.fields:
+            return fieldset
+    else:
+        return None
 
 
 class EditableSchema(object):
@@ -112,6 +121,26 @@ class EditableSchema(object):
             prev_order = order_buffer
         moving_field.order = prev_order
 
+        # if field is in a fieldset, also reorder fieldset tagged value
+        fieldset = get_field_fieldset(self.schema, field_id)
+        if fieldset is not None:
+            ordered_field_ids = [info[0] for info in sortedFields(self.schema)]
+            fieldset.fields = sorted(fieldset.fields,
+                                     key=lambda x: ordered_field_ids.index(x))
+
+    def changeFieldFieldset(self, field_name, next_fieldset):
+        """Move a field from a fieldset to another,
+        next_fieldset is a fieldset object, or None for default fieldset
+        """
+        current_fieldset = get_field_fieldset(self.schema, field_name)
+        if current_fieldset != next_fieldset:
+            # move field
+            if next_fieldset is not None:
+                next_fieldset.fields.append(field_name)
+
+            if current_fieldset is not None:
+                current_fieldset.fields.remove(field_name)
+
 
 class SchemaModifiedEvent(ObjectEvent):
     implements(ISchemaModifiedEvent)
@@ -119,8 +148,8 @@ class SchemaModifiedEvent(ObjectEvent):
 
 class FieldModifiedEvent(SchemaModifiedEvent):
 
-    def __init__(self, object, field):
-        super(FieldModifiedEvent, self).__init__(object)
+    def __init__(self, obj, field):
+        super(FieldModifiedEvent, self).__init__(obj)
         self.field = field
 
 
