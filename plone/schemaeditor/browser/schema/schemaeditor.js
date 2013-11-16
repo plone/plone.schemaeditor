@@ -77,13 +77,17 @@
                 } else {
                     node.insertAfter(this);
                 }
-                reorder_callback.apply(node, [node.parent().children('[data-drag_id]').index(node)]);
+
+                var target_fieldset_id = $(this).parents('fieldset').first().find('legend').attr('data-fieldset_drag_id');
+                console.log(target_fieldset_id)
+                var position = node.parent().children('[data-drag_id]').index(node);
+                reorder_callback.apply(node, [position, target_fieldset_id]);
             })
             .bind('dragend', function (e) {
                 $('#drop-marker').remove();
             });
 
-        $('.formTabs .formTab').attr('droppable', 'true')
+        $('.formTabs .formTab, #form fieldset legend').attr('droppable', 'true')
             .each(function (i) {
                 $(this).attr('data-fieldset_drag_id', i);
             })
@@ -157,13 +161,15 @@
         });
 
         // reorder fields and change fieldsets
-        $('.fieldPreview.orderable').plone_schemaeditor_html5_sortable(function (i) {
+        $('.fieldPreview.orderable').plone_schemaeditor_html5_sortable(
+        function (position, fieldset_index) {
         	var url = window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@order';
-            $.post(url, {pos: i});
+        	console.log(fieldset_index)
+            $.post(url, {pos: position, fieldset_index: fieldset_index});
         },
-        function(i) {
+        function(fieldset_index) {
         	var url = window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@changefieldset';
-        	$.post(url, {fieldset_index: i});
+        	$.post(url, {fieldset_index: fieldset_index});
         });
 
         // field settings form

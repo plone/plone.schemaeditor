@@ -8,12 +8,13 @@ from zope.i18n import translate
 from zope import schema
 from zope.schema import interfaces as schema_ifaces
 from zope.schema import vocabulary
-from z3c.form import validator
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.lifecycleevent.interfaces import IObjectAddedEvent
+
+from z3c.form import validator
+
 from plone.schemaeditor.interfaces import IFieldFactory
 from plone.schemaeditor import SchemaEditorMessageFactory as _
-
 from plone.schemaeditor import interfaces
 from plone.schemaeditor import schema as se_schema
 

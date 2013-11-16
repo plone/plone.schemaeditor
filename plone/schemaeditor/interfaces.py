@@ -66,9 +66,23 @@ class IEditableSchema(Interface):
             If not provided, the field's name will be taken from its __name__ attribute.
         """
 
-    def removeField(name):
+    def removeField(field_name):
         """ Remove a field from a schema
         """
+
+    def moveField(field_name, new_pos):
+        """ Move a field to the (new_pos)th position in the schema's sort order (indexed beginning
+            at 0).
+
+            Schema fields are assigned an 'order' attribute that increments for each new field
+            instance.  We shuffle these around in case it matters anywhere that they're unique.
+        """
+
+    def changeFieldFieldset(field_name, next_fieldset):
+        """Move a field from a fieldset to another,
+        next_fieldset is a fieldset object, or None for default fieldset
+        """
+
 
 class IFieldEditForm(IEditForm):
     """ Marker interface for field edit forms

@@ -3,7 +3,6 @@ from zope import schema
 from zope.schema.vocabulary import SimpleVocabulary
 from plone.schemaeditor.browser.schema.traversal import SchemaContext
 from plone.supermodel import model
-from plone.supermodel.interfaces import FIELDSETS_KEY
 
 
 class IDummySchema(Interface):
@@ -16,15 +15,6 @@ class IDummySchema(Interface):
     field4 = schema.TextLine()
     field5 = schema.TextLine()
     fieldA = schema.TextLine()
-
-
-def get_field_fieldset(field_id, schema):
-    fieldsets = schema.queryTaggedValue(FIELDSETS_KEY, [])
-    for fieldset in fieldsets:
-        if field_id in fieldset.fields:
-            return fieldset
-    else:
-        return None
 
 
 class DummySchemaContext(SchemaContext):

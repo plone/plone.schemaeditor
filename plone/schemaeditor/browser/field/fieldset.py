@@ -23,17 +23,11 @@ class ChangeFieldsetView(BrowserView):
 
         # get current fieldset
         fieldset_fields = []
-        current_fieldset = None
         for fieldset in fieldsets:
-            if field_name in fieldset.fields:
-                current_fieldset = fieldset
-
             fieldset_fields.extend(fieldset.fields)
 
         # get future fieldset
-        if len(sortedFields(self.schema)) != len(fieldset_fields):
-            # we have a default fieldset
-            fieldset_index -= 1
+        fieldset_index -= 1
 
         if fieldset_index >= 0:
             # the field has not been moved into default
@@ -42,7 +36,7 @@ class ChangeFieldsetView(BrowserView):
             next_fieldset = None
 
         # computing new Position, which is the last position of the new fieldset
-        ordered_field_ids = [name for (name, field) in sortedFields(self.schema)]
+        ordered_field_ids = [info[0] for info in sortedFields(self.schema)]
         if next_fieldset is None:
             # if this is the default,
             new_position = ordered_field_ids.index(fieldset_fields[0])
@@ -57,14 +51,8 @@ class ChangeFieldsetView(BrowserView):
                 new_position = len(ordered_field_ids) - 1
 
         schema = IEditableSchema(self.schema)
+        schema.changeFieldFieldset(field_name, next_fieldset)
         schema.moveField(field_name, new_position)
-
-        # move field
-        if next_fieldset is not None:
-            next_fieldset.fields.append(field_name)
-
-        if current_fieldset is not None:
-            current_fieldset.fields.remove(field_name)
 
         notifyContainerModified(self.schema)
         notify(SchemaModifiedEvent(self.aq_parent.aq_parent))

@@ -16,35 +16,29 @@ class FieldOrderView(BrowserView):
         self.field = context.field
         self.schema = context.field.interface
 
-    def move(self, pos):
+    def move(self, pos, fieldset_index):
         """ AJAX method to change field position within its schema.
         The position is relative to the fieldset.
         """
         schema = IEditableSchema(self.schema)
         fieldname = self.field.__name__
         pos = int(pos)
+        fieldset_index = int(fieldset_index)
+        fieldset_index -= 1 # index 0 is default fieldset
 
-
-        ordered_field_ids = [name for (name, field) in sortedFields(self.schema)]
         fieldsets = self.schema.queryTaggedValue(FIELDSETS_KEY, [])
+        new_fieldset = fieldset_index >= 0 and fieldsets[fieldset_index] or None
+        schema.changeFieldFieldset(fieldname, new_fieldset)
 
-        for fieldset in fieldsets:
-            # if we are in a fieldset, pos is the position relative to the fieldset
-            if fieldname in fieldset.fields:
-                old_field_of_position = fieldset.fields[pos]
-                absolute_position = ordered_field_ids.index(old_field_of_position)
-                break
+        ordered_field_ids = [info[0] for info in sortedFields(self.schema)]
+        if new_fieldset:
+            old_field_of_position = new_fieldset.fields[pos]
+            new_absolute_position = ordered_field_ids.index(old_field_of_position)
         else:
-            # in default fieldset, the relative position == the absolute position
-            fieldset = None
-            absolute_position = pos
+            new_absolute_position = pos
 
-        schema.moveField(fieldname, absolute_position)
-        # if field is in a fieldset, also reorder fieldset tagged value
-        ordered_field_ids = [name for (name, field) in sortedFields(self.schema)]
-        if fieldset is not None:
-            fieldset.fields = sorted(fieldset.fields,
-                                     key=lambda x: ordered_field_ids.index(x))
+        # if fieldset changed, update fieldsets
+        schema.moveField(fieldname, new_absolute_position)
 
         notifyContainerModified(self.schema)
         notify(SchemaModifiedEvent(self.aq_parent.aq_parent))
