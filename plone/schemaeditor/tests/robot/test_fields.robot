@@ -39,7 +39,7 @@ Add a choice field with a named vocabulary
     Select from list  form-widgets-vocabularyName  plone.app.vocabularies.AvailableContentLanguages
     Click Button  Save
     Wait overlay is closed
-    Page should contain  French
+    Page should contain  Français
 
 
 Add a choice field with vocabulary values
