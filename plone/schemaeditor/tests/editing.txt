@@ -224,6 +224,42 @@ And confirm that the real schema was updated::
 
     >>> 'favorite_color' in IDummySchema
     False
+    >>> from plone.supermodel.interfaces import FIELDSETS_KEY
+    >>> 'favorite_color' in [i for f in IDummySchema.getTaggedValue(FIELDSETS_KEY) for i in f.fields]
+    False
+
+
+Removing a field in other fieldset
+----------------------------------
+
+Let's add a 'other_set' field to the IDummySchema schema,
+move it into an other fieldset and remove it::
+
+    >>> browser.open(portal_url + '/@@schemaeditor')
+    >>> browser.getControl('Add new field').click()
+    >>> browser.getControl('Title').value = 'Other Set'
+    >>> browser.getControl('Short Name').value = 'other_set'
+    >>> browser.getControl('Field type').value = ['Text line (String)']
+    >>> browser.getControl('Add').click()
+    [event: ObjectAddedEvent on TextLine]
+    [event: FieldAddedEvent on DummySchemaContext]
+    >>> browser.open('http://nohost/@@schemaeditor/other_set/@@changefieldset?fieldset_index=1')
+    [event: ContainerModifiedEvent on InterfaceClass]
+    [event: SchemaModifiedEvent on DummySchemaContext]
+    >>> browser.contents
+    ''
+    >>> browser.open('http://nohost/@@schemaeditor')
+    >>> browser.getLink(url='other_set/@@delete').click()
+    [event: ObjectRemovedEvent on TextLine]
+    [event: FieldRemovedEvent on DummySchemaContext]
+
+And confirm that the real schema was updated::
+
+    >>> 'other_set' in IDummySchema
+    False
+    >>> from plone.supermodel.interfaces import FIELDSETS_KEY
+    >>> 'other_set' in [i for f in IDummySchema.getTaggedValue(FIELDSETS_KEY) for i in f.fields]
+    False
 
 
 Adding a fieldset
