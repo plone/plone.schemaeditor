@@ -25,6 +25,8 @@ Changelog
   when we edit a choice field with a vocabulary factory.
   [thomasdesvenain]
 
+- Fixed deleting field from fieldset.
+  [kroman0]
 
 1.3.3 (2013-08-13)
 ------------------
