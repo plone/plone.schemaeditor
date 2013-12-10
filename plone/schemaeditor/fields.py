@@ -209,7 +209,7 @@ class TextLineMultiChoiceField(TextLineChoiceField):
             return [term.value
                     for term in (field.value_type.vocabulary or [])]
         elif name == 'vocabularyName':
-            return getattr(field.value_type, name) or getattr(field, name)
+            return getattr(field.value_type, name, None) or getattr(field, name)
         else:
             return getattr(field, name)
 
