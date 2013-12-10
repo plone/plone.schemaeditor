@@ -4,7 +4,10 @@ Changelog
 1.3.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fixed: on a multi selection fields with a vocabulary name,
+  if the field had been generated from a model,
+  when we go to edit form, the name was not selected.
+  [thomasdesvenain]
 
 
 1.3.4 (2013-12-07)
