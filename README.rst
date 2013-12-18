@@ -55,11 +55,12 @@ Author:
 
  * David Glick (dglick@gmail.com)
 
-Thanks to:
+Contributors:
 
  * Nathan Van Gheem
  * Martin Aspeli
  * Alex Limi
  * Ross Patterson
  * Steve McMahon
+ * Thomas Desvenain
 
