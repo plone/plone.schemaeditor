@@ -51,8 +51,14 @@ def FieldsVocabularyFactory(context):
     field_factories = getUtilitiesFor(IFieldFactory)
     terms = []
     for (field_id, factory) in field_factories:
+<<<<<<< HEAD
         if factory.available():
             terms.append(SimpleVocabulary.createTerm(factory, translate(factory.title), factory.title))
+=======
+        terms.append(SimpleVocabulary.createTerm(factory,
+                                                 translate(factory.title),
+                                                 factory.title))
+>>>>>>> 5a2968a3a4091ad90ba3badc378f3d37b14dc2bc
 
     return SimpleVocabulary(terms)
 
@@ -207,11 +213,14 @@ class TextLineMultiChoiceField(TextLineChoiceField):
         self.__dict__['field'] = field
 
     def __getattr__(self, name):
+        field = self.field
         if name == 'values':
             return [term.value
-                    for term in (self.field.value_type.vocabulary or [])]
-
-        return getattr(self.field, name)
+                    for term in (field.value_type.vocabulary or [])]
+        elif name == 'vocabularyName':
+            return getattr(field.value_type, name, None) or getattr(field, name)
+        else:
+            return getattr(field, name)
 
     def __setattr__(self, name, value):
         if name == 'values' and value:
