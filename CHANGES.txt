@@ -4,7 +4,13 @@ Changelog
 1.3.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add an "available" method to IFieldFactory that may be used to determine
+  if a field factory is actually available in the current context. This always
+  returns True in the base class. Override it if a field factory isn't useful
+  unless conditions are met. Example: we can't use a field factory for
+  RelationChoice unless the relationfield is activated in the Plone
+  instance.
+  [smcmahon]
 
 
 1.3.4 (2013-12-07)

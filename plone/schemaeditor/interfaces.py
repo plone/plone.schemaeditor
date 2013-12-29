@@ -56,6 +56,10 @@ class IFieldFactory(IField):
     """
     title = TextLine(title=u'Title')
 
+    def available(self):
+        """ field is addable in the current context """
+
+
 class IEditableSchema(Interface):
     """ Interface for adding/removing fields to/from a schema.
     """

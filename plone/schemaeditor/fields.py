@@ -40,14 +40,19 @@ class FieldFactory(object):
     def __call__(self, *args, **kw):
         kwargs = copy.deepcopy(self.kw)
         kwargs.update(**kw)
-        return self.fieldcls(*(self.args+args), **kwargs)
+        return self.fieldcls(*(self.args + args), **kwargs)
+
+    def available(self):
+        """ field is addable in the current context """
+        return True
 
 
 def FieldsVocabularyFactory(context):
     field_factories = getUtilitiesFor(IFieldFactory)
     terms = []
     for (field_id, factory) in field_factories:
-        terms.append(SimpleVocabulary.createTerm(factory, translate(factory.title), factory.title))
+        if factory.available():
+            terms.append(SimpleVocabulary.createTerm(factory, translate(factory.title), factory.title))
 
     return SimpleVocabulary(terms)
 
