@@ -67,7 +67,7 @@ class SchemaListing(AutoExtensibleForm, form.Form):
 
     def edit_url(self, field):
         field_factory = self._field_factory(field)
-        if field_factory is not None:
+        if field_factory is not None and field_factory.editable(field):
             return '%s/%s' % (self.context.absolute_url(), field.__name__)
 
     def delete_url(self, field):

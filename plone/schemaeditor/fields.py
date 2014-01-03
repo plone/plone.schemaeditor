@@ -46,6 +46,10 @@ class FieldFactory(object):
         """ field is addable in the current context """
         return True
 
+    def editable(self, field):
+        """ test whether a given instance of a field is editable """
+        return True
+
 
 def FieldsVocabularyFactory(context):
     field_factories = getUtilitiesFor(IFieldFactory)

@@ -59,6 +59,9 @@ class IFieldFactory(IField):
     def available(self):
         """ field is addable in the current context """
 
+    def editable(self, field):
+        """ test whether a given instance of a field is editable """
+
 
 class IEditableSchema(Interface):
     """ Interface for adding/removing fields to/from a schema.
