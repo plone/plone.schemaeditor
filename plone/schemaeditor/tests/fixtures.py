@@ -18,6 +18,7 @@ class IDummySchema(Interface):
 
 
 class DummySchemaContext(SchemaContext):
+
     def __init__(self, context, request):
         super(DummySchemaContext, self).__init__(
             IDummySchema, request, name='@@schemaeditor')
@@ -49,10 +50,10 @@ class BaseVocabulary(object):
 
     def __call__(self, context):
         terms = [SimpleVocabulary.createTerm(
-                     value,
-                     value,
-                     label)
-                 for value, label in self.values_list]
+            value,
+            value,
+            label)
+            for value, label in self.values_list]
         return SimpleVocabulary(terms)
 
 

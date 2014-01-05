@@ -47,11 +47,10 @@ class PloneSchemaeditorRobotLayer(PloneSandboxLayer):
 
 FIXTURE = PloneSchemaeditorRobotLayer(
     name="ROBOT"
-    )
+)
 
 
 ACCEPTANCE = FunctionalTesting(bases=(FIXTURE,
                                       AUTOLOGIN_LIBRARY_FIXTURE,
                                       z2.ZSERVER_FIXTURE),
                                name="ACCEPTANCE")
-

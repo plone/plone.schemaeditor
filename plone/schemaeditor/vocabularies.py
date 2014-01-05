@@ -4,6 +4,7 @@ from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
 
 class VocabulariesVocabulary(object):
+
     """Vocabulary for a list of available vocabulary factories
     """
 
@@ -13,7 +14,8 @@ class VocabulariesVocabulary(object):
             doc = (vocabulary.__doc__ or '').strip().split('\n')
             doc = [l.strip() for l in doc if l.strip()]
             if len(doc) > 0:
-                terms.append(SimpleTerm(name, name, "%s - %s" % (name, doc[0])))
+                terms.append(
+                    SimpleTerm(name, name, "%s - %s" % (name, doc[0])))
             else:
                 terms.append(SimpleTerm(name, name, name))
 

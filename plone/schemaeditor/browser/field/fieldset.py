@@ -35,7 +35,8 @@ class ChangeFieldsetView(BrowserView):
         else:
             next_fieldset = None
 
-        # computing new Position, which is the last position of the new fieldset
+        # computing new Position, which is the last position of the new
+        # fieldset
         ordered_field_ids = [info[0] for info in sortedFields(self.schema)]
         if next_fieldset is None:
             # if this is the default,
@@ -43,9 +44,10 @@ class ChangeFieldsetView(BrowserView):
         else:
             # first we get the first of the fieldsets after the new one
             new_position = None
-            for fieldset in fieldsets[fieldsets.index(next_fieldset)+1:]:
+            for fieldset in fieldsets[fieldsets.index(next_fieldset) + 1:]:
                 if len(fieldset.fields) > 0:
-                    new_position = ordered_field_ids.index(fieldset.fields[0]) - 1
+                    new_position = ordered_field_ids.index(
+                        fieldset.fields[0]) - 1
                     break
             else:
                 new_position = len(ordered_field_ids) - 1

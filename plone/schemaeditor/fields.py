@@ -62,17 +62,26 @@ def FieldsVocabularyFactory(context):
     return SimpleVocabulary(terms)
 
 
-# TextLineFactory is the default. We need to set that here to avoid a circular import.
-TextLineFactory = FieldFactory(schema.TextLine, _(u'label_textline_field', default=u'Text line (String)'))
+# TextLineFactory is the default. We need to set that here to avoid a
+# circular import.
+TextLineFactory = FieldFactory(
+    schema.TextLine, _(u'label_textline_field', default=u'Text line (String)'))
 interfaces.INewField['factory'].__dict__['default'] = TextLineFactory
 
-TextFactory = FieldFactory(schema.Text, _(u'label_text_field', default=u'Text'))
-IntFactory = FieldFactory(schema.Int, _(u'label_integer_field', default=u'Integer'))
-FloatFactory = FieldFactory(schema.Float, _(u'label_float_field', default=u'Floating-point number'))
-BoolFactory = FieldFactory(schema.Bool, _(u'label_boolean_field', default=u'Yes/No'))
-PasswordFactory = FieldFactory(schema.Password, _(u'label_password_field', default=u'Password'))
-DatetimeFactory = FieldFactory(schema.Datetime, _(u'label_datetime_field', default=u'Date/Time'))
-DateFactory = FieldFactory(schema.Date, _(u'label_date_field', default=u'Date'))
+TextFactory = FieldFactory(
+    schema.Text, _(u'label_text_field', default=u'Text'))
+IntFactory = FieldFactory(
+    schema.Int, _(u'label_integer_field', default=u'Integer'))
+FloatFactory = FieldFactory(
+    schema.Float, _(u'label_float_field', default=u'Floating-point number'))
+BoolFactory = FieldFactory(
+    schema.Bool, _(u'label_boolean_field', default=u'Yes/No'))
+PasswordFactory = FieldFactory(
+    schema.Password, _(u'label_password_field', default=u'Password'))
+DatetimeFactory = FieldFactory(
+    schema.Datetime, _(u'label_datetime_field', default=u'Date/Time'))
+DateFactory = FieldFactory(
+    schema.Date, _(u'label_date_field', default=u'Date'))
 
 
 @interface.implementer(interfaces.IFieldEditFormSchema)
@@ -121,7 +130,7 @@ class TextLineChoiceField(object):
             setattr(self.field, 'values', None)
             setattr(self.field, 'vocabulary', None)
             return setattr(self.field, 'vocabularyName', value)
-        elif  name == 'vocabularyName' and not value:
+        elif name == 'vocabularyName' and not value:
             return setattr(self.field, 'vocabularyName', None)
 
         return setattr(self.field, name, value)
@@ -134,6 +143,7 @@ class TextLineChoiceField(object):
 
 
 class VocabularyValuesValidator(validator.SimpleFieldValidator):
+
     """Ensure duplicate vocabulary terms are not submitted
     """
     component.adapts(interface.Interface, interface.Interface,
@@ -171,6 +181,7 @@ class VocabularyValuesValidator(validator.SimpleFieldValidator):
 
 
 class VocabularyNameValidator(validator.SimpleFieldValidator):
+
     """Ensure user has not submitted a vocabulary values AND a factory
     """
 
@@ -188,8 +199,8 @@ class VocabularyNameValidator(validator.SimpleFieldValidator):
         return super(VocabularyNameValidator, self).validate(values)
 
 validator.WidgetValidatorDiscriminators(
-                            VocabularyNameValidator,
-                            field=se_schema.ITextLineChoice['vocabularyName'])
+    VocabularyNameValidator,
+    field=se_schema.ITextLineChoice['vocabularyName'])
 
 
 @interface.implementer(interfaces.IFieldEditFormSchema)
@@ -247,4 +258,3 @@ def setBoolWidget(field, event):
     widgets = schema.queryTaggedValue('plone.autoform.widgets', {})
     widgets[field.__name__] = 'z3c.form.browser.radio.RadioFieldWidget'
     schema.setTaggedValue('plone.autoform.widgets', widgets)
-

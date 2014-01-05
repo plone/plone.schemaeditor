@@ -13,9 +13,10 @@ from plone.z3cform.interfaces import IFormWrapper
 import plone.schemaeditor
 
 
-optionflags =  (doctest.ELLIPSIS |
-                doctest.NORMALIZE_WHITESPACE |
-                doctest.REPORT_ONLY_FIRST_FAILURE)
+optionflags = (doctest.ELLIPSIS |
+               doctest.NORMALIZE_WHITESPACE |
+               doctest.REPORT_ONLY_FIRST_FAILURE)
+
 
 def setUp(self):
     try:
@@ -54,9 +55,9 @@ def test_suite():
             setUp=setUp,
             tearDown=tearDown,
             optionflags=optionflags
-            ),
+        ),
 
-        ])
+    ])
 
 
 class ITestLayer(Interface):
@@ -64,11 +65,14 @@ class ITestLayer(Interface):
 
 
 class RenderWidget(object):
+
     def __init__(self, widget, request):
         self.widget = widget
+
     def __call__(self):
         return self.widget.render()
 
 
 path = lambda p: os.path.join(os.path.dirname(__file__), p)
-layout_factory = ZopeTwoFormTemplateFactory(path('layout.pt'), form=IFormWrapper, request=ITestLayer)
+layout_factory = ZopeTwoFormTemplateFactory(path('layout.pt'),
+                                            form=IFormWrapper, request=ITestLayer)

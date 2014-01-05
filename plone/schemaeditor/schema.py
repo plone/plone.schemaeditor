@@ -5,14 +5,14 @@ from zope import schema
 try:
     from plone.app.z3cform.widget import IDatetimeField as IDatetime
     from plone.app.z3cform.widget import IDateField as IDate
-    IDatetime, IDate # pyflakes
+    IDatetime, IDate  # pyflakes
 except ImportError:
     try:
         from collective.z3cform.datetimewidget.interfaces import (
-                IDatetimeField as IDatetime)
+            IDatetimeField as IDatetime)
         from collective.z3cform.datetimewidget.interfaces import (
-                IDateField as IDate)
-        IDatetime, IDate # pyflakes
+            IDateField as IDate)
+        IDatetime, IDate  # pyflakes
     except ImportError:
         IDatetime = interfaces.IDatetime
         IDate = interfaces.IDate
@@ -37,13 +37,14 @@ class IFloat(interfaces.IFloat, interfaces.IFromUnicode):
         title=interfaces.IFloat['min'].title,
         required=interfaces.IFloat['min'].required,
         default=interfaces.IFloat['min'].default,
-        )
+    )
 
     max = schema.Float(
         title=interfaces.IFloat['max'].title,
         required=interfaces.IFloat['max'].required,
         default=interfaces.IFloat['max'].default,
-        )
+    )
+
 
 class IDatetime(IDatetime):
 
@@ -51,13 +52,14 @@ class IDatetime(IDatetime):
         title=interfaces.IDatetime['min'].title,
         required=interfaces.IDatetime['min'].required,
         default=interfaces.IDatetime['min'].default,
-        )
+    )
 
     max = schema.Datetime(
         title=interfaces.IDatetime['max'].title,
         required=interfaces.IDatetime['max'].required,
         default=interfaces.IDatetime['max'].default,
-        )
+    )
+
 
 class IDate(IDate):
 
@@ -65,21 +67,24 @@ class IDate(IDate):
         title=interfaces.IDate['min'].title,
         required=interfaces.IDate['min'].required,
         default=interfaces.IDate['min'].default,
-        )
+    )
 
     max = schema.Date(
         title=interfaces.IDate['max'].title,
         required=interfaces.IDate['max'].required,
         default=interfaces.IDate['max'].default,
-        )
+    )
 
 
 class IChoice(interfaces.IChoice,
               interfaces.IFromUnicode):
     pass
 
+
 class ITextLinesField(interfaces.IList):
+
     """A marker for fields which should get the textlines widget"""
+
 
 class ITextLineChoice(interfaces.IField):
 
@@ -97,4 +102,4 @@ class ITextLineChoice(interfaces.IField):
         default=interfaces.IChoice['vocabularyName'].default,
         required=False,
         vocabulary="plone.schemaeditor.VocabulariesVocabulary",
-        )
+    )

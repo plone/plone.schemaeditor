@@ -29,7 +29,7 @@ class FieldsetAddForm(form.AddForm):
         for fieldset in fieldsets:
             if fieldset.__name__ == new_fieldset.__name__:
                 raise WidgetActionExecutionError('__name__',
-                    Invalid(_(u'Please select a fieldset name that is not already used.')))
+                                                 Invalid(_(u'Please select a fieldset name that is not already used.')))
 
         fieldsets.append(new_fieldset)
         schema.setTaggedValue(FIELDSETS_KEY, fieldsets)

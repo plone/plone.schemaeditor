@@ -6,7 +6,9 @@ from OFS.SimpleItem import SimpleItem
 from plone.schemaeditor.browser.field.traversal import FieldContext
 from plone.schemaeditor.interfaces import ISchemaContext
 
+
 class SchemaContext(SimpleItem):
+
     """ This is a transient item that allows us to traverse through (a wrapper
         of) a zope 3 schema to (a wrapper of) a zope 3 schema field.
     """

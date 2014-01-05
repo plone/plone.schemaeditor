@@ -22,13 +22,15 @@ PMF = MessageFactory('plone')
 
 _marker = object()
 
+
 class IFieldTitle(Interface):
     title = schema.TextLine(
         title=schema.interfaces.ITextLine['title'].title,
         description=schema.interfaces.ITextLine['title'].description,
         default=u"",
         required=True,
-        )
+    )
+
 
 class FieldTitleAdapter(object):
     implements(IFieldTitle)
@@ -39,9 +41,11 @@ class FieldTitleAdapter(object):
 
     def _read_title(self):
         return self.field.title
+
     def _write_title(self, value):
         self.field.title = value
     title = property(_read_title, _write_title)
+
 
 class FieldEditForm(AutoExtensibleForm, form.EditForm):
     implements(IFieldEditForm)

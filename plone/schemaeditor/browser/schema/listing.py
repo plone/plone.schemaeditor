@@ -52,7 +52,8 @@ class SchemaListing(AutoExtensibleForm, form.Form):
 
     @memoize
     def _field_factory(self, field):
-        field_identifier = u'%s.%s' % (field.__module__, field.__class__.__name__)
+        field_identifier = u'%s.%s' % (
+            field.__module__, field.__class__.__name__)
         if self.context.allowedFields is not None:
             if field_identifier not in self.context.allowedFields:
                 return None
@@ -107,7 +108,9 @@ class ReadOnlySchemaListing(SchemaListing):
         return
     delete_url = edit_url
 
+
 class SchemaListingPage(FormWrapper):
+
     """ Form wrapper so we can get a form with layout.
 
         We define an explicit subclass rather than using the wrap_form method

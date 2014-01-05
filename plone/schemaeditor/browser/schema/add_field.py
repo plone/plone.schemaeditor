@@ -39,7 +39,7 @@ class FieldAddForm(form.AddForm):
             schema.addField(field)
         except ValueError:
             raise WidgetActionExecutionError('__name__',
-                Invalid(u'Please select a field name that is not already used.'))
+                                             Invalid(u'Please select a field name that is not already used.'))
 
         schema.moveField(field.__name__, position)
         notify(ObjectAddedEvent(field, context.schema))

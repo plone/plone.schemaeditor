@@ -44,6 +44,7 @@ def get_field_fieldset(schema, field_name):
 
 
 class EditableSchema(object):
+
     """ Zope 3 schema adapter to allow addition/removal of schema fields
 
         XXX this needs to be made threadsafe
@@ -61,7 +62,8 @@ class EditableSchema(object):
             name = field.__name__
 
         if self.schema._InterfaceClass__attrs.has_key(name):
-            raise ValueError, "%s schema already has a '%s' field" % (self.schema.__identifier__, name)
+            raise ValueError, "%s schema already has a '%s' field" % (
+                self.schema.__identifier__, name)
 
         self.schema._InterfaceClass__attrs[name] = field
         if hasattr(self.schema, '_v_attrs'):
@@ -81,7 +83,8 @@ class EditableSchema(object):
                 if field_name in fieldset.fields:
                     fieldset.fields.remove(field_name)
         except KeyError:
-            raise ValueError, "%s schema has no '%s' field" % (self.schema.__identifier__, field_name)
+            raise ValueError, "%s schema has no '%s' field" % (
+                self.schema.__identifier__, field_name)
 
     def moveField(self, field_name, new_pos):
         """ Move a field to the (new_pos)th position in the schema's sort order (indexed beginning
@@ -91,7 +94,8 @@ class EditableSchema(object):
             instance.  We shuffle these around in case it matters anywhere that they're unique.
         """
         moving_field = self.schema[field_name]
-        ordered_field_ids = [name for (name, field) in sortedFields(self.schema)]
+        ordered_field_ids = [
+            name for (name, field) in sortedFields(self.schema)]
 
         # make sure this is sane
         if not isinstance(new_pos, int):

@@ -24,16 +24,18 @@ class FieldOrderView(BrowserView):
         fieldname = self.field.__name__
         pos = int(pos)
         fieldset_index = int(fieldset_index)
-        fieldset_index -= 1 # index 0 is default fieldset
+        fieldset_index -= 1  # index 0 is default fieldset
 
         fieldsets = self.schema.queryTaggedValue(FIELDSETS_KEY, [])
-        new_fieldset = fieldset_index >= 0 and fieldsets[fieldset_index] or None
+        new_fieldset = fieldset_index >= 0 and fieldsets[
+            fieldset_index] or None
         schema.changeFieldFieldset(fieldname, new_fieldset)
 
         ordered_field_ids = [info[0] for info in sortedFields(self.schema)]
         if new_fieldset:
             old_field_of_position = new_fieldset.fields[pos]
-            new_absolute_position = ordered_field_ids.index(old_field_of_position)
+            new_absolute_position = ordered_field_ids.index(
+                old_field_of_position)
         else:
             new_absolute_position = pos
 
