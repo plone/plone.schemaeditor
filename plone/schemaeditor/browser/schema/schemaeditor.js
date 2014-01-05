@@ -79,7 +79,6 @@
                 }
 
                 var target_fieldset_id = $(this).parents('fieldset').first().find('legend').attr('data-fieldset_drag_id');
-                console.log(target_fieldset_id)
                 var position = node.parent().children('[data-drag_id]').index(node);
                 reorder_callback.apply(node, [position, target_fieldset_id]);
             })
@@ -164,7 +163,6 @@
         $('.fieldPreview.orderable').plone_schemaeditor_html5_sortable(
         function (position, fieldset_index) {
         	var url = window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@order';
-        	console.log(fieldset_index)
             $.post(url, {pos: position, fieldset_index: fieldset_index});
         },
         function(fieldset_index) {
