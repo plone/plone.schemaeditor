@@ -75,9 +75,13 @@
         }).bind('dragend', function (e) {
             $('#drop-marker').remove();
         });
-        $('.formTabs .formTab, #form fieldset legend').attr('droppable', 'true').each(function (i) {
+        $('#form fieldset legend').attr('droppable', 'true').each(function (i) {
             $(this).attr('data-fieldset_drag_id', i);
-        }).bind('drop', function (e) {
+        });
+        $('.formTabs .formTab').attr('droppable', 'true').each(function (i) {
+            $(this).attr('data-fieldset_drag_id', i);
+        });
+        $('.formTabs .formTab, #form fieldset legend').attr('droppable', 'true').bind('drop', function (e) {
             e.preventDefault();
             var src = e.originalEvent.dataTransfer.getData('Text'), node = $('[data-drag_id=' + src + ']');
             var orig_fieldset = node.parents('fieldset');
