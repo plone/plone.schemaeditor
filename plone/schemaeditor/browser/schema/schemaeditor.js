@@ -24,6 +24,10 @@
         return s.replace(/[^a-z0-9_]/g, '_');
     };
     $.fn.plone_schemaeditor_html5_sortable = function (reorder_callback, changefieldset_callback) {
+        /* Takes two callbacks as arguments
+         * reorder_callback : the callback when we move a field relatively to other fields
+         * changefieldset_callback : the callback when we move a field to a legend or a tab
+         */
         this.attr('draggable', 'true').css('-webkit-user-drag', 'element').each(function (i) {
             $(this).attr('data-drag_id', i);
         }).bind('dragstart', function (e) {
@@ -56,6 +60,9 @@
             }
             return false;
         }).bind('drop', function (e) {
+        	/* We move the field, into the same fieldset (simple reorder into the fieldset)
+        	 * or into an other fieldset (we set a new position in a new fieldset)
+        	 */
             e.preventDefault();
             var src = e.originalEvent.dataTransfer.getData('Text'), node = $('[data-drag_id=' + src + ']');
             if ($(this).attr('data-drag_id') === src) {
@@ -67,6 +74,7 @@
                 node.insertAfter(this);
             }
             var target_fieldset_id = $(this).parents('fieldset').first().find('legend').attr('data-fieldset_drag_id');
+            // position is the new position of the field, in the same fielsdet or in the new fieldset
             var position = node.parent().children('[data-drag_id]').index(node);
             reorder_callback.apply(node, [
                 position,
@@ -75,6 +83,7 @@
         }).bind('dragend', function (e) {
             $('#drop-marker').remove();
         });
+        // Make tab and legend elements droppable. we drop on legend when form tabbing is disabled
         $('#form fieldset legend').attr('droppable', 'true').each(function (i) {
             $(this).attr('data-fieldset_drag_id', i);
         });
@@ -82,6 +91,7 @@
             $(this).attr('data-fieldset_drag_id', i);
         });
         $('.formTabs .formTab, #form fieldset legend').attr('droppable', 'true').bind('drop', function (e) {
+        	// apply change fieldset when we drop a field on a tab or a legend
             e.preventDefault();
             var src = e.originalEvent.dataTransfer.getData('Text'), node = $('[data-drag_id=' + src + ']');
             var orig_fieldset = node.parents('fieldset');
@@ -105,6 +115,7 @@
             }
             $(this).css('border', '');
         }).bind('dragover', function (e) {
+        	// style when we drag over tab or legend
             e.preventDefault();
             var draggable = e.originalEvent.dataTransfer.getData('draggable');
             if (draggable) {
@@ -113,6 +124,7 @@
             }
             return false;
         }).bind('dragleave', function (e) {
+        	// remove style when we leave tab or legend
             e.preventDefault();
             $(this).css('border', '');
             $('#drop-marker').show();
