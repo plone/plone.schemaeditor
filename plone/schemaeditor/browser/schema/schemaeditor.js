@@ -161,8 +161,14 @@
             filter: common_content_filter,
             closeselector: 'input[name="form.buttons.cancel"]',
             formselector: '#form.kssattr-formname-edit',
-            noform: function (el) {
-                return $.plonepopups.noformerrorshow(el, 'reload');
+            noform: function(el) {
+                var o = $(el), emsg = o.find('dl.portalMessage.error');
+                if (emsg.length) {
+                    o.children().replaceWith(emsg);
+                    return false;
+                } else {
+                    return 'redirect';
+                }
             }
         });
         // add new field to form
