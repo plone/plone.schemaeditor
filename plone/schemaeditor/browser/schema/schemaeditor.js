@@ -167,7 +167,7 @@
                     o.children().replaceWith(emsg);
                     return false;
                 } else {
-                    return 'redirect';
+                    return 'reload';
                 }
             }
         });
