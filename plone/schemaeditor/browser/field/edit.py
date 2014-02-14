@@ -49,7 +49,8 @@ class FieldTitleAdapter(object):
 
 class FieldEditForm(AutoExtensibleForm, form.EditForm):
     implements(IFieldEditForm)
-    id = 'field-edit'
+    id = 'edit-field-form'
+
     def __init__(self, context, request):
         super(form.EditForm, self).__init__(context, request)
         self.field = context.field
@@ -121,7 +122,6 @@ class FieldEditForm(AutoExtensibleForm, form.EditForm):
 # form wrapper to use Plone form template
 class EditView(layout.FormWrapper):
     form = FieldEditForm
-    id = 'field-edit'
 
     def __init__(self, context, request):
         super(EditView, self).__init__(context, request)
