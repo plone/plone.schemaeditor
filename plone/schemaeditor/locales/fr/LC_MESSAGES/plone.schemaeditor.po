@@ -117,12 +117,12 @@ msgstr "Utilisé pour l'accès programmatique au groupe."
 #. Default: "Add new fieldset…"
 #: ../browser/schema/schema_listing.pt:11
 msgid "add_fieldset_hellip"
-msgstr "Ajouter un groupe de champs&hellip;"
+msgstr "Ajouter un groupe de champs…"
 
 #. Default: "Add new field…"
 #: ../browser/schema/schema_listing.pt:4
 msgid "add_new_field_hellip"
-msgstr "Ajouter un champ&hellip;"
+msgstr "Ajouter un champ…"
 
 #. Default: "The '${value1}' vocabulary value conflicts with '${value2}'."
 #: ../fields.py:144
