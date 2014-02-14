@@ -4,7 +4,9 @@ Changelog
 1.3.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Use a different id for field edit form and listing form, to ease
+  reuse of overlay behaviours.
+  [thomasdesvenain]
 
 
 1.3.5 (2014-01-27)
@@ -19,6 +21,7 @@ Changelog
 
   editable(fieldInstance) returns True in the base class. Override it for
   custom behavior in a subclass.
+  [smcmahon]
 
 - Add an "available" method to IFieldFactory that may be used to determine
   if a field factory is actually available in the current context. This always

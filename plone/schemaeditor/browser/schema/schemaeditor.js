@@ -160,7 +160,7 @@
             subtype: 'ajax',
             filter: common_content_filter,
             closeselector: 'input[name="form.buttons.cancel"]',
-            formselector: '#form.kssattr-formname-edit',
+            formselector: '#field-edit.kssattr-formname-edit',
             noform: function(el) {
                 var o = $(el), emsg = o.find('dl.portalMessage.error');
                 if (emsg.length) {
