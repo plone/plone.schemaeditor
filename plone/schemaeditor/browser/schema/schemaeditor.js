@@ -141,7 +141,7 @@
                 return;
             }
             $.post(trigger.attr('href'), null, function (data) {
-                trigger.closest('.fieldPreview').remove();
+                trigger.closest('.fieldPreview').detach();
             }, 'text');
         });
         // reorder fields and change fieldsets
