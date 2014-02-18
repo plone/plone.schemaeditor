@@ -9,7 +9,7 @@ Test Teardown  Close all browsers
 
 *** Variables ***
 
-*** Test cases ***
+*** Test Cases ***
 
 Add a content type
 
