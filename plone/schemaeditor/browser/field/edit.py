@@ -49,6 +49,7 @@ class FieldTitleAdapter(object):
 
 class FieldEditForm(AutoExtensibleForm, form.EditForm):
     implements(IFieldEditForm)
+    id = 'edit-field-form'
 
     def __init__(self, context, request):
         super(form.EditForm, self).__init__(context, request)
@@ -68,7 +69,8 @@ class FieldEditForm(AutoExtensibleForm, form.EditForm):
     @lazy_property
     def additionalSchemata(self):
         schema_context = self.context.aq_parent
-        return [v for k, v in getAdapters((schema_context, self.field), interfaces.IFieldEditorExtender)]
+        return [v for k, v in getAdapters((schema_context, self.field),
+                                          interfaces.IFieldEditorExtender)]
 
     def updateFields(self):
         # use a custom 'title' field to make sure it is required
@@ -127,4 +129,5 @@ class EditView(layout.FormWrapper):
 
     @lazy_property
     def label(self):
-        return _(u"Edit Field '${fieldname}'", mapping={'fieldname': self.field.__name__})
+        return _(u"Edit Field '${fieldname}'",
+                 mapping={'fieldname': self.field.__name__})
