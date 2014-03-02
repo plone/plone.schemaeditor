@@ -4,7 +4,8 @@ Changelog
 1.3.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix packaging error.
+  [esteele]
 
 
 1.3.6 (2014-03-02)
