@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.3.6 (unreleased)
+1.3.6 (2014-03-02)
 ------------------
 
 - Use a different id for field edit form and listing form, to ease
@@ -10,6 +10,9 @@ Changelog
 
 - Fix French translation.
   [thomasdesvenain]
+
+- Don't depend on popupform.js
+  [davisagli]
 
 1.3.5 (2014-01-27)
 ------------------
