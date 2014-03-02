@@ -8,6 +8,8 @@ Changelog
   reuse of overlay behaviours.
   [thomasdesvenain]
 
+- Fix French translation.
+  [thomasdesvenain]
 
 1.3.5 (2014-01-27)
 ------------------
