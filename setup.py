@@ -1,12 +1,12 @@
 from setuptools import setup, find_packages
 
-version = '1.3.7.dev0'
+version = '1.3.7'
 
 setup(name='plone.schemaeditor',
       version=version,
       description="Provides through-the-web editing of a zope schema/interface.",
       long_description=open("README.rst").read() + "\n" +
-      open("CHANGES.txt").read(),
+      open("CHANGES.rst").read(),
       classifiers=[
           "Framework :: Zope2",
           "Framework :: Plone",

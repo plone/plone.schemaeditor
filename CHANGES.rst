@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.3.7 (unreleased)
+1.3.7 (2014-03-02)
 ------------------
 
 - Fix packaging error.
