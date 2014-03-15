@@ -4,7 +4,9 @@ Changelog
 1.3.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix removeField for EditableSchema to allow for the case where there
+  is no fieldset on the schema
+  [ianderso]
 
 
 1.3.7 (2014-03-02)
