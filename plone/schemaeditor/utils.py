@@ -79,7 +79,7 @@ class EditableSchema(object):
             del self.schema._InterfaceClass__attrs[field_name]
             if hasattr(self.schema, '_v_attrs'):
                 del self.schema._v_attrs[field_name]
-            for fieldset in self.schema.getTaggedValue(FIELDSETS_KEY):
+            for fieldset in self.schema.queryTaggedValue(FIELDSETS_KEY, []):
                 if field_name in fieldset.fields:
                     fieldset.fields.remove(field_name)
         except KeyError:
