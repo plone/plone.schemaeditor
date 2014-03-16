@@ -19,6 +19,7 @@ class SchemaContext(SimpleItem):
     schemaEditorView = None
     additionalSchemata = ()
     allowedFields = None  # all fields
+    fieldsWhichCannotBeDeleted = ()
 
     def __init__(self, context, request, name=u'schema', title=None):
         super(SchemaContext, self).__init__(context, request)
