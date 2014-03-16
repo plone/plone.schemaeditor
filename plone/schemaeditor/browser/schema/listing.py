@@ -127,6 +127,15 @@ class SchemaListingPage(FormWrapper):
 
     @property
     def label(self):
+        """ In a dexterity schema editing context, we need to
+            construct a label that will specify the field being
+            edited. Outside that context (e.g., plone.app.users),
+            we should respect the label if specified.
+        """
+
+        context_label = getattr(self.context, 'label', None)
+        if context_label is not None:
+            return context_label
         if self.context.Title() != self.context.__name__:
             return _(u'Edit ${title} (${name})',
                      mapping={'title': self.context.Title(),
