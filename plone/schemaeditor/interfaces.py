@@ -36,6 +36,10 @@ class ISchemaContext(IItem):
         Or None to allow all fields.
         """)
 
+    fieldsWhichCannotBeDeleted = Attribute(
+        """List of field names that may not be deleted from this schema."""
+        )
+
 
 class ISchemaModifiedEvent(IObjectEvent):
 

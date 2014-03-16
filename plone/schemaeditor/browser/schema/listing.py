@@ -72,6 +72,8 @@ class SchemaListing(AutoExtensibleForm, form.Form):
             return '%s/%s' % (self.context.absolute_url(), field.__name__)
 
     def delete_url(self, field):
+        if field.__name__ in self.context.fieldsWhichCannotBeDeleted:
+            return
         return '%s/%s/@@delete' % (self.context.absolute_url(), field.__name__)
 
     @button.buttonAndHandler(_(u'Save Defaults'))

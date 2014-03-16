@@ -1,8 +1,12 @@
 Changelog
 =========
 
-1.3.8 (unreleased)
-------------------
+2.0 (unreleased)
+----------------
+
+- Add fieldsWhichCannotBeDeleted attribute to SchemaContext, which can be
+  used to disallow removal of certain fields.
+  [davisagli]
 
 - Fix removeField for EditableSchema to allow for the case where there
   is no fieldset on the schema

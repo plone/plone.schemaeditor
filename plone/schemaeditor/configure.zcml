@@ -4,6 +4,7 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="plone.schemaeditor">
 
+    <include package="plone.protect"/>
     <include package="plone.z3cform"/>
 
     <i18n:registerTranslations directory="locales"/>

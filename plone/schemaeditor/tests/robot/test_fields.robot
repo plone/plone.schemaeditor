@@ -105,6 +105,9 @@ Delete field
     Click link  css=div.fieldControls .schemaeditor-delete-field
     Confirm Action
     Page Should Not Contain Element  css=#formfield-form-widgets-phone
+    # Make sure it actually got deleted
+    Go to  ${PLONE_URL}/@@dexterity-types/somebody/@@fields
+    Page Should Not Contain Element  css=#formfield-form-widgets-phone
 
 
 #~ Reorder field
