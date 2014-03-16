@@ -7,6 +7,7 @@ from z3c.form.interfaces import IEditForm, DISPLAY_MODE
 from plone.z3cform.layout import FormWrapper
 from plone.memoize.instance import memoize
 from plone.autoform.form import AutoExtensibleForm
+from plone.protect.utils import addTokenToUrl
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone.schemaeditor import SchemaEditorMessageFactory as _
@@ -72,7 +73,10 @@ class SchemaListing(AutoExtensibleForm, form.Form):
             return '%s/%s' % (self.context.absolute_url(), field.__name__)
 
     def delete_url(self, field):
-        return '%s/%s/@@delete' % (self.context.absolute_url(), field.__name__)
+        url = '%s/%s/@@delete' % (self.context.absolute_url(), field.__name__)
+        url = addTokenToUrl(url, self.request)
+        return url
+
 
     @button.buttonAndHandler(_(u'Save Defaults'))
     def handleSaveDefaults(self, action):
