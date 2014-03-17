@@ -6,7 +6,6 @@
 
     <include package="plone.schemaeditor"/>
 
-	<include package="Products.GenericSetup" file="meta.zcml" />
     <gs:registerProfile
         name="testing"
         title="plone.schemaeditor tests"

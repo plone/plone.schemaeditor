@@ -33,8 +33,6 @@ class PloneSchemaeditorRobotLayer(PloneSandboxLayer):
         """Set up Plone."""
         # Install into Plone site using portal_setup
         applyProfile(portal, 'plone.schemaeditor.tests:testing')
-        #applyProfile(portal, 'plone.app.z3cform:default')
-        #applyProfile(portal, 'plone.app.dexterity:default')
 
         # Login and create some test content
         setRoles(portal, TEST_USER_ID, ['Manager'])

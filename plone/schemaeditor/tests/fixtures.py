@@ -69,3 +69,14 @@ class CategoriesVocabulary(BaseVocabulary):
     values_list = [('php', u'PHP'),
                    ('c', u'C'),
                    ('ruby', u'Ruby')]
+
+
+class DummyKeyring(object):
+
+    def random(self):
+        return 'a'
+
+
+DummyKeyManager = {
+    u'_forms': DummyKeyring(),
+}
