@@ -196,11 +196,12 @@ We can select a vocabulary factory instead of values.
     [event: ObjectModifiedEvent on Set]
     [event: SchemaModifiedEvent on DummySchemaContext]
     >>> browser.open(portal_url + '/@@contexteditor')
-    >>> print browser.contents
-    <...
-    <option id="form-widgets-categories-0" value="php">PHP...
-    <option id="form-widgets-categories-1" value="c">C...
-    <option id="form-widgets-categories-2" value="ruby">Ruby...
+    >>> '<option id="form-widgets-categories-0" value="php">PHP' in browser.contents
+    True
+    >>> '<option id="form-widgets-categories-1" value="c">C' in browser.contents
+    True
+    >>> '<option id="form-widgets-categories-2" value="ruby">Ruby' in browser.contents
+    True
 
 Back to the edit form, vocabulary name is selected.
 
