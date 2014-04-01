@@ -4,10 +4,19 @@ Changelog
 2.0 (unreleased)
 ----------------
 
+- Fix test failures on Jenkins.
+  [timo]
+
+- Fix tests.
+  [davisagli]
+
 - On the listing, respect the SchemaContext label if supplied. Otherwise,
   build one based on the title. This gives us more label flexibility
   outside the dexterity schemaeditor context.
   [smcmahon]
+
+- Integrated addTokenToUrl from plone.protect.utils on generated delete url.
+  [Luke Brannon]
 
 - Add fieldsWhichCannotBeDeleted attribute to SchemaContext, which can be
   used to disallow removal of certain fields.
