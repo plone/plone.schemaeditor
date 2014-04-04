@@ -43,6 +43,7 @@ Let's add a 'favorite-color' field to the IDummySchema schema::
     >>> browser.getControl('Title').value = 'Favorite Color'
     >>> browser.getControl('Short Name').value = 'favorite_color'
     >>> browser.getControl('Field type').value = ['Text line (String)']
+    >>> browser.getControl(name='form.widgets.required').value = ['true']
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on TextLine]
     [event: FieldAddedEvent on DummySchemaContext]
@@ -60,6 +61,8 @@ normalized form of the title)::
     True
     >>> IDummySchema['favorite_color'].title
     u'Favorite Color'
+    >>> IDummySchema['favorite_color'].required
+    True
 
 
 Editing a schema field attribute
@@ -243,6 +246,8 @@ move it into an other fieldset and remove it::
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on TextLine]
     [event: FieldAddedEvent on DummySchemaContext]
+    >>> IDummySchema['other_set'].required
+    False
     >>> browser.open('http://nohost/@@schemaeditor/other_set/@@changefieldset?fieldset_index=1')
     [event: ContainerModifiedEvent on InterfaceClass]
     [event: SchemaModifiedEvent on DummySchemaContext]

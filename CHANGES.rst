@@ -4,7 +4,8 @@ Changelog
 2.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- We can set that field is required or not required on add form.
+  [thomasdesvenain]
 
 
 2.0 (2014-04-01)
