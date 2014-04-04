@@ -3,7 +3,7 @@ from zope.component.interfaces import IObjectEvent
 from zope.interface import Invalid, invariant
 from zope.interface.interfaces import Interface, IInterface, Attribute
 from zope.publisher.interfaces.browser import IBrowserPage
-from zope.schema import Object, TextLine, Text, Choice, ASCIILine
+from zope.schema import Object, TextLine, Text, Choice, ASCIILine, Bool
 from zope.schema.interfaces import IField
 from z3c.form.interfaces import IEditForm
 from OFS.interfaces import IItem
@@ -159,6 +159,11 @@ class INewField(Interface):
         # So it will be injected from fields.py
         # default=TextLineFactory,
     )
+
+    required = Bool(title=_(u"Required field"),
+                    description=_(u'Check this box if you want this field to be required.'),
+                    default=False,
+                    required=False)
 
     @invariant
     def checkTitleAndDescriptionTypes(data):

@@ -4,6 +4,9 @@ Changelog
 1.3.8 (unreleased)
 ------------------
 
+- We can set that field is required or not required on add form.
+  [thomasdesvenain]
+
 - Fix removeField for EditableSchema to allow for the case where there
   is no fieldset on the schema
   [ianderso]
