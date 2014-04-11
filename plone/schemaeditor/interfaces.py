@@ -189,3 +189,8 @@ class INewFieldset(Interface):
         required=True,
         constraint=isValidFieldName,
     )
+
+    description = Text(
+        title=_(u'Description'),
+        required=False
+    )
