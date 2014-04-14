@@ -42,6 +42,7 @@ Let's add a 'favorite-color' field to the IDummySchema schema::
     >>> browser.getControl('Add new field').click()
     >>> browser.getControl('Title').value = 'Favorite Color'
     >>> browser.getControl('Short Name').value = 'favorite_color'
+    >>> browser.getControl(name='form.widgets.description').value = 'Select your favorite color'
     >>> browser.getControl('Field type').value = ['Text line (String)']
     >>> browser.getControl(name='form.widgets.required').value = ['true']
     >>> browser.getControl('Add').click()
@@ -63,6 +64,8 @@ normalized form of the title)::
     u'Favorite Color'
     >>> IDummySchema['favorite_color'].required
     True
+    >>> IDummySchema['favorite_color'].description
+    u'Select your favorite color'
 
 
 Editing a schema field attribute

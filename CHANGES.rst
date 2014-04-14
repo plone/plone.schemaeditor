@@ -4,6 +4,9 @@ Changelog
 1.3.8 (unreleased)
 ------------------
 
+- We can set a fieldset description.
+  [thomasdesvenain]
+
 - We can set that field is required or not required on add form.
   [thomasdesvenain]
 
