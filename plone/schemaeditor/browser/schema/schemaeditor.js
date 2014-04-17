@@ -137,7 +137,7 @@
         $('a.schemaeditor-delete-field').click(function (e) {
             var trigger = $(this);
             e.preventDefault();
-            if (!confirm('Are you sure you want to delete this field?')) {
+            if (!confirm(trigger.attr('data-confirm_msg'))) {
                 return;
             }
             $.post(trigger.attr('href'), null, function (data) {

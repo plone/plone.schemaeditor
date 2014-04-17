@@ -4,6 +4,9 @@ Changelog
 2.0.1 (unreleased)
 ------------------
 
+- Internationalize delete field confirmation message.
+  [thomasdesvenain]
+
 - We can set a fieldset description.
   [thomasdesvenain]
 
