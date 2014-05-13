@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-11-15 16:48+0000\n"
+"POT-Creation-Date: 2014-05-13 15:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: ../interfaces.py:93
+#: ../interfaces.py:130
 msgid "'${name}' is a reserved field name."
 msgstr ""
 
@@ -26,23 +26,35 @@ msgstr ""
 msgid "Add new fieldset"
 msgstr ""
 
-#: ../browser/schema/schema_listing.pt:117
+#: ../browser/schema/schema_listing.pt:120
+msgid "Are you sure you want to delete this field?"
+msgstr ""
+
+#: ../interfaces.py:164
+msgid "Check this box if you want this field to be required."
+msgstr ""
+
+#: ../browser/schema/schema_listing.pt:120
 msgid "Delete field"
 msgstr ""
 
-#: ../browser/schema/listing.py:126
+#: ../interfaces.py:194
+msgid "Description"
+msgstr ""
+
+#: ../browser/schema/listing.py:129
 msgid "Edit ${name}"
 msgstr ""
 
-#: ../browser/schema/listing.py:122
+#: ../browser/schema/listing.py:125
 msgid "Edit ${title} (${name})"
 msgstr ""
 
-#: ../browser/field/edit.py:126
+#: ../browser/field/edit.py:132
 msgid "Edit Field '${fieldname}'"
 msgstr ""
 
-#: ../schema.py:88
+#: ../schema.py:93
 msgid "Enter allowed choices one per line."
 msgstr ""
 
@@ -50,7 +62,7 @@ msgstr ""
 msgid "Field added successfully."
 msgstr ""
 
-#: ../interfaces.py:118
+#: ../interfaces.py:155
 msgid "Field type"
 msgstr ""
 
@@ -58,11 +70,11 @@ msgstr ""
 msgid "Fieldset added successfully."
 msgstr ""
 
-#: ../browser/schema/schema_listing.pt:94
+#: ../browser/schema/schema_listing.pt:97
 msgid "From the ${behavior_name} behavior:"
 msgstr ""
 
-#: ../interfaces.py:112
+#: ../interfaces.py:149
 msgid "Help Text"
 msgstr ""
 
@@ -70,117 +82,121 @@ msgstr ""
 msgid "Please select a fieldset name that is not already used."
 msgstr ""
 
-#: ../interfaces.py:91
+#: ../interfaces.py:127
 msgid "Please use only letters, numbers and the following characters: _."
 msgstr ""
 
-#: ../schema.py:87
+#: ../schema.py:92
 msgid "Possible values"
 msgstr ""
 
-#: ../browser/schema/listing.py:76
+#: ../interfaces.py:163
+msgid "Required"
+msgstr ""
+
+#: ../browser/schema/listing.py:77
 msgid "Save Defaults"
 msgstr ""
 
-#: ../browser/schema/schema_listing.pt:112
+#: ../browser/schema/schema_listing.pt:115
 msgid "Settings&hellip;"
 msgstr ""
 
-#: ../interfaces.py:105
+#: ../interfaces.py:142
 msgid "Short Name"
 msgstr ""
 
-#: ../interfaces.py:113
+#: ../interfaces.py:150
 msgid "Shows up in the form as help text for the field."
 msgstr ""
 
-#: ../interfaces.py:132
+#: ../interfaces.py:176
 msgid "The 'description' field must be a Text field."
 msgstr ""
 
-#: ../interfaces.py:130
+#: ../interfaces.py:173
 msgid "The 'title' field must be a Text line (string) field."
 msgstr ""
 
-#: ../interfaces.py:100
+#: ../interfaces.py:137
 msgid "Title"
 msgstr ""
 
-#: ../interfaces.py:106
+#: ../interfaces.py:143
 msgid "Used for programmatic access to the field."
 msgstr ""
 
-#: ../interfaces.py:144
+#: ../interfaces.py:188
 msgid "Used for programmatic access to the fieldset."
 msgstr ""
 
 #. Default: "Add new fieldset…"
-#: ../browser/schema/schema_listing.pt:11
+#: ../browser/schema/schema_listing.pt:14
 msgid "add_fieldset_hellip"
 msgstr ""
 
 #. Default: "Add new field…"
-#: ../browser/schema/schema_listing.pt:4
+#: ../browser/schema/schema_listing.pt:7
 msgid "add_new_field_hellip"
 msgstr ""
 
 #. Default: "The '${value1}' vocabulary value conflicts with '${value2}'."
-#: ../fields.py:144
+#: ../fields.py:165
 msgid "field_edit_error_conflicting_values"
 msgstr ""
 
 #. Default: "You can't set a vocabulary name AND vocabulary values. Please clear values field or set no value here."
-#: ../fields.py:173
+#: ../fields.py:195
 msgid "field_edit_error_values_and_name"
 msgstr ""
 
 #. Default: "Yes/No"
-#: ../fields.py:61
+#: ../fields.py:78
 msgid "label_boolean_field"
 msgstr ""
 
 #. Default: "Choice"
-#: ../fields.py:74
+#: ../fields.py:94
 msgid "label_choice_field"
 msgstr ""
 
 #. Default: "Date"
-#: ../fields.py:64
+#: ../fields.py:84
 msgid "label_date_field"
 msgstr ""
 
 #. Default: "Date/Time"
-#: ../fields.py:63
+#: ../fields.py:82
 msgid "label_datetime_field"
 msgstr ""
 
 #. Default: "Floating-point number"
-#: ../fields.py:60
+#: ../fields.py:76
 msgid "label_float_field"
 msgstr ""
 
 #. Default: "Integer"
-#: ../fields.py:59
+#: ../fields.py:74
 msgid "label_integer_field"
 msgstr ""
 
 #. Default: "Multiple Choice"
-#: ../fields.py:192
+#: ../fields.py:214
 msgid "label_multi_choice_field"
 msgstr ""
 
 #. Default: "Password"
-#: ../fields.py:62
+#: ../fields.py:80
 msgid "label_password_field"
 msgstr ""
 
 #. Default: "Text"
-#: ../fields.py:58
+#: ../fields.py:72
 msgid "label_text_field"
 msgstr ""
 
 #. Default: "Text line (String)"
-#: ../fields.py:55
+#: ../fields.py:68
 msgid "label_textline_field"
 msgstr ""
 
