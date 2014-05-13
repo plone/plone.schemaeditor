@@ -5,7 +5,6 @@ from zope.interface.interfaces import Interface, IInterface, Attribute
 from zope.publisher.interfaces.browser import IBrowserPage
 from zope.schema import Object, TextLine, Text, Choice, ASCIILine, Bool
 from zope.schema.interfaces import IField
-from zope.schema._messageid import _ as ZMF
 from z3c.form.interfaces import IEditForm
 from OFS.interfaces import IItem
 from plone.schemaeditor import SchemaEditorMessageFactory as _
@@ -161,7 +160,7 @@ class INewField(Interface):
         # default=TextLineFactory,
     )
 
-    required = Bool(title=ZMF(u"Required"),
+    required = Bool(title=_(u"Required"),
                     description=_(u'Check this box if you want this field to be required.'),
                     default=False,
                     required=False)
