@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-13 15:24+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Project-Id-Version: plone.schemaeditor\n"
+"POT-Creation-Date: 2014-05-13 15:18+0000\n"
+"PO-Revision-Date: 2014-05-13 17:20+0100\n"
+"Last-Translator: Vincent Fretin <vincent.fretin@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: ../interfaces.py:134
+#: ../interfaces.py:130
 msgid "'${name}' is a reserved field name."
 msgstr "'${name}' est un nom réservé."
 
@@ -28,25 +28,25 @@ msgstr "Ajouter un groupe de champs"
 
 #: ../browser/schema/schema_listing.pt:120
 msgid "Are you sure you want to delete this field?"
-msgstr ""
+msgstr "Êtes-vous sûr de vouloir supprimer ce champ ?"
 
-#: ../interfaces.py:168
+#: ../interfaces.py:164
 msgid "Check this box if you want this field to be required."
-msgstr ""
+msgstr "Cochez cette case si vous voulez que ce champ soit obligatoire."
 
 #: ../browser/schema/schema_listing.pt:120
 msgid "Delete field"
 msgstr "Supprimer le champ"
 
-#: ../interfaces.py:198
+#: ../interfaces.py:194
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
-#: ../browser/schema/listing.py:144
+#: ../browser/schema/listing.py:129
 msgid "Edit ${name}"
 msgstr "Modifier le schéma ${name}"
 
-#: ../browser/schema/listing.py:140
+#: ../browser/schema/listing.py:125
 msgid "Edit ${title} (${name})"
 msgstr "Modifier le schéma ${title} (${name})"
 
@@ -62,7 +62,7 @@ msgstr "Saisissez les choix possibles, un par ligne."
 msgid "Field added successfully."
 msgstr "Le champ a été ajouté avec succès."
 
-#: ../interfaces.py:159
+#: ../interfaces.py:155
 msgid "Field type"
 msgstr "Type de champ"
 
@@ -74,7 +74,7 @@ msgstr "Le groupe de champs a été ajouté avec succès."
 msgid "From the ${behavior_name} behavior:"
 msgstr "Du comportement ${behavior_name} :"
 
-#: ../interfaces.py:153
+#: ../interfaces.py:149
 msgid "Help Text"
 msgstr "Message d'aide"
 
@@ -82,7 +82,7 @@ msgstr "Message d'aide"
 msgid "Please select a fieldset name that is not already used."
 msgstr "Merci de choisir un nom de groupe qui n'est pas encore utilisé"
 
-#: ../interfaces.py:131
+#: ../interfaces.py:127
 msgid "Please use only letters, numbers and the following characters: _."
 msgstr "Veuillez n'utiliser que des lettres, chiffres et les caractères _ et ."
 
@@ -90,11 +90,11 @@ msgstr "Veuillez n'utiliser que des lettres, chiffres et les caractères _ et ."
 msgid "Possible values"
 msgstr "Valeurs possibles"
 
-#: ../interfaces.py:167
-msgid "Required field"
-msgstr ""
+#: ../interfaces.py:163
+msgid "Required"
+msgstr "Requis"
 
-#: ../browser/schema/listing.py:83
+#: ../browser/schema/listing.py:77
 msgid "Save Defaults"
 msgstr "Enregistrer les valeurs par défaut"
 
@@ -102,31 +102,31 @@ msgstr "Enregistrer les valeurs par défaut"
 msgid "Settings&hellip;"
 msgstr "Paramètres&hellip;"
 
-#: ../interfaces.py:146
+#: ../interfaces.py:142
 msgid "Short Name"
 msgstr "Nom court"
 
-#: ../interfaces.py:154
+#: ../interfaces.py:150
 msgid "Shows up in the form as help text for the field."
 msgstr "S'affiche dans le formulaire comme texte d'aide pour le champ"
 
-#: ../interfaces.py:180
+#: ../interfaces.py:176
 msgid "The 'description' field must be a Text field."
 msgstr "Le champ 'description' doit être un champ Texte."
 
-#: ../interfaces.py:177
+#: ../interfaces.py:173
 msgid "The 'title' field must be a Text line (string) field."
 msgstr "Le champ 'titre' doit être un champ Ligne de texte."
 
-#: ../interfaces.py:141
+#: ../interfaces.py:137
 msgid "Title"
 msgstr "Titre"
 
-#: ../interfaces.py:147
+#: ../interfaces.py:143
 msgid "Used for programmatic access to the field."
 msgstr "Utilisé pour l'accès programmatique au champ"
 
-#: ../interfaces.py:192
+#: ../interfaces.py:188
 msgid "Used for programmatic access to the fieldset."
 msgstr "Utilisé pour l'accès programmatique au groupe."
 
