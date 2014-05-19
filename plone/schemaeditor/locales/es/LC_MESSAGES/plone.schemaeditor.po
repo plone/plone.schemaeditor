@@ -1,10 +1,12 @@
-# Héctor Velarde <hector.velarde@gmail.com>, 2011.
+# Translation of plone.schemaeditor.pot to Spanish
+# Alberto Serrano <alb.serrano@gmail.com>, 2014
+# Héctor Velarde <hector.velarde@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: plone.schemaeditor\n"
 "POT-Creation-Date: 2014-05-13 15:24+0000\n"
-"PO-Revision-Date: 2011-11-28 00:20-0600\n"
-"Last-Translator: Héctor Velarde <hector.velarde@gmail.com>\n"
+"PO-Revision-Date: 2014-05-29 22:00+0200\n"
+"Last-Translator: Héctor Velarde <alb.serrano@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -18,7 +20,7 @@ msgstr ""
 
 #: ../interfaces.py:134
 msgid "'${name}' is a reserved field name."
-msgstr ""
+msgstr "'${name}' es un nombre de campo reservado."
 
 #: ../browser/schema/add_field.py:18
 msgid "Add new field"
@@ -26,15 +28,15 @@ msgstr "Agregar nuevo campo"
 
 #: ../browser/schema/add_fieldset.py:19
 msgid "Add new fieldset"
-msgstr ""
+msgstr "Agregar nuevo grupo de campos"
 
 #: ../browser/schema/schema_listing.pt:120
 msgid "Are you sure you want to delete this field?"
-msgstr ""
+msgstr "¿Está seguro de que desea eliminar este campo?"
 
 #: ../interfaces.py:168
 msgid "Check this box if you want this field to be required."
-msgstr ""
+msgstr "Marque esta casilla si quiere que este campo sea requerido."
 
 #: ../browser/schema/schema_listing.pt:120
 msgid "Delete field"
@@ -42,7 +44,7 @@ msgstr "Eliminar campo"
 
 #: ../interfaces.py:198
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #: ../browser/schema/listing.py:144
 msgid "Edit ${name}"
@@ -54,15 +56,15 @@ msgstr "Editar ${title} (${name})"
 
 #: ../browser/field/edit.py:132
 msgid "Edit Field '${fieldname}'"
-msgstr "Editar campo '${fieldname}'"
+msgstr "Editar Campo '${fieldname}'"
 
 #: ../schema.py:93
 msgid "Enter allowed choices one per line."
-msgstr ""
+msgstr "Introduzca las opciones permitidas, una por línea."
 
 #: ../browser/schema/add_field.py:47
 msgid "Field added successfully."
-msgstr "El campo se agregó exitosamente."
+msgstr "El campo se agregó con éxito."
 
 #: ../interfaces.py:159
 msgid "Field type"
@@ -70,11 +72,11 @@ msgstr "Tipo de campo"
 
 #: ../browser/schema/add_fieldset.py:38
 msgid "Fieldset added successfully."
-msgstr ""
+msgstr "Grupo de campos agregado con éxito."
 
 #: ../browser/schema/schema_listing.pt:97
 msgid "From the ${behavior_name} behavior:"
-msgstr ""
+msgstr "Del comportamiento ${behavior_name}:"
 
 #: ../interfaces.py:153
 msgid "Help Text"
@@ -82,7 +84,7 @@ msgstr "Texto de ayuda"
 
 #: ../browser/schema/add_fieldset.py:32
 msgid "Please select a fieldset name that is not already used."
-msgstr ""
+msgstr "Por favor, seleccione un nombre de grupo de campos que no esté ya en uso."
 
 #: ../interfaces.py:131
 msgid "Please use only letters, numbers and the following characters: _."
@@ -90,15 +92,15 @@ msgstr "Por favor utilice únicamente letras, números y los siguientes caracter
 
 #: ../schema.py:92
 msgid "Possible values"
-msgstr ""
+msgstr "Valores posibles"
 
 #: ../interfaces.py:167
 msgid "Required field"
-msgstr ""
+msgstr "Campo requerido"
 
 #: ../browser/schema/listing.py:83
 msgid "Save Defaults"
-msgstr ""
+msgstr "Guardar Configuración Por Defecto"
 
 #: ../browser/schema/schema_listing.pt:115
 msgid "Settings&hellip;"
@@ -106,7 +108,7 @@ msgstr "Configuración&hellip;"
 
 #: ../interfaces.py:146
 msgid "Short Name"
-msgstr "Nombre corto"
+msgstr "Nombre Corto"
 
 #: ../interfaces.py:154
 msgid "Shows up in the form as help text for the field."
@@ -114,11 +116,11 @@ msgstr "Se muestra en el formulario como texto de ayuda para el campo."
 
 #: ../interfaces.py:180
 msgid "The 'description' field must be a Text field."
-msgstr ""
+msgstr "El campo 'descripción' debe ser un campo de Texto."
 
 #: ../interfaces.py:177
 msgid "The 'title' field must be a Text line (string) field."
-msgstr ""
+msgstr "El campo 'título' debe ser un campo de línea de Texto (cadena de caracteres)."
 
 #: ../interfaces.py:141
 msgid "Title"
@@ -130,27 +132,27 @@ msgstr "Empleado para acceso programático al campo."
 
 #: ../interfaces.py:192
 msgid "Used for programmatic access to the fieldset."
-msgstr ""
+msgstr "Empleado para el acceso programático al grupo de campos."
 
 #. Default: "Add new fieldset…"
 #: ../browser/schema/schema_listing.pt:14
 msgid "add_fieldset_hellip"
-msgstr ""
+msgstr "Agregar nuevo grupo de campos…"
 
 #. Default: "Add new field…"
 #: ../browser/schema/schema_listing.pt:7
 msgid "add_new_field_hellip"
-msgstr ""
+msgstr "Agregar nuevo campo…"
 
 #. Default: "The '${value1}' vocabulary value conflicts with '${value2}'."
 #: ../fields.py:165
 msgid "field_edit_error_conflicting_values"
-msgstr ""
+msgstr "El valor de vocabulario '${value1}' entra en conflicto con '${value2}'."
 
 #. Default: "You can't set a vocabulary name AND vocabulary values. Please clear values field or set no value here."
 #: ../fields.py:195
 msgid "field_edit_error_values_and_name"
-msgstr ""
+msgstr "No puede establecer un nombre de vocabulario Y un valor de vocabulario. Por favor, borre el campo con el valor o no establezca aquí un valor."
 
 #. Default: "Yes/No"
 #: ../fields.py:78
@@ -176,7 +178,7 @@ msgstr "Fecha/Hora"
 #. Default: "Floating-point number"
 #: ../fields.py:76
 msgid "label_float_field"
-msgstr "Número de punto flotante"
+msgstr "Número de coma flotante"
 
 #. Default: "Integer"
 #: ../fields.py:74
@@ -186,7 +188,7 @@ msgstr "Entero"
 #. Default: "Multiple Choice"
 #: ../fields.py:214
 msgid "label_multi_choice_field"
-msgstr "Selección múltiple"
+msgstr "Selección Múltiple"
 
 #. Default: "Password"
 #: ../fields.py:80
