@@ -326,7 +326,7 @@ and saved.
     ...         ), '%r is not an instance of %r' % (
     ...             schema[field_id], factory.fieldcls)
     ...     browser.getLink(url=field_id).click()
-    ...     browser.getControl('Title').value += ' '
+    ...     browser.getControl('Title').value += 's'
     ...     browser.getControl('Save').click()
     [event: ObjectAddedEvent on Bool]
     [event: FieldAddedEvent on DummySchemaContext]
