@@ -25,5 +25,5 @@
 	<utility factory=".vocabularies.VocabulariesVocabulary"
 	         name="plone.schemaeditor.VocabulariesVocabulary"
 	         provides="zope.schema.interfaces.IVocabularyFactory" />
-	         
+	
 </configure>
