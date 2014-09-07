@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.3.8 (unreleased)
+1.3.8 (2014-09-07)
 ------------------
 
 - Internationalize delete field confirmation message.
