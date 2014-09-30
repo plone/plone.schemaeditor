@@ -1,11 +1,12 @@
 *** Settings ***
 
 Resource  plone/app/robotframework/keywords.robot
+Resource  plone/app/robotframework/saucelabs.robot
 
 Library  Remote  ${PLONE_URL}/RobotRemote
 
-Test Setup  Run keywords  Open test browser
-Test Teardown  Close all browsers
+Test Setup  Run keywords  Open SauceLabs test browser
+Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Variables ***
 
@@ -25,7 +26,7 @@ Add a content type
 Add a choice field with a named vocabulary
 
     Go to dexterity types configuration
-	Add content type  Curriculum vitae  curriculum_vitae
+    Add content type  Curriculum vitae  curriculum_vitae
     Click Overlay Button  Add new field…
     Input text for sure  form-widgets-title  Languages
     Focus  form-widgets-__name__
@@ -130,7 +131,7 @@ Wait overlay is closed
     Wait until keyword succeeds  60  1  Page should not contain element  css=div.overlay
 
 Go to dexterity types configuration
-    Login as site owner
+    Enable autologin as  Manager
     Go to  ${PLONE_URL}/@@dexterity-types
 
 Add content type
