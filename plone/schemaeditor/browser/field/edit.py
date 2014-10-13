@@ -1,14 +1,17 @@
 from Acquisition import aq_parent, aq_inner
 
-from zope.interface import implements, Interface
+from zope.interface import implements, Interface, declarations
 from zope.cachedescriptors.property import Lazy as lazy_property
 from zope.component import adapts, getAdapters
 from zope.event import notify
 from zope.schema.interfaces import IField
 from zope import schema
+from zope.i18nmessageid import Message
 from zope.i18nmessageid import MessageFactory
 
 from z3c.form import form, field, button
+from z3c.form.interfaces import IDataManager
+from z3c.form.datamanager import AttributeField
 from plone.z3cform import layout
 from plone.autoform.form import AutoExtensibleForm
 
@@ -47,13 +50,56 @@ class FieldTitleAdapter(object):
     title = property(_read_title, _write_title)
 
 
+class IFieldProxy(Interface):
+    """Marker interface for field being edited by schemaeditor"""
+
+
+class FieldProxy(object):
+    implements(IFieldProxy)
+
+    def __init__(self, context):
+        self.__class__ = type(context.__class__.__name__,
+                              (self.__class__, context.__class__), {})
+        self.__dict__ = context.__dict__
+
+    @property
+    def __provides__(self):
+        return declarations.Provides(self.__class__)
+
+    __providedBy__ = __provides__
+
+
+class FieldDataManager(AttributeField):
+    implements(IDataManager)
+    adapts(IFieldProxy, IField)
+
+    def get(self):
+        value = super(FieldDataManager, self).get()
+        if isinstance(value, Message) and value.default:
+            return value.default
+        return value
+
+    def set(self, value):
+        old_value = super(FieldDataManager, self).get()
+        if isinstance(old_value, Message) and old_value.default:
+            value = Message(unicode(old_value),
+                            domain=old_value.domain,
+                            default=value,
+                            mapping=old_value.mapping)
+        elif isinstance(old_value, Message):
+            value = Message(value,
+                            domain=old_value.domain,
+                            mapping=old_value.mapping)
+        super(FieldDataManager, self).set(value)
+
+
 class FieldEditForm(AutoExtensibleForm, form.EditForm):
     implements(IFieldEditForm)
     id = 'edit-field-form'
 
     def __init__(self, context, request):
         super(form.EditForm, self).__init__(context, request)
-        self.field = context.field
+        self.field = FieldProxy(context.field)
 
     def getContent(self):
         return self.field
