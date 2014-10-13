@@ -5,6 +5,7 @@ from zope.cachedescriptors.property import Lazy as lazy_property
 from zope.component import adapts, getAdapters
 from zope.event import notify
 from zope.schema.interfaces import IField
+from zope.security.interfaces import ForbiddenAttribute
 from zope import schema
 from zope.i18nmessageid import Message
 from zope.i18nmessageid import MessageFactory
@@ -80,7 +81,10 @@ class FieldDataManager(AttributeField):
         return value
 
     def set(self, value):
-        old_value = super(FieldDataManager, self).query()
+        try:
+            old_value = super(FieldDataManager, self).get()
+        except (AttributeError, ForbiddenAttribute):
+            old_value = None
         if isinstance(old_value, Message) and old_value.default:
             value = Message(unicode(old_value),
                             domain=old_value.domain,
