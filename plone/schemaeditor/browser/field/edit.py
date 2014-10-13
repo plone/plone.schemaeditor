@@ -80,7 +80,7 @@ class FieldDataManager(AttributeField):
         return value
 
     def set(self, value):
-        old_value = super(FieldDataManager, self).get()
+        old_value = super(FieldDataManager, self).query()
         if isinstance(old_value, Message) and old_value.default:
             value = Message(unicode(old_value),
                             domain=old_value.domain,
