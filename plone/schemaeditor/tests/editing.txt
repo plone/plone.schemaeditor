@@ -98,6 +98,41 @@ Let's confirm that the new default value was correctly saved to the actual schem
     >>> IDummySchema['favorite_color'].description
     u'Enter your favorite color.'
 
+If the schema is edited to have internationalized attributes::
+
+    >>> from zope.i18nmessageid import Message
+    >>> IDummySchema['favorite_color'].description = Message(
+    ...    'favorite_color', domain='plone.schemaeditor')
+
+Then editing the schema will preserve those values and only update their
+default values::
+
+    >>> browser.getLink(url='favorite_color').click()
+    >>> browser.url
+    'http://nohost/@@schemaeditor/favorite_color'
+    >>> "Edit Field 'favorite_color'" in browser.contents
+    True
+    >>> browser.getControl('Description').value
+    'favorite_color'
+    >>> browser.getControl('Description').value = 'Enter your favorite color.'
+    >>> browser.getControl('Save').click()
+    [event: ObjectModifiedEvent on TextLine]
+    [event: SchemaModifiedEvent on DummySchemaContext]
+    >>> browser.url
+    'http://nohost/@@schemaeditor'
+
+Let's confirm that the message value was preserved and only its default
+value was set::
+
+    >>> type(IDummySchema['favorite_color'].description)
+    <type 'zope.i18nmessageid.message.Message'>
+    >>> IDummySchema['favorite_color'].description
+    u'favorite_color'
+    >>> IDummySchema['favorite_color'].description.domain
+    'plone.schemaeditor'
+    >>> IDummySchema['favorite_color'].description.default
+    u'Enter your favorite color.'
+
 Let's go back and try to make an invalid change.  The form won't let us::
 
     >>> browser.getLink(url='favorite_color').click()
