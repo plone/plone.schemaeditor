@@ -85,14 +85,10 @@ class FieldDataManager(AttributeField):
             old_value = super(FieldDataManager, self).get()
         except (AttributeError, ForbiddenAttribute):
             old_value = None
-        if isinstance(old_value, Message) and old_value.default:
+        if isinstance(old_value, Message):
             value = Message(unicode(old_value),
                             domain=old_value.domain,
                             default=value,
-                            mapping=old_value.mapping)
-        elif isinstance(old_value, Message):
-            value = Message(value,
-                            domain=old_value.domain,
                             mapping=old_value.mapping)
         super(FieldDataManager, self).set(value)
 
