@@ -133,6 +133,13 @@ value was set::
     >>> IDummySchema['favorite_color'].description.default
     u'Enter your favorite color.'
 
+Let's also check that the the support for editing i18n Message values does not
+persist its marker interface::
+
+    >>> from plone.schemaeditor.browser.field.edit import IFieldProxy
+    >>> IFieldProxy.providedBy(IDummySchema['favorite_color'])
+    False
+
 Let's go back and try to make an invalid change.  The form won't let us::
 
     >>> browser.getLink(url='favorite_color').click()
