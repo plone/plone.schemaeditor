@@ -20,6 +20,10 @@ Changelog
   querystring.
   [seanupton]
 
+- Add support for non-destructive editing of attributes with i18n
+  Message values
+  [datakurre]
+
 - Removed debugger statement from schemaeditor.js.
   [seanupton]
 
