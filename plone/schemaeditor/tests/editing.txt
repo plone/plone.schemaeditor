@@ -133,7 +133,7 @@ value was set::
     >>> IDummySchema['favorite_color'].description.default
     u'Enter your favorite color.'
 
-Let's also check that the the support for editing i18n Message values does not
+Let's also check that the support for editing i18n Message values does not
 persist its marker interface::
 
     >>> from plone.schemaeditor.browser.field.edit import IFieldProxy
