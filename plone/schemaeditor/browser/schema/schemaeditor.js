@@ -190,6 +190,6 @@
             $('#form-widgets-__name__').val(id);
         };
         // set id from title
-        $('#form-widgets-title, #form-widgets-label').live('focusout', set_id_from_title);
+        $(document).on('focusout', '#form-widgets-title, #form-widgets-label', set_id_from_title);
     });
 }(jQuery));

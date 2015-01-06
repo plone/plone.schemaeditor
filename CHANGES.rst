@@ -4,7 +4,8 @@ Changelog
 1.3.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix schemaeditor.js to work with jQuery 1.9
+  [vincentfretin]
 
 
 1.3.8 (2014-09-07)
