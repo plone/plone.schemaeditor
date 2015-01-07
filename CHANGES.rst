@@ -10,6 +10,9 @@ Changelog
 2.0.1 (2014-10-23)
 ------------------
 
+- Fix schemaeditor.js to work with jQuery 1.9+.
+  [bloodbare]
+
 - Internationalize delete field confirmation message.
   [thomasdesvenain]
 
