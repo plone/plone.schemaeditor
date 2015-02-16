@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0 (unreleased)
+2.0.2 (unreleased)
 ------------------
 
 - Update markup and javscript for Plone 5.
