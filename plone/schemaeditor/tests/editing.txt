@@ -39,7 +39,7 @@ Adding a field
 
 Let's add a 'favorite-color' field to the IDummySchema schema::
 
-    >>> browser.getControl('Add new field').click()
+    >>> browser.getLink('Add new field').click()
     >>> browser.getControl('Title').value = 'Favorite Color'
     >>> browser.getControl('Short Name').value = 'favorite_color'
     >>> browser.getControl(name='form.widgets.description').value = 'Select your favorite color'
@@ -242,7 +242,7 @@ Let's add a 'other_set' field to the IDummySchema schema,
 move it into an other fieldset and remove it::
 
     >>> browser.open(portal_url + '/@@schemaeditor')
-    >>> browser.getControl('Add new field').click()
+    >>> browser.getLink('Add new field').click()
     >>> browser.getControl('Title').value = 'Other Set'
     >>> browser.getControl('Short Name').value = 'other_set'
     >>> browser.getControl('Field type').value = ['Text line (String)']
@@ -276,7 +276,7 @@ Adding a fieldset
 Let's add a 'extra-info' fieldset to the IDummySchema schema::
 
     >>> browser.open(portal_url + '/@@schemaeditor')
-    >>> browser.getControl('Add new fieldset').click()
+    >>> browser.getLink('Add new fieldset').click()
     >>> browser.getControl('Title').value = 'Extra information'
     >>> browser.getControl('Short Name').value = 'extra-info'
     >>> browser.getControl('Add').click()
@@ -309,7 +309,7 @@ and saved.
     >>> for name, factory in sorted(component.getUtilitiesFor(
     ...     interfaces.IFieldFactory)):
     ...     browser.open(portal_url + '/@@schemaeditor')
-    ...     browser.getControl('Add new field').click()
+    ...     browser.getLink('Add new field').click()
     ...     browser.getControl('Title').value = name
     ...     field_id = name.replace('-', '_')
     ...     browser.getControl('Short Name').value = field_id
@@ -374,7 +374,7 @@ attributes. Users cannot add fields with these names.
     ...               "creators", "contributors", "rights",
     ...               "effective_date", "expiration_date"):
     ...     browser.open(portal_url + '/@@schemaeditor')
-    ...     browser.getControl('Add new field').click()
+    ...     browser.getLink('Add new field').click()
     ...     browser.getControl('Title').value = fname
     ...     browser.getControl('Short Name').value = fname
     ...     browser.getControl('Add').click()
@@ -385,7 +385,7 @@ it's a common need to customize the wording of the label and help text for
 these fields, they are allowed as long as the field is of the correct type.
 
     >>> browser.open(portal_url + '/@@schemaeditor')
-    >>> browser.getControl('Add new field').click()
+    >>> browser.getLink('Add new field').click()
     >>> browser.getControl('Title').value = 'title'
     >>> browser.getControl('Short Name').value = 'title'
     >>> browser.getControl('Field type').getControl('Integer').selected = True

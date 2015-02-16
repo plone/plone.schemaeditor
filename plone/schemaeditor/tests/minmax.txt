@@ -27,7 +27,7 @@ Open the schema editor in the browser.
 
 Add an Int field.
 
-    >>> browser.getControl('Add new field').click()
+    >>> browser.getLink('Add new field').click()
     >>> browser.getControl('Title').value = 'Age'
     >>> browser.getControl('Short Name').value = 'age'
     >>> browser.getControl('Field type').getControl(

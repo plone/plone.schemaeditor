@@ -3,7 +3,7 @@
 /*globals jQuery, confirm */
 (function ($) {
     $.plone_schemaeditor_normalize_string = function (s) {
-        var s = s.toLowerCase();
+        s = s.toLowerCase();
         var rules = {
                 'a': /[àáâãäå]/g,
                 'ae': /[æ]/g,
@@ -132,7 +132,6 @@
         $('<span class="draghandle">&#x28FF;</span>').css('cursor', 'ns-resize').prependTo('.fieldPreview.orderable .fieldLabel');
     };
     $(function () {
-        var common_content_filter = '#content>*:not(div.configlet),dl.portalMessage.error,dl.portalMessage.info';
         // delete field
         $('a.schemaeditor-delete-field').click(function (e) {
             var trigger = $(this);
@@ -154,36 +153,6 @@
         }, function (fieldset_index) {
             var url = window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@changefieldset';
             $.post(url, { fieldset_index: fieldset_index });
-        });
-        // field settings form
-        $('a.fieldSettings').prepOverlay({
-            subtype: 'ajax',
-            filter: common_content_filter,
-            closeselector: 'input[name="form.buttons.cancel"]',
-            formselector: '#edit-field-form.kssattr-formname-edit',
-            noform: function(el) {
-                var o = $(el), emsg = o.find('dl.portalMessage.error');
-                if (emsg.length) {
-                    o.children().replaceWith(emsg);
-                    return false;
-                } else {
-                    return 'reload';
-                }
-            }
-        });
-        // add new field to form
-        $('#add-field').prepOverlay({
-            subtype: 'ajax',
-            filter: common_content_filter,
-            formselector: 'form#add-field-form',
-            noform: 'reload'
-        });
-        // add new fieldset to form
-        $('#add-fieldset').prepOverlay({
-            subtype: 'ajax',
-            filter: common_content_filter,
-            formselector: 'form#add-fieldset-form',
-            noform: 'reload'
         });
         set_id_from_title = function () {
             var id = $.plone_schemaeditor_normalize_string($(this).val());

@@ -2,19 +2,17 @@
      xmlns:metal="http://xml.zope.org/namespaces/metal"
      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
      tal:omit-tag="" i18n:domain="plone.schemaeditor">
-  <form id="add-field" method="GET"
-        tal:attributes="action string:${context/absolute_url}/@@add-field">
-    <input type="submit" style="float: right; display: block; margin-top: -4.5em;"
-           i18n:attributes="value add_new_field_hellip"
-           value="Add new field&hellip;"/>
-  </form>
+  <a id="add-field" class="pat-modal"
+     href="${context/absolute_url}/@@add-field">
+    <button style="float: right; display: block;"
+           i18n:translate="add_new_field_hellip">Add new field&hellip;</button>
+  </a>
 
-  <form id="add-fieldset" method="GET"
-        tal:attributes="action string:${context/absolute_url}/@@add-fieldset">
-    <input type="submit" style="float: right; display: block; margin-top: -2.5em;"
-           i18n:attributes="value add_fieldset_hellip"
-           value="Add new fieldset&hellip;"/>
-  </form>
+  <a id="add-fieldset" class="pat-modal"
+     href="${context/absolute_url}/@@add-fieldset">
+    <button style="float: right; display: block;"
+           i18n:translate="add_fieldset_hellip">Add new fieldset&hellip;</button>
+  </a>
 
   <metal:form metal:use-macro="context/@@ploneform-macros/form">
     <metal:top-slot metal:fill-slot="formtop">
@@ -28,6 +26,9 @@
     -moz-border-radius: 0.5em;
     position: relative;
     border: solid 2px #ccc;
+  }
+  .field {
+    clear: left;
   }
 
   .fieldFromBehavior {
@@ -64,7 +65,7 @@
 
   .fieldControls {
     position: absolute;
-    top: 1em;
+    top: 0;
     right: 1em;
   }
       </style>
@@ -112,7 +113,7 @@
 
               <div class="fieldControls"
                    i18n:domain="plone.schemaeditor">
-                  <a class="fieldSettings"
+                  <a class="fieldSettings pat-modal"
                      tal:define="edit_url python:view.edit_url(widget.field)"
                      tal:condition="edit_url"
                      i18n:translate=""
