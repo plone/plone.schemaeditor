@@ -4,7 +4,8 @@ Changelog
 2.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Update markup and javscript for Plone 5.
+  [davisagli]
 
 
 2.0.1 (2014-10-23)

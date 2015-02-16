@@ -28,7 +28,7 @@ Open the schema editor in the browser.
 
 Add a Choice field.
 
-    >>> browser.getControl('Add new field').click()
+    >>> browser.getLink('Add new field').click()
     >>> browser.getControl('Title').value = 'Country'
     >>> browser.getControl('Short Name').value = 'country'
     >>> browser.getControl('Field type').getControl(
@@ -136,7 +136,7 @@ Open the schema editor in the browser.
 
 Add a Choice field.
 
-    >>> browser.getControl('Add new field').click()
+    >>> browser.getLink('Add new field').click()
     >>> browser.getControl('Title').value = 'Categories'
     >>> browser.getControl('Short Name').value = 'categories'
     >>> browser.getControl('Field type').getControl(
