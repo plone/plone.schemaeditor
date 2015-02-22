@@ -8,7 +8,7 @@
            i18n:translate="add_new_field_hellip">Add new field&hellip;</button>
   </a>
 
-  <a id="add-fieldset" class="pat-modal"
+  <a id="add-fieldset" class="pat-modal" tal:condition="context/enableFieldsets"
      href="${context/absolute_url}/@@add-fieldset">
     <button style="float: right; display: block;"
            i18n:translate="add_fieldset_hellip">Add new fieldset&hellip;</button>

@@ -40,6 +40,10 @@ class ISchemaContext(IItem):
         """List of field names that may not be deleted from this schema."""
         )
 
+    enableFieldsets = Attribute(
+        """Enable extra fieldsets."""
+        )
+
 
 class ISchemaModifiedEvent(IObjectEvent):
 

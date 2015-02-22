@@ -20,6 +20,7 @@ class SchemaContext(SimpleItem):
     additionalSchemata = ()
     allowedFields = None  # all fields
     fieldsWhichCannotBeDeleted = ()
+    enableFieldsets = True
 
     def __init__(self, context, request, name=u'schema', title=None):
         super(SchemaContext, self).__init__(context, request)
