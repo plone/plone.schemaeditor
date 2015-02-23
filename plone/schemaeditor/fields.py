@@ -53,6 +53,9 @@ class FieldFactory(object):
 
 def FieldsVocabularyFactory(context):
     field_factories = getUtilitiesFor(IFieldFactory)
+    if context.allowedFields is not None:
+        field_factories = [(id, factory) for id, factory in field_factories
+                            if id in context.allowedFields]
     terms = []
     for (field_id, factory) in field_factories:
         terms.append(SimpleVocabulary.createTerm(factory,
