@@ -139,7 +139,9 @@
             if (!confirm(trigger.attr('data-confirm_msg'))) {
                 return;
             }
-            $.post(trigger.attr('href'), null, function (data) {
+            $.post(trigger.attr('href'), {
+                _authenticator: $('input[name="_authenticator"]').val(),
+            }, function (data) {
                 trigger.closest('.fieldPreview').detach();
             }, 'text');
         });
@@ -147,12 +149,16 @@
         $('.fieldPreview.orderable').plone_schemaeditor_html5_sortable(function (position, fieldset_index) {
             var url = window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@order';
             $.post(url, {
+                _authenticator: $('input[name="_authenticator"]').val(),
                 pos: position,
                 fieldset_index: fieldset_index
             });
         }, function (fieldset_index) {
             var url = window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@changefieldset';
-            $.post(url, { fieldset_index: fieldset_index });
+            $.post(url, {
+                _authenticator: $('input[name="_authenticator"]').val(),
+                fieldset_index: fieldset_index
+            });
         });
         set_id_from_title = function () {
             var id = $.plone_schemaeditor_normalize_string($(this).val());

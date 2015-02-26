@@ -10,6 +10,9 @@ Changelog
 - Make fieldset creation optional
   [ebrehault]
 
+- Add CSRF protection token
+  [ebrehault]
+
 
 2.0.1 (2014-10-23)
 ------------------
