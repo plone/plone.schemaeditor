@@ -7,6 +7,8 @@ Changelog
 - Update markup and javscript for Plone 5.
   [davisagli]
 
+- Add CSRF protection token
+  [ebrehault]
 
 2.0.1 (2014-10-23)
 ------------------
