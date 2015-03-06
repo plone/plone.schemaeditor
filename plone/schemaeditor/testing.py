@@ -12,16 +12,6 @@ class PloneSchemaeditorRobotLayer(PloneSandboxLayer):
 
     defaultBases = (PLONE_FIXTURE,)
 
-    def setUpZope(self, app, configurationContext):
-        """Set up Zope."""
-        import plone.app.dexterity
-        self.loadZCML(package=plone.schemaeditor.tests,
-                      name='robot_testing.zcml')
-        self.loadZCML(package=plone.app.dexterity,
-                      name='configure.zcml')
-        self.loadZCML(package=plone.app.dexterity,
-                      name='overrides.zcml')
-
 
 FIXTURE = PloneSchemaeditorRobotLayer(
     name="ROBOT"
