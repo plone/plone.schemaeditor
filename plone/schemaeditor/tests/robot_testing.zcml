@@ -6,14 +6,6 @@
 
     <include package="plone.schemaeditor"/>
 
-    <gs:registerProfile
-        name="testing"
-        title="plone.schemaeditor tests"
-        directory="profiles/testing"
-        description="Steps to ease tests of plone.schemaeditor"
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        />
-
     <utility provides="zope.schema.interfaces.IVocabularyFactory"
              name="plone.schemaeditor.test.Countries"
              factory=".fixtures.CountriesVocabulary" />
