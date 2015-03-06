@@ -105,10 +105,10 @@ Delete field
     Wait until page contains element  css=#fieldset-0 #formfield-form-widgets-phone
     Click link  css=div.fieldControls .schemaeditor-delete-field
     Confirm Action
-    Page Should Not Contain Element  css=#formfield-form-widgets-phone
+    Wait Until Keyword Succeeds  10  1  Page Should Not Contain Element  css=#formfield-form-widgets-phone
     # Make sure it actually got deleted
     Go to  ${PLONE_URL}/@@dexterity-types/somebody/@@fields
-    Page Should Not Contain Element  css=#formfield-form-widgets-phone
+    Wait Until Keyword Succeeds  10  1  Page Should Not Contain Element  css=#formfield-form-widgets-phone
 
 
 #~ Reorder field
@@ -144,7 +144,7 @@ Add content type
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-id  ${id}
     Click button  css=.plone-modal-footer #form-buttons-add
     Wait until page contains  ${title}
-    Go to  ${PLONE_URL}/@@dexterity-types/${id}/@@fields 
+    Go to  ${PLONE_URL}/@@dexterity-types/${id}/@@fields
     Wait until page contains  Fields
 
 Add field
