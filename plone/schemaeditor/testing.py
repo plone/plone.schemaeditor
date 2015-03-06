@@ -3,16 +3,10 @@
 
 from plone.app.robotframework.testing import AUTOLOGIN_LIBRARY_FIXTURE
 from plone.app.testing import FunctionalTesting
-from plone.app.testing import login
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import TEST_USER_NAME
 from plone.app.testing.helpers import applyProfile
 from plone.testing import z2
-
-import plone.schemaeditor.tests
 
 
 class PloneSchemaeditorRobotLayer(PloneSandboxLayer):
@@ -31,16 +25,7 @@ class PloneSchemaeditorRobotLayer(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         """Set up Plone."""
-        # Install into Plone site using portal_setup
         applyProfile(portal, 'plone.schemaeditor.tests:testing')
-
-        # Login and create some test content
-        setRoles(portal, TEST_USER_ID, ['Manager'])
-        login(portal, TEST_USER_NAME)
-
-        # Commit so that the test browser sees these objects
-        import transaction
-        transaction.commit()
 
 
 FIXTURE = PloneSchemaeditorRobotLayer(
