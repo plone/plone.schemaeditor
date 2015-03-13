@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.2 (unreleased)
+2.0.2 (2015-03-13)
 ------------------
 
 - Clean up testing setup. This solves some serious test isolation issues.
