@@ -62,7 +62,7 @@ def FieldsVocabularyFactory(context):
         terms.append(SimpleVocabulary.createTerm(factory,
                                                  translate(factory.title),
                                                  factory.title))
-    terms = sorted(terms, key=operator.attrgetter('token'))$
+    terms = sorted(terms, key=operator.attrgetter('token'))
     return SimpleVocabulary(terms)
 
 
