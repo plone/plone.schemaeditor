@@ -1,4 +1,5 @@
 import copy
+import operator
 from zope import interface
 from zope import component
 from zope.component import adapter
@@ -59,9 +60,11 @@ def FieldsVocabularyFactory(context):
     terms = []
     for (field_id, factory) in field_factories:
         terms.append(SimpleVocabulary.createTerm(factory,
-                                                 translate(factory.title),
-                                                 factory.title))
-
+                                                factory.title,
+                                                translate(factory.title, 
+                                                    domain='plone', 
+                                                    target_language=context.REQUEST.LANGUAGE)))
+    terms = sorted(terms, key=operator.attrgetter('title'))$
     return SimpleVocabulary(terms)
 
 
