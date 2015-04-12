@@ -4,6 +4,7 @@ from zope import interface
 from zope import component
 from zope.component import adapter
 from zope.component import getUtilitiesFor
+from zope.globalrequest import getRequest
 from zope.interface import implements
 from zope.i18n import translate
 from zope import schema
@@ -53,6 +54,7 @@ class FieldFactory(object):
 
 
 def FieldsVocabularyFactory(context):
+    request = getRequest()
     field_factories = getUtilitiesFor(IFieldFactory)
     if context.allowedFields is not None:
         field_factories = [(id, factory) for id, factory in field_factories
@@ -60,9 +62,9 @@ def FieldsVocabularyFactory(context):
     terms = []
     for (field_id, factory) in field_factories:
         terms.append(SimpleVocabulary.createTerm(factory,
-                                                 translate(factory.title),
-                                                 factory.title))
-    terms = sorted(terms, key=operator.attrgetter('token'))
+                                                 factory.title,
+                                                 translate(factory.title, context=request)))
+    terms = sorted(terms, key=operator.attrgetter('title'))
     return SimpleVocabulary(terms)
 
 

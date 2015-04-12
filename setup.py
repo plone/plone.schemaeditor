@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '2.0.2'
+version = '2.0.3.dev0'
 
 setup(name='plone.schemaeditor',
       version=version,
@@ -28,6 +28,7 @@ setup(name='plone.schemaeditor',
           'Zope2',
           'zope.component',
           'zope.container',
+          'zope.globalrequest',
           'zope.interface',
           'zope.lifecycleevent',
           'zope.schema',

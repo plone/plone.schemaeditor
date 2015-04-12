@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.3 (unreleased)
+------------------
+
+- Fix translation and sorting of field names.
+  [MacYET, davisagli]
+
 2.0.2 (2015-03-13)
 ------------------
 
