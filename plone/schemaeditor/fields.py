@@ -60,9 +60,11 @@ def FieldsVocabularyFactory(context):
     terms = []
     for (field_id, factory) in field_factories:
         terms.append(SimpleVocabulary.createTerm(factory,
-                                                 translate(factory.title),
-                                                 factory.title))
-    terms = sorted(terms, key=operator.attrgetter('token'))$
+                                                factory.title,
+                                                translate(factory.title, 
+                                                    domain='plone', 
+                                                    target_language=context.REQUEST.LANGUAGE)))
+    terms = sorted(terms, key=operator.attrgetter('title'))$
     return SimpleVocabulary(terms)
 
 
