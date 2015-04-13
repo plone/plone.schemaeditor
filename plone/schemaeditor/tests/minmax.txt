@@ -30,8 +30,7 @@ Add an Int field.
     >>> browser.getLink('Add new field').click()
     >>> browser.getControl('Title').value = 'Age'
     >>> browser.getControl('Short Name').value = 'age'
-    >>> browser.getControl('Field type').getControl(
-    ...     value='Integer').selected = True
+    >>> browser.getControl('Field type').getControl('Integer').selected = True
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on Int]
     [event: FieldAddedEvent on DummySchemaContext]

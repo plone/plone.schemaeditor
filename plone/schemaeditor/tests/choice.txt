@@ -32,7 +32,7 @@ Add a Choice field.
     >>> browser.getControl('Title').value = 'Country'
     >>> browser.getControl('Short Name').value = 'country'
     >>> browser.getControl('Field type').getControl(
-    ...     value='Choice').selected = True
+    ...     value='label_choice_field').selected = True
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on Choice]
     [event: FieldAddedEvent on DummySchemaContext]

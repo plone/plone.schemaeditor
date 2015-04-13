@@ -43,7 +43,7 @@ Let's add a 'favorite-color' field to the IDummySchema schema::
     >>> browser.getControl('Title').value = 'Favorite Color'
     >>> browser.getControl('Short Name').value = 'favorite_color'
     >>> browser.getControl(name='form.widgets.description').value = 'Select your favorite color'
-    >>> browser.getControl('Field type').value = ['Text line (String)']
+    >>> browser.getControl('Field type').displayValue = ['Text line (String)']
     >>> browser.getControl(name='form.widgets.required').value = ['true']
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on TextLine]
@@ -245,7 +245,7 @@ move it into an other fieldset and remove it::
     >>> browser.getLink('Add new field').click()
     >>> browser.getControl('Title').value = 'Other Set'
     >>> browser.getControl('Short Name').value = 'other_set'
-    >>> browser.getControl('Field type').value = ['Text line (String)']
+    >>> browser.getControl('Field type').displayValue = ['Text line (String)']
     >>> browser.getControl('Add').click()
     [event: ObjectAddedEvent on TextLine]
     [event: FieldAddedEvent on DummySchemaContext]
@@ -313,9 +313,7 @@ and saved.
     ...     browser.getControl('Title').value = name
     ...     field_id = name.replace('-', '_')
     ...     browser.getControl('Short Name').value = field_id
-    ...     browser.getControl('Field type').getControl(
-    ...         value=getattr(factory.title, 'default', factory.title)
-    ...         ).selected = True
+    ...     browser.getControl('Field type').value = [factory.title]
     ...     browser.getControl('Add').click()
     ...     assert browser.url == portal_url + '/@@schemaeditor', (
     ...         'Failed to create %r' % name)
