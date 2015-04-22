@@ -7,6 +7,9 @@ Changelog
 - Fix translation and sorting of field names.
   [MacYET, davisagli]
 
+- pat-modal pattern has been renamed to pat-plone-modal
+  [jcbrand]
+
 2.0.2 (2015-03-13)
 ------------------
 

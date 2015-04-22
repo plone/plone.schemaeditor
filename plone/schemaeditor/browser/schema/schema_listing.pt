@@ -2,13 +2,13 @@
      xmlns:metal="http://xml.zope.org/namespaces/metal"
      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
      tal:omit-tag="" i18n:domain="plone.schemaeditor">
-  <a id="add-field" class="pat-modal"
+  <a id="add-field" class="pat-plone-modal"
      href="${context/absolute_url}/@@add-field">
     <button style="float: right; display: block;"
            i18n:translate="add_new_field_hellip">Add new field&hellip;</button>
   </a>
 
-  <a id="add-fieldset" class="pat-modal" tal:condition="context/enableFieldsets"
+  <a id="add-fieldset" class="pat-plone-modal" tal:condition="context/enableFieldsets"
      href="${context/absolute_url}/@@add-fieldset">
     <button style="float: right; display: block;"
            i18n:translate="add_fieldset_hellip">Add new fieldset&hellip;</button>
@@ -114,7 +114,7 @@
 
               <div class="fieldControls"
                    i18n:domain="plone.schemaeditor">
-                  <a class="fieldSettings pat-modal"
+                  <a class="fieldSettings pat-plone-modal"
                      tal:define="edit_url python:view.edit_url(widget.field)"
                      tal:condition="edit_url"
                      i18n:translate=""
