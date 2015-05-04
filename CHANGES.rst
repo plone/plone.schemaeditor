@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.3 (unreleased)
+2.0.3 (2015-05-04)
 ------------------
 
 - Fix translation and sorting of field names.
