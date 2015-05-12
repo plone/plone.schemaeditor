@@ -80,7 +80,10 @@ class SchemaListing(AutoExtensibleForm, form.Form):
         url = addTokenToUrl(url, self.request)
         return url
 
-    @button.buttonAndHandler(_(u'Save Defaults'))
+    @button.buttonAndHandler(
+        _(u'Save Defaults'),
+        condition=lambda form: getattr(form.context, 'showSaveDefaults', True)
+    )
     def handleSaveDefaults(self, action):
         # ignore fields from behaviors by setting their widgets' modes
         # to the display mode while we extract the form values (hack!)
