@@ -53,4 +53,4 @@ class FieldOrderView(BrowserView):
         schema.removeField(self.field.getName())
         notify(ObjectRemovedEvent(self.field, self.schema))
         notify(FieldRemovedEvent(self.aq_parent.aq_parent, self.field))
-        self.request.response.setHeader('Content-Type', 'text/html')
+        self.request.response.setHeader('Content-Type', 'application/json')

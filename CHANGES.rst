@@ -4,7 +4,11 @@ Changelog
 2.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Allow to hide the 'Save defaults' button
+  [ebrehault]
+
+- Fix delete method (it used to return html and it produced a plone.protect warning)
+  [ebrehault]
 
 
 2.0.3 (2015-05-04)
