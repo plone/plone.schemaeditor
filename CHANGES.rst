@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.4 (unreleased)
+2.0.4 (2015-05-13)
 ------------------
 
 - Allow to hide the 'Save defaults' button
