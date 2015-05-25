@@ -20,6 +20,10 @@ Changelog
 2.0.3 (2015-05-04)
 ------------------
 
+- fix javascript to reorder fields. It was conflicting with
+  mockup jquery.event.(drag|drop).
+  [vangheem]
+
 - Fix translation and sorting of field names.
   [MacYET, davisagli]
 
