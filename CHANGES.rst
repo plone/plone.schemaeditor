@@ -4,7 +4,9 @@ Changelog
 2.0.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- fix javascript to reorder fields. It was conflicting with
+  mockup jquery.event.(drag|drop).
+  [vangheem]
 
 
 2.0.4 (2015-05-13)
@@ -19,10 +21,6 @@ Changelog
 
 2.0.3 (2015-05-04)
 ------------------
-
-- fix javascript to reorder fields. It was conflicting with
-  mockup jquery.event.(drag|drop).
-  [vangheem]
 
 - Fix translation and sorting of field names.
   [MacYET, davisagli]
