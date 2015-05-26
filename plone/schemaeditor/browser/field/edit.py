@@ -1,6 +1,8 @@
 from Acquisition import aq_parent, aq_inner
 
-from zope.interface import implements, Interface, declarations
+from zope.interface import implements, Interface
+from zope.interface.declarations import ObjectSpecificationDescriptor
+from zope.interface.declarations import getObjectSpecification
 from zope.cachedescriptors.property import Lazy as lazy_property
 from zope.component import adapts, getAdapters
 from zope.event import notify
@@ -55,19 +57,23 @@ class IFieldProxy(Interface):
     """Marker interface for field being edited by schemaeditor"""
 
 
+class FieldProxySpecification(ObjectSpecificationDescriptor):
+    def __get__(self, inst, cls=None):
+        if inst is None:
+            return getObjectSpecification(cls)
+        else:
+            return inst.__provides__
+
+
 class FieldProxy(object):
     implements(IFieldProxy)
+
+    __providedBy__ = FieldProxySpecification()
 
     def __init__(self, context):
         self.__class__ = type(context.__class__.__name__,
                               (self.__class__, context.__class__), {})
         self.__dict__ = context.__dict__
-
-    @property
-    def __provides__(self):
-        return declarations.Provides(self.__class__)
-
-    __providedBy__ = __provides__
 
 
 class FieldDataManager(AttributeField):
