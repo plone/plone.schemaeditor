@@ -8,6 +8,10 @@ Changelog
   mockup jquery.event.(drag|drop).
   [vangheem]
 
+- Add support for non-destructive editing of attributes with i18n
+  Message values
+  [datakurre]
+
 
 2.0.4 (2015-05-13)
 ------------------

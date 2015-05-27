@@ -12,6 +12,8 @@
 
     <adapter
         factory=".edit.FieldTitleAdapter" />
+    <adapter
+        factory=".edit.FieldDataManager" />
 
     <browser:page
         name="order"
