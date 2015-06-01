@@ -4,7 +4,10 @@ Changelog
 2.0.5 (unreleased)
 ------------------
 
-- fix javascript to reorder fields. It was conflicting with
+- Add undeclared zope.cachedescriptors dependency.
+  [timo]
+
+- Fix javascript to reorder fields. It was conflicting with
   mockup jquery.event.(drag|drop).
   [vangheem]
 
