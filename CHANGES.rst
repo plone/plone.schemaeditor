@@ -4,15 +4,23 @@ Changelog
 2.0.5 (unreleased)
 ------------------
 
-- fix javascript to reorder fields. It was conflicting with
+- Add undeclared zope.cachedescriptors dependency.
+  [timo]
+
+- Fix javascript to reorder fields. It was conflicting with
   mockup jquery.event.(drag|drop).
   [vangheem]
+
+- Add support for non-destructive editing of attributes with i18n
+  Message values
+  [datakurre]
 
 - Add a "protected" method to IFieldFactory that may be used to determine
   if a particular field must be non editable and not movable using the editor
   (just like a behavior field).
   Override it for custom behavior in a subclass.
   [ebrehault]
+
 
 2.0.4 (2015-05-13)
 ------------------

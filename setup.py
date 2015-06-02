@@ -26,6 +26,7 @@ setup(name='plone.schemaeditor',
       install_requires=[
           'setuptools',
           'Zope2',
+          'zope.cachedescriptors',
           'zope.component',
           'zope.container',
           'zope.globalrequest',
