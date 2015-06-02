@@ -127,7 +127,7 @@ Wait overlay is closed
     Wait until keyword succeeds  60  1  Page should not contain element  css=div.overlay
 
 Go to dexterity types configuration
-    Login as site owner
+    Enable autologin as  Manager
     Go to  ${PLONE_URL}/@@dexterity-types
 
 Add content type
