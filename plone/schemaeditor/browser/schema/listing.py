@@ -71,7 +71,7 @@ class SchemaListing(AutoExtensibleForm, form.Form):
         field_identifier = u'%s.%s' % (
             field.__module__, field.__class__.__name__)
         field_factory = queryUtility(IFieldFactory, name=field_identifier)
-        return field_factory.protected(field)
+        return field_factory and field_factory.protected(field)
 
     def edit_url(self, field):
         field_factory = self._field_factory(field)
