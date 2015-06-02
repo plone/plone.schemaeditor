@@ -52,6 +52,10 @@ class FieldFactory(object):
         """ test whether a given instance of a field is editable """
         return True
 
+    def protected(self, field):
+        """ test whether a given instance of a field is protected """
+        return False
+
 
 def FieldsVocabularyFactory(context):
     request = getRequest()
