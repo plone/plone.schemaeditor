@@ -79,9 +79,6 @@ class IFieldFactory(IField):
     def editable(self, field):
         """ test whether a given instance of a field is editable """
 
-    def protected(self, field):
-        """ test whether a given instance of a field is protected """
-
 
 class IEditableSchema(Interface):
 
