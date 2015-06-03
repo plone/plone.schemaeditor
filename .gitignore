@@ -4,3 +4,10 @@ plone.schemaeditor.egg-info/
 .project
 .pydevproject
 .settings
+.installed.cfg
+part
+bin
+lib
+include
+develop-eggs
+parts
