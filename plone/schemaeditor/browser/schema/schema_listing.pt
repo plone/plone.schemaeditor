@@ -92,48 +92,53 @@
           </tal:block>
 
           <tal:widgets repeat="widget group/widgets/values">
+            <tal:block
+              tal:define="
+                disabled widget/disabled|nothing;
+                protected python:view.protected_field(widget.field);">
 
-            <div tal:condition="widget/disabled|nothing" class="fieldPreview fieldFromBehavior">
-              <div class="fieldLabel">
-                  <tal:block i18n:translate="">From the
-                    <tal:block i18n:name="behavior_name" tal:replace="python:widget.__name__.split('.')[0]"/> behavior:</tal:block>
-                  <strong tal:content="widget/field/__name__" /> &ndash;
-                  <tal:block tal:content="python:view.field_type(widget.field)"/>
-              </div>
-              <tal:field tal:replace="structure widget/@@ploneform-render-widget" />
-              <div class="disabled-field-overlay"></div>
-            </div>
-
-            <div tal:condition="not:widget/disabled|nothing"
-                 class="fieldPreview orderable" tal:attributes="data-field_id widget/field/__name__">
-
-              <div class="fieldLabel">
-                  <strong tal:content="widget/field/__name__" /> &ndash;
-                  <tal:block tal:content="python:view.field_type(widget.field)"/>
-              </div>
-
-              <div class="fieldControls"
-                   i18n:domain="plone.schemaeditor">
-                  <a class="fieldSettings pat-plone-modal"
-                     tal:define="edit_url python:view.edit_url(widget.field)"
-                     tal:condition="edit_url"
-                     i18n:translate=""
-                     tal:attributes="href edit_url">Settings&hellip;</a>
-                  <a class="schemaeditor-delete-field"
-                     i18n:attributes="title; data-confirm_msg"
-                     title="Delete field"
-                     data-confirm_msg="Are you sure you want to delete this field?"
-                     style="margin-left: 1em; font-size: 150%; border: none"
-                     tal:define="delete_url python:view.delete_url(widget.field)"
-                     tal:condition="delete_url"
-                     tal:attributes="href delete_url">&times;</a>
-              </div>
-
-              <div style="width: 80%">
+              <div tal:condition="python:disabled or protected" class="fieldPreview fieldFromBehavior">
+                <div class="fieldLabel">
+                    <tal:block tal:condition="disabled" i18n:translate="">From the
+                      <tal:block i18n:name="behavior_name" tal:replace="python:widget.__name__.split('.')[0]"/> behavior:</tal:block>
+                    <strong tal:content="widget/field/__name__" /> &ndash;
+                    <tal:block tal:content="python:view.field_type(widget.field)"/>
+                </div>
                 <tal:field tal:replace="structure widget/@@ploneform-render-widget" />
+                <div class="disabled-field-overlay"></div>
               </div>
 
-            </div>
+              <div tal:condition="python:not(disabled or protected)"
+                   class="fieldPreview orderable" tal:attributes="data-field_id widget/field/__name__">
+
+                <div class="fieldLabel">
+                    <strong tal:content="widget/field/__name__" /> &ndash;
+                    <tal:block tal:content="python:view.field_type(widget.field)"/>
+                </div>
+
+                <div class="fieldControls"
+                     i18n:domain="plone.schemaeditor">
+                    <a class="fieldSettings pat-plone-modal"
+                       tal:define="edit_url python:view.edit_url(widget.field)"
+                       tal:condition="edit_url"
+                       i18n:translate=""
+                       tal:attributes="href edit_url">Settings&hellip;</a>
+                    <a class="schemaeditor-delete-field"
+                       i18n:attributes="title; data-confirm_msg"
+                       title="Delete field"
+                       data-confirm_msg="Are you sure you want to delete this field?"
+                       style="margin-left: 1em; font-size: 150%; border: none"
+                       tal:define="delete_url python:view.delete_url(widget.field)"
+                       tal:condition="delete_url"
+                       tal:attributes="href delete_url">&times;</a>
+                </div>
+
+                <div style="width: 80%">
+                  <tal:field tal:replace="structure widget/@@ploneform-render-widget" />
+                </div>
+
+              </div>
+            </tal:block>
 
           </tal:widgets>
 
