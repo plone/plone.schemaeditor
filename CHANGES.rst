@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.5 (unreleased)
+2.0.5 (2015-06-05)
 ------------------
 
 - Add undeclared zope.cachedescriptors dependency.
