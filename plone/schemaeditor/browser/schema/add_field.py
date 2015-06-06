@@ -4,6 +4,8 @@ from zope.lifecycleevent import ObjectAddedEvent
 from z3c.form import form, field
 from z3c.form.interfaces import WidgetActionExecutionError
 from plone.z3cform.layout import wrap_form
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.statusmessages.interfaces import IStatusMessage
 
 from plone.schemaeditor import SchemaEditorMessageFactory as _
 from plone.schemaeditor.interfaces import INewField
@@ -44,12 +46,14 @@ class FieldAddForm(form.AddForm):
         schema.moveField(field.__name__, position)
         notify(ObjectAddedEvent(field, context.schema))
         notify(FieldAddedEvent(context, field))
-        self.status = _(u"Field added successfully.")
+        IStatusMessage(self.request).addStatusMessage(
+            _(u"Field added successfully."), type='info')
 
     def nextURL(self):
-        url = self.context.absolute_url()
-        if getattr(self.context, 'schemaEditorView', None) is not None:
-            url += '/@@' + self.context.schemaEditorView
-        return url
+        return "@@add-field"
 
-FieldAddFormPage = wrap_form(FieldAddForm)
+
+FieldAddFormPage = wrap_form(
+    FieldAddForm,
+    index=ViewPageTemplateFile('add.pt')
+)
