@@ -1,26 +1,62 @@
+from zope.cachedescriptors.property import Lazy as lazy_property
+from zope.component import getAdapters
 from zope.event import notify
-from zope.interface import Invalid
+from zope.interface import Invalid, Interface
 from zope.lifecycleevent import ObjectAddedEvent
 from z3c.form import form, field
 from z3c.form.interfaces import WidgetActionExecutionError
+from plone.autoform.form import AutoExtensibleForm
 from plone.z3cform.layout import wrap_form
 
 from plone.schemaeditor import SchemaEditorMessageFactory as _
-from plone.schemaeditor.interfaces import INewField
+from plone.schemaeditor import interfaces
 from plone.schemaeditor.utils import IEditableSchema, non_fieldset_fields,\
     sortedFields
 from plone.schemaeditor.utils import FieldAddedEvent
 
 
-class FieldAddForm(form.AddForm):
+class FieldAddForm(AutoExtensibleForm, form.AddForm):
 
-    fields = field.Fields(INewField)
+    fields = field.Fields(interfaces.INewField)
     label = _("Add new field")
     id = 'add-field-form'
 
+    # This is a trick: we want autoform to handle the additionalSchemata,
+    # but want to provide our own base schema below in updateFields.
+    schema = Interface
+
+    @lazy_property
+    def _schema(self):
+        return interfaces.INewField
+
+    @lazy_property
+    def additionalSchemata(self):
+        return [v for k, v in getAdapters((self.context, ),
+            interfaces.IFieldEditorExtender)]
+
     def create(self, data):
+        extra = {}
         factory = data.pop('factory')
-        return factory(**data)
+        all = data.keys()
+
+        # split regular attributes and extra ones
+        for key in all:
+            if key not in self._schema:
+                extra[key] = data[key]
+                data.pop(key)
+
+        # create the field with regular attributes
+        field_obj = factory(**data)
+
+        # set the extra attributes using the proper adapter
+        for schemata in self.additionalSchemata:
+            for key in extra:
+                (interface_name, property_name) = key.split('.')
+                if interface_name != schemata.__name__:
+                    continue
+                setattr(schemata(field_obj), property_name, extra[key])
+
+        return field_obj
 
     def add(self, field):
         context = self.context
@@ -39,7 +75,9 @@ class FieldAddForm(form.AddForm):
             schema.addField(field)
         except ValueError:
             raise WidgetActionExecutionError('__name__',
-                                             Invalid(u'Please select a field name that is not already used.'))
+                Invalid(
+                    u'Please select a field name that is not already used.'
+                ))
 
         schema.moveField(field.__name__, position)
         notify(ObjectAddedEvent(field, context.schema))
