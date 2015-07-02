@@ -49,7 +49,7 @@ Let's add a 'favorite-color' field to the IDummySchema schema::
     [event: ObjectAddedEvent on TextLine]
     [event: FieldAddedEvent on DummySchemaContext]
     >>> browser.url
-    'http://nohost/@@schemaeditor'
+    'http://nohost/@@schemaeditor/@@add-field'
 
 Now the actual IDummySchema schema should have the new field (the field id is a
 normalized form of the title)::
@@ -73,6 +73,7 @@ Editing a schema field attribute
 
 Let's navigate to the 'favorite-color' field we just created::
 
+    >>> browser.open(portal_url + '/@@schemaeditor')
     >>> browser.getLink(url='favorite_color').click()
     >>> browser.url
     'http://nohost/@@schemaeditor/favorite_color'
@@ -91,7 +92,7 @@ of schema fields, which should reflect the change::
     [event: ObjectModifiedEvent on TextLine]
     [event: SchemaModifiedEvent on DummySchemaContext]
     >>> browser.url
-    'http://nohost/@@schemaeditor'
+    'http://nohost/@@schemaeditor/favorite_color/@@edit'
 
 Let's confirm that the new default value was correctly saved to the actual schema::
 
@@ -107,6 +108,7 @@ If the schema is edited to have internationalized attributes::
 Then editing the schema will preserve those values and only update their
 default values::
 
+    >>> browser.open(portal_url + '/@@schemaeditor')
     >>> browser.getLink(url='favorite_color').click()
     >>> browser.url
     'http://nohost/@@schemaeditor/favorite_color'
@@ -119,7 +121,7 @@ default values::
     [event: ObjectModifiedEvent on TextLine]
     [event: SchemaModifiedEvent on DummySchemaContext]
     >>> browser.url
-    'http://nohost/@@schemaeditor'
+    'http://nohost/@@schemaeditor/favorite_color/@@edit'
 
 Let's confirm that the message value was preserved and only its default
 value was set::
@@ -142,6 +144,7 @@ persist its marker interface::
 
 Let's go back and try to make an invalid change.  The form won't let us::
 
+    >>> browser.open(portal_url + '/@@schemaeditor')
     >>> browser.getLink(url='favorite_color').click()
     >>> browser.url
     'http://nohost/@@schemaeditor/favorite_color'
@@ -329,7 +332,7 @@ Let's add a 'extra-info' fieldset to the IDummySchema schema::
     [event: ContainerModifiedEvent on InterfaceClass]
     [event: SchemaModifiedEvent on DummySchemaContext]
     >>> browser.url
-    'http://nohost/@@schemaeditor'
+    'http://nohost/@@schemaeditor/@@add-fieldset'
 
 Now the actual IDummySchema schema should have the new fieldset ::
 
@@ -357,7 +360,7 @@ and saved.
     ...     browser.getControl('Short Name').value = field_id
     ...     browser.getControl('Field type').value = [factory.title]
     ...     browser.getControl('Add').click()
-    ...     assert browser.url == portal_url + '/@@schemaeditor', (
+    ...     assert browser.url == portal_url + '/@@schemaeditor/@@add-field', (
     ...         'Failed to create %r' % name)
     ...     assert field_id in schema, '%r not in %r' % (
     ...         field_id, schema)
@@ -365,6 +368,7 @@ and saved.
     ...         schema[field_id], factory.fieldcls
     ...         ), '%r is not an instance of %r' % (
     ...             schema[field_id], factory.fieldcls)
+    ...     browser.open(portal_url + '/@@schemaeditor')
     ...     browser.getLink(url=field_id).click()
     ...     browser.getControl('Title').value += ' '
     ...     browser.getControl('Save').click()
@@ -437,4 +441,4 @@ these fields, they are allowed as long as the field is of the correct type.
     [event: ObjectAddedEvent on TextLine]
     [event: FieldAddedEvent on DummySchemaContext]
     >>> browser.url
-    'http://nohost/@@schemaeditor'
+    'http://nohost/@@schemaeditor/@@add-field'
