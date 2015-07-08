@@ -37,10 +37,11 @@ Add a Choice field.
     [event: ObjectAddedEvent on Choice]
     [event: FieldAddedEvent on DummySchemaContext]
     >>> browser.url
-    'http://nohost/@@schemaeditor'
+    'http://nohost/@@schemaeditor/@@add-field'
 
 Open the new fields edit form.
 
+    >>> browser.open(portal_url + '/@@schemaeditor')
     >>> browser.getLink(url='country').click()
 
 The edit form for choice fields includes a widget for specifying the
@@ -145,10 +146,11 @@ Add a Choice field.
     [event: ObjectAddedEvent on Set]
     [event: FieldAddedEvent on DummySchemaContext]
     >>> browser.url
-    'http://nohost/@@schemaeditor'
+    'http://nohost/@@schemaeditor/@@add-field'
 
 Open the new fields edit form.
 
+    >>> browser.open(portal_url + '/@@schemaeditor')
     >>> browser.getLink(url='categories').click()
 
 The edit form for choice fields includes a widget for specifying the

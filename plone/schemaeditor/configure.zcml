@@ -6,6 +6,7 @@
 
     <include package="plone.z3cform"/>
     <include package="plone.protect" />
+    <include package="Products.statusmessages" />
 
     <i18n:registerTranslations directory="locales"/>
 

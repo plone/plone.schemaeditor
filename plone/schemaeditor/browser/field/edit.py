@@ -15,8 +15,10 @@ from zope.i18nmessageid import MessageFactory
 from z3c.form import form, field, button
 from z3c.form.interfaces import IDataManager
 from z3c.form.datamanager import AttributeField
-from plone.z3cform import layout
+from plone.z3cform.layout import wrap_form
 from plone.autoform.form import AutoExtensibleForm
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.statusmessages.interfaces import IStatusMessage
 
 from plone.schemaeditor.interfaces import IFieldEditForm
 from plone.schemaeditor import interfaces
@@ -124,6 +126,11 @@ class FieldEditForm(AutoExtensibleForm, form.EditForm):
         return [v for k, v in getAdapters((schema_context, self.field),
                                           interfaces.IFieldEditorExtender)]
 
+    @lazy_property
+    def label(self):
+        return _(u"Edit Field '${fieldname}'",
+                 mapping={'fieldname': self.field.__name__})
+
     def updateFields(self):
         # use a custom 'title' field to make sure it is required
         fields = field.Fields(IFieldTitle)
@@ -151,12 +158,13 @@ class FieldEditForm(AutoExtensibleForm, form.EditForm):
         changes = self.applyChanges(data)
 
         if changes:
-            self.status = self.successMessage
+            IStatusMessage(self.request).addStatusMessage(
+                self.successMessage, type='info')
         else:
-            self.status = self.noChangesMessage
+            IStatusMessage(self.request).addStatusMessage(
+                self.noChangesMessage, type='info')
 
         notify(SchemaModifiedEvent(self.context.aq_parent))
-        self.redirectToParent()
 
     @button.buttonAndHandler(PMF(u'Cancel'), name='cancel')
     def handleCancel(self, action):
@@ -171,15 +179,7 @@ class FieldEditForm(AutoExtensibleForm, form.EditForm):
         self.request.response.redirect(url)
 
 
-# form wrapper to use Plone form template
-class EditView(layout.FormWrapper):
-    form = FieldEditForm
-
-    def __init__(self, context, request):
-        super(EditView, self).__init__(context, request)
-        self.field = context.field
-
-    @lazy_property
-    def label(self):
-        return _(u"Edit Field '${fieldname}'",
-                 mapping={'fieldname': self.field.__name__})
+EditView = wrap_form(
+    FieldEditForm,
+    index=ViewPageTemplateFile('edit.pt')
+)

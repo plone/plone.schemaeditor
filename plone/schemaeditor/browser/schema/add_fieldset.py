@@ -5,6 +5,8 @@ from zope.container.contained import notifyContainerModified
 from z3c.form import form, field
 from z3c.form.interfaces import WidgetActionExecutionError
 from plone.z3cform.layout import wrap_form
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.statusmessages.interfaces import IStatusMessage
 
 from plone.schemaeditor import SchemaEditorMessageFactory as _
 from plone.schemaeditor.interfaces import INewFieldset
@@ -35,13 +37,14 @@ class FieldsetAddForm(form.AddForm):
         schema.setTaggedValue(FIELDSETS_KEY, fieldsets)
         notifyContainerModified(schema)
         notify(SchemaModifiedEvent(self.context))
-        self.status = _(u"Fieldset added successfully.")
+        IStatusMessage(self.request).addStatusMessage(
+            _(u"Fieldset added successfully."), type='info')
 
     def nextURL(self):
-        url = self.context.absolute_url()
-        if getattr(self.context, 'schemaEditorView', None) is not None:
-            url += '/@@' + self.context.schemaEditorView
+        return "@@add-fieldset"
 
-        return url
 
-FieldsetAddFormPage = wrap_form(FieldsetAddForm)
+FieldsetAddFormPage = wrap_form(
+    FieldsetAddForm,
+    index=ViewPageTemplateFile('add.pt')
+)
