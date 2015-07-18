@@ -4,7 +4,7 @@ Changelog
 2.0.6 (unreleased)
 ------------------
 
-- Supports additionalSchemata in field Add form
+- Supports additionalSchemata in field Add form.
   [ebrehault]
 
 
