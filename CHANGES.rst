@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.6 (unreleased)
+2.0.6 (2015-07-18)
 ------------------
 
 - Supports additionalSchemata in field Add form.
