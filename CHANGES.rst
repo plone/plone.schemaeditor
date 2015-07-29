@@ -4,7 +4,8 @@ Changelog
 1.3.10 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fixed test: use autologin.
+  [gotcha]
 
 
 1.3.9 (2015-04-28)
