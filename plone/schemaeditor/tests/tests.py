@@ -6,7 +6,7 @@ from Testing import ZopeTestCase as ztc
 from ZPublisher.BaseRequest import BaseRequest
 from zope.interface import Interface, classImplements, implementedBy
 
-from Products.Five import zcml
+from Zope2.App import zcml
 from plone.z3cform.templates import ZopeTwoFormTemplateFactory
 from plone.z3cform.interfaces import IFormWrapper
 

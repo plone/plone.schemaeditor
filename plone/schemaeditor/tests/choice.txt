@@ -13,9 +13,8 @@ schema editor.
 
     >>> user = app.acl_users.userFolderAddUser(
     ...     'root', 'secret', ['Manager'], [])
-
-    >>> from Products.Five import testbrowser
-    >>> browser = testbrowser.Browser()
+    >>> from Testing.testbrowser import Browser
+    >>> browser = Browser()
     >>> browser.handleErrors = False
     >>> browser.addHeader('Authorization', 'Basic root:secret')
 
