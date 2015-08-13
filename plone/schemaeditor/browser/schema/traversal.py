@@ -21,7 +21,6 @@ class SchemaContext(SimpleItem):
     allowedFields = None  # all fields
 
     def __init__(self, context, request, name=u'schema', title=None):
-        super(SchemaContext, self).__init__(context, request)
         self.schema = context
         self.request = request
 

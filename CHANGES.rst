@@ -4,7 +4,8 @@ Changelog
 1.3.11 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fixed DeprecationWarning: object.__init__() takes no parameters.
+  [maurits]
 
 
 1.3.10 (2015-07-30)
