@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.3.11.dev0'
+version = '1.3.11'
 
 setup(name='plone.schemaeditor',
       version=version,

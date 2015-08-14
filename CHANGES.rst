@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.3.11 (unreleased)
+1.3.11 (2015-08-14)
 -------------------
 
 - Fixed DeprecationWarning: object.__init__() takes no parameters.
