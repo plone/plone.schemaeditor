@@ -4,7 +4,9 @@ Changelog
 2.0.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Make ``plone.protect.utils.addTokenToUrl`` a soft dependency, making this
+  package usable in Plone < 5.0.
+  [thet]
 
 
 2.0.6 (2015-07-18)
