@@ -7,17 +7,12 @@ from z3c.form.interfaces import IEditForm, DISPLAY_MODE
 from plone.z3cform.layout import FormWrapper
 from plone.memoize.instance import memoize
 from plone.autoform.form import AutoExtensibleForm
+from plone.protect.utils import addTokenToUrl
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone.schemaeditor import SchemaEditorMessageFactory as _
 from plone.schemaeditor.interfaces import IFieldFactory
 from plone.schemaeditor.utils import SchemaModifiedEvent
-
-try:
-    from plone.protect.utils import addTokenToUrl
-except ImportError:
-    addTokenToUrl = None
-
 
 
 class SchemaListing(AutoExtensibleForm, form.Form):
@@ -88,8 +83,7 @@ class SchemaListing(AutoExtensibleForm, form.Form):
         if field.__name__ in self.context.fieldsWhichCannotBeDeleted:
             return
         url = '%s/%s/@@delete' % (self.context.absolute_url(), field.__name__)
-        if addTokenToUrl:
-            url = addTokenToUrl(url, self.request)
+        url = addTokenToUrl(url, self.request)
         return url
 
     @button.buttonAndHandler(
