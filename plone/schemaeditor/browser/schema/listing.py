@@ -16,6 +16,7 @@ from plone.schemaeditor.utils import SchemaModifiedEvent
 try:
     from plone.protect.utils import addTokenToUrl
 except ImportError:
+    # plone.protect < 3.x, e.g. in Plone 4.3
     addTokenToUrl = None
 
 
