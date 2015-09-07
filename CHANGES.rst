@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.7 (unreleased)
+2.0.7 (2015-09-07)
 ------------------
 
 - Make ``plone.protect.utils.addTokenToUrl`` a soft dependency, making this
