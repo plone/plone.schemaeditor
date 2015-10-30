@@ -4,7 +4,13 @@ Changelog
 2.0.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+New:
+
+- *add item here*
+
+Fixes:
+
+- *add item here*
 
 
 2.0.7 (2015-09-07)
@@ -473,4 +479,3 @@ Changelog
 ------------------
 
 * Initial release
-
