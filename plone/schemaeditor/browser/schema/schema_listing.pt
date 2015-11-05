@@ -1,7 +1,7 @@
 <div xmlns:tal="http://xml.zope.org/namespaces/tal"
      xmlns:metal="http://xml.zope.org/namespaces/metal"
      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-     tal:omit-tag="" i18n:domain="plone.schemaeditor">
+     tal:omit-tag="" i18n:domain="plone">
   <a id="add-field" class="pat-plone-modal"
      href="${context/absolute_url}/@@add-field">
     <button style="float: right; display: block;"
@@ -116,8 +116,7 @@
                     <tal:block tal:content="python:view.field_type(widget.field)"/>
                 </div>
 
-                <div class="fieldControls"
-                     i18n:domain="plone.schemaeditor">
+                <div class="fieldControls">
                     <a class="fieldSettings pat-plone-modal"
                        tal:define="edit_url python:view.edit_url(widget.field)"
                        tal:condition="edit_url"

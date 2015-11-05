@@ -7,7 +7,7 @@ from zope.schema import Object, TextLine, Text, Choice, ASCIILine, Bool
 from zope.schema.interfaces import IField
 from z3c.form.interfaces import IEditForm
 from OFS.interfaces import IItem
-from plone.schemaeditor import SchemaEditorMessageFactory as _
+from plone.schemaeditor import _
 
 
 class ISchemaView(IBrowserPage):

@@ -9,7 +9,7 @@ from plone.memoize.instance import memoize
 from plone.autoform.form import AutoExtensibleForm
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-from plone.schemaeditor import SchemaEditorMessageFactory as _
+from plone.schemaeditor import _
 from plone.schemaeditor.interfaces import IFieldFactory
 from plone.schemaeditor.utils import SchemaModifiedEvent
 

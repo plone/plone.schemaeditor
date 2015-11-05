@@ -10,7 +10,6 @@ from zope.schema.interfaces import IField
 from zope.security.interfaces import ForbiddenAttribute
 from zope import schema
 from zope.i18nmessageid import Message
-from zope.i18nmessageid import MessageFactory
 
 from z3c.form import form, field, button
 from z3c.form.interfaces import IDataManager
@@ -23,10 +22,8 @@ from Products.statusmessages.interfaces import IStatusMessage
 from plone.schemaeditor.interfaces import IFieldEditForm
 from plone.schemaeditor import interfaces
 from plone.schemaeditor.utils import SchemaModifiedEvent
-from plone.schemaeditor import SchemaEditorMessageFactory as _
+from plone.schemaeditor import _
 
-
-PMF = MessageFactory('plone')
 
 _marker = object()
 
@@ -142,7 +139,7 @@ class FieldEditForm(AutoExtensibleForm, form.EditForm):
 
         self.updateFieldsFromSchemata()
 
-    @button.buttonAndHandler(PMF(u'Save'), name='save')
+    @button.buttonAndHandler(_(u'Save'), name='save')
     def handleSave(self, action):
         data, errors = self.extractData()
         if errors:
@@ -166,7 +163,7 @@ class FieldEditForm(AutoExtensibleForm, form.EditForm):
 
         notify(SchemaModifiedEvent(self.context.aq_parent))
 
-    @button.buttonAndHandler(PMF(u'Cancel'), name='cancel')
+    @button.buttonAndHandler(_(u'Cancel'), name='cancel')
     def handleCancel(self, action):
         self.redirectToParent()
 
