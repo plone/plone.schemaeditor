@@ -17,7 +17,7 @@ except ImportError:
         IDatetime = interfaces.IDatetime
         IDate = interfaces.IDate
 
-from plone.schemaeditor import SchemaEditorMessageFactory as _
+from plone.schemaeditor import _
 
 
 # get rid of unhelpful help text

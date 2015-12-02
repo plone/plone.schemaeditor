@@ -10,7 +10,7 @@ from plone.z3cform.layout import wrap_form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 
-from plone.schemaeditor import SchemaEditorMessageFactory as _
+from plone.schemaeditor import _
 from plone.schemaeditor import interfaces
 from plone.schemaeditor.utils import IEditableSchema, non_fieldset_fields,\
     sortedFields

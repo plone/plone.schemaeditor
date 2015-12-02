@@ -103,7 +103,7 @@ If the schema is edited to have internationalized attributes::
 
     >>> from zope.i18nmessageid import Message
     >>> IDummySchema['favorite_color'].description = Message(
-    ...    'favorite_color', domain='plone.schemaeditor')
+    ...    'favorite_color', domain='plone')
 
 Then editing the schema will preserve those values and only update their
 default values::

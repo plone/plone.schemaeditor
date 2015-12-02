@@ -10,7 +10,8 @@ New:
 
 Fixes:
 
-- *add item here*
+- Use plone domain for translations.
+  [gforcada]
 
 
 2.0.7 (2015-09-07)

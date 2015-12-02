@@ -16,7 +16,7 @@ from zope.lifecycleevent.interfaces import IObjectAddedEvent
 from z3c.form import validator
 
 from plone.schemaeditor.interfaces import IFieldFactory
-from plone.schemaeditor import SchemaEditorMessageFactory as _
+from plone.schemaeditor import _
 from plone.schemaeditor import interfaces
 from plone.schemaeditor import schema as se_schema
 
