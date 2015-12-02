@@ -131,7 +131,7 @@ value was set::
     >>> IDummySchema['favorite_color'].description
     u'favorite_color'
     >>> IDummySchema['favorite_color'].description.domain
-    'plone.schemaeditor'
+    'plone'
     >>> IDummySchema['favorite_color'].description.default
     u'Enter your favorite color.'
 
