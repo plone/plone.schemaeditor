@@ -8,8 +8,6 @@
     <include package="plone.protect" />
     <include package="Products.statusmessages" />
 
-    <i18n:registerTranslations directory="locales"/>
-
     <include file="schema.zcml"/>
 
     <permission

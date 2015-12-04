@@ -10,7 +10,8 @@ New:
 
 Fixes:
 
-- *add item here*
+- Remove unused locales folder, translations are now in plone.app.locales
+  [vincentfretin]
 
 
 2.0.8 (2015-12-03)
