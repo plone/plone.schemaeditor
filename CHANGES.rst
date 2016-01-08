@@ -4,10 +4,6 @@ Changelog
 2.0.9 (unreleased)
 ------------------
 
-New:
-
-- *add item here*
-
 Fixes:
 
 - Remove unused locales folder, translations are now in plone.app.locales
