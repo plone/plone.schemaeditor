@@ -227,7 +227,7 @@ Now the field should be the seventh field of the schema::
     'favorite_color'
     >>> from plone.schemaeditor.utils import get_field_fieldset
     >>> get_field_fieldset(IDummySchema, 'favorite_color')
-    <Fieldset 'alpha' of fieldA, favorite_color>
+    <Fieldset 'alpha'...of fieldA, favorite_color>
 
 They can be ordered into a fieldset::
 
@@ -237,7 +237,7 @@ They can be ordered into a fieldset::
     >>> browser.contents
     ''
     >>> get_field_fieldset(IDummySchema, 'favorite_color')
-    <Fieldset 'alpha' of favorite_color, fieldA>
+    <Fieldset 'alpha'...of favorite_color, fieldA>
 
 Now the field should be the sixth field of the schema::
 
@@ -338,7 +338,7 @@ Now the actual IDummySchema schema should have the new fieldset ::
 
     >>> from plone.supermodel.interfaces import FIELDSETS_KEY
     >>> IDummySchema.getTaggedValue(FIELDSETS_KEY)
-    [<Fieldset 'alpha' of fieldA>, <Fieldset 'extra_info' of >]
+    [<Fieldset 'alpha'...of fieldA>, <Fieldset 'extra_info'...of >]
 
 
 Miscellaneous field types

@@ -10,8 +10,12 @@ New:
 
 Fixes:
 
+- Fix tests for fieldset ordering changes in plone.supermodel.
+  [thet]
+
 - Update url in setup.py to point to github.
   [esteele]
+
 
 2.0.9 (2016-01-08)
 ------------------
