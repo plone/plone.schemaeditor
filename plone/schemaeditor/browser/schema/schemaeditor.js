@@ -132,7 +132,8 @@
         $('<span class="draghandle">&#x28FF;</span>').css('cursor', 'ns-resize').prependTo('.fieldPreview.orderable .fieldLabel');
     };
     $(function () {
-        var common_content_filter = '#content>*:not(div.configlet),dl.portalMessage.error,dl.portalMessage.info';
+        var common_content_filter = '#content>*:not(div.configlet),dl.portalMessage.error,dl.portalMessage.info',
+            baseURL = window.location.href.split('?')[0];
         // delete field
         $('a.schemaeditor-delete-field').click(function (e) {
             var trigger = $(this);
@@ -140,20 +141,26 @@
             if (!confirm(trigger.attr('data-confirm_msg'))) {
                 return;
             }
-            $.post(trigger.attr('href'), null, function (data) {
+            $.post(trigger.attr('href'), {
+                _authenticator: $('input[name="_authenticator"]').val(),
+            }, function (data) {
                 trigger.closest('.fieldPreview').detach();
             }, 'text');
         });
         // reorder fields and change fieldsets
         $('.fieldPreview.orderable').plone_schemaeditor_html5_sortable(function (position, fieldset_index) {
-            var url = window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@order';
+            var url = baseURL.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@order';
             $.post(url, {
+                _authenticator: $('input[name="_authenticator"]').val(),
                 pos: position,
                 fieldset_index: fieldset_index
             });
         }, function (fieldset_index) {
-            var url = window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@changefieldset';
-            $.post(url, { fieldset_index: fieldset_index });
+            var url = baseURL.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@changefieldset';
+            $.post(url, {
+                _authenticator: $('input[name="_authenticator"]').val(),
+                fieldset_index: fieldset_index
+            });
         });
         // field settings form
         $('a.fieldSettings').prepOverlay({
