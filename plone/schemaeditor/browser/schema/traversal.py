@@ -1,4 +1,4 @@
-from zope.interface import implements
+from zope.interface import implementer
 from zope.publisher.interfaces.browser import IBrowserPublisher
 from ZPublisher.BaseRequest import DefaultPublishTraverse
 from OFS.SimpleItem import SimpleItem
@@ -7,14 +7,12 @@ from plone.schemaeditor.browser.field.traversal import FieldContext
 from plone.schemaeditor.interfaces import ISchemaContext
 
 
+@implementer(ISchemaContext, IBrowserPublisher)
 class SchemaContext(SimpleItem):
 
     """ This is a transient item that allows us to traverse through (a wrapper
         of) a zope 3 schema to (a wrapper of) a zope 3 schema field.
     """
-    # Implementing IBrowserPublisher tells the Zope 2 publish traverser to pay attention
-    # to the publishTraverse and browserDefault methods.
-    implements(ISchemaContext, IBrowserPublisher)
 
     schemaEditorView = None
     additionalSchemata = ()

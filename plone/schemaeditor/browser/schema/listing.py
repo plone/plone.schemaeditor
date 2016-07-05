@@ -1,6 +1,6 @@
 from zope.component import queryUtility
 from zope.event import notify
-from zope.interface import implements
+from zope.interface import implementer
 from z3c.form import button, form
 from z3c.form.interfaces import IEditForm, DISPLAY_MODE
 
@@ -21,8 +21,8 @@ except ImportError:
 
 
 
+@implementer(IEditForm)
 class SchemaListing(AutoExtensibleForm, form.Form):
-    implements(IEditForm)
 
     ignoreContext = True
     ignoreRequest = True

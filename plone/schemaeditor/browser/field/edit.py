@@ -1,6 +1,6 @@
 from Acquisition import aq_parent, aq_inner
 
-from zope.interface import implements, Interface
+from zope.interface import implementer, Interface
 from zope.interface.declarations import ObjectSpecificationDescriptor
 from zope.interface.declarations import getObjectSpecification
 from zope.cachedescriptors.property import Lazy as lazy_property
@@ -37,8 +37,8 @@ class IFieldTitle(Interface):
     )
 
 
+@implementer(IFieldTitle)
 class FieldTitleAdapter(object):
-    implements(IFieldTitle)
     adapts(IField)
 
     def __init__(self, field):
@@ -64,8 +64,8 @@ class FieldProxySpecification(ObjectSpecificationDescriptor):
             return inst.__provides__
 
 
+@implementer(IFieldProxy)
 class FieldProxy(object):
-    implements(IFieldProxy)
 
     __providedBy__ = FieldProxySpecification()
 
@@ -75,8 +75,8 @@ class FieldProxy(object):
         self.__dict__ = context.__dict__
 
 
+@implementer(IDataManager)
 class FieldDataManager(AttributeField):
-    implements(IDataManager)
     adapts(IFieldProxy, IField)
 
     def get(self):
@@ -98,8 +98,8 @@ class FieldDataManager(AttributeField):
         super(FieldDataManager, self).set(value)
 
 
+@implementer(IFieldEditForm)
 class FieldEditForm(AutoExtensibleForm, form.EditForm):
-    implements(IFieldEditForm)
     id = 'edit-field-form'
 
     def __init__(self, context, request):
