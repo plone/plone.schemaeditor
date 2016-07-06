@@ -5,7 +5,7 @@ from zope import component
 from zope.component import adapter
 from zope.component import getUtilitiesFor
 from zope.globalrequest import getRequest
-from zope.interface import implements
+from zope.interface import implementer
 from zope.i18n import translate
 from zope import schema
 from zope.schema import interfaces as schema_ifaces
@@ -28,8 +28,8 @@ def getFirstFieldSchema(field):
             s.isOrExtends(schema_ifaces.IField)][0]
 
 
+@implementer(IFieldFactory)
 class FieldFactory(object):
-    implements(IFieldFactory)
 
     title = u''
 
@@ -105,8 +105,8 @@ ChoiceFactory = FieldFactory(
     values=[])
 
 
+@interface.implementer(se_schema.ITextLineChoice)
 class TextLineChoiceField(object):
-    interface.implements(se_schema.ITextLineChoice)
     component.adapts(schema_ifaces.IChoice)
 
     def __init__(self, field):
@@ -225,8 +225,8 @@ MultiChoiceFactory = FieldFactory(
     value_type=schema.Choice(values=[]))
 
 
+@interface.implementer_only(se_schema.ITextLineChoice)
 class TextLineMultiChoiceField(TextLineChoiceField):
-    interface.implementsOnly(se_schema.ITextLineChoice)
     component.adapts(schema_ifaces.ISet)
 
     def __init__(self, field):

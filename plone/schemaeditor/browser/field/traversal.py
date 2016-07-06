@@ -1,4 +1,4 @@
-from zope.interface import implements
+from zope.interface import implementer
 from zope.publisher.interfaces.browser import IBrowserPublisher
 from ZPublisher.BaseRequest import DefaultPublishTraverse
 from OFS.SimpleItem import SimpleItem
@@ -7,11 +7,11 @@ from plone.schemaeditor.browser.field.edit import EditView
 from plone.schemaeditor.interfaces import IFieldContext
 
 
+@implementer(IFieldContext, IBrowserPublisher)
 class FieldContext(SimpleItem):
 
     """ wrapper for published zope 3 schema fields
     """
-    implements(IFieldContext, IBrowserPublisher)
 
     def __init__(self, context, request):
         super(FieldContext, self).__init__()

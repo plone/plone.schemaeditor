@@ -1,4 +1,4 @@
-from zope.interface import implements
+from zope.interface import implementer
 from zope.interface.interfaces import IInterface
 from zope.component import adapts
 from zope.component.interfaces import ObjectEvent
@@ -43,13 +43,13 @@ def get_field_fieldset(schema, field_name):
         return None
 
 
+@implementer(IEditableSchema)
 class EditableSchema(object):
 
     """ Zope 3 schema adapter to allow addition/removal of schema fields
 
         XXX this needs to be made threadsafe
     """
-    implements(IEditableSchema)
     adapts(IInterface)
 
     def __init__(self, schema):
@@ -151,8 +151,9 @@ class EditableSchema(object):
                 current_fieldset.fields.remove(field_name)
 
 
+@implementer(ISchemaModifiedEvent)
 class SchemaModifiedEvent(ObjectEvent):
-    implements(ISchemaModifiedEvent)
+    pass
 
 
 class FieldModifiedEvent(SchemaModifiedEvent):
