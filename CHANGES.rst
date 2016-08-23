@@ -4,7 +4,15 @@ Changelog
 1.3.12 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Backport CSRF protection from plone.schemaeditor 2.0.2, for AJAX
+  compatibility with plone.protect 3.0.x in Plone 4.3.x.
+  [seanupton]
+
+- Fix for cases where _authenticator is injected into the
+  querystring of the URL; in such cases, we get appropriate base URL.
+  This may be particular to use of plone.protect 3.0.x in Plone 4, in
+  some circumstances.
+  [seanupton]
 
 
 1.3.11 (2015-08-14)

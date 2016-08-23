@@ -18,6 +18,7 @@
 
   <metal:form metal:use-macro="context/@@ploneform-macros/form">
     <metal:top-slot metal:fill-slot="formtop">
+      <input tal:replace="structure context/@@authenticator/authenticator" />
       <script type="text/javascript"
               tal:attributes="src context/++resource++schemaeditor.js"></script>
       <style type="text/css">
