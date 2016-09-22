@@ -4,6 +4,9 @@ Changelog
 1.3.12 (unreleased)
 -------------------
 
+- Auto-include plone.protect in ZCML, so that tests will run (backport).
+  [seanupton]
+
 - Use window.href.pathname for re-order URL construction, to avoid muddled
   URL concatenation conflicting with authenticator token possibly in
   querystring.

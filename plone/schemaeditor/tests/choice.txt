@@ -13,8 +13,9 @@ schema editor.
 
     >>> user = app.acl_users.userFolderAddUser(
     ...     'root', 'secret', ['Manager'], [])
-    >>> from Testing.testbrowser import Browser
-    >>> browser = Browser()
+
+    >>> from Products.Five import testbrowser
+    >>> browser = testbrowser.Browser()
     >>> browser.handleErrors = False
     >>> browser.addHeader('Authorization', 'Basic root:secret')
 
@@ -205,5 +206,5 @@ Back to the edit form, vocabulary name is selected.
     >>> browser.getLink(url='categories').click()
     >>> print browser.contents
     <...
-    ... selected="selected">plone.schemaeditor.test.Categories</option...
+    ... selected>plone.schemaeditor.test.Categories</option...
     ...
