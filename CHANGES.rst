@@ -4,6 +4,9 @@ Changelog
 1.3.12 (unreleased)
 -------------------
 
+- Backport doctest (functional/browser) fix for choices from 2.0.
+  [seanupton]
+
 - Auto-include plone.protect in ZCML, so that tests will run (backport).
   [seanupton]
 
