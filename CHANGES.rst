@@ -4,6 +4,14 @@ Changelog
 1.3.12 (unreleased)
 -------------------
 
+- Use window.href.pathname for re-order URL construction, to avoid muddled
+  URL concatenation conflicting with authenticator token possibly in
+  querystring.
+  [seanupton]
+
+- Removed debugger statement from schemaeditor.js.
+  [seanupton]
+
 - Backport field reorder compatbility fixes from 2.0.3 for jquery.event
   drag and drop (vangheem).
   [seanupton]

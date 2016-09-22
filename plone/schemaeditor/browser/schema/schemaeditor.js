@@ -103,7 +103,6 @@
             this.ondrop = function (e) {
             	// apply change fieldset when we drop a field on a tab or a legend
                 e.preventDefault();
-                debugger;
                 var src = e.dataTransfer.getData('Text'), node = $('[data-drag_id=' + src + ']');
                 var orig_fieldset = node.parents('fieldset');
                 var orig_fieldset_id = orig_fieldset.attr('id').split('-')[1];
@@ -161,14 +160,14 @@
         });
         // reorder fields and change fieldsets
         $('.fieldPreview.orderable').plone_schemaeditor_html5_sortable(function (position, fieldset_index) {
-            var url = window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@order';
+            var url = window.location.pathname.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@order';
             $.post(url, {
                 _authenticator: $('input[name="_authenticator"]').val(),
                 pos: position,
                 fieldset_index: fieldset_index
             });
         }, function (fieldset_index) {
-            var url = window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@changefieldset';
+            var url = window.location.pathname.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@changefieldset';
             $.post(url, {
                 _authenticator: $('input[name="_authenticator"]').val(),
                 fieldset_index: fieldset_index
