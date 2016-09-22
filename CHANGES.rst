@@ -4,6 +4,10 @@ Changelog
 1.3.12 (unreleased)
 -------------------
 
+- Backport field reorder compatbility fixes from 2.0.3 for jquery.event
+  drag and drop (vangheem).
+  [seanupton]
+
 - Backport CSRF protection from plone.schemaeditor 2.0.2, for AJAX
   compatibility with plone.protect 3.0.x in Plone 4.3.x.
   [seanupton]
