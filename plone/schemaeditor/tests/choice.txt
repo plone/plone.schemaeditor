@@ -14,8 +14,8 @@ schema editor.
     >>> user = app.acl_users.userFolderAddUser(
     ...     'root', 'secret', ['Manager'], [])
 
-    >>> from Testing.testbrowser import Browser
-    >>> browser = Browser()
+    >>> from Products.Five import testbrowser
+    >>> browser = testbrowser.Browser()
     >>> browser.handleErrors = False
     >>> browser.addHeader('Authorization', 'Basic root:secret')
 
@@ -207,7 +207,7 @@ Back to the edit form, vocabulary name is selected.
 
     >>> browser.open(portal_url + '/@@schemaeditor')
     >>> browser.getLink(url='categories').click()
-    >>> print browser.contents
-    <...
-    ... selected>plone.schemaeditor.test.Categories</option...
-    ...
+    >>> from lxml import html
+    >>> result = html.fromstring(browser.contents)
+    >>> opt = result.find('.//option[@value="plone.schemaeditor.test.Categories"]')
+    >>> assert opt.get('selected') is not None

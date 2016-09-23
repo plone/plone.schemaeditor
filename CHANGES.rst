@@ -4,6 +4,11 @@ Changelog
 1.3.12 (unreleased)
 -------------------
 
+- Make tests and mocks for plone keyring work fine for both plone.protect
+  2.x and 3.x.  This required adding test dependency on lxml, as
+  plone.protect 3.x transform outputs HTML varying from 2.x.
+  [seanupton]
+
 - Backport doctest (functional/browser) fix for choices from 2.0.
   [seanupton]
 

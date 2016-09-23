@@ -71,12 +71,26 @@ class CategoriesVocabulary(BaseVocabulary):
                    ('ruby', u'Ruby')]
 
 
-class DummyKeyring(object):
+try:
+    # detect plone.protect 3.0, easier to mock
+    from plone.protect.authenticator import _getKeyring   # noqa
 
-    def random(self):
-        return 'a'
+    class DummyKeyring(object):
 
+        def random(self):
+            return 'a'
 
-DummyKeyManager = {
-    u'_forms': DummyKeyring(),
-}
+    DummyKeyManager = {
+        u'_forms': DummyKeyring(),
+    }
+except ImportError:
+    # plone.protect < 3.0
+
+    class _DummyKeyManager(object):
+        """Mock aims to be plone.protect 2.0 and 3.0 compatible"""
+
+        def secret(self, ring=u'_forms'):
+            return 'a'
+
+    DummyKeyManager = _DummyKeyManager()
+
