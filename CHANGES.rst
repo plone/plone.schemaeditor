@@ -4,7 +4,38 @@ Changelog
 1.3.12 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Make tests and mocks for plone keyring work fine for both plone.protect
+  2.x and 3.x.  This required adding test dependency on lxml, as
+  plone.protect 3.x transform outputs HTML varying from 2.x.
+  [seanupton]
+
+- Backport doctest (functional/browser) fix for choices from 2.0.
+  [seanupton]
+
+- Auto-include plone.protect in ZCML, so that tests will run (backport).
+  [seanupton]
+
+- Use window.href.pathname for re-order URL construction, to avoid muddled
+  URL concatenation conflicting with authenticator token possibly in
+  querystring.
+  [seanupton]
+
+- Removed debugger statement from schemaeditor.js.
+  [seanupton]
+
+- Backport field reorder compatbility fixes from 2.0.3 for jquery.event
+  drag and drop (vangheem).
+  [seanupton]
+
+- Backport CSRF protection from plone.schemaeditor 2.0.2, for AJAX
+  compatibility with plone.protect 3.0.x in Plone 4.3.x.
+  [seanupton]
+
+- Fix for cases where _authenticator is injected into the
+  querystring of the URL; in such cases, we get appropriate base URL.
+  This may be particular to use of plone.protect 3.0.x in Plone 4, in
+  some circumstances.
+  [seanupton]
 
 
 1.3.11 (2015-08-14)

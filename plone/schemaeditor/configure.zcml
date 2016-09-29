@@ -5,6 +5,7 @@
     i18n_domain="plone.schemaeditor">
 
     <include package="plone.z3cform"/>
+    <include package="plone.protect" />
 
     <i18n:registerTranslations directory="locales"/>
 

@@ -2,9 +2,14 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser">
 
+    <include package="Products.GenericSetup" file="meta.zcml" />
     <include package="Products.Five" file="meta.zcml" />
     <include package="Products.Five" />
     <include package="plone.schemaeditor"/>
+
+    <!-- dummy keyring -->
+    <utility component=".fixtures.DummyKeyManager"
+             provides="plone.keyring.interfaces.IKeyManager" />
 
     <!-- dummy schema editing context -->
     <browser:page

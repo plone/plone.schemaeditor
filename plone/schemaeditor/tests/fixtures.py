@@ -69,3 +69,28 @@ class CategoriesVocabulary(BaseVocabulary):
     values_list = [('php', u'PHP'),
                    ('c', u'C'),
                    ('ruby', u'Ruby')]
+
+
+try:
+    # detect plone.protect 3.0, easier to mock
+    from plone.protect.authenticator import _getKeyring   # noqa
+
+    class DummyKeyring(object):
+
+        def random(self):
+            return 'a'
+
+    DummyKeyManager = {
+        u'_forms': DummyKeyring(),
+    }
+except ImportError:
+    # plone.protect < 3.0
+
+    class _DummyKeyManager(object):
+        """Mock aims to be plone.protect 2.0 and 3.0 compatible"""
+
+        def secret(self, ring=u'_forms'):
+            return 'a'
+
+    DummyKeyManager = _DummyKeyManager()
+

@@ -43,5 +43,6 @@ setup(name='plone.schemaeditor',
           'plone.app.dexterity',
           'plone.app.testing',
           'plone.app.robotframework',
+          'lxml',
       ]},
       )
