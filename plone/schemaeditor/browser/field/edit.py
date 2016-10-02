@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from Acquisition import aq_parent, aq_inner
 
 from zope.interface import implementer, Interface

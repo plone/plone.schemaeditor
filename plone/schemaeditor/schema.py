@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from zope import interface
 from zope.schema import interfaces
 from zope import schema
