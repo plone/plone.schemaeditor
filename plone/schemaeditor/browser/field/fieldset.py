@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from Products.Five import BrowserView
 from zope.container.contained import notifyContainerModified
 from zope.event import notify

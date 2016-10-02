@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from zope.cachedescriptors.property import Lazy as lazy_property
 from zope.component import getAdapters
 from zope.event import notify

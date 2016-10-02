@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re
 from zope.component.interfaces import IObjectEvent
 from zope.interface import Invalid, invariant

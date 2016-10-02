@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from zope.interface import implementer
 from zope.publisher.interfaces.browser import IBrowserPublisher
 from ZPublisher.BaseRequest import DefaultPublishTraverse

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from zope.component import getUtilitiesFor
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary

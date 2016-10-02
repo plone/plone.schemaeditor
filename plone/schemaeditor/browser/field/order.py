@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from Products.Five import BrowserView
 from plone.schemaeditor.interfaces import IEditableSchema
 from zope.container.contained import notifyContainerModified

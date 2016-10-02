@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from zope.component import queryUtility
 from zope.event import notify
 from zope.interface import implementer

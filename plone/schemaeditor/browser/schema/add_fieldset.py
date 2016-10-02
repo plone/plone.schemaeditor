@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from zope.event import notify
 from zope.interface import Invalid
 from zope.container.contained import notifyContainerModified
