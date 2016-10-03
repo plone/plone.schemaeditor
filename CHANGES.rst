@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.3.12 (unreleased)
--------------------
+1.4 (unreleased)
+----------------
 
 - Make tests and mocks for plone keyring work fine for both plone.protect
   2.x and 3.x.  This required adding test dependency on lxml, as
