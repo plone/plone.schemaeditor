@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Re-add overlay registration for Plone 4 accidentally removed in 1.4.
+  [seanupton]
 
 
 1.4 (2016-10-03)

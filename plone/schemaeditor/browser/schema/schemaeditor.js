@@ -177,6 +177,36 @@
             var id = $.plone_schemaeditor_normalize_string($(this).val());
             $('#form-widgets-__name__').val(id);
         };
+        // field settings form
+                   $('a.fieldSettings').prepOverlay({
+            subtype: 'ajax',
+            filter: common_content_filter,
+            closeselector: 'input[name="form.buttons.cancel"]',
+            formselector: '#edit-field-form.kssattr-formname-edit',
+            noform: function(el) {
+                var o = $(el), emsg = o.find('dl.portalMessage.error');
+                if (emsg.length) {
+                    o.children().replaceWith(emsg);
+                    return false;
+                } else {
+                    return 'reload';
+                }
+            }
+        });
+        // add new field to form
+                   $('#add-field').prepOverlay({
+            subtype: 'ajax',
+            filter: common_content_filter,
+            formselector: 'form#add-field-form',
+            noform: 'reload'
+        });
+        // add new fieldset to form
+                   $('#add-fieldset').prepOverlay({
+            subtype: 'ajax',
+            filter: common_content_filter,
+            formselector: 'form#add-fieldset-form',
+            noform: 'reload'
+        });
         // set id from title
         $('body').on('focusout', '#form-widgets-title, #form-widgets-label', set_id_from_title);
     });
