@@ -4,6 +4,17 @@
 Numeric fields with range
 =========================
 
+    >>> from plone.testing.z2 import Browser
+    >>> from plone.app.testing import SITE_OWNER_NAME
+    >>> from plone.app.testing import SITE_OWNER_PASSWORD
+
+    >>> app = layer['app']
+    >>> portal = layer['app']
+    >>> portal_url = portal.absolute_url()
+
+    >>> browser = Browser(app)
+    >>> browser.handleErrors = False
+
 Let's make sure that if a numeric field is configured with a range,
 the endpoints of the range can be adjusted to values outside the
 current range.
@@ -11,17 +22,10 @@ current range.
 Log in as a user who can edit content type schemata and open the
 schema editor.
 
-    >>> user = app.acl_users.userFolderAddUser(
-    ...     'root', 'secret', ['Manager'], [])
-    >>> import transaction; transaction.commit()
-    >>> from plone.testing.z2 import Browser
-    >>> browser = Browser(app)
-    >>> browser.handleErrors = False
-    >>> browser.addHeader('Authorization', 'Basic root:secret')
+    >>> browser.addHeader('Authorization', 'Basic {0}:{1}'.format(SITE_OWNER_NAME, SITE_OWNER_PASSWORD))
 
 Open the schema editor in the browser.
 
-    >>> portal_url = 'http://nohost'
     >>> browser.open(portal_url + '/@@schemaeditor')
     >>> 'Edit @@schemaeditor' in browser.contents
     True

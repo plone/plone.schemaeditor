@@ -11,7 +11,6 @@
     <include package="Products.GenericSetup" file="meta.zcml" />
     <include package="Products.Five" file="meta.zcml" />
     <include package="Products.Five" />
-    <include package="plone.schemaeditor"/>
 
     <!-- dummy keyring -->
     <utility component=".fixtures.DummyKeyManager"
@@ -55,6 +54,7 @@
         for="z3c.form.interfaces.IWidget"
         class=".tests.RenderWidget"
         permission="zope2.View"
+        template="layout.pt"
         />
 
     <browser:page

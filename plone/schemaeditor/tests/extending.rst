@@ -58,13 +58,18 @@ Now we can bring up the edit form for one of the test fields, and it should
 have the additional 'color' setting::
 
   >>> from plone.testing.z2 import Browser
+  >>> from plone.app.testing import SITE_OWNER_NAME
+  >>> from plone.app.testing import SITE_OWNER_PASSWORD
+
+  >>> app = layer['app']
+  >>> portal = layer['app']
+  >>> portal_url = portal.absolute_url()
+
   >>> browser = Browser(app)
   >>> browser.handleErrors = False
-  >>> user = self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
-  >>> import transaction; transaction.commit()
-  >>> browser.addHeader('Authorization', 'Basic root:secret')
+  >>> browser.addHeader('Authorization', 'Basic {0}:{1}'.format(SITE_OWNER_NAME, SITE_OWNER_PASSWORD))
 
-  >>> browser.open('http://nohost/@@schemaeditor/field1')
+  >>> browser.open(portal_url + '/@@schemaeditor/field1')
   >>> color_textbox = browser.getControl('Color')
 
 We can save a color and confirm that it ends up in the schema's tagged values::

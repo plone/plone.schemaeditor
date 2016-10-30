@@ -6,10 +6,15 @@ will print out the event, so that we can make sure events are getting raised pro
 Let's set up the test browser::
 
     >>> from plone.testing.z2 import Browser
-    >>> browser = Browser(app)
-    >>> portal_url = 'http://nohost'
-    >>> browser.handleErrors = False
+    >>> from plone.app.testing import SITE_OWNER_NAME
+    >>> from plone.app.testing import SITE_OWNER_PASSWORD
 
+    >>> app = layer['app']
+    >>> portal = layer['app']
+    >>> portal_url = portal.absolute_url()
+
+    >>> browser = Browser(app)
+    >>> browser.handleErrors = False
 
 Navigating to a schema
 ----------------------
@@ -24,9 +29,7 @@ error::
 
 We need to log in as a manager, because by default only managers get the 'Manage Schemata' permission::
 
-    >>> user = self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
-    >>> import transaction; transaction.commit()
-    >>> browser.addHeader('Authorization', 'Basic root:secret')
+    >>> browser.addHeader('Authorization', 'Basic {0}:{1}'.format(SITE_OWNER_NAME, SITE_OWNER_PASSWORD))
 
 Now we should be able to navigate to the IDummySchema schema in the browser::
 

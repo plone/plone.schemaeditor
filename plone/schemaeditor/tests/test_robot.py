@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from plone.app.testing import ROBOT_TEST_LEVEL
-from plone.schemaeditor.testing import ACCEPTANCE
 from plone.testing import layered
+from plone.schemaeditor.testing import PLONE_SCHEMAEDITOR_ACCEPTANCE_TESTING
 
 import os
 import robotsuite
@@ -13,9 +13,9 @@ def test_suite():
     current_dir = os.path.abspath(os.path.dirname(__file__))
     robot_dir = os.path.join(current_dir, 'robot')
     robot_tests = [
-        os.path.join('robot', doc) for doc in
-        os.listdir(robot_dir) if doc.endswith('.robot') and
-        doc.startswith('test_')
+        os.path.join('robot', doc)
+        for doc in os.listdir(robot_dir)
+        if doc.endswith('.robot') and doc.startswith('test_')
     ]
     for robot_test in robot_tests:
         robottestsuite = robotsuite.RobotTestSuite(robot_test)
@@ -23,7 +23,7 @@ def test_suite():
         suite.addTests([
             layered(
                 robottestsuite,
-                layer=ACCEPTANCE
+                layer=PLONE_SCHEMAEDITOR_ACCEPTANCE_TESTING,
             ),
         ])
     return suite
