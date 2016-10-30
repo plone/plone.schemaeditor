@@ -4,8 +4,8 @@ from plone.schemaeditor.testing import ACCEPTANCE
 from plone.testing import layered
 
 import os
-import unittest
 import robotsuite
+import unittest
 
 
 def test_suite():

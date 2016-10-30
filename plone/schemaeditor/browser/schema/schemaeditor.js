@@ -67,9 +67,9 @@
                 return false;
             };
             this.ondrop = function (e) {
-            	/* We move the field, into the same fieldset (simple reorder into the fieldset)
-            	 * or into an other fieldset (we set a new position in a new fieldset)
-            	 */
+                /* We move the field, into the same fieldset (simple reorder into the fieldset)
+                 * or into an other fieldset (we set a new position in a new fieldset)
+                 */
                 e.preventDefault();
                 var src = e.dataTransfer.getData('Text'), node = $('[data-drag_id=' + src + ']');
                 if ($(this).attr('data-drag_id') === src) {
@@ -101,7 +101,7 @@
         });
         $('.formTabs .formTab, #form fieldset legend').attr('droppable', 'true').each(function(){
             this.ondrop = function (e) {
-            	// apply change fieldset when we drop a field on a tab or a legend
+                // apply change fieldset when we drop a field on a tab or a legend
                 e.preventDefault();
                 debugger;
                 var src = e.dataTransfer.getData('Text'), node = $('[data-drag_id=' + src + ']');
@@ -127,7 +127,7 @@
                 $(this).css('border', '');
             };
             this.ondragover = function (e) {
-            	// style when we drag over tab or legend
+                // style when we drag over tab or legend
                 e.preventDefault();
                 var draggable = e.dataTransfer.getData('draggable');
                 if (draggable) {
@@ -137,7 +137,7 @@
                 return false;
             };
             this.ondragleave = function (e) {
-            	// remove style when we leave tab or legend
+                // remove style when we leave tab or legend
                 e.preventDefault();
                 $(this).css('border', '');
                 $('#drop-marker').show();

@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-from Products.Five import BrowserView
 from plone.schemaeditor.interfaces import IEditableSchema
+from plone.schemaeditor.utils import FieldRemovedEvent
+from plone.schemaeditor.utils import SchemaModifiedEvent
+from plone.schemaeditor.utils import sortedFields
+from plone.supermodel.interfaces import FIELDSETS_KEY
+from Products.Five import BrowserView
 from zope.container.contained import notifyContainerModified
 from zope.event import notify
 from zope.lifecycleevent import ObjectRemovedEvent
-from plone.schemaeditor.utils import SchemaModifiedEvent, sortedFields
-from plone.schemaeditor.utils import FieldRemovedEvent
-from plone.supermodel.interfaces import FIELDSETS_KEY
 
 
 class FieldOrderView(BrowserView):

@@ -1,27 +1,29 @@
 # -*- coding: utf-8 -*-
-from zope.cachedescriptors.property import Lazy as lazy_property
-from zope.component import getAdapters
-from zope.event import notify
-from zope.interface import Invalid, Interface
-from zope.lifecycleevent import ObjectAddedEvent
-from z3c.form import form, field
-from z3c.form.interfaces import WidgetActionExecutionError
 from plone.autoform.form import AutoExtensibleForm
+from plone.schemaeditor import _
+from plone.schemaeditor import interfaces
+from plone.schemaeditor.utils import FieldAddedEvent
+from plone.schemaeditor.utils import IEditableSchema
+from plone.schemaeditor.utils import non_fieldset_fields
+from plone.schemaeditor.utils import sortedFields
 from plone.z3cform.layout import wrap_form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
-
-from plone.schemaeditor import _
-from plone.schemaeditor import interfaces
-from plone.schemaeditor.utils import IEditableSchema, non_fieldset_fields,\
-    sortedFields
-from plone.schemaeditor.utils import FieldAddedEvent
+from z3c.form import field
+from z3c.form import form
+from z3c.form.interfaces import WidgetActionExecutionError
+from zope.cachedescriptors.property import Lazy as lazy_property
+from zope.component import getAdapters
+from zope.event import notify
+from zope.interface import Interface
+from zope.interface import Invalid
+from zope.lifecycleevent import ObjectAddedEvent
 
 
 class FieldAddForm(AutoExtensibleForm, form.AddForm):
 
     fields = field.Fields(interfaces.INewField)
-    label = _("Add new field")
+    label = _('Add new field')
     id = 'add-field-form'
 
     # This is a trick: we want autoform to handle the additionalSchemata,
@@ -35,7 +37,7 @@ class FieldAddForm(AutoExtensibleForm, form.AddForm):
     @lazy_property
     def additionalSchemata(self):
         return [v for k, v in getAdapters((self.context, ),
-            interfaces.IFieldEditorExtender)]
+                                          interfaces.IFieldEditorExtender)]
 
     def create(self, data):
         extra = {}
@@ -77,10 +79,12 @@ class FieldAddForm(AutoExtensibleForm, form.AddForm):
         try:
             schema.addField(field)
         except ValueError:
-            raise WidgetActionExecutionError('__name__',
+            raise WidgetActionExecutionError(
+                '__name__',
                 Invalid(
                     u'Please select a field name that is not already used.'
-                ))
+                )
+            )
 
         schema.moveField(field.__name__, position)
         notify(ObjectAddedEvent(field, context.schema))
@@ -89,7 +93,7 @@ class FieldAddForm(AutoExtensibleForm, form.AddForm):
             _(u"Field added successfully."), type='info')
 
     def nextURL(self):
-        return "@@add-field"
+        return '@@add-field'
 
 
 FieldAddFormPage = wrap_form(

@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
+from plone.schemaeditor.interfaces import IEditableSchema
+from plone.schemaeditor.utils import SchemaModifiedEvent
+from plone.schemaeditor.utils import sortedFields
+from plone.supermodel.interfaces import FIELDSETS_KEY
 from Products.Five import BrowserView
 from zope.container.contained import notifyContainerModified
 from zope.event import notify
-from plone.schemaeditor.utils import SchemaModifiedEvent, sortedFields
-from plone.supermodel.interfaces import FIELDSETS_KEY
-from plone.schemaeditor.interfaces import IEditableSchema
 
 
 class ChangeFieldsetView(BrowserView):
