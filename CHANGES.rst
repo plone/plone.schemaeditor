@@ -4,14 +4,6 @@ Changelog
 1.4.1 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Re-add overlay registration for Plone 4 accidentally removed in 1.4.
