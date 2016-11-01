@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from zope.component import getUtilitiesFor
 from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
 
 class VocabulariesVocabulary(object):
@@ -16,7 +17,7 @@ class VocabulariesVocabulary(object):
             doc = [l.strip() for l in doc if l.strip()]
             if len(doc) > 0:
                 terms.append(
-                    SimpleTerm(name, name, "%s - %s" % (name, doc[0])))
+                    SimpleTerm(name, name, '{0} - {1}'.format(name, doc[0])))
             else:
                 terms.append(SimpleTerm(name, name, name))
 

@@ -1,25 +1,25 @@
 # -*- coding: utf-8 -*-
-from zope.component import queryUtility
-from zope.event import notify
-from zope.interface import implementer
-from z3c.form import button, form
-from z3c.form.interfaces import IEditForm, DISPLAY_MODE
-
-from plone.z3cform.layout import FormWrapper
-from plone.memoize.instance import memoize
 from plone.autoform.form import AutoExtensibleForm
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
+from plone.memoize.instance import memoize
 from plone.schemaeditor import _
 from plone.schemaeditor.interfaces import IFieldFactory
 from plone.schemaeditor.utils import SchemaModifiedEvent
+from plone.z3cform.layout import FormWrapper
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from z3c.form import button
+from z3c.form import form
+from z3c.form.interfaces import DISPLAY_MODE
+from z3c.form.interfaces import IEditForm
+from zope.component import queryUtility
+from zope.event import notify
+from zope.interface import implementer
+
 
 try:
     from plone.protect.utils import addTokenToUrl
 except ImportError:
     # plone.protect < 3.x, e.g. in Plone 4.3
     addTokenToUrl = None
-
 
 
 @implementer(IEditForm)
@@ -60,8 +60,10 @@ class SchemaListing(AutoExtensibleForm, form.Form):
 
     @memoize
     def _field_factory(self, field):
-        field_identifier = u'%s.%s' % (
-            field.__module__, field.__class__.__name__)
+        field_identifier = u'{0}.{1}'.format(
+            field.__module__,
+            field.__class__.__name__,
+        )
         if self.context.allowedFields is not None:
             if field_identifier not in self.context.allowedFields:
                 return None
@@ -75,21 +77,29 @@ class SchemaListing(AutoExtensibleForm, form.Form):
             return field.__class__.__name__
 
     def protected_field(self, field):
-        field_identifier = u'%s.%s' % (
-            field.__module__, field.__class__.__name__)
+        field_identifier = u'{0}.{1}'.format(
+            field.__module__,
+            field.__class__.__name__,
+        )
         field_factory = queryUtility(IFieldFactory, name=field_identifier)
         return field_factory and field_factory.protected(field)
 
     def edit_url(self, field):
         field_factory = self._field_factory(field)
         if field_factory is not None and field_factory.editable(field):
-            return '%s/%s' % (self.context.absolute_url(), field.__name__)
+            return '{0}/{1}'.format(
+                self.context.absolute_url(),
+                field.__name__,
+            )
 
     def delete_url(self, field):
 
         if field.__name__ in self.context.fieldsWhichCannotBeDeleted:
             return
-        url = '%s/%s/@@delete' % (self.context.absolute_url(), field.__name__)
+        url = '{0}/{1}/@@delete'.format(
+            self.context.absolute_url(),
+            field.__name__,
+        )
         if addTokenToUrl:
             url = addTokenToUrl(url, self.request)
         return url

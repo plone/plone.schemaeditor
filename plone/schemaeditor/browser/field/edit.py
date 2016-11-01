@@ -1,29 +1,31 @@
 # -*- coding: utf-8 -*-
-from Acquisition import aq_parent, aq_inner
-
-from zope.interface import implementer, Interface
-from zope.interface.declarations import ObjectSpecificationDescriptor
-from zope.interface.declarations import getObjectSpecification
-from zope.cachedescriptors.property import Lazy as lazy_property
-from zope.component import adapts, getAdapters
-from zope.event import notify
-from zope.schema.interfaces import IField
-from zope.security.interfaces import ForbiddenAttribute
-from zope import schema
-from zope.i18nmessageid import Message
-
-from z3c.form import form, field, button
-from z3c.form.interfaces import IDataManager
-from z3c.form.datamanager import AttributeField
-from plone.z3cform.layout import wrap_form
+from Acquisition import aq_inner
+from Acquisition import aq_parent
 from plone.autoform.form import AutoExtensibleForm
+from plone.schemaeditor import _
+from plone.schemaeditor import interfaces
+from plone.schemaeditor.interfaces import IFieldEditForm
+from plone.schemaeditor.utils import SchemaModifiedEvent
+from plone.z3cform.layout import wrap_form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
-
-from plone.schemaeditor.interfaces import IFieldEditForm
-from plone.schemaeditor import interfaces
-from plone.schemaeditor.utils import SchemaModifiedEvent
-from plone.schemaeditor import _
+from z3c.form import button
+from z3c.form import field
+from z3c.form import form
+from z3c.form.datamanager import AttributeField
+from z3c.form.interfaces import IDataManager
+from zope import schema
+from zope.cachedescriptors.property import Lazy as lazy_property
+from zope.component import adapts
+from zope.component import getAdapters
+from zope.event import notify
+from zope.i18nmessageid import Message
+from zope.interface import implementer
+from zope.interface import Interface
+from zope.interface.declarations import getObjectSpecification
+from zope.interface.declarations import ObjectSpecificationDescriptor
+from zope.schema.interfaces import IField
+from zope.security.interfaces import ForbiddenAttribute
 
 
 _marker = object()
@@ -33,7 +35,7 @@ class IFieldTitle(Interface):
     title = schema.TextLine(
         title=schema.interfaces.ITextLine['title'].title,
         description=schema.interfaces.ITextLine['title'].description,
-        default=u"",
+        default=u'',
         required=True,
     )
 
@@ -58,6 +60,7 @@ class IFieldProxy(Interface):
 
 
 class FieldProxySpecification(ObjectSpecificationDescriptor):
+
     def __get__(self, inst, cls=None):
         if inst is None:
             return getObjectSpecification(cls)

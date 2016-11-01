@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from zope.interface import implementer
-from zope.interface.interfaces import IInterface
-from zope.component import adapts
-from zope.component.interfaces import ObjectEvent
-from zope.schema.interfaces import IField
 from plone.schemaeditor.interfaces import IEditableSchema
 from plone.schemaeditor.interfaces import ISchemaModifiedEvent
 from plone.supermodel.interfaces import FIELDSETS_KEY
+from zope.component import adapts
+from zope.component.interfaces import ObjectEvent
+from zope.interface import implementer
+from zope.interface.interfaces import IInterface
+from zope.schema.interfaces import IField
 
 
 def sortedFields(schema):
@@ -57,14 +57,17 @@ class EditableSchema(object):
         self.schema = schema
 
     def addField(self, field, name=None):
-        """ Add a field
-        """
+        """Add a field"""
         if name is None:
             name = field.__name__
 
-        if self.schema._InterfaceClass__attrs.has_key(name):
-            raise ValueError, "%s schema already has a '%s' field" % (
-                self.schema.__identifier__, name)
+        if name in self.schema._InterfaceClass__attrs:
+            raise ValueError(
+                '{0} schema already has a "{1}" field'.format(
+                    self.schema.__identifier__,
+                    name,
+                )
+            )
 
         self.schema._InterfaceClass__attrs[name] = field
         if hasattr(self.schema, '_v_attrs'):
@@ -84,15 +87,21 @@ class EditableSchema(object):
                 if field_name in fieldset.fields:
                     fieldset.fields.remove(field_name)
         except KeyError:
-            raise ValueError, "%s schema has no '%s' field" % (
-                self.schema.__identifier__, field_name)
+            raise ValueError(
+                '{0} schema has no "{1}" field'.format(
+                    self.schema.__identifier__,
+                    field_name,
+                )
+            )
 
     def moveField(self, field_name, new_pos):
-        """ Move a field to the (new_pos)th position in the schema's sort order (indexed beginning
-            at 0).
+        """ Move a field to the (new_pos)th position in the schema's sort
+        order (indexed beginning at 0).
 
-            Schema fields are assigned an 'order' attribute that increments for each new field
-            instance.  We shuffle these around in case it matters anywhere that they're unique.
+        Schema fields are assigned an 'order' attribute that increments for
+        each new field instance.
+        We shuffle these around in case it matters anywhere that they're
+        unique.
         """
         moving_field = self.schema[field_name]
         ordered_field_ids = [
@@ -100,11 +109,14 @@ class EditableSchema(object):
 
         # make sure this is sane
         if not isinstance(new_pos, int):
-            raise IndexError, 'The new field position must be an integer.'
+            raise IndexError('The new field position must be an integer.')
         if new_pos < 0:
-            raise IndexError, 'The new field position must be greater than 0.'
+            raise IndexError('The new field position must be greater than 0.')
         if new_pos >= len(ordered_field_ids):
-            raise IndexError, 'The new field position must be less than the number of fields.'
+            raise IndexError(
+                'The new field position must be less than the number of '
+                'fields.'
+            )
 
         # determine which fields we have to update the order attribute on
         cur_pos = ordered_field_ids.index(field_name)
@@ -117,11 +129,17 @@ class EditableSchema(object):
             slice_end = new_pos - 1
             if slice_end == -1:
                 slice_end = None
-            intervening_fields = [self.schema[field_id] for field_id
-                                  in ordered_field_ids[cur_pos - 1:slice_end:-1]]
+            intervening_fields = [
+                self.schema[field_id]
+                for field_id
+                in ordered_field_ids[cur_pos - 1:slice_end:-1]
+            ]
         elif new_pos > cur_pos:
-            intervening_fields = [self.schema[field_id] for field_id
-                                  in ordered_field_ids[cur_pos + 1:new_pos + 1]]
+            intervening_fields = [
+                self.schema[field_id]
+                for field_id
+                in ordered_field_ids[cur_pos + 1:new_pos + 1]
+            ]
 
         # do a little dance
         prev_order = moving_field.order

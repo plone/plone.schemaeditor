@@ -1,25 +1,24 @@
 # -*- coding: utf-8 -*-
-import copy
-import operator
-from zope import interface
+from plone.schemaeditor import schema as se_schema
+from plone.schemaeditor import _
+from plone.schemaeditor import interfaces
+from plone.schemaeditor.interfaces import IFieldFactory
+from z3c.form import validator
 from zope import component
+from zope import interface
+from zope import schema
 from zope.component import adapter
 from zope.component import getUtilitiesFor
 from zope.globalrequest import getRequest
-from zope.interface import implementer
 from zope.i18n import translate
-from zope import schema
+from zope.interface import implementer
+from zope.lifecycleevent.interfaces import IObjectAddedEvent
 from zope.schema import interfaces as schema_ifaces
 from zope.schema import vocabulary
 from zope.schema.vocabulary import SimpleVocabulary
-from zope.lifecycleevent.interfaces import IObjectAddedEvent
 
-from z3c.form import validator
-
-from plone.schemaeditor.interfaces import IFieldFactory
-from plone.schemaeditor import _
-from plone.schemaeditor import interfaces
-from plone.schemaeditor import schema as se_schema
+import copy
+import operator
 
 
 @interface.implementer(interfaces.IFieldEditFormSchema)
@@ -63,12 +62,16 @@ def FieldsVocabularyFactory(context):
     field_factories = getUtilitiesFor(IFieldFactory)
     if context.allowedFields is not None:
         field_factories = [(id, factory) for id, factory in field_factories
-                            if id in context.allowedFields]
+                           if id in context.allowedFields]
     terms = []
     for (field_id, factory) in field_factories:
-        terms.append(SimpleVocabulary.createTerm(factory,
-                                                 factory.title,
-                                                 translate(factory.title, context=request)))
+        terms.append(
+            SimpleVocabulary.createTerm(
+                factory,
+                factory.title,
+                translate(factory.title, context=request)
+            )
+        )
     terms = sorted(terms, key=operator.attrgetter('title'))
     return SimpleVocabulary(terms)
 
@@ -174,14 +177,16 @@ class VocabularyValuesValidator(validator.SimpleFieldValidator):
             if term.value in by_value:
                 raise interface.Invalid(
                     _('field_edit_error_conflicting_values',
-                      default=u"The '${value1}' vocabulary value conflicts with '${value2}'.",
+                      default=u"The '${value1}' vocabulary value conflicts "
+                              u"with '${value2}'.",
                       mapping={'value1': value,
                                'value2': by_value[term.value].value}))
 
             if term.token in by_token:
                 raise interface.Invalid(
                     _('field_edit_error_conflicting_values',
-                      default=u"The '${value1}' vocabulary value conflicts with '${value2}'.",
+                      default=u"The '${value1}' vocabulary value conflicts "
+                              u"with '${value2}'.",
                       mapping={'value1': value,
                                'value2': by_value[term.token].value}))
 
@@ -204,8 +209,11 @@ class VocabularyNameValidator(validator.SimpleFieldValidator):
         if values and self.request.form.get('form.widgets.values', None):
             raise interface.Invalid(
                 _('field_edit_error_values_and_name',
-                  default=u"You can't set a vocabulary name AND vocabulary values. "
-                          u"Please clear values field or set no value here."))
+                  default=u'You can not set a vocabulary name AND vocabulary '
+                          u'values. Please clear values field or set no value '
+                          u'here.'
+                  )
+            )
 
         return super(VocabularyNameValidator, self).validate(values)
 
@@ -239,7 +247,8 @@ class TextLineMultiChoiceField(TextLineChoiceField):
             return [term.value
                     for term in (field.value_type.vocabulary or [])]
         elif name == 'vocabularyName':
-            return getattr(field.value_type, name, None) or getattr(field, name)
+            return getattr(field.value_type, name, None) or \
+                   getattr(field, name)
         else:
             return getattr(field, name)
 

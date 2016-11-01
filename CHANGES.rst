@@ -17,6 +17,9 @@ Bug fixes:
 - Add coding headers on python files.
   [gforcada]
 
+- Update code follow Plone styleguide.
+  [gforcada]
+
 2.0.11 (2016-08-15)
 -------------------
 

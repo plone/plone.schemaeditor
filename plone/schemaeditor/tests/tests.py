@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-import os
-import unittest
-import doctest
-
-from Testing import ZopeTestCase as ztc
-from ZPublisher.BaseRequest import BaseRequest
-from zope.interface import Interface, classImplements, implementedBy
-
-from Products.Five import zcml
-from plone.z3cform.templates import ZopeTwoFormTemplateFactory
 from plone.z3cform.interfaces import IFormWrapper
+from plone.z3cform.templates import ZopeTwoFormTemplateFactory
+from Products.Five import zcml
+from Testing import ZopeTestCase as ztc
+from zope.interface import classImplements
+from zope.interface import implementedBy
+from zope.interface import Interface
+from ZPublisher.BaseRequest import BaseRequest
 
+import doctest
+import os
 import plone.schemaeditor
+import unittest
 
 
 optionflags = (doctest.ELLIPSIS |
@@ -35,8 +35,8 @@ def setUp(self):
 
     zcml.load_config('browser_testing.zcml', plone.schemaeditor.tests)
 
-    # add a test layer to the request so we can use special form templates that don't
-    # pull in main_template
+    # add a test layer to the request so we can use special form templates
+    # that don't pull in main_template
     classImplements(BaseRequest, ITestLayer)
 
 
@@ -75,5 +75,7 @@ class RenderWidget(object):
 
 
 path = lambda p: os.path.join(os.path.dirname(__file__), p)
-layout_factory = ZopeTwoFormTemplateFactory(path('layout.pt'),
-                                            form=IFormWrapper, request=ITestLayer)
+layout_factory = ZopeTwoFormTemplateFactory(
+    path('layout.pt'),
+    form=IFormWrapper, request=ITestLayer,
+)

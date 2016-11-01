@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
+from OFS.SimpleItem import SimpleItem
+from plone.schemaeditor.browser.field.traversal import FieldContext
+from plone.schemaeditor.interfaces import ISchemaContext
 from zope.interface import implementer
 from zope.publisher.interfaces.browser import IBrowserPublisher
 from ZPublisher.BaseRequest import DefaultPublishTraverse
-from OFS.SimpleItem import SimpleItem
-
-from plone.schemaeditor.browser.field.traversal import FieldContext
-from plone.schemaeditor.interfaces import ISchemaContext
 
 
 @implementer(ISchemaContext, IBrowserPublisher)
@@ -34,14 +33,19 @@ class SchemaContext(SimpleItem):
         self.Title = lambda: title
 
     def publishTraverse(self, request, name):
-        """ Look up the field whose name matches the next URL path element, and wrap it.
+        """ Look up the field whose name matches the next URL path element,
+        and wrap it.
         """
         try:
             return FieldContext(self.schema[name], self.request).__of__(self)
         except KeyError:
-            return DefaultPublishTraverse(self, request).publishTraverse(request, name)
+            return DefaultPublishTraverse(self, request).publishTraverse(
+                request,
+                name
+            )
 
     def browserDefault(self, request):
-        """ If not traversing through the schema to a field, show the SchemaListingPage.
+        """ If not traversing through the schema to a field,
+        show the SchemaListingPage.
         """
         return self, ('@@edit',)

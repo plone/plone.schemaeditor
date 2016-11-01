@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+from plone.schemaeditor import _
 from zope import interface
-from zope.schema import interfaces
 from zope import schema
+from zope.schema import interfaces
+
 
 try:
     from plone.app.z3cform.widget import IDatetimeField as IDatetime
@@ -17,8 +19,6 @@ except ImportError:
     except ImportError:
         IDatetime = interfaces.IDatetime
         IDate = interfaces.IDate
-
-from plone.schemaeditor import _
 
 
 # get rid of unhelpful help text
@@ -102,5 +102,5 @@ class ITextLineChoice(interfaces.IField):
         description=interfaces.IChoice['vocabularyName'].description,
         default=interfaces.IChoice['vocabularyName'].default,
         required=False,
-        vocabulary="plone.schemaeditor.VocabulariesVocabulary",
+        vocabulary='plone.schemaeditor.VocabulariesVocabulary',
     )
