@@ -127,7 +127,7 @@ Let's confirm that the message value was preserved and only its default
 value was set::
 
     >>> type(IDummySchema['favorite_color'].description)
-    <type 'zope.i18nmessageid.message.Message'>
+    <... 'zope.i18nmessageid.message.Message'>
     >>> IDummySchema['favorite_color'].description
     u'favorite_color'
     >>> IDummySchema['favorite_color'].description.domain
