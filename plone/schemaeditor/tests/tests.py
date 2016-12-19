@@ -48,11 +48,11 @@ def test_suite():
     return unittest.TestSuite([
 
         ztc.FunctionalDocFileSuite(
-            'field_schemata.txt',
-            'editing.txt',
-            'extending.txt',
-            'choice.txt',
-            'minmax.txt',
+            'field_schemata.rst',
+            'editing.rst',
+            'extending.rst',
+            'choice.rst',
+            'minmax.rst',
             setUp=setUp,
             tearDown=tearDown,
             optionflags=optionflags

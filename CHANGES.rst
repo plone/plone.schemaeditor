@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Test-Fix: Support latest zope.i18nmessageid.
+  [jensens]
 
 
 2.0.12 (2016-11-09)
