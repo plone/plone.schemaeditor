@@ -4,14 +4,6 @@ Changelog
 2.0.13 (unreleased)
 -------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Test-Fix: Support latest zope.i18nmessageid.
