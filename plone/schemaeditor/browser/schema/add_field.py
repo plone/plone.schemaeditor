@@ -90,7 +90,7 @@ class FieldAddForm(AutoExtensibleForm, form.AddForm):
         notify(ObjectAddedEvent(field, context.schema))
         notify(FieldAddedEvent(context, field))
         IStatusMessage(self.request).addStatusMessage(
-            _(u"Field added successfully."), type='info')
+            _(u'Field added successfully.'), type='info')
 
     def nextURL(self):
         return '@@add-field'

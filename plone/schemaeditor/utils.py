@@ -2,7 +2,7 @@
 from plone.schemaeditor.interfaces import IEditableSchema
 from plone.schemaeditor.interfaces import ISchemaModifiedEvent
 from plone.supermodel.interfaces import FIELDSETS_KEY
-from zope.component import adapts
+from zope.component import adapter
 from zope.component.interfaces import ObjectEvent
 from zope.interface import implementer
 from zope.interface.interfaces import IInterface
@@ -45,13 +45,13 @@ def get_field_fieldset(schema, field_name):
 
 
 @implementer(IEditableSchema)
+@adapter(IInterface)
 class EditableSchema(object):
 
     """ Zope 3 schema adapter to allow addition/removal of schema fields
 
         XXX this needs to be made threadsafe
     """
-    adapts(IInterface)
 
     def __init__(self, schema):
         self.schema = schema

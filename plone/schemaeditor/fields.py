@@ -7,7 +7,6 @@ from z3c.form import validator
 from zope import component
 from zope import interface
 from zope import schema
-from zope.component import adapter
 from zope.component import getUtilitiesFor
 from zope.globalrequest import getRequest
 from zope.i18n import translate
@@ -110,8 +109,8 @@ ChoiceFactory = FieldFactory(
 
 
 @interface.implementer(se_schema.ITextLineChoice)
+@component.adapter(schema_ifaces.IChoice)
 class TextLineChoiceField(object):
-    component.adapts(schema_ifaces.IChoice)
 
     def __init__(self, field):
         self.__dict__['field'] = field
@@ -156,13 +155,13 @@ class TextLineChoiceField(object):
         return delattr(self.field, name)
 
 
+@component.adapter(interface.Interface, interface.Interface,
+                   interfaces.IFieldEditForm,
+                   se_schema.ITextLinesField, interface.Interface)
 class VocabularyValuesValidator(validator.SimpleFieldValidator):
 
     """Ensure duplicate vocabulary terms are not submitted
     """
-    component.adapts(interface.Interface, interface.Interface,
-                     interfaces.IFieldEditForm,
-                     se_schema.ITextLinesField, interface.Interface)
 
     def validate(self, values):
         if values is None:
@@ -217,6 +216,7 @@ class VocabularyNameValidator(validator.SimpleFieldValidator):
 
         return super(VocabularyNameValidator, self).validate(values)
 
+
 validator.WidgetValidatorDiscriminators(
     VocabularyNameValidator,
     field=se_schema.ITextLineChoice['vocabularyName'])
@@ -235,8 +235,8 @@ MultiChoiceFactory = FieldFactory(
 
 
 @interface.implementer_only(se_schema.ITextLineChoice)
+@component.adapter(schema_ifaces.ISet)
 class TextLineMultiChoiceField(TextLineChoiceField):
-    component.adapts(schema_ifaces.ISet)
 
     def __init__(self, field):
         self.__dict__['field'] = field
@@ -272,7 +272,7 @@ class TextLineMultiChoiceField(TextLineChoiceField):
 
 
 # make Bool fields use the radio widget by default
-@adapter(schema_ifaces.IBool, IObjectAddedEvent)
+@component.adapter(schema_ifaces.IBool, IObjectAddedEvent)
 def setBoolWidget(field, event):
     schema = field.interface
     widgets = schema.queryTaggedValue('plone.autoform.widgets', {})
