@@ -161,14 +161,24 @@
         });
         // reorder fields and change fieldsets
         $('.fieldPreview.orderable').plone_schemaeditor_html5_sortable(function (position, fieldset_index) {
-            var url = window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@order';
+            var url = [location.protocol, '//',
+                       location.host,
+                       location.pathname.replace('/@@fields', ''),
+                       '/',
+                       this.attr('data-field_id'),
+                       '/@@order'].join('');
             $.post(url, {
                 _authenticator: $('input[name="_authenticator"]').val(),
                 pos: position,
                 fieldset_index: fieldset_index
             });
         }, function (fieldset_index) {
-            var url = window.location.href.replace('/@@fields', '') + '/' + this.attr('data-field_id') + '/@@changefieldset';
+            var url = [location.protocol, '//',
+                       location.host,
+                       location.pathname.replace('/@@fields', ''),
+                       '/',
+                       this.attr('data-field_id'),
+                       '/@@changefieldset'].join('');
             $.post(url, {
                 _authenticator: $('input[name="_authenticator"]').val(),
                 fieldset_index: fieldset_index

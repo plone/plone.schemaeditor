@@ -16,7 +16,7 @@ from z3c.form.datamanager import AttributeField
 from z3c.form.interfaces import IDataManager
 from zope import schema
 from zope.cachedescriptors.property import Lazy as lazy_property
-from zope.component import adapts
+from zope.component import adapter
 from zope.component import getAdapters
 from zope.event import notify
 from zope.i18nmessageid import Message
@@ -41,8 +41,8 @@ class IFieldTitle(Interface):
 
 
 @implementer(IFieldTitle)
+@adapter(IField)
 class FieldTitleAdapter(object):
-    adapts(IField)
 
     def __init__(self, field):
         self.field = field
@@ -80,8 +80,8 @@ class FieldProxy(object):
 
 
 @implementer(IDataManager)
+@adapter(IFieldProxy, IField)
 class FieldDataManager(AttributeField):
-    adapts(IFieldProxy, IField)
 
     def get(self):
         value = super(FieldDataManager, self).get()

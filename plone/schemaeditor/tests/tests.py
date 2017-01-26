@@ -74,8 +74,7 @@ class RenderWidget(object):
         return self.widget.render()
 
 
-path = lambda p: os.path.join(os.path.dirname(__file__), p)
 layout_factory = ZopeTwoFormTemplateFactory(
-    path('layout.pt'),
+    os.path.join(os.path.dirname(__file__), 'layout.pt'),
     form=IFormWrapper, request=ITestLayer,
 )

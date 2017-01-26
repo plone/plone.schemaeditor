@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fix POST AJAX-URL for reordering fields
+  [tomgross]
 
 
 2.0.13 (2017-01-01)

@@ -21,13 +21,11 @@ import re
 
 
 class ISchemaView(IBrowserPage):
-
     """ A publishable view of a zope 3 schema
     """
 
 
 class ISchemaContext(IItem):
-
     """ A publishable wrapper of a zope 3 schema
     """
 
@@ -63,7 +61,6 @@ class ISchemaModifiedEvent(IObjectEvent):
 
 
 class IFieldContext(IItem):
-
     """ A publishable wrapper of a zope 3 schema field
     """
 
@@ -73,7 +70,6 @@ class IFieldContext(IItem):
 
 
 class IFieldEditorExtender(IInterface):
-
     """ An additional schema for use when editing a field."""
 
 
@@ -130,6 +126,7 @@ class IFieldEditForm(IEditForm):
 class IFieldEditFormSchema(Interface):
     """ The schema describing the form fields for a field.
     """
+
 
 RESERVED_NAMES = (
     'subject',
