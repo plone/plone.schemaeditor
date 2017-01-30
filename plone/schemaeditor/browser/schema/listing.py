@@ -29,6 +29,7 @@ class SchemaListing(AutoExtensibleForm, form.Form):
     ignoreRequest = True
     showEmptyGroups = True
     template = ViewPageTemplateFile('schema_listing.pt')
+    ignoreRequiredOnExtract = True
 
     @property
     def schema(self):
@@ -109,14 +110,6 @@ class SchemaListing(AutoExtensibleForm, form.Form):
         condition=lambda form: getattr(form.context, 'showSaveDefaults', True)
     )
     def handleSaveDefaults(self, action):
-        # ignore fields from behaviors by setting their widgets' modes
-        # to the display mode while we extract the form values (hack!)
-        widget_modes = {}
-        for widget in self._iterateOverWidgets():
-            if widget.field.interface is not self.context.schema:
-                widget_modes[widget] = widget.mode
-                widget.mode = DISPLAY_MODE
-
         data, errors = self.extractData()
         if errors:
             self.status = self.formErrorsMessage
@@ -125,10 +118,6 @@ class SchemaListing(AutoExtensibleForm, form.Form):
         for fname, value in data.items():
             self.context.schema[fname].default = value
         notify(SchemaModifiedEvent(self.context))
-
-        # restore the actual widget modes so they render a preview
-        for widget, mode in widget_modes.items():
-            widget.mode = mode
 
         # update widgets to take the new defaults into account
         self.updateWidgets()

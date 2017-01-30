@@ -21,6 +21,9 @@ Bug fixes:
   instead of Products.Five.testbrowser
   [davisagli]
 
+- Cleaner implementation of bypassing required check for setting
+  default values, which actually works
+  [tomgross]
 
 2.0.13 (2017-01-01)
 -------------------
