@@ -43,7 +43,7 @@ class FieldsetAddForm(form.AddForm):
         notifyContainerModified(schema)
         notify(SchemaModifiedEvent(self.context))
         IStatusMessage(self.request).addStatusMessage(
-            _(u"Fieldset added successfully."), type='info')
+            _(u'Fieldset added successfully.'), type='info')
 
     def nextURL(self):
         return '@@add-fieldset'

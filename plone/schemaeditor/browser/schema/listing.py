@@ -8,7 +8,6 @@ from plone.z3cform.layout import FormWrapper
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form import button
 from z3c.form import form
-from z3c.form.interfaces import DISPLAY_MODE
 from z3c.form.interfaces import IEditForm
 from zope.component import queryUtility
 from zope.event import notify
