@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from plone.z3cform.interfaces import IFormWrapper
 from plone.z3cform.templates import ZopeTwoFormTemplateFactory
-from Products.Five import zcml
 from Testing import ZopeTestCase as ztc
 from zope.interface import classImplements
 from zope.interface import implementedBy
@@ -13,6 +12,11 @@ import os
 import plone.schemaeditor
 import unittest
 
+# BBB for Zope 2.12
+try:
+    from Zope2.App import zcml
+except ImportError:
+    from Products.Five import zcml
 
 optionflags = (doctest.ELLIPSIS |
                doctest.NORMALIZE_WHITESPACE |
