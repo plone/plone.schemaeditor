@@ -5,7 +5,7 @@ will print out the event, so that we can make sure events are getting raised pro
 
 Let's set up the test browser::
 
-    >>> from Products.Five.testbrowser import Browser
+    >>> from Testing.testbrowser import Browser
     >>> browser = Browser()
     >>> portal_url = 'http://nohost'
     >>> browser.handleErrors = False
