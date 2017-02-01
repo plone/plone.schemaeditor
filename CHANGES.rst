@@ -17,6 +17,10 @@ Bug fixes:
 - Fix POST AJAX-URL for reordering fields
   [tomgross]
 
+- Import test browser from Testing.testbrowser
+  instead of Products.Five.testbrowser
+  [davisagli]
+
 
 2.0.13 (2017-01-01)
 -------------------
