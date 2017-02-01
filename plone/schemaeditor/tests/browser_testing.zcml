@@ -1,6 +1,12 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:browser="http://namespaces.zope.org/browser">
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml">
+
+    <!-- only load PageTemplates zcml in Zope 4 -->
+    <configure zcml:condition="installed Products.PageTemplates.engine">
+        <include package="Products.PageTemplates" />
+    </configure>
 
     <include package="Products.GenericSetup" file="meta.zcml" />
     <include package="Products.Five" file="meta.zcml" />
