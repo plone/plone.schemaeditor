@@ -59,4 +59,4 @@ class ChangeFieldsetView(BrowserView):
         schema.moveField(field_name, new_position)
 
         notifyContainerModified(self.schema)
-        notify(SchemaModifiedEvent(self.aq_parent.aq_parent))
+        notify(SchemaModifiedEvent(self.__parent__.__parent__))

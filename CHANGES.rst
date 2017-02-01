@@ -21,6 +21,12 @@ Bug fixes:
   instead of Products.Five.testbrowser
   [davisagli]
 
+- Fix test setup for Zope 4.
+  [davisagli]
+
+- Use __parent__ instead of aq_parent.
+  [davisagli]
+
 
 2.0.13 (2017-01-01)
 -------------------

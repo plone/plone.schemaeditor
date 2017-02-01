@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_inner
-from Acquisition import aq_parent
 from plone.autoform.form import AutoExtensibleForm
 from plone.schemaeditor import _
 from plone.schemaeditor import interfaces
@@ -123,7 +122,7 @@ class FieldEditForm(AutoExtensibleForm, form.EditForm):
 
     @lazy_property
     def additionalSchemata(self):
-        schema_context = self.context.aq_parent
+        schema_context = self.context.__parent__
         return [v for k, v in getAdapters((schema_context, self.field),
                                           interfaces.IFieldEditorExtender)]
 
@@ -165,14 +164,14 @@ class FieldEditForm(AutoExtensibleForm, form.EditForm):
             IStatusMessage(self.request).addStatusMessage(
                 self.noChangesMessage, type='info')
 
-        notify(SchemaModifiedEvent(self.context.aq_parent))
+        notify(SchemaModifiedEvent(self.context.__parent__))
 
     @button.buttonAndHandler(_(u'Cancel'), name='cancel')
     def handleCancel(self, action):
         self.redirectToParent()
 
     def redirectToParent(self):
-        parent = aq_parent(aq_inner(self.context))
+        parent = aq_inner(self.context).__parent__
         url = parent.absolute_url()
         if hasattr(parent, 'schemaEditorView') and parent.schemaEditorView:
             url += '/@@' + parent.schemaEditorView
