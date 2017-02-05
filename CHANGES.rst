@@ -4,14 +4,6 @@ Changelog
 2.0.14 (unreleased)
 -------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Fix POST AJAX-URL for reordering fields
