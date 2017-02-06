@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.14 (unreleased)
+2.0.15 (unreleased)
 -------------------
 
 Breaking changes:
@@ -14,6 +14,16 @@ New features:
 
 Bug fixes:
 
+- Cleaner implementation of bypassing required check for setting
+  default values, which actually works
+  [tomgross]
+
+
+2.0.14 (2017-02-05)
+-------------------
+
+Bug fixes:
+
 - Fix POST AJAX-URL for reordering fields
   [tomgross]
 
@@ -21,9 +31,12 @@ Bug fixes:
   instead of Products.Five.testbrowser
   [davisagli]
 
-- Cleaner implementation of bypassing required check for setting
-  default values, which actually works
-  [tomgross]
+- Fix test setup for Zope 4.
+  [davisagli]
+
+- Use __parent__ instead of aq_parent.
+  [davisagli]
+
 
 2.0.13 (2017-01-01)
 -------------------
