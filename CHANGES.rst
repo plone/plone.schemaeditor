@@ -14,7 +14,9 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Cleaner implementation of bypassing required check for setting
+  default values, which actually works
+  [tomgross]
 
 
 2.0.14 (2017-02-05)

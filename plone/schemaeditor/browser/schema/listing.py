@@ -8,7 +8,6 @@ from plone.z3cform.layout import FormWrapper
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form import button
 from z3c.form import form
-from z3c.form.interfaces import DISPLAY_MODE
 from z3c.form.interfaces import IEditForm
 from zope.component import queryUtility
 from zope.event import notify
@@ -29,6 +28,7 @@ class SchemaListing(AutoExtensibleForm, form.Form):
     ignoreRequest = True
     showEmptyGroups = True
     template = ViewPageTemplateFile('schema_listing.pt')
+    ignoreRequiredOnExtract = True
 
     @property
     def schema(self):
@@ -109,14 +109,6 @@ class SchemaListing(AutoExtensibleForm, form.Form):
         condition=lambda form: getattr(form.context, 'showSaveDefaults', True)
     )
     def handleSaveDefaults(self, action):
-        # ignore fields from behaviors by setting their widgets' modes
-        # to the display mode while we extract the form values (hack!)
-        widget_modes = {}
-        for widget in self._iterateOverWidgets():
-            if widget.field.interface is not self.context.schema:
-                widget_modes[widget] = widget.mode
-                widget.mode = DISPLAY_MODE
-
         data, errors = self.extractData()
         if errors:
             self.status = self.formErrorsMessage
@@ -125,10 +117,6 @@ class SchemaListing(AutoExtensibleForm, form.Form):
         for fname, value in data.items():
             self.context.schema[fname].default = value
         notify(SchemaModifiedEvent(self.context))
-
-        # restore the actual widget modes so they render a preview
-        for widget, mode in widget_modes.items():
-            widget.mode = mode
 
         # update widgets to take the new defaults into account
         self.updateWidgets()
