@@ -5,8 +5,8 @@ will print out the event, so that we can make sure events are getting raised pro
 
 Let's set up the test browser::
 
-    >>> from Testing.testbrowser import Browser
-    >>> browser = Browser()
+    >>> from plone.testing.z2 import Browser
+    >>> browser = Browser(app)
     >>> portal_url = 'http://nohost'
     >>> browser.handleErrors = False
 
@@ -25,6 +25,7 @@ error::
 We need to log in as a manager, because by default only managers get the 'Manage Schemata' permission::
 
     >>> user = self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
+    >>> import transaction; transaction.commit()
     >>> browser.addHeader('Authorization', 'Basic root:secret')
 
 Now we should be able to navigate to the IDummySchema schema in the browser::

@@ -18,6 +18,9 @@ Bug fixes:
   default values, which actually works
   [tomgross]
 
+- Use test browser from plone.testing for compatibility with Zope 4
+  [davisagli]
+
 
 2.0.14 (2017-02-05)
 -------------------
