@@ -57,10 +57,11 @@ we need an adapter that provides the IFieldColor interface::
 Now we can bring up the edit form for one of the test fields, and it should
 have the additional 'color' setting::
 
-  >>> from Testing.testbrowser import Browser
-  >>> browser = Browser()
+  >>> from plone.testing.z2 import Browser
+  >>> browser = Browser(app)
   >>> browser.handleErrors = False
   >>> user = self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
+  >>> import transaction; transaction.commit()
   >>> browser.addHeader('Authorization', 'Basic root:secret')
 
   >>> browser.open('http://nohost/@@schemaeditor/field1')

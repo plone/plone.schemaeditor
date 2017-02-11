@@ -13,8 +13,9 @@ schema editor.
 
     >>> user = app.acl_users.userFolderAddUser(
     ...     'root', 'secret', ['Manager'], [])
-    >>> from Testing import testbrowser
-    >>> browser = testbrowser.Browser()
+    >>> import transaction; transaction.commit()
+    >>> from plone.testing.z2 import Browser
+    >>> browser = Browser(app)
     >>> browser.handleErrors = False
     >>> browser.addHeader('Authorization', 'Basic root:secret')
 
