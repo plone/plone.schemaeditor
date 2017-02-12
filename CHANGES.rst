@@ -4,14 +4,6 @@ Changelog
 2.0.15 (unreleased)
 -------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Cleaner implementation of bypassing required check for setting
