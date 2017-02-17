@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Remove unnecessary test fixture.
+  [davisagli]
 
 
 2.0.15 (2017-02-12)
