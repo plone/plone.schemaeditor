@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from plone.app.testing import ROBOT_TEST_LEVEL
-from plone.schemaeditor.testing import ACCEPTANCE
+from plone.app.robotframework.testing import PLONE_ROBOT_FIXTURE
 from plone.testing import layered
 
 import os
@@ -23,7 +23,7 @@ def test_suite():
         suite.addTests([
             layered(
                 robottestsuite,
-                layer=ACCEPTANCE
+                layer=PLONE_ROBOT_FIXTURE
             ),
         ])
     return suite
