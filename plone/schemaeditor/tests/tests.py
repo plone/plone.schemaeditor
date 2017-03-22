@@ -5,6 +5,7 @@ from Testing import ZopeTestCase as ztc
 from zope.interface import classImplements
 from zope.interface import implementedBy
 from zope.interface import Interface
+from Zope2.App import zcml
 from ZPublisher.BaseRequest import BaseRequest
 
 import doctest
@@ -12,11 +13,6 @@ import os
 import plone.schemaeditor
 import unittest
 
-# BBB for Zope 2.12
-try:
-    from Zope2.App import zcml
-except ImportError:
-    from Products.Five import zcml
 
 optionflags = (doctest.ELLIPSIS |
                doctest.NORMALIZE_WHITESPACE |
@@ -24,18 +20,8 @@ optionflags = (doctest.ELLIPSIS |
 
 
 def setUp(self):
-    try:
-        from Zope2.App.schema import configure_vocabulary_registry
-    except ImportError:
-        try:
-            from zope.schema.vocabulary import setVocabularyRegistry
-            from Products.Five.schema import Zope2VocabularyRegistry
-        except ImportError:
-            pass
-        else:
-            setVocabularyRegistry(Zope2VocabularyRegistry())
-    else:
-        configure_vocabulary_registry()
+    from Zope2.App.schema import configure_vocabulary_registry
+    configure_vocabulary_registry()
 
     zcml.load_config('browser_testing.zcml', plone.schemaeditor.tests)
 

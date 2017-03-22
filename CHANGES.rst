@@ -15,6 +15,9 @@ New features:
 - Allow specifying a vocabulary in the form of *key|label* in (multi)choice fields
   [tomgross]
 
+- Removed very old import conditions
+  [tomgross]
+
 Bug fixes:
 
 - Fix Schemaeditor fields editing UI to be able to move fields into another fieldset.

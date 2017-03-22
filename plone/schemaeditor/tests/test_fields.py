@@ -3,6 +3,7 @@ from plone.app.testing import PLONE_FIXTURE
 from plone.schemaeditor.fields import TextLineChoiceField
 from plone.schemaeditor.fields import TextLineMultiChoiceField
 from zope.schema.interfaces import IVocabularyTokenized
+
 import unittest
 
 
@@ -13,6 +14,7 @@ class DummyField(object):
         self.value_type = self
 
     vocabulary = None
+
 
 class VocabularyTestCase(unittest.TestCase):
 
@@ -42,4 +44,3 @@ class VocabularyTestCase(unittest.TestCase):
             [(u'New York', u'New York', u'New York'),
              (u'city1', u'city1', u'Zürich')]
             )
-
