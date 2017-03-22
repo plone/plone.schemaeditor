@@ -12,6 +12,8 @@ New features:
 
 - Add fields in field editing UI to the current selected fieldset.
   [thet]
+- Allow specifying a vocabulary in the form of *key|label* in (multi)choice fields
+  [tomgross]
 
 Bug fixes:
 

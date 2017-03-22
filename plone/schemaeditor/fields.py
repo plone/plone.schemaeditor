@@ -117,17 +117,30 @@ class TextLineChoiceField(object):
 
     def __getattr__(self, name):
         if name == 'values':
-            return [term.value for term in (self.field.vocabulary or [])]
+            values = []
+            for term in (self.field.vocabulary or []):
+                if term.value != term.title:
+                    values.append('%s|%s' % (term.value, term.title))
+                else:
+                    values.append(term.value)
+            return values
+
 
         return getattr(self.field, name)
 
     def _constructVocabulary(self, value):
         terms = []
         if value:
-            for value in value:
+            for item in value:
+                if item and '|' in item:
+                    voc_value, voc_title = item.split('|', 1)
+                else:
+                    voc_value = item
+                    voc_title = item
+
                 term = vocabulary.SimpleTerm(
-                    token=value.encode('unicode_escape'),
-                    value=value, title=value)
+                    token=voc_value.encode('unicode_escape'),
+                    value=voc_value, title=voc_title)
                 terms.append(term)
 
         return vocabulary.SimpleVocabulary(terms)
@@ -244,8 +257,13 @@ class TextLineMultiChoiceField(TextLineChoiceField):
     def __getattr__(self, name):
         field = self.field
         if name == 'values':
-            return [term.value
-                    for term in (field.value_type.vocabulary or [])]
+            values = []
+            for term in (self.field.vocabulary or []):
+                if term.value != term.title:
+                    values.append('%s|%s' % (term.value, term.title))
+                else:
+                    values.append(term.value)
+            return values
         elif name == 'vocabularyName':
             return getattr(field.value_type, name, None) or \
                    getattr(field, name)
