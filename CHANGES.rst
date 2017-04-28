@@ -16,6 +16,9 @@ Bug fixes:
 
 - *add item here*
 
+- JavaScript formating according to style guides.
+  [thet]
+
 
 2.0.15 (2017-02-12)
 -------------------
