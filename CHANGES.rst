@@ -14,7 +14,9 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fix Schemaeditor fields editing UI to be able to move fields into another fieldset.
+  Fixes: #30.
+  [thet]
 
 - JavaScript formating according to style guides.
   [thet]

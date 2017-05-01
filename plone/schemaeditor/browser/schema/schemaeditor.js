@@ -1,6 +1,9 @@
 /*globals require */
 require(['jquery'], function($) {
     'use strict';
+
+    var droppable_initialized = false;
+
     $.plone_schemaeditor_normalize_string = function(s) {
         s = s.toLowerCase();
         var rules = {
@@ -36,6 +39,10 @@ require(['jquery'], function($) {
                 $(this).attr('data-drag_id', i);
 
                 this.ondragstart = function(e) {
+
+                    // initialize droppables on drag start - on document ready the tabs may not be initialized
+                    initialize_droppable(changefieldset_callback);
+
                     e.dataTransfer.setData('Text', $(this).attr('data-drag_id'));
                     e.dataTransfer.setData('draggable', true);
                     $(
@@ -106,20 +113,36 @@ require(['jquery'], function($) {
                     $('#drop-marker').remove();
                 };
             });
+
+        $('<span class="draghandle">&#x28FF;</span>')
+            .css('cursor', 'ns-resize')
+            .prependTo('.fieldPreview.orderable .fieldLabel');
+    };
+
+    var initialize_droppable = function (changefieldset_callback) {
+
+        if (droppable_initialized) {
+            // Don't do expensive double-initialization, when it's not necessary.
+            return;
+        }
+
         // Make tab and legend elements droppable. we drop on legend when form tabbing is disabled
+        $('#form .autotoc-nav > a').attr('droppable', 'true').each(function(i) {
+            // Plone 5 / mockup
+            $(this).attr('data-fieldset_drag_id', i);
+        });
         $('#form fieldset legend').attr('droppable', 'true').each(function(i) {
             $(this).attr('data-fieldset_drag_id', i);
         });
         $('.formTabs .formTab').attr('droppable', 'true').each(function(i) {
             $(this).attr('data-fieldset_drag_id', i);
         });
-        $('.formTabs .formTab, #form fieldset legend')
+        $('#form .autotoc-nav > a, .formTabs .formTab, #form fieldset legend')
             .attr('droppable', 'true')
             .each(function() {
                 this.ondrop = function(e) {
                     // apply change fieldset when we drop a field on a tab or a legend
                     e.preventDefault();
-                    debugger;
                     var src = e.dataTransfer.getData('Text'),
                         node = $('[data-drag_id=' + src + ']');
                     var orig_fieldset = node.parents('fieldset');
@@ -167,11 +190,11 @@ require(['jquery'], function($) {
                     $('#drop-marker').show();
                 };
             });
-        $('<span class="draghandle">&#x28FF;</span>')
-            .css('cursor', 'ns-resize')
-            .prependTo('.fieldPreview.orderable .fieldLabel');
+
+        droppable_initialized = true;
     };
-    $(function() {
+
+    $(document).ready(function() {
         // delete field
         $('a.schemaeditor-delete-field').click(function(e) {
             var trigger = $(this);
