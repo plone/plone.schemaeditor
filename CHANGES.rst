@@ -21,6 +21,9 @@ Bug fixes:
 - JavaScript formating according to style guides.
   [thet]
 
+- Cleanup: Remove Plone 4 related form tabbing CSS selectors from fields editing UI JavaScript.
+  [thet]
+
 
 2.0.15 (2017-02-12)
 -------------------

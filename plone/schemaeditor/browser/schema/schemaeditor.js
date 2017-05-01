@@ -134,10 +134,7 @@ require(['jquery'], function($) {
         $('#form fieldset legend').attr('droppable', 'true').each(function(i) {
             $(this).attr('data-fieldset_drag_id', i);
         });
-        $('.formTabs .formTab').attr('droppable', 'true').each(function(i) {
-            $(this).attr('data-fieldset_drag_id', i);
-        });
-        $('#form .autotoc-nav > a, .formTabs .formTab, #form fieldset legend')
+        $('#form .autotoc-nav > a, #form fieldset legend')
             .attr('droppable', 'true')
             .each(function() {
                 this.ondrop = function(e) {
