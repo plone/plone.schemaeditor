@@ -3,9 +3,8 @@ from plone.autoform.form import AutoExtensibleForm
 from plone.schemaeditor import _
 from plone.schemaeditor import interfaces
 from plone.schemaeditor.utils import FieldAddedEvent
+from plone.schemaeditor.utils import new_field_position
 from plone.schemaeditor.utils import IEditableSchema
-from plone.schemaeditor.utils import non_fieldset_fields
-from plone.schemaeditor.utils import sortedFields
 from plone.z3cform.layout import wrap_form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
@@ -42,10 +41,9 @@ class FieldAddForm(AutoExtensibleForm, form.AddForm):
     def create(self, data):
         extra = {}
         factory = data.pop('factory')
-        all = data.keys()
 
         # split regular attributes and extra ones
-        for key in all:
+        for key in data.keys():
             if key not in self._schema:
                 extra[key] = data[key]
                 data.pop(key)
@@ -63,21 +61,13 @@ class FieldAddForm(AutoExtensibleForm, form.AddForm):
 
         return field_obj
 
-    def add(self, field):
-        context = self.context
-        schema = IEditableSchema(context.schema)
-
-        # move it after the last field that is not in a fieldset
-        # or at top if there is no field yet in "default" fieldset
-        ordered_fields = [name for (name, f) in sortedFields(context.schema)]
-        default_fields = non_fieldset_fields(context.schema)
-        if len(default_fields) > 0:
-            position = ordered_fields.index(default_fields[-1]) + 1
-        else:
-            position = 0
+    def add(self, new_field):
+        schema = self.context.schema
+        position = new_field_position(schema)
+        editable_schema = IEditableSchema(schema)
 
         try:
-            schema.addField(field)
+            editable_schema.addField(new_field)
         except ValueError:
             raise WidgetActionExecutionError(
                 '__name__',
@@ -86,9 +76,9 @@ class FieldAddForm(AutoExtensibleForm, form.AddForm):
                 )
             )
 
-        schema.moveField(field.__name__, position)
-        notify(ObjectAddedEvent(field, context.schema))
-        notify(FieldAddedEvent(context, field))
+        editable_schema.moveField(new_field.__name__, position)
+        notify(ObjectAddedEvent(new_field, schema))
+        notify(FieldAddedEvent(self.context, new_field))
         IStatusMessage(self.request).addStatusMessage(
             _(u'Field added successfully.'), type='info')
 
