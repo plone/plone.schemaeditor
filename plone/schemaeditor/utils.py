@@ -46,25 +46,26 @@ def get_field_fieldset(schema, field_name):
 def get_fieldset_from_index(schema, index):
     """Return a fieldset from a schema according to it's index.
     """
-    index = int(index) - 1
+    index = int(index or 0) - 1
     fieldsets = schema.queryTaggedValue(FIELDSETS_KEY, [])
     return fieldsets[index] if index >= 0 else None
 
 
-def new_field_position(schema, fieldset=None):
+def new_field_position(schema, fieldset_id=None):
     """Get the position for a new field in a schema's fieldset.
-    If fieldset is ``None``, the default fieldset is used.
+    If fieldset_id is ``None`` or ``0``, the default fieldset is used.
     """
+    fieldset_id = int(fieldset_id or 0)
     position = 0
     ordered_field_ids = [info[0] for info in sortedFields(schema)]
-    if not fieldset:
+    if not fieldset_id:
         default_fields = non_fieldset_fields(schema)
         if len(default_fields) > 0:
             position = ordered_field_ids.index(default_fields[-1]) + 1
     else:
         # First we get the first of the fieldsets after the new one
         fieldsets = schema.queryTaggedValue(FIELDSETS_KEY, [])
-        for fs in fieldsets[fieldsets.index(fieldset) + 1:]:
+        for fs in fieldsets[fieldset_id + 1:]:
             if len(fs.fields) > 0:
                 position = ordered_field_ids.index(fs.fields[0]) - 1
                 break

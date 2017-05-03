@@ -2,8 +2,6 @@
 require(['jquery'], function($) {
     'use strict';
 
-    var droppable_initialized = false;
-
     $.plone_schemaeditor_normalize_string = function(s) {
         s = s.toLowerCase();
         var rules = {
@@ -25,24 +23,21 @@ require(['jquery'], function($) {
             s = s.replace(rules[r], r);
         return s.replace(/[^a-z0-9_]/g, '_');
     };
-    $.fn.plone_schemaeditor_html5_sortable = function(
-        reorder_callback,
-        changefieldset_callback
-    ) {
-        /* Takes two callbacks as arguments
+    $.fn.plone_schemaeditor_html5_sortable = function(reorder_callback, changefieldset_callback) {
+        /* Takes two callbacks as arguments:
          * reorder_callback : the callback when we move a field relatively to other fields
          * changefieldset_callback : the callback when we move a field to a legend or a tab
          */
+
+        // ///////////
+        // DRAGGABLES
+
         this.attr('draggable', 'true')
             .css('-webkit-user-drag', 'element')
             .each(function(i) {
                 $(this).attr('data-drag_id', i);
 
                 this.ondragstart = function(e) {
-
-                    // initialize droppables on drag start - on document ready the tabs may not be initialized
-                    initialize_droppable(changefieldset_callback);
-
                     e.dataTransfer.setData('Text', $(this).attr('data-drag_id'));
                     e.dataTransfer.setData('draggable', true);
                     $(
@@ -114,17 +109,9 @@ require(['jquery'], function($) {
                 };
             });
 
-        $('<span class="draghandle">&#x28FF;</span>')
-            .css('cursor', 'ns-resize')
-            .prependTo('.fieldPreview.orderable .fieldLabel');
-    };
 
-    var initialize_droppable = function (changefieldset_callback) {
-
-        if (droppable_initialized) {
-            // Don't do expensive double-initialization, when it's not necessary.
-            return;
-        }
+        // ///////////
+        // DROPPABLES
 
         // Make tab and legend elements droppable. we drop on legend when form tabbing is disabled
         $('#form .autotoc-nav > a').attr('droppable', 'true').each(function(i) {
@@ -188,10 +175,23 @@ require(['jquery'], function($) {
                 };
             });
 
-        droppable_initialized = true;
+
+        $('<span class="draghandle">&#x28FF;</span>')
+            .css('cursor', 'ns-resize')
+            .prependTo('.fieldPreview.orderable .fieldLabel');
     };
 
-    $(document).ready(function() {
+
+    function init_add_field (fieldset_id) {
+        if (fieldset_id) {
+            var $add_field = $('a#add-field');
+            var href = $add_field.attr('href').split('?')[0];  // get base href without any previously set ``fieldset_id``.
+            $add_field.attr('href', href + '?fieldset_id=' + fieldset_id);
+        }
+    }
+
+    function init_schemaeditor() {
+
         // delete field
         $('a.schemaeditor-delete-field').click(function(e) {
             var trigger = $(this);
@@ -209,7 +209,20 @@ require(['jquery'], function($) {
                 'text'
             );
         });
+
+        var set_id_from_title = function() {
+            var id = $.plone_schemaeditor_normalize_string($(this).val());
+            $('#form-widgets-__name__').val(id);
+        };
+        // set id from title
+        $('body').on(
+            'focusout',
+            '#form-widgets-title, #form-widgets-label',
+            set_id_from_title
+        );
+
         // reorder fields and change fieldsets
+        // initialize after autotoc pattern is loaded.
         $('.fieldPreview.orderable').plone_schemaeditor_html5_sortable(
             function(position, fieldset_index) {
                 var url = [
@@ -243,16 +256,36 @@ require(['jquery'], function($) {
                 });
             }
         );
-        var set_id_from_title = function() {
-            var id = $.plone_schemaeditor_normalize_string($(this).val());
-            $('#form-widgets-__name__').val(id);
-        };
-        // set id from title
-        $('body').on(
-            'focusout',
-            '#form-widgets-title, #form-widgets-label',
-            set_id_from_title
-        );
+
+
+        // ///////////////
+        // ADD FIELD INIT
+        $('#form .autotoc-nav > a').each(function() {
+            $(this).on('click', function (e) {
+                e.preventDefault();
+                var fieldset_id = $(this).attr('data-fieldset_drag_id');
+                init_add_field(fieldset_id);
+            });
+        });
+
+        var fieldset_id = $('#form .autotoc-nav > a.active').attr('data-fieldset_drag_id');
+        init_add_field(fieldset_id);
+
+    }
+
+    $(document).ready(function() {
+
+        // Initialize only after autotoc has been initialized
+        if ($('#form .autotoc-nav > a').length) {
+            // pat-autotoc already initialized, script probably run after
+            // mockup initialization.
+            init_schemaeditor();
+        } else {
+            // Otherwise, wait until autotoc is ready.
+            $(window).on('init.autotoc.patterns', init_schemaeditor);
+        }
+
     });
+
 
 });

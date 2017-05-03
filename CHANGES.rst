@@ -10,7 +10,8 @@ Breaking changes:
 
 New features:
 
-- *add item here*
+- Add fields in field editing UI to the current selected fieldset.
+  [thet]
 
 Bug fixes:
 

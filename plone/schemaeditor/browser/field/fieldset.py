@@ -16,7 +16,7 @@ class ChangeFieldsetView(BrowserView):
         schema = self.context.field.interface
         field_name = self.context.field.__name__
         fieldset = get_fieldset_from_index(schema, fieldset_index)
-        position = new_field_position(schema, fieldset)
+        position = new_field_position(schema, fieldset_index)
 
         editable_schema = IEditableSchema(schema)
         editable_schema.changeFieldFieldset(field_name, fieldset)
