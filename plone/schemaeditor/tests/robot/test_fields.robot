@@ -66,6 +66,7 @@ Add a choice field with vocabulary values
 #    Wait until page contains element  css=#formfield-form-widgets-vocabularyName.error
 #
 
+
 Add accented field
 
     Go to dexterity types configuration
@@ -89,13 +90,32 @@ Add a fieldSet and move a field into this fieldset
     Wait overlay is closed
     Wait until page contains  Personal information
 
-    #Mouse Down  xpath=//*[@data-field_id="address"][1]
-    #Mouse Over  css=.formTab[data-fieldset_drag_id="1"]
-    #Mouse Up  xpath=//*[@data-fieldset_drag_id="1"][1]
-    #Wait Until Keyword Succeeds  10  1  Element should not be visible  css=.fieldPreview[data-field_id="address"]
+#    Mouse Down  xpath=//*[@data-field_id="address"][1]
+#    Mouse Over  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
+#    Mouse Up  xpath=//*[@data-fieldset_drag_id="1"][1]
+#    Wait Until Keyword Succeeds  10  1  Element should not be visible  css=.fieldPreview[data-field_id="address"]
+#
+#    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
+#    Wait Until Keyword Succeeds  10  1  Element should be visible  css=.fieldPreview[data-field_id="address"]
 
-    #Click Element  css=.formTab[data-fieldset_drag_id="1"]
-    #Wait Until Keyword Succeeds  10  1  Element should be visible  css=.fieldPreview[data-field_id="address"]
+
+#Add a fieldSet and add a field into this fieldset
+#
+#    Set Window Size  1200  1200
+#    Go to dexterity types configuration
+#    Add content type  Contact info  contact_info
+#    Click Overlay Button  Add new fieldset…
+#    Input text for sure  form-widgets-label  Personal information
+#    Focus  form-widgets-__name__
+#    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  personal_information
+#    Click button  css=.plone-modal-footer #form-buttons-add
+#    Wait overlay is closed
+#    Wait until page contains  Personal information
+#
+#    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
+#    Add field  Address  address  Text
+#    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
+#    Wait until page contains element  css=div[data-field_id="address"]
 
 
 Delete field

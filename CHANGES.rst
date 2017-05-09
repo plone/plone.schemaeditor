@@ -10,11 +10,22 @@ Breaking changes:
 
 New features:
 
-- *add item here*
+- Add fields in field editing UI to the current selected fieldset.
+  [thet]
 
 Bug fixes:
 
-- *add item here*
+- Fix Schemaeditor fields editing UI to be able to move fields into another fieldset.
+  Fixes: #30.
+  [thet]
+
+- JavaScript formating according to style guides.
+  [thet]
+
+- Cleanup:
+  - Remove Plone 4 related form tabbing CSS selectors from fields editing UI JavaScript.
+  - Better code reuse.
+  [thet]
 
 
 2.0.15 (2017-02-12)
