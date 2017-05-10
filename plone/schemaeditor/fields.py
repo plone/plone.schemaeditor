@@ -120,7 +120,7 @@ class TextLineChoiceField(object):
             values = []
             for term in (self.field.vocabulary or []):
                 if term.value != term.title:
-                    values.append('%s|%s' % (term.value, term.title))
+                    values.append('{0:s}|{1:s}'.format(term.value, term.title))
                 else:
                     values.append(term.value)
             return values
@@ -260,7 +260,7 @@ class TextLineMultiChoiceField(TextLineChoiceField):
             values = []
             for term in (self.field.vocabulary or []):
                 if term.value != term.title:
-                    values.append('%s|%s' % (term.value, term.title))
+                    values.append('{0:s}|{1:s}'.format(term.value, term.title))
                 else:
                     values.append(term.value)
             return values
