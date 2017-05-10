@@ -4,10 +4,6 @@ Changelog
 2.0.16 (unreleased)
 -------------------
 
-Breaking changes:
-
-- *add item here*
-
 New features:
 
 - Add fields in field editing UI to the current selected fieldset.
