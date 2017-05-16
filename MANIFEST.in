@@ -1,8 +1,6 @@
 include *.rst
-include *.txt
 
 recursive-include docs *
-global-include *.mo
 recursive-include plone *
 
 global-exclude *pyc
