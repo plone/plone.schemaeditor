@@ -4,18 +4,11 @@ Changelog
 2.0.17 (unreleased)
 -------------------
 
-Breaking changes:
-
-- *add item here*
-
 New features:
 
-- *add item here*
-
-Bug fixes:
-
-- *add item here*
-
+- Allow specifying a vocabulary in the form of key|label in (multi)choice fields as seen at PFG.
+  [tomgross]
+ 
 
 2.0.16 (2017-05-10)
 -------------------
