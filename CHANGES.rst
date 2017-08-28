@@ -14,7 +14,9 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fix fields not being reorderable and missing their delete confirmation until a fieldset was added.
+  Fixes https://github.com/collective/collective.easyform/issues/81 and https://github.com/collective/collective.easyform/issues/82
+  [thet]
 
 
 2.0.17 (2017-05-23)

@@ -275,14 +275,19 @@ require(['jquery'], function($) {
 
     $(document).ready(function() {
 
-        // Initialize only after autotoc has been initialized
-        if ($('#form .autotoc-nav > a').length) {
-            // pat-autotoc already initialized, script probably run after
-            // mockup initialization.
-            init_schemaeditor();
+        if ($('#form fieldset').length >= 2) {
+            // If multiple fieldsets, release after autotoc has been initialized
+            if ($('#form .autotoc-nav > a').length) {
+                // pat-autotoc already initialized, script probably run after
+                // mockup initialization.
+                init_schemaeditor();
+            } else {
+                // Otherwise, wait until autotoc is ready.
+                $(window).on('init.autotoc.patterns', init_schemaeditor);
+            }
         } else {
-            // Otherwise, wait until autotoc is ready.
-            $(window).on('init.autotoc.patterns', init_schemaeditor);
+            // If only one fieldset, initialize immediately
+            init_schemaeditor();
         }
 
     });
