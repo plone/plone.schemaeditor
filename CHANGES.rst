@@ -4,14 +4,6 @@ Changelog
 2.0.18 (unreleased)
 -------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Fix fields not being reorderable and missing their delete confirmation until a fieldset was added.
