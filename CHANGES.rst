@@ -14,8 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
-
+- Fix getting vocabulary for multichoice fields
+  [tomgross]
 
 2.0.18 (2017-08-30)
 -------------------

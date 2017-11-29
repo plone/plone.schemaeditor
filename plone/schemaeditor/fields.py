@@ -258,7 +258,7 @@ class TextLineMultiChoiceField(TextLineChoiceField):
         field = self.field
         if name == 'values':
             values = []
-            for term in (self.field.vocabulary or []):
+            for term in (self.field.value_type.vocabulary or []):
                 if term.value != term.title:
                     values.append('{0:s}|{1:s}'.format(term.value, term.title))
                 else:
