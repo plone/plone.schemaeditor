@@ -32,6 +32,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'setuptools',
+        'six',
         'Zope2',
         'zope.cachedescriptors',
         'zope.component',
