@@ -27,6 +27,9 @@ from zope.schema.interfaces import IField
 from zope.security.interfaces import ForbiddenAttribute
 
 
+import six
+
+
 _marker = object()
 
 
@@ -94,7 +97,7 @@ class FieldDataManager(AttributeField):
         except (AttributeError, ForbiddenAttribute):
             old_value = None
         if isinstance(old_value, Message):
-            value = Message(unicode(old_value),
+            value = Message(six.text_type(old_value),
                             domain=old_value.domain,
                             default=value,
                             mapping=old_value.mapping)

@@ -14,6 +14,9 @@ New features:
 
 Bug fixes:
 
+- Add Python 2 / 3 compatibility
+  [pbauer]
+
 - Fix getting vocabulary for multichoice fields
   [tomgross]
 
@@ -34,7 +37,7 @@ New features:
 
 - Allow specifying a vocabulary in the form of key|label in (multi)choice fields as seen at PFG.
   [tomgross]
- 
+
 
 2.0.16 (2017-05-10)
 -------------------
