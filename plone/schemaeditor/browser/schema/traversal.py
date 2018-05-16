@@ -23,10 +23,6 @@ class SchemaContext(SimpleItem):
     enableFieldsets = True
 
     def __init__(self, context, request, name=u'schema', title=None):
-        if six.PY2:
-            super(SchemaContext, self).__init__(context, request)
-        else:
-            super().__init__()
         self.schema = context
         self.request = request
 
