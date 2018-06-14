@@ -11,6 +11,8 @@ from ZPublisher.BaseRequest import BaseRequest
 import doctest
 import os
 import plone.schemaeditor
+import re
+import six
 import unittest
 
 
@@ -34,6 +36,15 @@ def tearDown(self):
     classImplements(implementedBy(BaseRequest) - ITestLayer)
 
 
+class Py23DocChecker(doctest.OutputChecker):
+    def check_output(self, want, got, optionflags):
+        if six.PY2:
+            got = re.sub('zExceptions.unauthorized.Unauthorized', 'Unauthorized', got)
+            got = re.sub("u'(.*?)'", "'\\1'", want)
+            want = re.sub("b'(.*?)'", "'\\1'", want)
+        return doctest.OutputChecker.check_output(self, want, got, optionflags)
+
+
 def test_suite():
     return unittest.TestSuite([
 
@@ -45,7 +56,8 @@ def test_suite():
             'minmax.rst',
             setUp=setUp,
             tearDown=tearDown,
-            optionflags=optionflags
+            optionflags=optionflags,
+            checker=Py23DocChecker(),
         ),
 
     ])

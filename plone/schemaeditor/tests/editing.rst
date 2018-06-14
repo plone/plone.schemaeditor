@@ -20,7 +20,7 @@ error::
     >>> browser.open(portal_url + '/@@schemaeditor')
     Traceback (most recent call last):
     ...
-    Unauthorized: ...You are not authorized to access this resource...
+    zExceptions.unauthorized.Unauthorized: ...You are not authorized to access this resource...
 
 We need to log in as a manager, because by default only managers get the 'Manage Schemata' permission::
 
@@ -62,11 +62,11 @@ normalized form of the title)::
     >>> isinstance(IDummySchema['favorite_color'], TextLine)
     True
     >>> IDummySchema['favorite_color'].title
-    u'Favorite Color'
+    'Favorite Color'
     >>> IDummySchema['favorite_color'].required
     True
     >>> IDummySchema['favorite_color'].description
-    u'Select your favorite color'
+    'Select your favorite color'
 
 
 Editing a schema field attribute
@@ -98,7 +98,7 @@ of schema fields, which should reflect the change::
 Let's confirm that the new default value was correctly saved to the actual schema::
 
     >>> IDummySchema['favorite_color'].description
-    u'Enter your favorite color.'
+    'Enter your favorite color.'
 
 If the schema is edited to have internationalized attributes::
 
@@ -130,11 +130,11 @@ value was set::
     >>> type(IDummySchema['favorite_color'].description)
     <... 'zope.i18nmessageid.message.Message'>
     >>> IDummySchema['favorite_color'].description
-    u'favorite_color'
+    'favorite_color'
     >>> IDummySchema['favorite_color'].description.domain
     'plone'
     >>> IDummySchema['favorite_color'].description.default
-    u'Enter your favorite color.'
+    'Enter your favorite color.'
 
 Let's also check that the support for editing i18n Message values does not
 persist its marker interface::
@@ -193,7 +193,7 @@ testbrowser doesn't support Javascript)::
     [event: ContainerModifiedEvent on InterfaceClass]
     [event: SchemaModifiedEvent on DummySchemaContext]
     >>> browser.contents
-    ''
+    b''
 
 Now the field should be the third field of the schema::
 
@@ -220,7 +220,7 @@ They are moved to the end of the new fieldset::
     [event: ContainerModifiedEvent on InterfaceClass]
     [event: SchemaModifiedEvent on DummySchemaContext]
     >>> browser.contents
-    ''
+    b''
 
 Now the field should be the seventh field of the schema::
 
@@ -236,7 +236,7 @@ They can be ordered into a fieldset::
     [event: ContainerModifiedEvent on InterfaceClass]
     [event: SchemaModifiedEvent on DummySchemaContext]
     >>> browser.contents
-    ''
+    b''
     >>> get_field_fieldset(IDummySchema, 'favorite_color')
     <Fieldset 'alpha'...of favorite_color, fieldA>
 
@@ -301,7 +301,7 @@ move it into an other fieldset and remove it::
     [event: ContainerModifiedEvent on InterfaceClass]
     [event: SchemaModifiedEvent on DummySchemaContext]
     >>> browser.contents
-    ''
+    b''
     >>> browser.open('http://nohost/@@schemaeditor')
     >>> browser.getLink(url='other_set/@@delete').click()
     [event: ObjectRemovedEvent on TextLine]

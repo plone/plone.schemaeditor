@@ -58,7 +58,7 @@ If duplicate values are entered an error is raised.
     ...     ['Alaska', 'Russia', 'United States', 'United States',
     ...      'Other'])
     >>> browser.getControl('Save').click()
-    >>> print browser.contents
+    >>> print(browser.contents)
     <...
       <div class="error">The 'United States' vocabulary value conflicts with 'United States'.</div>
     ...
@@ -118,7 +118,7 @@ We can't set a vocabulary name AND values.
     >>> browser.getLink(url='country').click()
     >>> browser.getControl('values').value = "oups"
     >>> browser.getControl('Save').click()
-    >>> print browser.contents
+    >>> print(browser.contents)
     <...
       <div class="error">You can not set a vocabulary name AND vocabulary values....
     ...
@@ -166,7 +166,7 @@ If duplicate values are entered an error is raised.
     >>> ctl.value = '\n'.join(
     ...     ['Lisp', 'Plone', 'Python', 'Lisp'])
     >>> browser.getControl('Save').click()
-    >>> print browser.contents
+    >>> print(browser.contents)
     <...
       <div class="error">The 'Lisp' vocabulary value conflicts with 'Lisp'.</div>
     ...
@@ -210,7 +210,7 @@ Back to the edit form, vocabulary name is selected.
 
     >>> browser.open(portal_url + '/@@schemaeditor')
     >>> browser.getLink(url='categories').click()
-    >>> print browser.contents
+    >>> print(browser.contents)
     <...
     ... selected>plone.schemaeditor.test.Categories</option...
     ...

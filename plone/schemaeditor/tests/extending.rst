@@ -76,4 +76,4 @@ We can save a color and confirm that it ends up in the schema's tagged values::
   [event: SchemaModifiedEvent on DummySchemaContext]
   >>> from plone.schemaeditor.tests.fixtures import IDummySchema
   >>> IDummySchema.getTaggedValue('color')
-  {'field1': u'green'}
+  {'field1': 'green'}
