@@ -14,7 +14,9 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fix issue where serializing vocabulary terms into '|' syntax failed when
+  values contained non-ascii characters
+  [datakurre]
 
 
 2.0.19 (2018-02-02)
