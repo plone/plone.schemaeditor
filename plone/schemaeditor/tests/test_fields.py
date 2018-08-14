@@ -30,6 +30,10 @@ class VocabularyTestCase(unittest.TestCase):
     def test_singlechoice_voc(self):
         field = TextLineChoiceField(DummyField())
         field.values = [u'New York', u'city2|München']
+        self.assertEqual(
+            field.values,
+            [u'New York', u'city2|München']
+        )
         self.assertVocabulary(
             field.vocabulary,
             [(u'New York', u'New York', u'New York'),
@@ -39,6 +43,10 @@ class VocabularyTestCase(unittest.TestCase):
     def test_multichoice_voc(self):
         field = TextLineMultiChoiceField(DummyField())
         field.values = [u'New York', u'city1|Zürich']
+        self.assertEqual(
+            field.values,
+            [u'New York', u'city1|Zürich']
+        )
         self.assertVocabulary(
             field.vocabulary,
             [(u'New York', u'New York', u'New York'),

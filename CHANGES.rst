@@ -14,6 +14,10 @@ New features:
 
 Bug fixes:
 
+- Fix issue where serializing vocabulary terms into '|' syntax failed when
+  values contained non-ascii characters
+  [datakurre]
+
 - Allow defaults to be set on dexterity type fields via the web UI (@@fields)
   [ezvirtual]
 
