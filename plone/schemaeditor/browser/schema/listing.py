@@ -114,8 +114,11 @@ class SchemaListing(AutoExtensibleForm, form.Form):
             self.status = self.formErrorsMessage
             return
 
-        for fname, value in data.items():
-            self.context.schema[fname].default = value
+        for widget in self._iterateOverWidgets():
+            widget_name = widget.field.getName()
+            if (widget.field.interface is self.context.schema and
+                    widget_name in data):
+                self.context.schema[widget_name].default = data[widget_name]
         notify(SchemaModifiedEvent(self.context))
 
         # update widgets to take the new defaults into account
