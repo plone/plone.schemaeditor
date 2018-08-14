@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Allow defaults to be set on dexterity type fields via the web UI (@@fields)
+  [ezvirtual]
 
 
 2.0.19 (2018-02-02)
