@@ -21,6 +21,9 @@ Bug fixes:
 - Allow defaults to be set on dexterity type fields via the web UI (@@fields)
   [ezvirtual]
 
+- Fix tests in py3 and some py3 issues.
+  [pbauer]
+
 
 2.0.19 (2018-02-02)
 -------------------

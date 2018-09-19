@@ -6,6 +6,8 @@ from zope.interface import implementer
 from zope.publisher.interfaces.browser import IBrowserPublisher
 from ZPublisher.BaseRequest import DefaultPublishTraverse
 
+import six
+
 
 @implementer(ISchemaContext, IBrowserPublisher)
 class SchemaContext(SimpleItem):
@@ -21,7 +23,6 @@ class SchemaContext(SimpleItem):
     enableFieldsets = True
 
     def __init__(self, context, request, name=u'schema', title=None):
-        super(SchemaContext, self).__init__(context, request)
         self.schema = context
         self.request = request
 

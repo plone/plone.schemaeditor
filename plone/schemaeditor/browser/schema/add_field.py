@@ -46,7 +46,7 @@ class FieldAddForm(AutoExtensibleForm, form.AddForm):
         factory = data.pop('factory')
 
         # split regular attributes and extra ones
-        for key in data.keys():
+        for key in list(data.keys()):
             if key not in self._schema:
                 extra[key] = data[key]
                 data.pop(key)
