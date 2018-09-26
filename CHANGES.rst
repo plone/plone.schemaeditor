@@ -4,14 +4,6 @@ Changelog
 2.0.20 (unreleased)
 -------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Fix issue where serializing vocabulary terms into '|' syntax failed when
