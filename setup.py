@@ -29,7 +29,7 @@ setup(
     author_email='dglick@gmail.com',
     url='https://github.com/plone/plone.schemaeditor',
     license='BSD',
-    packages=find_packages(exclude=['ez_setup']),
+    packages=find_packages(),
     namespace_packages=['plone'],
     include_package_data=True,
     zip_safe=False,
