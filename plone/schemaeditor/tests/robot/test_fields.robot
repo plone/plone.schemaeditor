@@ -17,7 +17,7 @@ Add a content type
     Go to dexterity types configuration
     Click Overlay Button  Add New Content Type…
     Input text for sure  form-widgets-title  New style Article
-    Focus  form-widgets-id
+    Set Focus To Element  form-widgets-id
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-id  new_style_article
     Click button  css=.plone-modal-footer #form-buttons-add
     Wait until page contains  New style Article
@@ -29,7 +29,7 @@ Add a choice field with a named vocabulary
     Add content type  Curriculum vitae  curriculum_vitae
     Click Overlay Button  Add new field…
     Input text for sure  form-widgets-title  Languages
-    Focus  form-widgets-__name__
+    Set Focus To Element  form-widgets-__name__
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  languages
     Input text for sure  form-widgets-description  Spoken languages
     Select from list  form-widgets-factory  Multiple Choice
@@ -73,7 +73,7 @@ Add accented field
     Add content type  Person  person
     Click Overlay Button  Add new field…
     Input text for sure  form-widgets-title  Prénom
-    Focus  form-widgets-__name__
+    Set Focus To Element  form-widgets-__name__
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  prenom
 
 
@@ -84,7 +84,7 @@ Add a fieldSet and move a field into this fieldset
     Add field  Address  address  Text
     Click Overlay Button  Add new fieldset…
     Input text for sure  form-widgets-label  Personal information
-    Focus  form-widgets-__name__
+    Set Focus To Element  form-widgets-__name__
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  personal_information
     Click button  css=.plone-modal-footer #form-buttons-add
     Wait overlay is closed
@@ -106,7 +106,7 @@ Add a fieldSet and move a field into this fieldset
 #    Add content type  Contact info  contact_info
 #    Click Overlay Button  Add new fieldset…
 #    Input text for sure  form-widgets-label  Personal information
-#    Focus  form-widgets-__name__
+#    Set Focus To Element  form-widgets-__name__
 #    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  personal_information
 #    Click button  css=.plone-modal-footer #form-buttons-add
 #    Wait overlay is closed
@@ -160,7 +160,7 @@ Add content type
 
     Click Overlay Button  Add New Content Type…
     Input text for sure  form-widgets-title  ${title}
-    Focus  form-widgets-id
+    Set Focus To Element  form-widgets-id
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-id  ${id}
     Click button  css=.plone-modal-footer #form-buttons-add
     Wait until page contains  ${title}
@@ -173,7 +173,7 @@ Add field
 
     Click Overlay Button  Add new field…
     Input text for sure  form-widgets-title  ${field_title}
-    Focus  form-widgets-__name__
+    Set Focus To Element  form-widgets-__name__
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  ${field_id}
     Select from list  form-widgets-factory  ${field_type}
     Click button  css=.plone-modal-footer #form-buttons-add
