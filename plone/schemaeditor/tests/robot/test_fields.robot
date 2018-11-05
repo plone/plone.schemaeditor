@@ -124,7 +124,7 @@ Delete field
     Add field  Phone  phone  Text line (String)
     Wait until page contains element  css=#fieldset-0 #formfield-form-widgets-phone
     Click link  css=div.fieldControls .schemaeditor-delete-field
-    Confirm Action
+    Handle Alert  action=ACCEPT
     Wait Until Keyword Succeeds  10  1  Page Should Not Contain Element  css=#formfield-form-widgets-phone
     # Make sure it actually got deleted
     Go to  ${PLONE_URL}/@@dexterity-types/somebody/@@fields
