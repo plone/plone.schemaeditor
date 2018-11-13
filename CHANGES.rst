@@ -14,8 +14,9 @@ New features:
 
 Bug fixes:
 
-- *add item here*
-
+- Fix tests to not rely on ZopeTestCase,
+  known for having test isolation problems when combined with plone.app.testing tests.
+  [gforcada]
 
 2.0.20 (2018-09-26)
 -------------------
