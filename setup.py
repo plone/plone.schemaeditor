@@ -13,6 +13,7 @@ setup(
     open("CHANGES.rst").read(),
     classifiers=[
         "Framework :: Zope2",
+        "Framework :: Zope :: 4",
         "Framework :: Plone",
         "Framework :: Plone :: 5.0",
         "Framework :: Plone :: 5.1",
