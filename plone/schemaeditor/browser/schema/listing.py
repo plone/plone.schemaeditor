@@ -105,10 +105,18 @@ class SchemaListing(AutoExtensibleForm, form.Form):
         return url
 
     @button.buttonAndHandler(
+        _(u'Done'),
+    )
+    def handleDone(self, action):
+        return self.request.RESPONSE.redirect(self.context.absolute_url())
+
+    @button.buttonAndHandler(
         _(u'Save Defaults'),
         condition=lambda form: getattr(form.context, 'showSaveDefaults', True)
     )
     def handleSaveDefaults(self, action):
+        for group in self.groups:
+            group.ignoreRequiredOnExtract = self.ignoreRequiredOnExtract
         data, errors = self.extractData()
         if errors:
             self.status = self.formErrorsMessage
