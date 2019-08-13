@@ -24,6 +24,13 @@
     permission="plone.schemaeditor.ManageSchemata"
     />
 
+  <browser:page
+    name="delete-fieldset"
+    for="plone.schemaeditor.interfaces.ISchemaContext"
+    class=".delete_fieldset.DeleteFieldset"
+    permission="plone.schemaeditor.ManageSchemata"
+    />
+
   <browser:resource
     name="schemaeditor.js"
     file="schemaeditor.js"
