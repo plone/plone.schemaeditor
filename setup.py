@@ -12,6 +12,7 @@ setup(
     long_description=open("README.rst").read() + "\n" +
     open("CHANGES.rst").read(),
     classifiers=[
+        "Development Status :: 6 - Mature",
         "Framework :: Zope2",
         "Framework :: Zope :: 4",
         "Framework :: Plone",
