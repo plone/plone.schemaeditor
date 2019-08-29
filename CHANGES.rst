@@ -8,6 +8,21 @@ Changelog
 
 .. towncrier release notes start
 
+2.1.0 (2019-08-29)
+------------------
+
+New features:
+
+
+- Deleting fieldsets is now possible through the UI. (#69)
+
+
+Bug fixes:
+
+
+- Don't show an error when a "required" field doesn't have a default. Also added a "Done" button. (#71)
+
+
 2.0.20 (2018-09-26)
 -------------------
 
