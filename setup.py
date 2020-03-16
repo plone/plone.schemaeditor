@@ -3,7 +3,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 
-version = '2.1.1.dev0'
+version = '3.0.0.dev0'
 
 setup(
     name='plone.schemaeditor',
@@ -13,15 +13,17 @@ setup(
     open("CHANGES.rst").read(),
     classifiers=[
         "Development Status :: 6 - Mature",
-        "Framework :: Zope2",
+        "Framework :: Zope",
         "Framework :: Zope :: 4",
         "Framework :: Plone",
-        "Framework :: Plone :: 5.1",
+        "Framework :: Plone :: Core",
         "Framework :: Plone :: 5.2",
+        "Framework :: Plone :: 6.0",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "License :: OSI Approved :: BSD License",
     ],
@@ -37,7 +39,7 @@ setup(
     install_requires=[
         'setuptools',
         'six',
-        'Zope2',
+        'Zope',
         'zope.cachedescriptors',
         'zope.component',
         'zope.container',
@@ -48,6 +50,7 @@ setup(
         'zope.publisher',
         'z3c.form',
         'plone.z3cform',
+        'plone.app.z3cform',
         'plone.autoform',
     ],
     extras_require={'test': [
