@@ -6,11 +6,11 @@ schemata (interfaces).
 
 Currently there is support for:
 
- * adding and removing fields
- * editing attributes of existing fields
- * reordering fields
- * renaming fields
- * organizing fields into fieldsets
+* adding and removing fields
+* editing attributes of existing fields
+* reordering fields
+* renaming fields
+* organizing fields into fieldsets
 
 plone.schemaeditor only handles the actual schema editing.  To be useful, it
 requires some integration code to take care of the following pieces:
@@ -23,15 +23,15 @@ one approach to this integration.
 
 The following field types (from zope.schema) are currently supported:
 
- * TextLine
- * Text
- * Int
- * Float
- * Bool
- * Password
- * Datetime
- * Choice (with simple list of values)
- * List of Choice (with simple list of values)
+* TextLine
+* Text
+* Int
+* Float
+* Bool
+* Password
+* Datetime
+* Choice (with simple list of values)
+* List of Choice (with simple list of values)
 
 Third-party packages can make additional field types available by registering
 new IFieldFactory utilities.
@@ -57,10 +57,10 @@ Author:
 
 Contributors:
 
- * Nathan Van Gheem
- * Martin Aspeli
- * Alex Limi
- * Ross Patterson
- * Steve McMahon
- * Thomas Desvenain
-
+* Nathan Van Gheem
+* Martin Aspeli
+* Alex Limi
+* Ross Patterson
+* Steve McMahon
+* Thomas Desvenain
+* et al

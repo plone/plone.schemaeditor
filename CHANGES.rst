@@ -1,22 +1,25 @@
 Changelog
 =========
 
-2.0.21 (unreleased)
--------------------
+.. You should *NOT* be adding new change log entries to this file.
+   You should create a file in the news directory instead.
+   For helpful instructions, please see:
+   https://github.com/plone/plone.releaser/blob/master/ADD-A-NEWS-ITEM.rst
 
-Breaking changes:
+.. towncrier release notes start
 
-- *add item here*
+2.1.0 (2019-08-29)
+------------------
 
 New features:
 
-- *add item here*
+
+- Deleting fieldsets is now possible through the UI. (#69)
+
 
 Bug fixes:
 
-- Fix tests to not rely on ZopeTestCase,
-  known for having test isolation problems when combined with plone.app.testing tests.
-  [gforcada]
+- Don't show an error when a "required" field doesn't have a default. Also added a "Done" button. (#71)
 
 2.0.20 (2018-09-26)
 -------------------

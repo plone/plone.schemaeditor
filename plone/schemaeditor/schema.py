@@ -1,30 +1,15 @@
 # -*- coding: utf-8 -*-
+from plone.app.z3cform.interfaces import IDateField
+from plone.app.z3cform.interfaces import IDatetimeField
 from plone.schemaeditor import _
-from zope import interface
 from zope import schema
+from zope.interface import alsoProvides
 from zope.schema import interfaces
-
-
-try:
-    from plone.app.z3cform.widget import IDatetimeField as IDatetime
-    from plone.app.z3cform.widget import IDateField as IDate
-    IDatetime, IDate  # pyflakes
-except ImportError:
-    try:
-        from collective.z3cform.datetimewidget.interfaces import (
-            IDatetimeField as IDatetime)
-        from collective.z3cform.datetimewidget.interfaces import (
-            IDateField as IDate)
-        IDatetime, IDate  # pyflakes
-    except ImportError:
-        IDatetime = interfaces.IDatetime
-        IDate = interfaces.IDate
 
 
 # get rid of unhelpful help text
 interfaces.IMinMaxLen['min_length'].description = u''
 interfaces.IMinMaxLen['max_length'].description = u''
-
 
 # now fix up some of the schemas with missing details
 
@@ -47,7 +32,7 @@ class IFloat(interfaces.IFloat, interfaces.IFromUnicode):
     )
 
 
-class IDatetime(IDatetime):
+class IDatetime(IDatetimeField):
 
     min = schema.Datetime(
         title=interfaces.IDatetime['min'].title,
@@ -62,7 +47,7 @@ class IDatetime(IDatetime):
     )
 
 
-class IDate(IDate):
+class IDate(IDateField):
 
     min = schema.Date(
         title=interfaces.IDate['min'].title,
@@ -77,8 +62,7 @@ class IDate(IDate):
     )
 
 
-class IChoice(interfaces.IChoice,
-              interfaces.IFromUnicode):
+class IChoice(interfaces.IChoice, interfaces.IFromUnicode):
     pass
 
 
@@ -95,7 +79,7 @@ class ITextLineChoice(interfaces.IField):
         required=interfaces.IChoice['vocabulary'].required,
         default=interfaces.IChoice['vocabulary'].default,
         value_type=schema.TextLine())
-    interface.alsoProvides(values, ITextLinesField)
+    alsoProvides(values, ITextLinesField)
 
     vocabularyName = schema.Choice(
         title=interfaces.IChoice['vocabularyName'].title,

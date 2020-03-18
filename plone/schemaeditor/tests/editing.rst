@@ -345,6 +345,37 @@ Now the actual IDummySchema schema should have the new fieldset ::
     [<Fieldset 'alpha'...of fieldA>, <Fieldset 'extra_info'...of >]
 
 
+Deleting a fieldset
+-------------------
+
+We can also delete a fieldset, but only if it's empty. Say we've moved a field to the new fieldset ::
+
+    >>> browser.open('http://nohost/@@schemaeditor/field3/@@changefieldset?fieldset_index=2')
+    [event: ContainerModifiedEvent on InterfaceClass]
+    [event: SchemaModifiedEvent on DummySchemaContext]
+
+If we try deleting the fieldset now, it won't work ::
+
+    >>> browser.open(portal_url + '/@@schemaeditor')
+    >>> browser.getLink(id='delete-fieldset-2').click()
+    >>> IDummySchema.getTaggedValue(FIELDSETS_KEY)
+    [<Fieldset 'alpha'...of fieldA>, <Fieldset 'extra_info'...of field3>]
+
+If we move the field out so that the fieldset is empty then we can delete the fieldset ::
+
+    >>> browser.open('http://nohost/@@schemaeditor/field3/@@changefieldset?fieldset_index=0')
+    [event: ContainerModifiedEvent on InterfaceClass]
+    [event: SchemaModifiedEvent on DummySchemaContext]
+    >>> browser.open(portal_url + '/@@schemaeditor')
+    >>> browser.getLink(id='delete-fieldset-2').click()
+    [event: ContainerModifiedEvent on InterfaceClass]
+    [event: SchemaModifiedEvent on DummySchemaContext]
+
+This removes the fieldset from the IDummySchema schema ::
+
+    >>> IDummySchema.getTaggedValue(FIELDSETS_KEY)
+    [<Fieldset 'alpha'...of fieldA>]
+
 Miscellaneous field types
 -------------------------
 
