@@ -1,0 +1,2 @@
+Fix tests to not rely on ZopeTestCase, known for having test isolation problems when combined with plone.app.testing tests.
+[gforcada]
