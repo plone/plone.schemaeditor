@@ -15,8 +15,8 @@ Currently there is support for:
 plone.schemaeditor only handles the actual schema editing.  To be useful, it
 requires some integration code to take care of the following pieces:
 
- * traversing to a schema that is used as the context of the editor
- * persisting schema changes across Zope restarts
+* traversing to a schema that is used as the context of the editor
+* persisting schema changes across Zope restarts
 
 See plone.app.dexterity (along with plone.dexterity and plone.supermodel) for
 one approach to this integration.
@@ -53,7 +53,7 @@ Credits
 
 Author:
 
- * David Glick (dglick@gmail.com)
+* David Glick (dglick@gmail.com)
 
 Contributors:
 
