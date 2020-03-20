@@ -8,6 +8,11 @@ from zope.interface import implementer
 from zope.interface.interfaces import IInterface
 from zope.schema.interfaces import IField
 
+import pkg_resources
+
+_zope_interface_version_major = int(
+    pkg_resources.require('zope.interface')[0].version.split('.')[0]
+)
 
 def sortedFields(schema):
     """ Like getFieldsInOrder, but does not include fields from bases
@@ -101,8 +106,11 @@ class EditableSchema(object):
             )
 
         self.schema._InterfaceClass__attrs[name] = field
-        if hasattr(self.schema, '_v_attrs'):
-            self.schema._v_attrs[name] = field
+        if _zope_interface_version_major >= 5:
+            self.schema._v_attrs = None
+        else:
+            if hasattr(self.schema, '_v_attrs'):
+                self.schema._v_attrs[name] = field
 
         field.interface = self.schema
 
@@ -112,8 +120,11 @@ class EditableSchema(object):
         try:
             self.schema[field_name].interface = None
             del self.schema._InterfaceClass__attrs[field_name]
-            if hasattr(self.schema, '_v_attrs'):
-                del self.schema._v_attrs[field_name]
+            if _zope_interface_version_major >= 5:
+                self.schema._v_attrs = None
+            else:
+                if hasattr(self.schema, '_v_attrs'):
+                    del self.schema._v_attrs[field_name]
             for fieldset in self.schema.queryTaggedValue(FIELDSETS_KEY, []):
                 if field_name in fieldset.fields:
                     fieldset.fields.remove(field_name)
