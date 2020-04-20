@@ -8,6 +8,25 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.0 (2020-04-20)
+------------------
+
+Breaking changes:
+
+
+- Remove backward compatibility with old collective.z3cform.datetimewidget from Plone 4.3 times. [jensens] (#74)
+
+
+Bug fixes:
+
+
+- Use the shared 'Plone test setup' and 'Plone test teardown' keywords in Robot tests.
+  [Rotonen] (#66)
+- Fix broken import from ``plone.app.z3cform``.
+  This make it work with ``zope.interface`` > 5 [jensens] (#74)
+- Support zope.interface >= 5. [jensens] (#75)
+
+
 2.1.0 (2019-08-29)
 ------------------
 
