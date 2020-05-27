@@ -6,8 +6,6 @@ from zope.interface import implementer
 from zope.publisher.interfaces.browser import IBrowserPublisher
 from ZPublisher.BaseRequest import DefaultPublishTraverse
 
-import six
-
 
 @implementer(ISchemaContext, IBrowserPublisher)
 class SchemaContext(SimpleItem):
