@@ -59,9 +59,10 @@ class FieldFactory(object):
 def FieldsVocabularyFactory(context):
     request = getRequest()
     field_factories = getUtilitiesFor(IFieldFactory)
-    if context.allowedFields is not None:
+    allowedFields = getattr(context, "allowedFields", None)
+    if allowedFields is not None:
         field_factories = [(id, factory) for id, factory in field_factories
-                           if id in context.allowedFields]
+                           if id in allowedFields]
     terms = []
     for (field_id, factory) in field_factories:
         terms.append(
