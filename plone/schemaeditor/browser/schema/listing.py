@@ -64,8 +64,9 @@ class SchemaListing(AutoExtensibleForm, form.Form):
             field.__module__,
             field.__class__.__name__,
         )
-        if self.context.allowedFields is not None:
-            if field_identifier not in self.context.allowedFields:
+        allowedFields = getattr(self.context, "allowedFields", None)
+        if allowedFields is not None:
+            if field_identifier not in allowedFields:
                 return None
         return queryUtility(IFieldFactory, name=field_identifier)
 
