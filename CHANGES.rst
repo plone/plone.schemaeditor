@@ -8,6 +8,15 @@ Changelog
 
 .. towncrier release notes start
 
+2.1.1 (2020-06-27)
+------------------
+
+Bug fixes:
+
+
+- Fix ``Fields`` vocabulary via RestAPI.  [avoinea] (#76)
+
+
 2.1.0 (2019-08-29)
 ------------------
 
