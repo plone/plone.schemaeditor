@@ -3,7 +3,7 @@ from plone.schemaeditor.interfaces import IEditableSchema
 from plone.schemaeditor.interfaces import ISchemaModifiedEvent
 from plone.supermodel.interfaces import FIELDSETS_KEY
 from zope.component import adapter
-from zope.component.interfaces import ObjectEvent
+from zope.interface.interfaces import ObjectEvent
 from zope.interface import implementer
 from zope.interface.interfaces import IInterface
 from zope.schema.interfaces import IField
