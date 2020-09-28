@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.2 (2020-09-28)
+------------------
+
+Bug fixes:
+
+
+- Fixed deprecation warning for ObjectEvent.
+  [maurits] (#3130)
+
+
 3.0.1 (2020-06-20)
 ------------------
 
