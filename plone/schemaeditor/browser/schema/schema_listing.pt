@@ -1,18 +1,24 @@
 <div xmlns:tal="http://xml.zope.org/namespaces/tal"
      xmlns:metal="http://xml.zope.org/namespaces/metal"
      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-     tal:omit-tag="" i18n:domain="plone">
-  <a id="add-field" class="pat-plone-modal"
-     href="${context/absolute_url}/@@add-field">
-    <button style="float: right; display: block;"
-           i18n:translate="add_new_field_hellip">Add new field&hellip;</button>
-  </a>
+     tal:define="read_only python:view.read_only"
+     tal:omit-tag=""
+     i18n:domain="plone"
+>
 
-  <a id="add-fieldset" class="pat-plone-modal" tal:condition="context/enableFieldsets"
-     href="${context/absolute_url}/@@add-fieldset">
-    <button style="float: right; display: block;"
-           i18n:translate="add_fieldset_hellip">Add new fieldset&hellip;</button>
-  </a>
+  <tal:editable condition="not: read_only">
+    <a id="add-field" class="pat-plone-modal"
+      href="${context/absolute_url}/@@add-field">
+      <button style="float: right; display: block;"
+            i18n:translate="add_new_field_hellip">Add new field&hellip;</button>
+    </a>
+
+    <a id="add-fieldset" class="pat-plone-modal" tal:condition="context/enableFieldsets"
+      href="${context/absolute_url}/@@add-fieldset">
+      <button style="float: right; display: block;"
+            i18n:translate="add_fieldset_hellip">Add new fieldset&hellip;</button>
+    </a>
+  </tal:editable>
 
   <metal:form metal:use-macro="context/@@ploneform-macros/form">
     <metal:top-slot metal:fill-slot="formtop">

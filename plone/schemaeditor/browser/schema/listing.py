@@ -29,6 +29,7 @@ class SchemaListing(AutoExtensibleForm, form.Form):
     showEmptyGroups = True
     template = ViewPageTemplateFile('schema_listing.pt')
     ignoreRequiredOnExtract = True
+    read_only = False
 
     @property
     def schema(self):
@@ -136,11 +137,14 @@ class SchemaListing(AutoExtensibleForm, form.Form):
 
 class ReadOnlySchemaListing(SchemaListing):
     buttons = button.Buttons()
+    read_only = True
 
     def edit_url(self, field):
         return
     delete_url = edit_url
 
+    def protected_field(self, field):
+        return True
 
 class SchemaListingPage(FormWrapper):
 
