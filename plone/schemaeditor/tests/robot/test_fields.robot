@@ -33,8 +33,8 @@ Add a choice field with a named vocabulary
     Focus  form-widgets-__name__
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  languages
     Input text for sure  form-widgets-description  Spoken languages
-    Select from list  form-widgets-factory  Multiple Choice
-    Click button  css=.plone-modal-footer #form-buttons-add
+    Wait until keyword succeeds  10  1  Select From List By Label  form-widgets-factory  Multiple Choice
+    Wait until keyword succeeds  10  1  Click button  css=.plone-modal-footer #form-buttons-add
     Wait until page contains element  css=div[data-field_id="languages"] a.fieldSettings
 
     Open field settings  languages
