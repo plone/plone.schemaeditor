@@ -182,4 +182,6 @@ Add field
 
 Open field settings
     [Arguments]    ${field_id}
-    Click Overlay Link  xpath=//div[@data-field_id='${field_id}']//a[@class='fieldSettings pat-plone-modal']
+    ${locator}  Set Variable  //div[@data-field_id='${field_id}']//a[@class='fieldSettings pat-plone-modal']
+    Wait until element is visible  xpath=${locator}
+    Click Overlay Link  xpath=${locator}
