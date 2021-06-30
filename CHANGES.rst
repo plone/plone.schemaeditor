@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.3 (2021-06-30)
+------------------
+
+Bug fixes:
+
+
+- Make test 'Add a choice field with a named vocabulary' more robust.
+  [wesleybl] (#84)
+
+
 3.0.2 (2020-09-28)
 ------------------
 
