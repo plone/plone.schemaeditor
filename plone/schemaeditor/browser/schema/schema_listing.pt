@@ -1,7 +1,8 @@
 <div xmlns:tal="http://xml.zope.org/namespaces/tal"
      xmlns:metal="http://xml.zope.org/namespaces/metal"
      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-     tal:omit-tag="" i18n:domain="plone">
+     i18n:domain="plone"
+     class="pat-schemaeditor">
   <a id="add-field" class="pat-plone-modal"
      href="${context/absolute_url}/@@add-field">
     <button style="float: right; display: block;"
@@ -17,8 +18,6 @@
   <metal:form metal:use-macro="context/@@ploneform-macros/form">
     <metal:top-slot metal:fill-slot="formtop">
       <input tal:replace="structure context/@@authenticator/authenticator" />
-      <script type="text/javascript"
-              tal:attributes="src context/++resource++schemaeditor.js"></script>
       <style type="text/css">
   .fieldPreview {
     background: #eee;
