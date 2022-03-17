@@ -145,6 +145,11 @@ class FieldEditForm(AutoExtensibleForm, form.EditForm):
 
         self.updateFieldsFromSchemata()
 
+    def updateActions(self):
+        super(FieldEditForm, self).updateActions()
+        for a in self.actions:
+            self.actions[a].ignoreRequiredOnValidation = True
+
     @button.buttonAndHandler(_(u'Save'), name='save')
     def handleSave(self, action):
         data, errors = self.extractData()
