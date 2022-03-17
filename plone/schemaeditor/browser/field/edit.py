@@ -143,12 +143,12 @@ class FieldEditForm(AutoExtensibleForm, form.EditForm):
             'order', 'title', 'default', 'missing_value', 'readonly')
         self.fields = fields
 
-        self.updateFieldsFromSchemata()
+        if "required" in self.fields:
+            # XXX somehow the `required` BooleanField is required which
+            # should not be
+            self.fields["required"].field.required = False
 
-    def updateActions(self):
-        super(FieldEditForm, self).updateActions()
-        for a in self.actions:
-            self.actions[a].ignoreRequiredOnValidation = True
+        self.updateFieldsFromSchemata()
 
     @button.buttonAndHandler(_(u'Save'), name='save')
     def handleSave(self, action):
