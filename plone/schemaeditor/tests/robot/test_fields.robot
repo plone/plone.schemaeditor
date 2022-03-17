@@ -18,7 +18,7 @@ Add a content type
     Go to dexterity types configuration
     Click Overlay Button  Add New Content Type…
     Input text for sure  form-widgets-title  New style Article
-    Focus  form-widgets-id
+    Set Focus to Element  form-widgets-id
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-id  new_style_article
     Click button  css=.modal-footer #form-buttons-add
     Wait until page contains  New style Article
@@ -28,9 +28,9 @@ Add a choice field with a named vocabulary
 
     Go to dexterity types configuration
     Add content type  Curriculum vitae  curriculum_vitae
-    Click Overlay Button  Add new field…
+    Click Link  Add new field…
     Input text for sure  form-widgets-title  Languages
-    Focus  form-widgets-__name__
+    Set Focus to Element  form-widgets-__name__
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  languages
     Input text for sure  form-widgets-description  Spoken languages
     Wait until keyword succeeds  10  1  Select From List By Label  form-widgets-factory  Multiple Choice
@@ -72,9 +72,9 @@ Add accented field
 
     Go to dexterity types configuration
     Add content type  Person  person
-    Click Overlay Button  Add new field…
+    Click Link  Add new field…
     Input text for sure  form-widgets-title  Prénom
-    Focus  form-widgets-__name__
+    Set Focus to Element  form-widgets-__name__
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  prenom
 
 
@@ -83,9 +83,9 @@ Add a fieldSet and move a field into this fieldset
     Go to dexterity types configuration
     Add content type  Contact info  contact_info
     Add field  Address  address  Text
-    Click Overlay Button  Add new fieldset…
+    Click Link  Add new fieldset…
     Input text for sure  form-widgets-label  Personal information
-    Focus  form-widgets-__name__
+    Set Focus to Element  form-widgets-__name__
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  personal_information
     Click button  css=.modal-footer #form-buttons-add
     Wait overlay is closed
@@ -107,7 +107,7 @@ Add a fieldSet and move a field into this fieldset
 #    Add content type  Contact info  contact_info
 #    Click Overlay Button  Add new fieldset…
 #    Input text for sure  form-widgets-label  Personal information
-#    Focus  form-widgets-__name__
+#    Set Focus to Element  form-widgets-__name__
 #    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  personal_information
 #    Click button  css=.modal-footer #form-buttons-add
 #    Wait overlay is closed
@@ -161,7 +161,7 @@ Add content type
 
     Click Overlay Button  Add New Content Type…
     Input text for sure  form-widgets-title  ${title}
-    Focus  form-widgets-id
+    Set Focus to Element  form-widgets-id
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-id  ${id}
     Click button  css=.modal-footer #form-buttons-add
     Wait until page contains  ${title}
@@ -172,9 +172,9 @@ Add field
     [Arguments]    ${field_title}    ${field_id}    ${field_type}
     [Documentation]    Add field in current dexterity content type
 
-    Click Overlay Button  Add new field…
+    Click Link  Add new field…
     Input text for sure  form-widgets-title  ${field_title}
-    Focus  form-widgets-__name__
+    Set Focus to Element  form-widgets-__name__
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  ${field_id}
     Select from list  form-widgets-factory  ${field_type}
     Click button  css=.modal-footer #form-buttons-add
@@ -182,6 +182,6 @@ Add field
 
 Open field settings
     [Arguments]    ${field_id}
-    ${locator}  Set Variable  //div[@data-field_id='${field_id}']//a[@class='fieldSettings pat-plone-modal']
+    ${locator}  Set Variable  //div[@data-field_id='${field_id}']//a[contains(@class, 'fieldSettings pat-plone-modal')]
     Wait until element is visible  xpath=${locator}
     Click Overlay Link  xpath=${locator}
