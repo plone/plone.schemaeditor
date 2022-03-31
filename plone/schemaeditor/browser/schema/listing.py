@@ -133,6 +133,12 @@ class SchemaListing(AutoExtensibleForm, form.Form):
         # update widgets to take the new defaults into account
         self.updateWidgets()
 
+    def updateActions(self):
+        super().updateActions()
+        for a in self.actions:
+            # ignore validation
+            self.actions[a].ignoreRequiredOnValidation = True
+
 
 class ReadOnlySchemaListing(SchemaListing):
     buttons = button.Buttons()
