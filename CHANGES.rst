@@ -8,6 +8,23 @@ Changelog
 
 .. towncrier release notes start
 
+4.0.0a1 (2022-04-04)
+--------------------
+
+New features:
+
+
+- Plone 6 updates
+  [thet, mauritsvanrees, petschki] (#82)
+
+
+Bug fixes:
+
+
+- ignore validation for schemalisting buttons
+  [petschki] (#87)
+
+
 3.0.3 (2021-06-30)
 ------------------
 
