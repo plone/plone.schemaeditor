@@ -38,7 +38,7 @@ Add a choice field with a named vocabulary
     Wait until page contains element  css=div[data-field_id="languages"] a.fieldSettings
 
     Open field settings  languages
-    Select from list  form-widgets-vocabularyName  plone.app.vocabularies.AvailableContentLanguages
+    Select from list by value  form-widgets-vocabularyName  plone.app.vocabularies.AvailableContentLanguages
     Click button  css=.modal-footer #form-buttons-save
     Wait overlay is closed
     Page should contain  Français
@@ -62,7 +62,7 @@ Add a choice field with vocabulary values
 #    Add field  Hobbies  hobbies  Multiple Choice
 #    Open field settings  hobbies
 #    Input text  form-widgets-values  Chess\nSoccer\nBaseball\nVideo games
-#    Select from list  form-widgets-vocabularyName  plone.app.vocabularies.AvailableContentLanguages
+#    Select from list by value  form-widgets-vocabularyName  plone.app.vocabularies.AvailableContentLanguages
 #    Click Button  Save
 #    Wait until page contains element  css=#formfield-form-widgets-vocabularyName.error
 #
@@ -125,7 +125,7 @@ Delete field
     Add field  Phone  phone  Text line (String)
     Wait until page contains element  css=#fieldset-0 #formfield-form-widgets-phone
     Click link  css=div.fieldControls .schemaeditor-delete-field
-    Confirm Action
+    Handle alert
     Wait Until Keyword Succeeds  10  1  Page Should Not Contain Element  css=#formfield-form-widgets-phone
     # Make sure it actually got deleted
     Go to  ${PLONE_URL}/@@dexterity-types/somebody/@@fields
@@ -176,7 +176,7 @@ Add field
     Input text for sure  form-widgets-title  ${field_title}
     Set Focus to Element  form-widgets-__name__
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  ${field_id}
-    Select from list  form-widgets-factory  ${field_type}
+    Select from list by label  form-widgets-factory  ${field_type}
     Click button  css=.modal-footer #form-buttons-add
     Wait overlay is closed
 
