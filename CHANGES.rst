@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+4.0.0a2 (2022-05-14)
+--------------------
+
+Bug fixes:
+
+
+- Make compatible with robotframework 3-5.
+  [maurits] (#5)
+
+
 4.0.0a1 (2022-04-04)
 --------------------
 
