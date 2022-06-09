@@ -20,9 +20,8 @@ Add a content type
     Input text for sure  form-widgets-title  New style Article
     Set Focus to Element  form-widgets-id
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-id  new_style_article
-    Set Focus To Element  css=.modal-footer #form-buttons-add
-    Wait Until Element Is Visible  css=.modal-footer #form-buttons-add
-    Click button  css=.modal-footer #form-buttons-add
+    Wait For Then Click Element  css=.modal-footer #form-buttons-add
+    Wait overlay is closed
     Wait until page contains  New style Article
 
 
@@ -37,13 +36,12 @@ Add a choice field with a named vocabulary
     Input text for sure  form-widgets-description  Spoken languages
     Wait until keyword succeeds  10  1  Select From List By Label  form-widgets-factory  Multiple Choice
     Wait until keyword succeeds  10  1  Click button  css=.modal-footer #form-buttons-add
+    Wait overlay is closed
     Wait until page contains element  css=div[data-field_id="languages"] a.fieldSettings
 
     Open field settings  languages
     Select from list by value  form-widgets-vocabularyName  plone.app.vocabularies.AvailableContentLanguages
-    Set Focus To Element  css=.modal-footer #form-buttons-save
-    Wait Until Element Is Visible  css=.modal-footer #form-buttons-save
-    Click button  css=.modal-footer #form-buttons-save
+    Wait For Then Click Element  css=.modal-footer #form-buttons-save
     Wait overlay is closed
     Page should contain  Français
 
@@ -55,9 +53,8 @@ Add a choice field with vocabulary values
     Add field  Hobbies  hobbies  Multiple Choice
     Open field settings  hobbies
     Input text  form-widgets-values  Chess\nSoccer\nBaseball\nVideo games
-    Set Focus To Element  css=.modal-footer #form-buttons-save
-    Wait Until Element Is Visible  css=.modal-footer #form-buttons-save
-    Click button  css=.modal-footer #form-buttons-save
+    Wait For Then Click Element  css=.modal-footer #form-buttons-save
+    Wait overlay is closed
     Wait until page contains element  form-widgets-hobbies-3
 
 #fail on jenkins
@@ -93,9 +90,7 @@ Add a fieldSet and move a field into this fieldset
     Input text for sure  form-widgets-label  Personal information
     Set Focus to Element  form-widgets-__name__
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  personal_information
-    Set Focus To Element  css=.modal-footer #form-buttons-add
-    Wait Until Element Is Visible  css=.modal-footer #form-buttons-add
-    Click button  css=.modal-footer #form-buttons-add
+    Wait For Then Click Element  css=.modal-footer #form-buttons-add
     Wait overlay is closed
     Wait until page contains  Personal information
 
@@ -131,7 +126,7 @@ Delete field
     Go to dexterity types configuration
     Add content type  Somebody  somebody
     Add field  Phone  phone  Text line (String)
-    Wait until page contains element  css=#fieldset-0 #formfield-form-widgets-phone
+    Wait For Element  css=#fieldset-0 #formfield-form-widgets-phone
     Click link  css=div.fieldControls .schemaeditor-delete-field
     Handle alert
     Wait Until Keyword Succeeds  10  1  Page Should Not Contain Element  css=#formfield-form-widgets-phone
@@ -157,7 +152,7 @@ Delete field
 *** Keywords ***
 
 Wait overlay is closed
-    Wait until keyword succeeds  60  1  Page should not contain element  css=div.overlay
+    Wait until keyword succeeds  8  1  Page should not contain element  css=div.modal-wrapper
 
 Go to dexterity types configuration
     Enable autologin as  Manager
@@ -171,9 +166,8 @@ Add content type
     Input text for sure  form-widgets-title  ${title}
     Set Focus to Element  form-widgets-id
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-id  ${id}
-    Set Focus To Element  css=.modal-footer #form-buttons-add
-    Wait Until Element Is Visible  css=.modal-footer #form-buttons-add
-    Click button  css=.modal-footer #form-buttons-add
+    Wait For Then Click Element  css=.modal-footer #form-buttons-add
+    Wait overlay is closed
     Wait until page contains  ${title}
     Go to  ${PLONE_URL}/@@dexterity-types/${id}/@@fields
     Wait until page contains  Fields
@@ -187,13 +181,11 @@ Add field
     Set Focus to Element  form-widgets-__name__
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  ${field_id}
     Select from list by label  form-widgets-factory  ${field_type}
-    Set Focus To Element  css=.modal-footer #form-buttons-add
-    Wait Until Element Is Visible  css=.modal-footer #form-buttons-add
-    Click button  css=.modal-footer #form-buttons-add
+    Wait For Then Click Element  css=.modal-footer #form-buttons-add
     Wait overlay is closed
 
 Open field settings
     [Arguments]    ${field_id}
     ${locator}  Set Variable  //div[@data-field_id='${field_id}']//a[contains(@class, 'fieldSettings pat-plone-modal')]
-    Wait until element is visible  xpath=${locator}
+    Wait For Element  xpath=${locator}
     Click Overlay Link  xpath=${locator}
