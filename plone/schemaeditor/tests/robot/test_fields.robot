@@ -11,6 +11,8 @@ Test Teardown  Run keywords  Plone test teardown
 
 *** Variables ***
 
+${SELENIUM2LIBRARY_PLUGINS}  SeleniumTestability;True;7 Seconds;True
+
 *** Test Cases ***
 
 Add a content type
