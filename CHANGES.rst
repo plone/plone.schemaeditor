@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+4.0.0b1 (2022-06-23)
+--------------------
+
+Bug fixes:
+
+
+- Tests: more robot fixes.
+  [fredvd, maurits] (#89)
+
+
 4.0.0a2 (2022-05-14)
 --------------------
 
