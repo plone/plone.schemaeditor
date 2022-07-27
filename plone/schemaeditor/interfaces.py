@@ -12,6 +12,7 @@ from zope.publisher.interfaces.browser import IBrowserPage
 from zope.schema import ASCIILine
 from zope.schema import Bool
 from zope.schema import Choice
+from zope.schema import Int
 from zope.schema import Object
 from zope.schema import Text
 from zope.schema import TextLine
@@ -156,6 +157,12 @@ def isValidFieldName(value):
 
 
 class INewField(Interface):
+
+    fieldset_id = Int(
+        title=_(u'Fieldset ID'),
+        description=_(u'Used to decide where to put this field.'),
+        required=True,
+    )
 
     title = TextLine(
         title=_(u'Title'),
