@@ -10,6 +10,7 @@ Test Setup  Run Keywords  Plone test setup
 Test Teardown  Run keywords  Plone test teardown
 
 *** Variables ***
+${SELENIUM_TIMEOUT}  20
 
 *** Test Cases ***
 
@@ -98,9 +99,27 @@ Add a fieldSet and move a field into this fieldset
 #    Mouse Over  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
 #    Mouse Up  xpath=//*[@data-fieldset_drag_id="1"][1]
 #    Wait Until Keyword Succeeds  10  1  Element should not be visible  css=.fieldPreview[data-field_id="address"]
-#
 #    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
 #    Wait Until Keyword Succeeds  10  1  Element should be visible  css=.fieldPreview[data-field_id="address"]
+
+
+Add a fieldSet and add a field into this fieldset
+
+    Go to dexterity types configuration
+    Add content type  Contact info  contact_info
+    Click Link  Add new fieldset…
+    Input text for sure  form-widgets-label  Personal information
+    Set Focus to Element  form-widgets-__name__
+    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  personal_information
+    Wait For Then Click Element  css=.modal-footer #form-buttons-add
+    Wait overlay is closed
+    Wait until page contains  Personal information
+    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
+    Add field  Address  address  Text
+    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="0"]
+    Wait Until Keyword Succeeds  10  1  Element should not be visible  css=.fieldPreview[data-field_id="address"]
+    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
+    Wait Until Keyword Succeeds  10  1  Element should be visible  css=.fieldPreview[data-field_id="address"]
 
 
 #Add a fieldSet and add a field into this fieldset
