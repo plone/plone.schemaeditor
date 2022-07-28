@@ -83,7 +83,7 @@
           <legend tal:define="group_name python:group.label or view.default_fieldset_label"
                   tal:content="group_name">Fieldset name</legend>
 
-          <a id="delete-fieldset-${fieldset_name}" tal:condition="python:context.enableFieldsets and can_delete"
+          <a id="delete-fieldset-${fieldset_name}" class="btn btn-sm btn-danger" tal:condition="python:context.enableFieldsets and can_delete"
              href="${context/absolute_url}/@@delete-fieldset?name=${python:group.__name__}&_authenticator=${context/@@authenticator/token}"
                   i18n:translate="delete_fieldset_hellip">Delete fieldset
           </a>
