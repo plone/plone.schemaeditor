@@ -1,0 +1,3 @@
+Fix incomplete validation error for invalid field name.
+According to the regular expression, a field must start with a lowercase character.
+[maurits]
