@@ -46,7 +46,8 @@ class FieldAddForm(AutoExtensibleForm, form.AddForm):
         factory = data.pop('factory')
 
         # remove fieldset_id from data
-        fieldset_id = data.pop('fieldset_id')
+        if 'fieldset_id' in data:
+            fieldset_id = data.pop('fieldset_id')
 
         # split regular attributes and extra ones
         for key in list(data.keys()):
@@ -99,10 +100,11 @@ class FieldAddForm(AutoExtensibleForm, form.AddForm):
     def updateWidgets(self):
         super(FieldAddForm, self).updateWidgets()
         fieldset_id_widget = self.widgets.get('fieldset_id')
-        if not fieldset_id_widget.value or fieldset_id_widget.value == NO_VALUE:
-            fieldset_id = int(self.request.form.get('fieldset_id', 0))
-            fieldset_id_widget.value = fieldset_id
-        fieldset_id_widget.mode = HIDDEN_MODE
+        if fieldset_id_widget:
+            if not fieldset_id_widget.value or fieldset_id_widget.value == NO_VALUE:
+                fieldset_id = int(self.request.form.get('fieldset_id', 0))
+                fieldset_id_widget.value = fieldset_id
+            fieldset_id_widget.mode = HIDDEN_MODE
 
     def nextURL(self):
         return '@@add-field'
