@@ -146,8 +146,8 @@ ID_RE = re.compile(r'^[a-z][\w\d\.]*$')
 def isValidFieldName(value):
     if not ID_RE.match(value):
         raise Invalid(
-            _(u'Please use only letters, numbers and the following '
-              u'characters: _.')
+            _(u'Please start with a lowercase letter and after this use only letters, '
+              u'numbers and the following characters: _.')
         )
     if value in RESERVED_NAMES:
         raise Invalid(

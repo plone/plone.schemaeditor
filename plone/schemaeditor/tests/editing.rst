@@ -327,7 +327,7 @@ Let's add a 'extra-info' fieldset to the IDummySchema schema::
     >>> browser.getControl('Short Name').value = 'extra-info'
     >>> browser.getControl('Add').click()
     >>> browser.contents
-    '<...Please use only letters, numbers and the following characters...'
+    '<...Please start with a lowercase letter and after this use only letters, numbers and the following characters...'
     >>> browser.getControl('Short Name').value = 'extra_info'
     >>> browser.getControl('Add').click()
     [event: ContainerModifiedEvent on InterfaceClass]
