@@ -173,6 +173,9 @@ Add content type
     Input text for sure  form-widgets-title  ${title}
     Set Focus to Element  form-widgets-id
     Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-id  ${id}
+    # Far too often, the overlay is not closed after clicking the add-button.
+    # Maybe some sleep helps.  Never nice to do, but better than having developers lose sleep.
+    Sleep  0.1
     Wait For Then Click Element  css=.modal-footer #form-buttons-add
     Wait overlay is closed
     Wait until page contains  ${title}
