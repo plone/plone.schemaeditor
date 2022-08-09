@@ -70,12 +70,15 @@ class FieldAddForm(AutoExtensibleForm, form.AddForm):
 
     def add(self, new_field):
         schema = self.context.schema
+        fieldset_id = int(self.request.form.get('fieldset_id', 0))
 
-        fieldset_widget = self.widgets.get('fieldset_id')
-        fieldset_id = 0
-        if fieldset_widget:
-            fieldset_id = int(fieldset_widget.extract())
-        position = new_field_position(schema, fieldset_id, new_field=True)
+        if self.widgets:
+            fieldset_widget = self.widgets.get('fieldset_id')
+            if fieldset_widget:
+                fieldset_id = int(fieldset_widget.extract())
+            position = new_field_position(schema, fieldset_id, new_field=True)
+        else:
+            position = new_field_position(schema, fieldset_id)
 
         editable_schema = IEditableSchema(schema)
         try:
