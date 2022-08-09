@@ -11,8 +11,8 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from z3c.form import field
 from z3c.form import form
-from z3c.form.browser.text import TextWidget
 from z3c.form.interfaces import HIDDEN_MODE
+from z3c.form.interfaces import NO_VALUE
 from z3c.form.interfaces import WidgetActionExecutionError
 from zope.cachedescriptors.property import Lazy as lazy_property
 from zope.component import getAdapters
@@ -45,6 +45,10 @@ class FieldAddForm(AutoExtensibleForm, form.AddForm):
         extra = {}
         factory = data.pop('factory')
 
+        # remove fieldset_id from data
+        if 'fieldset_id' in data:
+            fieldset_id = data.pop('fieldset_id')
+
         # split regular attributes and extra ones
         for key in list(data.keys()):
             if key not in self._schema:
@@ -67,7 +71,14 @@ class FieldAddForm(AutoExtensibleForm, form.AddForm):
     def add(self, new_field):
         schema = self.context.schema
         fieldset_id = int(self.request.form.get('fieldset_id', 0))
-        position = new_field_position(schema, fieldset_id)
+
+        if self.widgets:
+            fieldset_widget = self.widgets.get('fieldset_id')
+            if fieldset_widget:
+                fieldset_id = int(fieldset_widget.extract())
+            position = new_field_position(schema, fieldset_id, new_field=True)
+        else:
+            position = new_field_position(schema, fieldset_id)
 
         editable_schema = IEditableSchema(schema)
         try:
@@ -91,17 +102,12 @@ class FieldAddForm(AutoExtensibleForm, form.AddForm):
 
     def updateWidgets(self):
         super(FieldAddForm, self).updateWidgets()
-        fieldset_id = int(self.request.form.get('fieldset_id', 0))
-        if fieldset_id:
-            # add fieldset_id from GET parameter as hidden field, so that
-            # ``add`` method at the end of the form lifecycle can read it.
-            fieldset_id_widget = TextWidget(self.request)
-            fieldset_id_widget.name = 'fieldset_id'
-            fieldset_id_widget.value = fieldset_id
+        fieldset_id_widget = self.widgets.get('fieldset_id')
+        if fieldset_id_widget:
+            if not fieldset_id_widget.value or fieldset_id_widget.value == NO_VALUE:
+                fieldset_id = int(self.request.form.get('fieldset_id', 0))
+                fieldset_id_widget.value = fieldset_id
             fieldset_id_widget.mode = HIDDEN_MODE
-            # Uhm. z3c.form widgets doesn't have an API for extending a
-            # schema-generated form. Using internal ``_data_values``...
-            self.widgets._data_values.append(fieldset_id_widget)
 
     def nextURL(self):
         return '@@add-field'

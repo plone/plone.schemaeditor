@@ -4,6 +4,7 @@ from plone.schemaeditor.interfaces import INewFieldset
 from plone.schemaeditor.utils import SchemaModifiedEvent
 from plone.supermodel.interfaces import FIELDSETS_KEY
 from plone.supermodel.model import Fieldset
+from plone.supermodel.utils import mergedTaggedValueList
 from plone.z3cform.layout import wrap_form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
@@ -27,8 +28,13 @@ class FieldsetAddForm(form.AddForm):
     def add(self, new_fieldset):
         schema = self.context.schema
         fieldsets = schema.queryTaggedValue(FIELDSETS_KEY, [])
+        # Also check on fieldsets coming from behaviors
+        extra_fieldsets = list()
+        for additional_schema in self.context.additionalSchemata:
+            for elem in mergedTaggedValueList(additional_schema, FIELDSETS_KEY):
+                extra_fieldsets.append(elem)
 
-        for fieldset in fieldsets:
+        for fieldset in (fieldsets + extra_fieldsets):
             if fieldset.__name__ == new_fieldset.__name__:
                 msg = _(
                     u'Please select a fieldset name that is not already used.'

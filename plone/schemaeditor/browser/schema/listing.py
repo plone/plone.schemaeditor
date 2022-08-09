@@ -4,6 +4,7 @@ from plone.memoize.instance import memoize
 from plone.schemaeditor import _
 from plone.schemaeditor.interfaces import IFieldFactory
 from plone.schemaeditor.utils import SchemaModifiedEvent
+from plone.supermodel.interfaces import FIELDSETS_KEY
 from plone.z3cform.layout import FormWrapper
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form import button
@@ -93,8 +94,17 @@ class SchemaListing(AutoExtensibleForm, form.Form):
                 field.__name__,
             )
 
-    def delete_url(self, field):
+    def can_delete_fieldset(self, fieldset):
+        can_delete = False
+        if fieldset != self:
+            added_fieldsets = self.context.schema.queryTaggedValue(FIELDSETS_KEY, [])
+            for custom_fieldset in added_fieldsets:
+                if custom_fieldset.__name__ == fieldset.__name__:
+                    can_delete = True
+                    break
+        return can_delete
 
+    def delete_url(self, field):
         if field.__name__ in self.context.fieldsWhichCannotBeDeleted:
             return
         url = '{0}/{1}/@@delete'.format(

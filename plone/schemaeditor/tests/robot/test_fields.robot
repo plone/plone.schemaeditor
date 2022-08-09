@@ -10,6 +10,7 @@ Test Setup  Run Keywords  Plone test setup
 Test Teardown  Run keywords  Plone test teardown
 
 *** Variables ***
+${SELENIUM_TIMEOUT}  20
 
 *** Test Cases ***
 
@@ -86,21 +87,27 @@ Add a fieldSet and move a field into this fieldset
     Go to dexterity types configuration
     Add content type  Contact info  contact_info
     Add field  Address  address  Text
-    Click Link  Add new fieldset…
-    Input text for sure  form-widgets-label  Personal information
-    Set Focus to Element  form-widgets-__name__
-    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  personal_information
-    Wait For Then Click Element  css=.modal-footer #form-buttons-add
-    Wait overlay is closed
-    Wait until page contains  Personal information
+    Add fieldset  Personal information  personal_information
 
 #    Mouse Down  xpath=//*[@data-field_id="address"][1]
 #    Mouse Over  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
 #    Mouse Up  xpath=//*[@data-fieldset_drag_id="1"][1]
 #    Wait Until Keyword Succeeds  10  1  Element should not be visible  css=.fieldPreview[data-field_id="address"]
-#
 #    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
 #    Wait Until Keyword Succeeds  10  1  Element should be visible  css=.fieldPreview[data-field_id="address"]
+
+
+Add a fieldSet and add a field into this fieldset
+
+    Go to dexterity types configuration
+    Add content type  Contact info  contact_info
+    Add fieldset  Personal information  personal_information
+    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
+    Add field  Address  address  Text
+    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="0"]
+    Wait Until Keyword Succeeds  10  1  Element should not be visible  css=.fieldPreview[data-field_id="address"]
+    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
+    Wait Until Keyword Succeeds  10  1  Element should be visible  css=.fieldPreview[data-field_id="address"]
 
 
 #Add a fieldSet and add a field into this fieldset
@@ -183,6 +190,18 @@ Add field
     Select from list by label  form-widgets-factory  ${field_type}
     Wait For Then Click Element  css=.modal-footer #form-buttons-add
     Wait overlay is closed
+
+Add fieldset
+    [Arguments]    ${fieldset_title}    ${fieldset_id}
+    [Documentation]    Add fieldset in current dexterity content type
+
+    Click Link  Add new fieldset…
+    Input text for sure  form-widgets-label  ${fieldset_title}
+    Set Focus to Element  form-widgets-__name__
+    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  ${fieldset_id}
+    Wait For Then Click Element  css=.modal-footer #form-buttons-add
+    Wait overlay is closed
+    Wait until page contains  ${fieldset_title}
 
 Open field settings
     [Arguments]    ${field_id}
