@@ -1,3 +1,0 @@
-Tests: sleep before clicking button to add new content type.
-Tests fail too often here, having the modal still open after clicking this button.
-[maurits]

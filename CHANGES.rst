@@ -8,6 +8,22 @@ Changelog
 
 .. towncrier release notes start
 
+4.0.0b2 (2022-08-30)
+--------------------
+
+Bug fixes:
+
+
+- Fix adding and moving fields between fieldsets
+  [frapell] (#86)
+- Fix incomplete validation error for invalid field name.
+  According to the regular expression, a field must start with a lowercase character.
+  [maurits] (#93)
+- Tests: sleep before clicking button to add new content type.
+  Tests fail too often here, having the modal still open after clicking this button.
+  [maurits] (#3582)
+
+
 4.0.0b1 (2022-06-23)
 --------------------
 
