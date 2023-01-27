@@ -8,9 +8,8 @@ from zope.event import notify
 
 
 class DeleteFieldset(BrowserView):
-
     def __call__(self):
-        fieldset_name = self.request.form.get('name')
+        fieldset_name = self.request.form.get("name")
         schema = self.context.schema
         fieldsets = schema.queryTaggedValue(FIELDSETS_KEY, [])
 
@@ -19,15 +18,16 @@ class DeleteFieldset(BrowserView):
             if fieldset.__name__ == fieldset_name:
                 if fieldset.fields:
                     IStatusMessage(self.request).addStatusMessage(
-                        _(u'Only empty fieldsets can be deleted'),
-                        type='error')
+                        _("Only empty fieldsets can be deleted"), type="error"
+                    )
                     return self.request.RESPONSE.redirect(self.nextURL)
                 continue
             else:
                 new_fieldsets.append(fieldset)
         if len(fieldsets) == len(new_fieldsets):
             IStatusMessage(self.request).addStatusMessage(
-                _(u'Fieldset not found'), type='error')
+                _("Fieldset not found"), type="error"
+            )
             return self.request.RESPONSE.redirect(self.nextURL)
 
         schema.setTaggedValue(FIELDSETS_KEY, new_fieldsets)
@@ -35,9 +35,10 @@ class DeleteFieldset(BrowserView):
         notifyContainerModified(schema)
         notify(SchemaModifiedEvent(self.context))
         IStatusMessage(self.request).addStatusMessage(
-            _(u'Fieldset deleted successfully.'), type='info')
+            _("Fieldset deleted successfully."), type="info"
+        )
         return self.request.RESPONSE.redirect(self.nextURL)
 
     @property
     def nextURL(self):
-        return self.request.get('HTTP_REFERER')
+        return self.request.get("HTTP_REFERER")

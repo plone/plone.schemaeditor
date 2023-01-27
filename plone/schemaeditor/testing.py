@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Base module for unittesting."""
 from plone.app.robotframework.testing import AUTOLOGIN_LIBRARY_FIXTURE
 from plone.app.testing import FunctionalTesting
@@ -9,11 +8,11 @@ from plone.testing import z2
 
 class PloneSchemaeditorRobotLayer(PloneSandboxLayer):
 
-    defaultBases = (PLONE_FIXTURE, )
+    defaultBases = (PLONE_FIXTURE,)
 
 
 FIXTURE = PloneSchemaeditorRobotLayer(
-    name='ROBOT',
+    name="ROBOT",
 )
 
 
@@ -23,5 +22,5 @@ ACCEPTANCE = FunctionalTesting(
         AUTOLOGIN_LIBRARY_FIXTURE,
         z2.ZSERVER_FIXTURE,
     ),
-    name='ACCEPTANCE'
+    name="ACCEPTANCE",
 )
