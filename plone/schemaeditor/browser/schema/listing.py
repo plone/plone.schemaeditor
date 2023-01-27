@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone.autoform.form import AutoExtensibleForm
 from plone.memoize.instance import memoize
 from plone.schemaeditor import _
@@ -28,7 +27,7 @@ class SchemaListing(AutoExtensibleForm, form.Form):
     ignoreContext = True
     ignoreRequest = True
     showEmptyGroups = True
-    template = ViewPageTemplateFile('schema_listing.pt')
+    template = ViewPageTemplateFile("schema_listing.pt")
     ignoreRequiredOnExtract = True
 
     @property
@@ -40,28 +39,26 @@ class SchemaListing(AutoExtensibleForm, form.Form):
         return self.context.additionalSchemata
 
     def _iterateOverWidgets(self):
-        for widget in self.widgets.values():
-            yield widget
+        yield from self.widgets.values()
         for group in self.groups:
-            for widget in group.widgets.values():
-                yield widget
+            yield from group.widgets.values()
 
     def render(self):
         for widget in self._iterateOverWidgets():
             # disable fields from behaviors
             if widget.field.interface is not self.context.schema:
-                widget.disabled = 'disabled'
+                widget.disabled = "disabled"
 
             # limit size of the preview for text areas
-            if hasattr(widget, 'rows'):
+            if hasattr(widget, "rows"):
                 if widget.rows is None or widget.rows > 5:
                     widget.rows = 5
 
-        return super(SchemaListing, self).render()
+        return super().render()
 
     @memoize
     def _field_factory(self, field):
-        field_identifier = u'{0}.{1}'.format(
+        field_identifier = "{}.{}".format(
             field.__module__,
             field.__class__.__name__,
         )
@@ -79,7 +76,7 @@ class SchemaListing(AutoExtensibleForm, form.Form):
             return field.__class__.__name__
 
     def protected_field(self, field):
-        field_identifier = u'{0}.{1}'.format(
+        field_identifier = "{}.{}".format(
             field.__module__,
             field.__class__.__name__,
         )
@@ -89,7 +86,7 @@ class SchemaListing(AutoExtensibleForm, form.Form):
     def edit_url(self, field):
         field_factory = self._field_factory(field)
         if field_factory is not None and field_factory.editable(field):
-            return '{0}/{1}'.format(
+            return "{}/{}".format(
                 self.context.absolute_url(),
                 field.__name__,
             )
@@ -107,7 +104,7 @@ class SchemaListing(AutoExtensibleForm, form.Form):
     def delete_url(self, field):
         if field.__name__ in self.context.fieldsWhichCannotBeDeleted:
             return
-        url = '{0}/{1}/@@delete'.format(
+        url = "{}/{}/@@delete".format(
             self.context.absolute_url(),
             field.__name__,
         )
@@ -116,14 +113,14 @@ class SchemaListing(AutoExtensibleForm, form.Form):
         return url
 
     @button.buttonAndHandler(
-        _(u'Done'),
+        _("Done"),
     )
     def handleDone(self, action):
         return self.request.RESPONSE.redirect(self.context.absolute_url())
 
     @button.buttonAndHandler(
-        _(u'Save Defaults'),
-        condition=lambda form: getattr(form.context, 'showSaveDefaults', True)
+        _("Save Defaults"),
+        condition=lambda form: getattr(form.context, "showSaveDefaults", True),
     )
     def handleSaveDefaults(self, action):
         for group in self.groups:
@@ -135,8 +132,7 @@ class SchemaListing(AutoExtensibleForm, form.Form):
 
         for widget in self._iterateOverWidgets():
             widget_name = widget.field.getName()
-            if (widget.field.interface is self.context.schema and
-                    widget_name in data):
+            if widget.field.interface is self.context.schema and widget_name in data:
                 self.context.schema[widget_name].default = data[widget_name]
         notify(SchemaModifiedEvent(self.context))
 
@@ -155,33 +151,36 @@ class ReadOnlySchemaListing(SchemaListing):
 
     def edit_url(self, field):
         return
+
     delete_url = edit_url
 
 
 class SchemaListingPage(FormWrapper):
 
-    """ Form wrapper so we can get a form with layout.
+    """Form wrapper so we can get a form with layout.
 
-        We define an explicit subclass rather than using the wrap_form method
-        from plone.z3cform.layout so that we can inject the schema name into
-        the form label.
+    We define an explicit subclass rather than using the wrap_form method
+    from plone.z3cform.layout so that we can inject the schema name into
+    the form label.
     """
+
     form = SchemaListing
 
     @property
     def label(self):
-        """ In a dexterity schema editing context, we need to
-            construct a label that will specify the field being
-            edited. Outside that context (e.g., plone.app.users),
-            we should respect the label if specified.
+        """In a dexterity schema editing context, we need to
+        construct a label that will specify the field being
+        edited. Outside that context (e.g., plone.app.users),
+        we should respect the label if specified.
         """
 
-        context_label = getattr(self.context, 'label', None)
+        context_label = getattr(self.context, "label", None)
         if context_label is not None:
             return context_label
         if self.context.Title() != self.context.__name__:
-            return _(u'Edit ${title} (${name})',
-                     mapping={'title': self.context.Title(),
-                              'name': self.context.__name__})
+            return _(
+                "Edit ${title} (${name})",
+                mapping={"title": self.context.Title(), "name": self.context.__name__},
+            )
         else:
-            return _(u'Edit ${name}', mapping={'name': self.context.__name__})
+            return _("Edit ${name}", mapping={"name": self.context.__name__})

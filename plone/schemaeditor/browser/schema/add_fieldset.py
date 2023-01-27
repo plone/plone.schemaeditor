@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone.schemaeditor import _
 from plone.schemaeditor.interfaces import INewFieldset
 from plone.schemaeditor.utils import SchemaModifiedEvent
@@ -19,8 +18,8 @@ from zope.interface import Invalid
 class FieldsetAddForm(form.AddForm):
 
     fields = field.Fields(INewFieldset)
-    label = _('Add new fieldset')
-    id = 'add-fieldset-form'
+    label = _("Add new fieldset")
+    id = "add-fieldset-form"
 
     def create(self, data):
         return Fieldset(**data)
@@ -34,28 +33,21 @@ class FieldsetAddForm(form.AddForm):
             for elem in mergedTaggedValueList(additional_schema, FIELDSETS_KEY):
                 extra_fieldsets.append(elem)
 
-        for fieldset in (fieldsets + extra_fieldsets):
+        for fieldset in fieldsets + extra_fieldsets:
             if fieldset.__name__ == new_fieldset.__name__:
-                msg = _(
-                    u'Please select a fieldset name that is not already used.'
-                )
-                raise WidgetActionExecutionError(
-                    '__name__',
-                    Invalid(msg)
-                )
+                msg = _("Please select a fieldset name that is not already used.")
+                raise WidgetActionExecutionError("__name__", Invalid(msg))
 
         fieldsets.append(new_fieldset)
         schema.setTaggedValue(FIELDSETS_KEY, fieldsets)
         notifyContainerModified(schema)
         notify(SchemaModifiedEvent(self.context))
         IStatusMessage(self.request).addStatusMessage(
-            _(u'Fieldset added successfully.'), type='info')
+            _("Fieldset added successfully."), type="info"
+        )
 
     def nextURL(self):
-        return '@@add-fieldset'
+        return "@@add-fieldset"
 
 
-FieldsetAddFormPage = wrap_form(
-    FieldsetAddForm,
-    index=ViewPageTemplateFile('add.pt')
-)
+FieldsetAddFormPage = wrap_form(FieldsetAddForm, index=ViewPageTemplateFile("add.pt"))

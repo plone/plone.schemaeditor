@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from OFS.SimpleItem import SimpleItem
 from plone.schemaeditor.browser.field.edit import EditView
 from plone.schemaeditor.interfaces import IFieldContext
@@ -10,11 +9,10 @@ from ZPublisher.BaseRequest import DefaultPublishTraverse
 @implementer(IFieldContext, IBrowserPublisher)
 class FieldContext(SimpleItem):
 
-    """ wrapper for published zope 3 schema fields
-    """
+    """wrapper for published zope 3 schema fields"""
 
     def __init__(self, context, request):
-        super(FieldContext, self).__init__()
+        super().__init__()
         self.field = context
         self.request = request
 
@@ -23,8 +21,7 @@ class FieldContext(SimpleItem):
         self.__name__ = self.field.__name__
 
     def publishTraverse(self, request, name):
-        """ It's not valid to traverse to anything below a field context.
-        """
+        """It's not valid to traverse to anything below a field context."""
         # hack to make inline validation work
         # (plone.app.z3cform doesn't know the form is the default view)
         if name == self.__name__:
@@ -36,6 +33,5 @@ class FieldContext(SimpleItem):
         )
 
     def browserDefault(self, request):
-        """ Really we want to show the field EditView.
-        """
-        return self, ('@@edit',)
+        """Really we want to show the field EditView."""
+        return self, ("@@edit",)

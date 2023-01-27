@@ -1,30 +1,36 @@
-# -*- coding: utf-8 -*-
 from plone.schemaeditor.interfaces import IEditableSchema
 from plone.schemaeditor.interfaces import ISchemaModifiedEvent
 from plone.supermodel.interfaces import FIELDSETS_KEY
 from zope.component import adapter
-from zope.interface.interfaces import ObjectEvent
 from zope.interface import implementer
 from zope.interface.interfaces import IInterface
+from zope.interface.interfaces import ObjectEvent
 from zope.schema.interfaces import IField
 
 import pkg_resources
 
+
 _zope_interface_version_major = int(
-    pkg_resources.require('zope.interface')[0].version.split('.')[0]
+    pkg_resources.require("zope.interface")[0].version.split(".")[0]
 )
 
-def sortedFields(schema):
-    """ Like getFieldsInOrder, but does not include fields from bases
 
-        This is verbatim from plone.supermodel's utils.py but I didn't
-        want to create a dependency.
+def sortedFields(schema):
+    """Like getFieldsInOrder, but does not include fields from bases
+
+    This is verbatim from plone.supermodel's utils.py but I didn't
+    want to create a dependency.
     """
     fields = []
     for name in schema.names(all=False):
         field = schema[name]
         if IField.providedBy(field):
-            fields.append((name, field,))
+            fields.append(
+                (
+                    name,
+                    field,
+                )
+            )
     fields.sort(key=lambda item: item[1].order)
     return fields
 
@@ -49,8 +55,7 @@ def get_field_fieldset(schema, field_name):
 
 
 def get_fieldset_from_index(schema, index):
-    """Return a fieldset from a schema according to it's index.
-    """
+    """Return a fieldset from a schema according to it's index."""
     index = int(index or 0) - 1
     fieldsets = schema.queryTaggedValue(FIELDSETS_KEY, [])
     return fieldsets[index] if index >= 0 else None
@@ -85,11 +90,11 @@ def new_field_position(schema, fieldset_id=None, new_field=False):
 
 @implementer(IEditableSchema)
 @adapter(IInterface)
-class EditableSchema(object):
+class EditableSchema:
 
-    """ Zope 3 schema adapter to allow addition/removal of schema fields
+    """Zope 3 schema adapter to allow addition/removal of schema fields
 
-        XXX this needs to be made threadsafe
+    XXX this needs to be made threadsafe
     """
 
     def __init__(self, schema):
@@ -102,7 +107,7 @@ class EditableSchema(object):
 
         if name in self.schema._InterfaceClass__attrs:
             raise ValueError(
-                '{0} schema already has a "{1}" field'.format(
+                '{} schema already has a "{}" field'.format(
                     self.schema.__identifier__,
                     name,
                 )
@@ -112,35 +117,34 @@ class EditableSchema(object):
         if _zope_interface_version_major >= 5:
             self.schema._v_attrs = None
         else:
-            if hasattr(self.schema, '_v_attrs'):
+            if hasattr(self.schema, "_v_attrs"):
                 self.schema._v_attrs[name] = field
 
         field.interface = self.schema
 
     def removeField(self, field_name):
-        """ Remove a field
-        """
+        """Remove a field"""
         try:
             self.schema[field_name].interface = None
             del self.schema._InterfaceClass__attrs[field_name]
             if _zope_interface_version_major >= 5:
                 self.schema._v_attrs = None
             else:
-                if hasattr(self.schema, '_v_attrs'):
+                if hasattr(self.schema, "_v_attrs"):
                     del self.schema._v_attrs[field_name]
             for fieldset in self.schema.queryTaggedValue(FIELDSETS_KEY, []):
                 if field_name in fieldset.fields:
                     fieldset.fields.remove(field_name)
         except KeyError:
             raise ValueError(
-                '{0} schema has no "{1}" field'.format(
+                '{} schema has no "{}" field'.format(
                     self.schema.__identifier__,
                     field_name,
                 )
             )
 
     def moveField(self, field_name, new_pos):
-        """ Move a field to the (new_pos)th position in the schema's sort
+        """Move a field to the (new_pos)th position in the schema's sort
         order (indexed beginning at 0).
 
         Schema fields are assigned an 'order' attribute that increments for
@@ -149,18 +153,16 @@ class EditableSchema(object):
         unique.
         """
         moving_field = self.schema[field_name]
-        ordered_field_ids = [
-            name for (name, field) in sortedFields(self.schema)]
+        ordered_field_ids = [name for (name, field) in sortedFields(self.schema)]
 
         # make sure this is sane
         if not isinstance(new_pos, int):
-            raise IndexError('The new field position must be an integer.')
+            raise IndexError("The new field position must be an integer.")
         if new_pos < 0:
-            raise IndexError('The new field position must be greater than 0.')
+            raise IndexError("The new field position must be greater than 0.")
         if new_pos >= len(ordered_field_ids):
             raise IndexError(
-                'The new field position must be less than the number of '
-                'fields.'
+                "The new field position must be less than the number of " "fields."
             )
 
         # determine which fields we have to update the order attribute on
@@ -176,14 +178,12 @@ class EditableSchema(object):
                 slice_end = None
             intervening_fields = [
                 self.schema[field_id]
-                for field_id
-                in ordered_field_ids[cur_pos - 1:slice_end:-1]
+                for field_id in ordered_field_ids[cur_pos - 1 : slice_end : -1]
             ]
         elif new_pos > cur_pos:
             intervening_fields = [
                 self.schema[field_id]
-                for field_id
-                in ordered_field_ids[cur_pos + 1:new_pos + 1]
+                for field_id in ordered_field_ids[cur_pos + 1 : new_pos + 1]
             ]
 
         # do a little dance
@@ -198,8 +198,9 @@ class EditableSchema(object):
         fieldset = get_field_fieldset(self.schema, field_name)
         if fieldset is not None:
             ordered_field_ids = [info[0] for info in sortedFields(self.schema)]
-            fieldset.fields = sorted(fieldset.fields,
-                                     key=lambda x: ordered_field_ids.index(x))
+            fieldset.fields = sorted(
+                fieldset.fields, key=lambda x: ordered_field_ids.index(x)
+            )
 
     def changeFieldFieldset(self, field_name, next_fieldset):
         """Move a field from a fieldset to another,
@@ -221,9 +222,8 @@ class SchemaModifiedEvent(ObjectEvent):
 
 
 class FieldModifiedEvent(SchemaModifiedEvent):
-
     def __init__(self, obj, field):
-        super(FieldModifiedEvent, self).__init__(obj)
+        super().__init__(obj)
         self.field = field
 
 
