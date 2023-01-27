@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+4.0.1 (2023-01-27)
+------------------
+
+Internal:
+
+
+- Configure configuration files.
+  [gforcada] (#1)
+
+
 4.0.0 (2022-12-02)
 ------------------
 
