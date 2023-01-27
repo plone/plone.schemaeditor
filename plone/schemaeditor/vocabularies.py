@@ -12,7 +12,7 @@ class VocabulariesVocabulary:
         terms = []
         for name, vocabulary in getUtilitiesFor(IVocabularyFactory):
             doc = (vocabulary.__doc__ or "").strip().split("\n")
-            doc = [l.strip() for l in doc if l.strip()]
+            doc = [item.strip() for item in doc if item.strip()]
             if len(doc) > 0:
                 terms.append(SimpleTerm(name, name, f"{name} - {doc[0]}"))
             else:

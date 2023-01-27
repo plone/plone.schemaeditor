@@ -47,7 +47,7 @@ class FieldAddForm(AutoExtensibleForm, form.AddForm):
 
         # remove fieldset_id from data
         if "fieldset_id" in data:
-            fieldset_id = data.pop("fieldset_id")
+            _ = data.pop("fieldset_id")
 
         # split regular attributes and extra ones
         for key in list(data.keys()):

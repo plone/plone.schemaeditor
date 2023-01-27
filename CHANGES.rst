@@ -198,7 +198,7 @@ Bug fixes:
   Fixes: #30.
   [thet]
 
-- JavaScript formating according to style guides.
+- JavaScript formatting according to style guides.
   [thet]
 
 - Cleanup:

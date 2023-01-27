@@ -25,8 +25,6 @@ from zope.interface.declarations import ObjectSpecificationDescriptor
 from zope.schema.interfaces import IField
 from zope.security.interfaces import ForbiddenAttribute
 
-import six
-
 
 _marker = object()
 
