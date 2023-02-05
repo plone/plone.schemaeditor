@@ -3,3 +3,8 @@
 [meta]
 template = "default"
 commit-id = "78307cdf"
+
+[dependencies]
+mappings = [
+    "Zope = ['OFS', 'Products.Five', 'Products.PageTemplates', 'ZPublisher', 'Testing', 'Zope2']",
+    ]
