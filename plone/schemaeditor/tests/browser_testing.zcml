@@ -1,74 +1,89 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
-    xmlns:zcml="http://namespaces.zope.org/zcml">
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    >
 
-    <!-- only load PageTemplates zcml in Zope 4 -->
-    <configure zcml:condition="installed Products.PageTemplates.engine">
-        <include package="Products.PageTemplates" />
-    </configure>
+  <!-- only load PageTemplates zcml in Zope 4 -->
+  <configure zcml:condition="installed Products.PageTemplates.engine">
+    <include package="Products.PageTemplates" />
+  </configure>
 
-    <include package="Products.GenericSetup" file="meta.zcml" />
-    <include package="Products.Five" file="meta.zcml" />
-    <include package="Products.Five" />
-    <include package="plone.schemaeditor"/>
+  <include
+      package="Products.GenericSetup"
+      file="meta.zcml"
+      />
+  <include
+      package="Products.Five"
+      file="meta.zcml"
+      />
+  <include package="Products.Five" />
+  <include package="plone.schemaeditor" />
 
-    <!-- dummy keyring -->
-    <utility component=".fixtures.DummyKeyManager"
-             provides="plone.keyring.interfaces.IKeyManager" />
+  <!-- dummy keyring -->
+  <utility
+      provides="plone.keyring.interfaces.IKeyManager"
+      component=".fixtures.DummyKeyManager"
+      />
 
-    <!-- dummy schema editing context -->
-    <browser:page
-        name="schemaeditor"
-        for="*"
-        class=".fixtures.DummySchemaContext"
-        permission="plone.schemaeditor.ManageSchemata"
-        allowed_interface="OFS.interfaces.IItem" />
+  <!-- dummy schema editing context -->
+  <browser:page
+      name="schemaeditor"
+      for="*"
+      class=".fixtures.DummySchemaContext"
+      allowed_interface="OFS.interfaces.IItem"
+      permission="plone.schemaeditor.ManageSchemata"
+      />
 
-    <subscriber
-        for="plone.schemaeditor.interfaces.IField
-             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-        handler=".fixtures.log_event"
-        />
-    <subscriber
-        for="plone.schemaeditor.interfaces.IField
-             zope.lifecycleevent.interfaces.IObjectMovedEvent"
-        handler=".fixtures.log_event"
-        />
-    <subscriber
-        for="zope.interface.interfaces.IInterface
-             zope.container.interfaces.IContainerModifiedEvent"
-        handler=".fixtures.log_event"
-        />
-    <subscriber
-        for="plone.schemaeditor.interfaces.ISchemaContext
-             plone.schemaeditor.interfaces.ISchemaModifiedEvent"
-        handler=".fixtures.log_event"
-        />
+  <subscriber
+      for="plone.schemaeditor.interfaces.IField
+           zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+      handler=".fixtures.log_event"
+      />
+  <subscriber
+      for="plone.schemaeditor.interfaces.IField
+           zope.lifecycleevent.interfaces.IObjectMovedEvent"
+      handler=".fixtures.log_event"
+      />
+  <subscriber
+      for="zope.interface.interfaces.IInterface
+           zope.container.interfaces.IContainerModifiedEvent"
+      handler=".fixtures.log_event"
+      />
+  <subscriber
+      for="plone.schemaeditor.interfaces.ISchemaContext
+           plone.schemaeditor.interfaces.ISchemaModifiedEvent"
+      handler=".fixtures.log_event"
+      />
 
-    <!-- use a form layout that doesn't pull in main_template -->
-    <adapter factory=".tests.layout_factory"/>
+  <!-- use a form layout that doesn't pull in main_template -->
+  <adapter factory=".tests.layout_factory" />
 
-    <!-- provide a widget renderer a la plone.app.z3cform -->
-    <browser:page
-        name="ploneform-render-widget"
-        for="z3c.form.interfaces.IWidget"
-        class=".tests.RenderWidget"
-        permission="zope2.View"
-        />
+  <!-- provide a widget renderer a la plone.app.z3cform -->
+  <browser:page
+      name="ploneform-render-widget"
+      for="z3c.form.interfaces.IWidget"
+      class=".tests.RenderWidget"
+      permission="zope2.View"
+      />
 
-    <browser:page
-        name="contexteditor"
-        for="*"
-        class=".fixtures.EditView"
-        permission="plone.schemaeditor.ManageSchemata" />
+  <browser:page
+      name="contexteditor"
+      for="*"
+      class=".fixtures.EditView"
+      permission="plone.schemaeditor.ManageSchemata"
+      />
 
-    <utility provides="zope.schema.interfaces.IVocabularyFactory"
-             name="plone.schemaeditor.test.Countries"
-             factory=".fixtures.CountriesVocabulary" />
+  <utility
+      factory=".fixtures.CountriesVocabulary"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="plone.schemaeditor.test.Countries"
+      />
 
-    <utility provides="zope.schema.interfaces.IVocabularyFactory"
-             name="plone.schemaeditor.test.Categories"
-             factory=".fixtures.CategoriesVocabulary" />
+  <utility
+      factory=".fixtures.CategoriesVocabulary"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="plone.schemaeditor.test.Categories"
+      />
 
 </configure>

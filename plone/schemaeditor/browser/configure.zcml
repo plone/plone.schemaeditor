@@ -1,9 +1,10 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
-    i18n_domain="plone">
+    i18n_domain="plone"
+    >
 
-    <include package=".field"/>
-    <include package=".schema" />
+  <include package=".field" />
+  <include package=".schema" />
 
 </configure>

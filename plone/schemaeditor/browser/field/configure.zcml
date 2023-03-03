@@ -1,42 +1,42 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:five="http://namespaces.zope.org/five"
     xmlns:browser="http://namespaces.zope.org/browser"
-    i18n_domain="plone">
+    xmlns:five="http://namespaces.zope.org/five"
+    i18n_domain="plone"
+    >
 
-    <browser:page
-        name="edit"
-        for="...interfaces.IFieldContext"
-        class=".edit.EditView"
-        permission="plone.schemaeditor.ManageSchemata" />
+  <browser:page
+      name="edit"
+      for="...interfaces.IFieldContext"
+      class=".edit.EditView"
+      permission="plone.schemaeditor.ManageSchemata"
+      />
 
-    <adapter
-        factory=".edit.FieldTitleAdapter" />
-    <adapter
-        factory=".edit.FieldDataManager" />
+  <adapter factory=".edit.FieldTitleAdapter" />
+  <adapter factory=".edit.FieldDataManager" />
 
-    <browser:page
-        name="order"
-        for="...interfaces.IFieldContext"
-        class=".order.FieldOrderView"
-        attribute="move"
-        permission="plone.schemaeditor.ManageSchemata"
-        />
+  <browser:page
+      name="order"
+      for="...interfaces.IFieldContext"
+      class=".order.FieldOrderView"
+      attribute="move"
+      permission="plone.schemaeditor.ManageSchemata"
+      />
 
-    <browser:page
-        name="delete"
-        for="...interfaces.IFieldContext"
-        class=".order.FieldOrderView"
-        attribute="delete"
-        permission="plone.schemaeditor.ManageSchemata"
-        />
+  <browser:page
+      name="delete"
+      for="...interfaces.IFieldContext"
+      class=".order.FieldOrderView"
+      attribute="delete"
+      permission="plone.schemaeditor.ManageSchemata"
+      />
 
-    <browser:page
-        name="changefieldset"
-        for="...interfaces.IFieldContext"
-        class=".fieldset.ChangeFieldsetView"
-        attribute="change"
-        permission="plone.schemaeditor.ManageSchemata"
-        />
+  <browser:page
+      name="changefieldset"
+      for="...interfaces.IFieldContext"
+      class=".fieldset.ChangeFieldsetView"
+      attribute="change"
+      permission="plone.schemaeditor.ManageSchemata"
+      />
 
 </configure>
