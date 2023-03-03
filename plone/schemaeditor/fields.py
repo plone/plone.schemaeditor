@@ -29,7 +29,6 @@ def getFirstFieldSchema(field):
 
 @implementer(IFieldFactory)
 class FieldFactory:
-
     title = ""
 
     def __init__(self, fieldcls, title, *args, **kw):
@@ -65,7 +64,7 @@ def FieldsVocabularyFactory(context):
             (id, factory) for id, factory in field_factories if id in allowedFields
         ]
     terms = []
-    for (field_id, factory) in field_factories:
+    for field_id, factory in field_factories:
         terms.append(
             SimpleVocabulary.createTerm(
                 factory, factory.title, translate(factory.title, context=request)

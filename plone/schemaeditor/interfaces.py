@@ -47,7 +47,6 @@ class ISchemaContext(IItem):
 
 
 class ISchemaModifiedEvent(IObjectEvent):
-
     object = Object(schema=ISchemaContext)
 
 
@@ -142,7 +141,6 @@ def isValidFieldName(value):
 
 
 class INewField(Interface):
-
     fieldset_id = Int(
         title=_("Fieldset ID"),
         description=_("Used to decide where to put this field."),
@@ -192,7 +190,6 @@ class INewField(Interface):
 
 
 class INewFieldset(Interface):
-
     label = TextLine(title=_("Title"), required=True)
 
     __name__ = ASCIILine(

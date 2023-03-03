@@ -9,7 +9,6 @@ from zope.schema.vocabulary import SimpleVocabulary
 
 
 class IDummySchema(Interface):
-
     model.fieldset("alpha", fields=["fieldA"])
 
     field1 = schema.TextLine()
@@ -35,7 +34,6 @@ def log_event(object, event):
 
 
 class EditForm(EditForm):
-
     ignoreContext = True
     ignoreRequest = True
 
@@ -57,12 +55,10 @@ class BaseVocabulary:
 
 
 class CountriesVocabulary(BaseVocabulary):
-
     values_list = [("fr", "France"), ("uk", "United Kingdom"), ("es", "Spain")]
 
 
 class CategoriesVocabulary(BaseVocabulary):
-
     values_list = [("php", "PHP"), ("c", "C"), ("ruby", "Ruby")]
 
 

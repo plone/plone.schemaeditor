@@ -18,7 +18,6 @@ class IBool(interfaces.IBool, interfaces.IFromUnicode):
 
 
 class IFloat(interfaces.IFloat, interfaces.IFromUnicode):
-
     min = schema.Float(
         title=interfaces.IFloat["min"].title,
         required=interfaces.IFloat["min"].required,
@@ -33,7 +32,6 @@ class IFloat(interfaces.IFloat, interfaces.IFromUnicode):
 
 
 class IDatetime(IDatetimeField):
-
     min = schema.Datetime(
         title=interfaces.IDatetime["min"].title,
         required=interfaces.IDatetime["min"].required,
@@ -48,7 +46,6 @@ class IDatetime(IDatetimeField):
 
 
 class IDate(IDateField):
-
     min = schema.Date(
         title=interfaces.IDate["min"].title,
         required=interfaces.IDate["min"].required,
@@ -72,7 +69,6 @@ class ITextLinesField(interfaces.IList):
 
 
 class ITextLineChoice(interfaces.IField):
-
     values = schema.List(
         title=_("Possible values"),
         description=_("Enter allowed choices one per line."),

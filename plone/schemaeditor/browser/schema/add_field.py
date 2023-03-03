@@ -22,7 +22,6 @@ from zope.lifecycleevent import ObjectAddedEvent
 
 
 class FieldAddForm(AutoExtensibleForm, form.AddForm):
-
     fields = field.Fields(interfaces.INewField)
     label = _("Add new field")
     id = "add-field-form"

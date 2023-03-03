@@ -16,7 +16,6 @@ from zope.interface import Invalid
 
 
 class FieldsetAddForm(form.AddForm):
-
     fields = field.Fields(INewFieldset)
     label = _("Add new fieldset")
     id = "add-fieldset-form"

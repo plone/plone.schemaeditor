@@ -16,7 +16,6 @@ class DummyField:
 
 
 class VocabularyTestCase(unittest.TestCase):
-
     layer = PLONE_FIXTURE
 
     def assertVocabulary(self, voc, values):
