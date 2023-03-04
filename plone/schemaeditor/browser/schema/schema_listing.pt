@@ -99,7 +99,7 @@
 
           <a class="btn btn-sm btn-danger"
              id="delete-fieldset-${fieldset_name}"
-             href="${context/absolute_url}/@@delete-fieldset?name=${python:group.__name__}&_authenticator=${context/@@authenticator/token}"
+             href="${context/absolute_url}/@@delete-fieldset?name=${python:group.__name__}&amp;_authenticator=${context/@@authenticator/token}"
                   i18n:translate="delete_fieldset_hellip">Delete fieldset
           </a>
 
