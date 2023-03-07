@@ -23,7 +23,6 @@ except ImportError:
 
 @implementer(IEditForm)
 class SchemaListing(AutoExtensibleForm, form.Form):
-
     ignoreContext = True
     ignoreRequest = True
     showEmptyGroups = True

@@ -1,13 +1,14 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    i18n_domain="plone">
+    i18n_domain="plone"
+    >
 
   <adapter factory=".fields.getFirstFieldSchema" />
 
   <utility
-      component=".fields.FieldsVocabularyFactory"
       provides="zope.schema.interfaces.IVocabularyFactory"
       name="Fields"
+      component=".fields.FieldsVocabularyFactory"
       />
 
   <utility

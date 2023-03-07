@@ -7,7 +7,6 @@ from plone.testing import z2
 
 
 class PloneSchemaeditorRobotLayer(PloneSandboxLayer):
-
     defaultBases = (PLONE_FIXTURE,)
 
 

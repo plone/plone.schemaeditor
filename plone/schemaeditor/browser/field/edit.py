@@ -67,7 +67,6 @@ class FieldProxySpecification(ObjectSpecificationDescriptor):
 
 @implementer(IFieldProxy)
 class FieldProxy:
-
     __providedBy__ = FieldProxySpecification()
 
     def __init__(self, context):
