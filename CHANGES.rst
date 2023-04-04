@@ -389,7 +389,7 @@ Fixes:
 - Clean up testing setup. This solves some serious test isolation issues.
   [timo]
 
-- Update markup and javscript for Plone 5.
+- Update markup and javascript for Plone 5.
   [davisagli]
 
 - Make fieldset creation optional
