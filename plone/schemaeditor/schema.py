@@ -1,5 +1,3 @@
-from plone.app.z3cform.interfaces import IDateField
-from plone.app.z3cform.interfaces import IDatetimeField
 from plone.schemaeditor import _
 from zope import schema
 from zope.interface import alsoProvides
@@ -31,7 +29,7 @@ class IFloat(interfaces.IFloat, interfaces.IFromUnicode):
     )
 
 
-class IDatetime(IDatetimeField):
+class IDatetime(interfaces.IDatetime):
     min = schema.Datetime(
         title=interfaces.IDatetime["min"].title,
         required=interfaces.IDatetime["min"].required,
@@ -45,7 +43,7 @@ class IDatetime(IDatetimeField):
     )
 
 
-class IDate(IDateField):
+class IDate(interfaces.IDate):
     min = schema.Date(
         title=interfaces.IDate["min"].title,
         required=interfaces.IDate["min"].required,
