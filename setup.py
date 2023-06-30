@@ -56,7 +56,6 @@ setup(
         "zope.publisher",
         "z3c.form",
         "plone.z3cform",
-        "plone.app.z3cform",
         "plone.autoform",
     ],
     extras_require={
