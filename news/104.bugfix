@@ -1,2 +1,0 @@
-Remove dependency on `plone.app.z3cform` which is circular.
-[petschki]

@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+4.0.4 (2023-07-14)
+------------------
+
+Bug fixes:
+
+
+- Remove dependency on `plone.app.z3cform` which is circular.
+  [petschki] (#104)
+
+
 4.0.3 (2023-03-14)
 ------------------
 
