@@ -1,4 +1,5 @@
 """Base module for unittesting."""
+
 from plone.app.robotframework.testing import AUTOLOGIN_LIBRARY_FIXTURE
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import PLONE_FIXTURE
