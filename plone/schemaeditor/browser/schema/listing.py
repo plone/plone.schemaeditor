@@ -155,7 +155,6 @@ class ReadOnlySchemaListing(SchemaListing):
 
 
 class SchemaListingPage(FormWrapper):
-
     """Form wrapper so we can get a form with layout.
 
     We define an explicit subclass rather than using the wrap_form method

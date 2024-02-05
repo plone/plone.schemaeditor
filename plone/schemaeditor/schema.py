@@ -62,7 +62,6 @@ class IChoice(interfaces.IChoice, interfaces.IFromUnicode):
 
 
 class ITextLinesField(interfaces.IList):
-
     """A marker for fields which should get the textlines widget"""
 
 

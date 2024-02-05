@@ -91,7 +91,6 @@ def new_field_position(schema, fieldset_id=None, new_field=False):
 @implementer(IEditableSchema)
 @adapter(IInterface)
 class EditableSchema:
-
     """Zope 3 schema adapter to allow addition/removal of schema fields
 
     XXX this needs to be made threadsafe

@@ -8,7 +8,6 @@ from ZPublisher.BaseRequest import DefaultPublishTraverse
 
 @implementer(ISchemaContext, IBrowserPublisher)
 class SchemaContext(SimpleItem):
-
     """This is a transient item that allows us to traverse through (a wrapper
     of) a zope 3 schema to (a wrapper of) a zope 3 schema field.
     """

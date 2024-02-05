@@ -175,7 +175,6 @@ class TextLineChoiceField:
     interface.Interface,
 )
 class VocabularyValuesValidator(validator.SimpleFieldValidator):
-
     """Ensure duplicate vocabulary terms are not submitted"""
 
     def validate(self, values):
@@ -215,7 +214,6 @@ class VocabularyValuesValidator(validator.SimpleFieldValidator):
 
 
 class VocabularyNameValidator(validator.SimpleFieldValidator):
-
     """Ensure user has not submitted a vocabulary values AND a factory"""
 
     def validate(self, values):

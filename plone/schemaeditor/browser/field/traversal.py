@@ -8,7 +8,6 @@ from ZPublisher.BaseRequest import DefaultPublishTraverse
 
 @implementer(IFieldContext, IBrowserPublisher)
 class FieldContext(SimpleItem):
-
     """wrapper for published zope 3 schema fields"""
 
     def __init__(self, context, request):

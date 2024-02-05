@@ -5,7 +5,6 @@ from zope.schema.vocabulary import SimpleVocabulary
 
 
 class VocabulariesVocabulary:
-
     """Vocabulary for a list of available vocabulary factories"""
 
     def __call__(self, context):
