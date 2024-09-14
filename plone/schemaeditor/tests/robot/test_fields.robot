@@ -1,213 +1,251 @@
 *** Settings ***
 
-Resource  plone/app/robotframework/keywords.robot
-Resource  plone/app/robotframework/saucelabs.robot
-Resource  plone/app/robotframework/selenium.robot
+Resource    plone/app/robotframework/browser.robot
 
-Library  Remote  ${PLONE_URL}/RobotRemote
+Library    Remote    ${PLONE_URL}/RobotRemote
 
-Test Setup  Run Keywords  Plone test setup
-Test Teardown  Run keywords  Plone test teardown
+Test Setup    Run Keywords    Plone test setup
+Test Teardown    Run keywords    Plone test teardown
 
-*** Variables ***
-${SELENIUM_TIMEOUT}  20
 
 *** Test Cases ***
 
-Add a content type
+Scenario: Add a content type
 
-    Go to dexterity types configuration
-    Click Overlay Button  Add New Content Type…
-    Input text for sure  form-widgets-title  New style Article
-    Set Focus to Element  form-widgets-id
-    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-id  new_style_article
-    Wait For Then Click Element  css=.modal-footer #form-buttons-add
-    Wait overlay is closed
-    Wait until page contains  New style Article
+    Given a site owner
+     When I go to dexterity types configuration
+      and I add a new Content Type    New style Article    new_style_article
+     Then the overlay is closed
+      and the new Content Type is created    New style Article
 
 
-Add a choice field with a named vocabulary
+Scenario: Add a choice field with a named vocabulary
 
-    Go to dexterity types configuration
-    Add content type  Curriculum vitae  curriculum_vitae
-    Click Link  Add new field…
-    Input text for sure  form-widgets-title  Languages
-    Set Focus to Element  form-widgets-__name__
-    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  languages
-    Input text for sure  form-widgets-description  Spoken languages
-    Wait until keyword succeeds  10  1  Select From List By Label  form-widgets-factory  Multiple Choice
-    Wait until keyword succeeds  10  1  Click button  css=.modal-footer #form-buttons-add
-    Wait overlay is closed
-    Wait until page contains element  css=div[data-field_id="languages"] a.fieldSettings
+    Given a site owner
+     When I go to dexterity types configuration
+      and I add a new Content Type    Curriculum vitae    curriculum_vitae
+      and I go to fields configuration    curriculum_vitae
+      and I add a new field    Languages    languages    Multiple Choice
+     Then the overlay is closed
+      and the new Field is created    languages
 
-    Open field settings  languages
-    Select from list by value  form-widgets-vocabularyName  plone.app.vocabularies.AvailableContentLanguages
-    Wait For Then Click Element  css=.modal-footer #form-buttons-save
-    Wait overlay is closed
-    Page should contain  Français
+     When I configure the language field
+     Then the overlay is closed
+      and I see the list of portal languages
 
+Scenario: Add a choice field with vocabulary values
 
-Add a choice field with vocabulary values
+    Given a site owner
+     When I go to dexterity types configuration
+      and I add a new Content Type    My page    my_page
+      and I go to fields configuration    my_page
+      and I add a new field    Hobbies    hobbies    Multiple Choice
+     Then the overlay is closed
+      and the new Field is created    hobbies
 
-    Go to dexterity types configuration
-    Add content type  My page  my_page
-    Add field  Hobbies  hobbies  Multiple Choice
-    Open field settings  hobbies
-    Input text  form-widgets-values  Chess\nSoccer\nBaseball\nVideo games
-    Wait For Then Click Element  css=.modal-footer #form-buttons-save
-    Wait overlay is closed
-    Wait until page contains element  form-widgets-hobbies-3
+     When I configure the hobbies field
+     Then the overlay is closed
+      and I see the list of hobbies
 
-#fail on jenkins
-#We get an error if we try to select vocabulary name and vocabulary values
+Scenario: Try to add a choice field with a named vocabulary and vocabulary values
 
-#    Go to dexterity types configuration
-#    Add content type  My other page  my_other_page
-#    Add field  Hobbies  hobbies  Multiple Choice
-#    Open field settings  hobbies
-#    Input text  form-widgets-values  Chess\nSoccer\nBaseball\nVideo games
-#    Select from list by value  form-widgets-vocabularyName  plone.app.vocabularies.AvailableContentLanguages
-#    Click Button  Save
-#    Wait until page contains element  css=#formfield-form-widgets-vocabularyName.error
-#
+    Given a site owner
+     When I go to dexterity types configuration
+      and I add a new Content Type    My other page    my_other_page
+      and I go to fields configuration    my_other_page
+      and I add a new field    Hobbies    hobbies    Multiple Choice
+      and I configure the hobbies field with wrong values
+     Then I see an errormessage in the dialog
 
+Scenario: Add accented field
 
-Add accented field
+    Given a site owner
+     When I go to dexterity types configuration
+      and I add a new Content Type    Person    person
+      and I go to fields configuration    person
+      and I add a new field    Prénom    prenom    Text line (String)
+     Then the overlay is closed
+      and the new Field is created    prenom
 
-    Go to dexterity types configuration
-    Add content type  Person  person
-    Click Link  Add new field…
-    Input text for sure  form-widgets-title  Prénom
-    Set Focus to Element  form-widgets-__name__
-    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  prenom
+Scenario: Add a fieldSet and move a field into this fieldset
 
+    Given a site owner
+    When I go to dexterity types configuration
+     and I add a new Content Type    Contact info    contact_info
+     and I go to fields configuration    contact_info
+     and I add a new field    Address    address    Text
+     and I add a new fieldset    Personal information    personal_information
+    Then the overlay is closed
+     and the new fieldset is created    Personal information
 
-Add a fieldSet and move a field into this fieldset
+Scenario: Add a fieldSet and add a field into this fieldset
 
-    Go to dexterity types configuration
-    Add content type  Contact info  contact_info
-    Add field  Address  address  Text
-    Add fieldset  Personal information  personal_information
+    Given a site owner
+    When I go to dexterity types configuration
+     and I add a new Content Type    Contact info    contact_info
+     and I go to fields configuration    contact_info
+     and I add a new fieldset    Personal information    personal_information
+     and I got to fieldset    Personal information
+     and I add a new field    Address    address    Text
+    Then the field is added to fieldset    Personal information    Address
 
-#    Mouse Down  xpath=//*[@data-field_id="address"][1]
-#    Mouse Over  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
-#    Mouse Up  xpath=//*[@data-fieldset_drag_id="1"][1]
-#    Wait Until Keyword Succeeds  10  1  Element should not be visible  css=.fieldPreview[data-field_id="address"]
-#    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
-#    Wait Until Keyword Succeeds  10  1  Element should be visible  css=.fieldPreview[data-field_id="address"]
+Scenario: Delete field
 
+    Given a site owner
+    When I go to dexterity types configuration
+     and I add a new Content Type    Somebody    somebody
+     and I go to fields configuration    somebody
+     and I add a new field    Phone    phone    Text line (String)
+    Then the overlay is closed
+     and the new Field is created    phone
 
-Add a fieldSet and add a field into this fieldset
-
-    Go to dexterity types configuration
-    Add content type  Contact info  contact_info
-    Add fieldset  Personal information  personal_information
-    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
-    Add field  Address  address  Text
-    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="0"]
-    Wait Until Keyword Succeeds  10  1  Element should not be visible  css=.fieldPreview[data-field_id="address"]
-    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
-    Wait Until Keyword Succeeds  10  1  Element should be visible  css=.fieldPreview[data-field_id="address"]
-
-
-#Add a fieldSet and add a field into this fieldset
-#
-#    Set Window Size  1200  1200
-#    Go to dexterity types configuration
-#    Add content type  Contact info  contact_info
-#    Click Overlay Button  Add new fieldset…
-#    Input text for sure  form-widgets-label  Personal information
-#    Set Focus to Element  form-widgets-__name__
-#    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  personal_information
-#    Click button  css=.modal-footer #form-buttons-add
-#    Wait overlay is closed
-#    Wait until page contains  Personal information
-#
-#    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
-#    Add field  Address  address  Text
-#    Click Element  xpath=//form//nav[@class="autotoc-nav"]/a[@data-fieldset_drag_id="1"]
-#    Wait until page contains element  css=div[data-field_id="address"]
-
-
-Delete field
-    Go to dexterity types configuration
-    Add content type  Somebody  somebody
-    Add field  Phone  phone  Text line (String)
-    Wait For Element  css=#fieldset-0 #formfield-form-widgets-phone
-    Click link  css=div.fieldControls .schemaeditor-delete-field
-    Handle alert
-    Wait Until Keyword Succeeds  10  1  Page Should Not Contain Element  css=#formfield-form-widgets-phone
-    # Make sure it actually got deleted
-    Go to  ${PLONE_URL}/@@dexterity-types/somebody/@@fields
-    Wait Until Keyword Succeeds  10  1  Page Should Not Contain Element  css=#formfield-form-widgets-phone
-
-
-#~ Reorder field
-    #~ Log in as site owner
-    #~ Add content type
-    #~ Add field  Lastname  lastname  Text line (String)
-    #~ Wait until page contains element  css=#fieldset-0 #formfield-form-widgets-lastname
-    #~ Add field  Firstname  firstname  Text line (String)
-    #~ Wait until page contains element  css=#fieldset-0 #formfield-form-widgets-firstname
-
-    #~ /html/body/div/div[2]/div/div[2]/div[2]/div/div/form/fieldset/div[3]/div/span
-    #~ Mouse Down  xpath=//div[@data-field_id='phone']/div/span[@class='draghandle']
-    #~ Mouse Over    xpath=//div[@data-field_id='firstname']
-    #~ Mouse Out   xpath=//div[@data-field_id='phone']/div/span[@class='draghandle']
+    When I delete field    phone
+    Then the field is removed    phone
 
 
 *** Keywords ***
 
-Wait overlay is closed
-    Wait until keyword succeeds  8  1  Page should not contain element  css=div.modal-wrapper
+# Given
 
-Go to dexterity types configuration
-    Enable autologin as  Manager
-    Go to  ${PLONE_URL}/@@dexterity-types
+a site owner
 
-Add content type
-    [Arguments]    ${title}    ${id}
-    [Documentation]    Add a dexterity content type
+    Enable autologin as    Manager
 
-    Click Overlay Button  Add New Content Type…
-    Input text for sure  form-widgets-title  ${title}
-    Set Focus to Element  form-widgets-id
-    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-id  ${id}
-    # Far too often, the overlay is not closed after clicking the add-button.
-    # Maybe some sleep helps.  Never nice to do, but better than having developers lose sleep.
-    Sleep  0.1
-    Wait For Then Click Element  css=.modal-footer #form-buttons-add
-    Wait overlay is closed
-    Wait until page contains  ${title}
-    Go to  ${PLONE_URL}/@@dexterity-types/${id}/@@fields
-    Wait until page contains  Fields
+# When
 
-Add field
-    [Arguments]    ${field_title}    ${field_id}    ${field_type}
+I go to dexterity types configuration
+
+    Go to    ${PLONE_URL}/@@dexterity-types
+
+I go to fields configuration
+    [Arguments]    ${CONTENT_TYPE_ID}
+
+    Click    //a[contains(@class, "contenttype-${CONTENT_TYPE_ID}")]
+    Click    //a[contains(@href,"/${CONTENT_TYPE_ID}/@@fields")]
+
+I got to fieldset
+    [Arguments]    ${FIELD_LABEL}
+
+    Click    //nav[@class="autotoc-nav"]/a[contains(text(),"${FIELD_LABEL}")]
+
+
+I add a new Content Type
+    [Arguments]    ${CONTENT_TYPE_NAME}    ${CONTENT_TYPE_ID}
+    [Documentation]    Add a new dexterity content type
+
+    Click    //article[@id="content"]//button[contains(text(),'Add New Content Type…')]
+    Type Text    //input[@name="form.widgets.title"]    ${CONTENT_TYPE_NAME}
+    Focus    //input[@name="form.widgets.id"]
+    Get Text    //input[@name="form.widgets.id"]    should be    ${CONTENT_TYPE_ID}
+    Click    //div[contains(@class,"modal-footer")]//button[@id="form-buttons-add"]
+
+I add a new field
+    [Arguments]    ${FIELD_LABEL}     ${FIELD_ID}     ${FIELD_TYPE}
     [Documentation]    Add field in current dexterity content type
 
-    Click Link  Add new field…
-    Input text for sure  form-widgets-title  ${field_title}
-    Set Focus to Element  form-widgets-__name__
-    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  ${field_id}
-    Select from list by label  form-widgets-factory  ${field_type}
-    Wait For Then Click Element  css=.modal-footer #form-buttons-add
-    Wait overlay is closed
+    Click    //a[@id="add-field"]
+    Type Text    //input[@name="form.widgets.title"]    ${FIELD_LABEL}
+    Focus    //input[@name="form.widgets.__name__"]
+    Get Text    //input[@name="form.widgets.__name__"]    should be    ${FIELD_ID}
+    Get Property   //input[@name="form.widgets.__name__"]    value    should be     ${FIELD_ID}
+    Get Text    //input[@name="form.widgets.__name__"]    should be    ${FIELD_ID}
+    Type Text    //textarea[@name="form.widgets.description"]    my description of the field
+    Select Options By    //select[@name="form.widgets.factory:list"]    label    ${FIELD_TYPE}
+    Click    //div[contains(@class,"modal-footer")]//button[@id="form-buttons-add"]
 
-Add fieldset
-    [Arguments]    ${fieldset_title}    ${fieldset_id}
+I add a new fieldset
+    [Arguments]    ${FIELDSET_LABEL}    ${FIELDSET_ID}
     [Documentation]    Add fieldset in current dexterity content type
 
-    Click Link  Add new fieldset…
-    Input text for sure  form-widgets-label  ${fieldset_title}
-    Set Focus to Element  form-widgets-__name__
-    Wait until keyword succeeds  10  1  Textfield Value Should Be  form-widgets-__name__  ${fieldset_id}
-    Wait For Then Click Element  css=.modal-footer #form-buttons-add
-    Wait overlay is closed
-    Wait until page contains  ${fieldset_title}
+    Click    //a[@id="add-fieldset"]
+    Type Text    //input[@name="form.widgets.label"]    ${FIELDSET_LABEL}
+    Focus    //input[@name="form.widgets.__name__"]
+    Get Property   //input[@name="form.widgets.__name__"]    value    should be     ${FIELDSET_ID}
+    Get Text    //input[@name="form.widgets.__name__"]    should be    ${FIELDSET_ID}
+    Click    //div[contains(@class,"modal-footer")]//button[@id="form-buttons-add"]
 
-Open field settings
-    [Arguments]    ${field_id}
-    ${locator}  Set Variable  //div[@data-field_id='${field_id}']//a[contains(@class, 'fieldSettings pat-plone-modal')]
-    Wait For Element  xpath=${locator}
-    Click Overlay Link  xpath=${locator}
+I configure the language field
+
+    Click    //div[@data-field_id="languages"]//a[contains(text(),'Settings…')]
+    Select Options By    //select[@name="form.widgets.vocabularyName:list"]    value    plone.app.vocabularies.AvailableContentLanguages
+    Click    //div[contains(@class,"modal-footer")]//button[@id="form-buttons-save"]
+
+I configure the hobbies field
+
+    Click    //div[@data-field_id="hobbies"]//a[contains(text(),'Settings…')]
+    Type Text    //textarea[@name="form.widgets.values"]    Chess    clear=False
+    Press Keys    //textarea[@name="form.widgets.values"]    Enter
+    Type Text    //textarea[@name="form.widgets.values"]    Soccer    clear=False
+    Press Keys    //textarea[@name="form.widgets.values"]    Enter
+    Type Text    //textarea[@name="form.widgets.values"]    Baseball    clear=False
+    Press Keys    //textarea[@name="form.widgets.values"]    Enter
+    Type Text    //textarea[@name="form.widgets.values"]    Video games    clear=False
+    Press Keys    //textarea[@name="form.widgets.values"]    Enter
+    Click    //div[contains(@class,"modal-footer")]//button[@id="form-buttons-save"]
+
+I configure the hobbies field with wrong values
+
+    Click    //div[@data-field_id="hobbies"]//a[contains(text(),'Settings…')]
+    Type Text    //textarea[@name="form.widgets.values"]    Chess    clear=False
+    Press Keys    //textarea[@name="form.widgets.values"]    Enter
+    Type Text    //textarea[@name="form.widgets.values"]    Soccer    clear=False
+    Press Keys    //textarea[@name="form.widgets.values"]    Enter
+    Type Text    //textarea[@name="form.widgets.values"]    Baseball    clear=False
+    Press Keys    //textarea[@name="form.widgets.values"]    Enter
+    Type Text    //textarea[@name="form.widgets.values"]    Video games    clear=False
+    Press Keys    //textarea[@name="form.widgets.values"]    Enter
+    Select Options By    //select[@name="form.widgets.vocabularyName:list"]    value    plone.app.vocabularies.AvailableContentLanguages
+    Click    //div[contains(@class,"modal-footer")]//button[@id="form-buttons-save"]
+
+I delete field
+    [Arguments]    ${FIELD_ID}
+
+    Handle Future Dialogs    action=accept
+    Click    //div[@data-field_id="${FIELD_ID}"]//a[@title="Delete field"]
+
+# Then
+
+the overlay is closed
+
+    Get Element Count    //div[contains(@class,"modal-wrapper")]    should be    0
+
+the new Content Type is created
+    [Arguments]        ${CONTENT_TYPE_NAME}
+
+    Get Text    //div[@class="crud-form"]/form/table    contains    ${CONTENT_TYPE_NAME}
+
+the new Field is created
+    [Arguments]        ${FIELD_ID}
+
+    Get Text    //*[@id="global_statusmessage"]    contains    Field added successfully.
+    Get Element Count    //div[@data-field_id="${FIELD_ID}"]//a[contains(text(),'Settings…')]    should be    1
+
+I see the list of portal languages
+
+    Get Element Count    //select[@name="form.widgets.languages:list"]/option    greater than    0
+
+I see the list of hobbies
+
+    Get Element Count    //select[@name="form.widgets.hobbies:list"]/option    greater than    0
+
+I see an errormessage in the dialog
+
+    Get Text    //div[contains(@class,"modal-body")]//div[contains(@class,"statusmessage")]    contains    There were some errors.
+    Get Text    //div[@id="formfield-form-widgets-vocabularyName"]//div[@class="invalid-feedback"]    contains    You can not set a vocabulary name AND vocabulary values. Please clear values field or set no value here.
+
+the new fieldset is created
+    [Arguments]    ${FIELDSET_LABEL}
+
+    Get Text    //*[@id="global_statusmessage"]    contains    Fieldset added successfully.
+    Get Element Count    //form[@id="form"]/fieldset/legend[contains(text(),"${FIELDSET_LABEL}")]    should be    1
+
+the field is added to fieldset
+    [Arguments]    ${FIELDSET_LABEL}    ${FIELD_LABEL}
+
+    Get Text    //*[@id="global_statusmessage"]    contains    Field added successfully.
+    Get Element Count    //form[@id="form"]/fieldset/legend[contains(text(),"${FIELDSET_LABEL}")]/following-sibling::div[@data-field_id="address"]    should be    1
+
+the field is removed
+    [Arguments]    ${FIELD_ID}
+
+    Get Element Count    //div[@data-field_id="${FIELD_ID}"]    should be    0
