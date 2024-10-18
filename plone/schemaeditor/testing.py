@@ -4,7 +4,7 @@ from plone.app.robotframework.testing import AUTOLOGIN_LIBRARY_FIXTURE
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
-from plone.testing import z2
+from plone.testing.zope import WSGI_SERVER_FIXTURE
 
 
 class PloneSchemaeditorRobotLayer(PloneSandboxLayer):
@@ -20,7 +20,7 @@ ACCEPTANCE = FunctionalTesting(
     bases=(
         FIXTURE,
         AUTOLOGIN_LIBRARY_FIXTURE,
-        z2.ZSERVER_FIXTURE,
+        WSGI_SERVER_FIXTURE,
     ),
     name="ACCEPTANCE",
 )
