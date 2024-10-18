@@ -206,8 +206,7 @@ I delete field
 # Then
 
 the overlay is closed
-
-    Get Element Count    //div[contains(@class,"modal-wrapper")]    should be    0
+    Wait For Condition    Element Count    //div[contains(@class,"modal-wrapper")]    ==    0    timeout=5s
 
 the new Content Type is created
     [Arguments]        ${CONTENT_TYPE_NAME}
