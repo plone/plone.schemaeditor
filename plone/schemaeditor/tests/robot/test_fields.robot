@@ -18,7 +18,6 @@ Scenario: Add a content type
      Then the overlay is closed
       and the new Content Type is created    New style Article
 
-
 Scenario: Add a choice field with a named vocabulary
 
     Given a site owner
@@ -133,7 +132,9 @@ I add a new Content Type
     [Arguments]    ${CONTENT_TYPE_NAME}    ${CONTENT_TYPE_ID}
     [Documentation]    Add a new dexterity content type
 
-    Click Modal Link   //article[@id="content"]//button[contains(text(),'Add New Content Type…')]
+    Wait For Condition    Classes    //body    contains    patterns-loaded
+    Click    //article[@id="content"]//button[contains(text(),'Add New Content Type…')]
+    Wait For Condition    Element States    //div[@class="modal-dialog"]    contains    visible
     Type Text    //input[@name="form.widgets.title"]    ${CONTENT_TYPE_NAME}
     Focus    //input[@name="form.widgets.id"]
     Get Text    //input[@name="form.widgets.id"]    should be    ${CONTENT_TYPE_ID}
@@ -143,7 +144,9 @@ I add a new field
     [Arguments]    ${FIELD_LABEL}     ${FIELD_ID}     ${FIELD_TYPE}
     [Documentation]    Add field in current dexterity content type
 
-    Click Modal Link    //a[@id="add-field"]
+    Wait For Condition    Classes    //body    contains    patterns-loaded
+    Click    //a[@id="add-field"]
+    Wait For Condition    Element States    //div[@class="modal-dialog"]    contains    visible
     Type Text    //input[@name="form.widgets.title"]    ${FIELD_LABEL}
     Focus    //input[@name="form.widgets.__name__"]
     Get Text    //input[@name="form.widgets.__name__"]    should be    ${FIELD_ID}
@@ -157,7 +160,9 @@ I add a new fieldset
     [Arguments]    ${FIELDSET_LABEL}    ${FIELDSET_ID}
     [Documentation]    Add fieldset in current dexterity content type
 
-    Click Modal Link    //a[@id="add-fieldset"]
+    Wait For Condition    Classes    //body    contains    patterns-loaded
+    Click    //a[@id="add-fieldset"]
+    Wait For Condition    Element States    //div[@class="modal-dialog"]    contains    visible
     Type Text    //input[@name="form.widgets.label"]    ${FIELDSET_LABEL}
     Focus    //input[@name="form.widgets.__name__"]
     Get Property   //input[@name="form.widgets.__name__"]    value    should be     ${FIELDSET_ID}
@@ -166,13 +171,15 @@ I add a new fieldset
 
 I configure the language field
 
-    Click Modal Link    //div[@data-field_id="languages"]//a[contains(text(),'Settings…')]
+    Click    //div[@data-field_id="languages"]//a[contains(text(),'Settings…')]
+    Wait For Condition    Element States    //div[@class="modal-dialog"]    contains    visible
     Select Options By    //select[@name="form.widgets.vocabularyName:list"]    value    plone.app.vocabularies.AvailableContentLanguages
     Click    //div[contains(@class,"modal-footer")]//button[@id="form-buttons-save"]
 
 I configure the hobbies field
 
-    Click Modal Link    //div[@data-field_id="hobbies"]//a[contains(text(),'Settings…')]
+    Click    //div[@data-field_id="hobbies"]//a[contains(text(),'Settings…')]
+    Wait For Condition    Element States    //div[@class="modal-dialog"]    contains    visible
     Type Text    //textarea[@name="form.widgets.values"]    Chess    clear=False
     Press Keys    //textarea[@name="form.widgets.values"]    Enter
     Type Text    //textarea[@name="form.widgets.values"]    Soccer    clear=False
@@ -185,7 +192,8 @@ I configure the hobbies field
 
 I configure the hobbies field with wrong values
 
-    Click Modal Link    //div[@data-field_id="hobbies"]//a[contains(text(),'Settings…')]
+    Click    //div[@data-field_id="hobbies"]//a[contains(text(),'Settings…')]
+    Wait For Condition    Element States    //div[@class="modal-dialog"]    contains    visible
     Type Text    //textarea[@name="form.widgets.values"]    Chess    clear=False
     Press Keys    //textarea[@name="form.widgets.values"]    Enter
     Type Text    //textarea[@name="form.widgets.values"]    Soccer    clear=False
