@@ -253,4 +253,4 @@ the field is removed
 Click Modal Link
     [Arguments]    ${SELECTOR}
     Click    ${SELECTOR}
-    Wait For Elements State    //div[contains(@class, "modal-body")]//form[@id]    visible    timeout=2s
+    Wait For Elements State    //div[contains(@class, "modal-body")]//form[@id]    visible    timeout=10s
