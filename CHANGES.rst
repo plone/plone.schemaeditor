@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+4.0.7 (2024-11-30)
+------------------
+
+Tests
+
+
+- Increase timeout for check for opened modal.
+  [petschki] (#124)
+
+
 4.0.6 (2024-10-23)
 ------------------
 
