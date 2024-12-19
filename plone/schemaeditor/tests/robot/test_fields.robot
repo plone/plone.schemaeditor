@@ -252,5 +252,7 @@ the field is removed
 
 Click Modal Link
     [Arguments]    ${SELECTOR}
+    
     Click    ${SELECTOR}
-    Wait For Elements State    //div[contains(@class, "modal-body")]//form[@id]    visible    timeout=10s
+    Wait For Condition    Classes    //body    contains    modal-open
+    Wait For Condition    Classes    //div[@class="modal-wrapper"]/div/div    contains    show
