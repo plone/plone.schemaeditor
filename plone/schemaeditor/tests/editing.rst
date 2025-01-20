@@ -5,7 +5,7 @@ will print out the event, so that we can make sure events are getting raised pro
 
 Let's set up the test browser::
 
-    >>> from plone.testing.z2 import Browser
+    >>> from plone.testing.zope import Browser
     >>> browser = Browser(app)
     >>> portal_url = 'http://nohost'
     >>> browser.handleErrors = False
