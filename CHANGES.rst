@@ -8,6 +8,15 @@ Changelog
 
 .. towncrier release notes start
 
+4.0.9 (2025-01-23)
+------------------
+
+Bug fixes:
+
+
+- Fix DeprecationWarnings. [maurits] (#4090)
+
+
 4.0.8 (2024-12-19)
 ------------------
 
