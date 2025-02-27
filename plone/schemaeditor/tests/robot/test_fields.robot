@@ -252,7 +252,8 @@ the field is removed
 
 Click Modal Link
     [Arguments]    ${SELECTOR}
-    
+
     Click    ${SELECTOR}
+    Wait For Condition    Element States    //div[@class="modal-wrapper"]    contains    attached    visible
     Wait For Condition    Classes    //body    contains    modal-open
     Wait For Condition    Classes    //div[@class="modal-wrapper"]/div/div    contains    show
