@@ -1,3 +1,4 @@
+from importlib.metadata import distribution
 from plone.schemaeditor.interfaces import IEditableSchema
 from plone.schemaeditor.interfaces import ISchemaModifiedEvent
 from plone.supermodel.interfaces import FIELDSETS_KEY
@@ -7,11 +8,9 @@ from zope.interface.interfaces import IInterface
 from zope.interface.interfaces import ObjectEvent
 from zope.schema.interfaces import IField
 
-import pkg_resources
-
 
 _zope_interface_version_major = int(
-    pkg_resources.require("zope.interface")[0].version.split(".")[0]
+    distribution("zope.interface").version.split(".")[0]
 )
 
 
