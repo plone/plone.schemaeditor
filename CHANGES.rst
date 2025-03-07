@@ -8,6 +8,28 @@ Changelog
 
 .. towncrier release notes start
 
+4.0.10 (2025-03-07)
+-------------------
+
+Bug fixes:
+
+
+- Replace `pkg_resources` with `importlib.metadata` @gforcada (#4126)
+
+
+Internal:
+
+
+- Update configuration files.
+  [plone devs]
+
+
+Tests
+
+
+- make the robot test more stable @1letter (#130)
+
+
 4.0.9 (2025-01-23)
 ------------------
 
