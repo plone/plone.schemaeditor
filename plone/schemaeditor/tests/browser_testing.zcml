@@ -86,4 +86,12 @@
       name="plone.schemaeditor.test.Categories"
       />
 
+  <!-- since p.a.z3cform isn't available in tests we register the default z3c.form TextLinesWidget -->
+  <adapter
+      factory="z3c.form.browser.textlines.TextLinesFieldWidgetFactory"
+      for="..schema.ITextLinesField
+           zope.schema.interfaces.ITextLine
+           z3c.form.interfaces.IFormLayer"
+      />
+
 </configure>
