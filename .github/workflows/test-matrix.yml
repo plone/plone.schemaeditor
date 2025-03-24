@@ -1,7 +1,7 @@
 # Generated from:
 # https://github.com/plone/meta/tree/main/src/plone/meta/default
 # See the inline comments on how to expand/tweak this configuration file
-name: tests
+name: Tests
 
 on:
   push:
@@ -19,12 +19,12 @@ jobs:
         - ["ubuntu", "ubuntu-latest"]
         config:
         # [Python version, visual name, tox env]
-        - ["3.11", "6.2 on py3.11", "py311-plone62"]
+        - ["3.13", "6.2 on py3.13", "py313-plone62"]
         - ["3.10", "6.2 on py3.10", "py310-plone62"]
-        - ["3.11", "6.1 on py3.11", "py311-plone61"]
+        - ["3.13", "6.1 on py3.13", "py313-plone61"]
         - ["3.10", "6.1 on py3.10", "py310-plone61"]
         - ["3.9", "6.0 on py3.9", "py39-plone60"]
-        - ["3.11", "6.0 on py3.11", "py311-plone60"]
+        - ["3.13", "6.0 on py3.13", "py313-plone60"]
 
     runs-on: ${{ matrix.os[1] }}
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
