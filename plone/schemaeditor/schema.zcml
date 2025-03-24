@@ -20,11 +20,4 @@
     <implements interface=".schema.IChoice" />
   </class>
 
-  <adapter
-      factory="z3c.form.browser.textlines.TextLinesFieldWidgetFactory"
-      for=".schema.ITextLinesField
-           zope.schema.interfaces.ITextLine
-           z3c.form.interfaces.IFormLayer"
-      />
-
 </configure>
