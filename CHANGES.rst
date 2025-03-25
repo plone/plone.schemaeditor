@@ -8,6 +8,15 @@ Changelog
 
 .. towncrier release notes start
 
+4.0.11 (2025-03-25)
+-------------------
+
+Bug fixes:
+
+
+- Remove explicit `z3c.form` widget adapter registration in favor of `plone.app.z3cform` registrations.  @petschki (#135)
+
+
 4.0.10 (2025-03-07)
 -------------------
 
