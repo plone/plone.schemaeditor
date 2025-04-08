@@ -8,6 +8,8 @@ Test Setup    Run Keywords    Plone test setup
 Test Teardown    Run keywords    Plone test teardown
 
 
+${SELENIUM2LIBRARY_PLUGINS}  SeleniumTestability;True;7 Seconds;True
+
 *** Test Cases ***
 
 Scenario: Add a content type
