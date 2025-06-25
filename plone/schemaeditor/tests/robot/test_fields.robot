@@ -126,7 +126,7 @@ I go to fields configuration
 I got to fieldset
     [Arguments]    ${FIELD_LABEL}
 
-    Click    //ul[contains(@class, "autotoc-nav")]//a[contains(text(),"${FIELD_LABEL}")]
+    Click    //*[contains(@class, "autotoc-nav")]//a[contains(text(),"${FIELD_LABEL}")]
 
 
 I add a new Content Type
