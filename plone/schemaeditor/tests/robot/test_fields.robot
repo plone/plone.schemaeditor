@@ -126,7 +126,7 @@ I go to fields configuration
 I got to fieldset
     [Arguments]    ${FIELD_LABEL}
 
-    Click    //nav[@class="autotoc-nav"]/a[contains(text(),"${FIELD_LABEL}")]
+    Click    //ul[contains(@class, "autotoc-nav")]//a[contains(text(),"${FIELD_LABEL}")]
 
 
 I add a new Content Type
@@ -236,13 +236,13 @@ the new fieldset is created
     [Arguments]    ${FIELDSET_LABEL}
 
     Get Text    //*[@id="global_statusmessage"]    contains    Fieldset added successfully.
-    Get Element Count    //form[@id="form"]/fieldset/legend[contains(text(),"${FIELDSET_LABEL}")]    should be    1
+    Get Element Count    //form[@id="form"]//fieldset/legend[contains(text(),"${FIELDSET_LABEL}")]    should be    1
 
 the field is added to fieldset
     [Arguments]    ${FIELDSET_LABEL}    ${FIELD_LABEL}
 
     Get Text    //*[@id="global_statusmessage"]    contains    Field added successfully.
-    Get Element Count    //form[@id="form"]/fieldset/legend[contains(text(),"${FIELDSET_LABEL}")]/following-sibling::div[@data-field_id="address"]    should be    1
+    Get Element Count    //form[@id="form"]//fieldset/legend[contains(text(),"${FIELDSET_LABEL}")]/following-sibling::div[@data-field_id="address"]    should be    1
 
 the field is removed
     [Arguments]    ${FIELD_ID}
