@@ -8,6 +8,13 @@ Test Setup    Run Keywords    Plone test setup
 Test Teardown    Run keywords    Plone test teardown
 
 
+*** Variables ***
+
+${ADD_FIELDSET_SELECTOR}    //a[@id="add-fieldset"]
+${ADD_FIELD_SELECTOR}       //a[@id="add-field"]
+
+
+
 *** Test Cases ***
 
 Scenario: Add a content type
@@ -143,7 +150,8 @@ I add a new field
     [Arguments]    ${FIELD_LABEL}     ${FIELD_ID}     ${FIELD_TYPE}
     [Documentation]    Add field in current dexterity content type
 
-    Click Modal Link    //a[@id="add-field"]
+    Wait For Element Click Events    ${ADD_FIELD_SELECTOR}
+    Click Modal Link    ${ADD_FIELD_SELECTOR}
     Type Text    //input[@name="form.widgets.title"]    ${FIELD_LABEL}
     Focus    //input[@name="form.widgets.__name__"]
     Get Text    //input[@name="form.widgets.__name__"]    should be    ${FIELD_ID}
@@ -157,7 +165,8 @@ I add a new fieldset
     [Arguments]    ${FIELDSET_LABEL}    ${FIELDSET_ID}
     [Documentation]    Add fieldset in current dexterity content type
 
-    Click Modal Link    //a[@id="add-fieldset"]
+    Wait For Element Click Events    ${ADD_FIELDSET_SELECTOR}
+    Click Modal Link    ${ADD_FIELDSET_SELECTOR}
     Type Text    //input[@name="form.widgets.label"]    ${FIELDSET_LABEL}
     Focus    //input[@name="form.widgets.__name__"]
     Get Property   //input[@name="form.widgets.__name__"]    value    should be     ${FIELDSET_ID}
@@ -258,3 +267,10 @@ Click Modal Link
     # Wait For Condition    Element States    //div[@class="modal-wrapper"]    contains    attached    visible
     Wait For Condition    Classes    //body    contains    modal-open
     Wait For Condition    Classes    //div[@class="modal-wrapper"]/div/div    contains    show
+
+
+Wait For Element Click Events
+    [Arguments]    ${SELECTOR}
+    [Documentation]    Wait for an element to have jQuery click events attached before proceeding
+
+    Wait For Function    () => { const el = document.evaluate(`${SELECTOR}`, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; return el && window.jQuery._data(el, 'events').click; }
