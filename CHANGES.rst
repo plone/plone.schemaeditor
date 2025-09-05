@@ -8,6 +8,21 @@ Changelog
 
 .. towncrier release notes start
 
+4.0.12 (2025-09-05)
+-------------------
+
+Internal:
+
+
+- Fixes random failure in robot test `Scenario: Add a fieldSet and move a field into this fieldset`. @wesleybl (#141)
+
+
+Tests
+
+
+- Fix robottests for new autotoc implementation. @petschki
+
+
 4.0.11 (2025-03-25)
 -------------------
 
