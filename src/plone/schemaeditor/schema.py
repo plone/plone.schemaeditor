@@ -3,7 +3,6 @@ from zope import schema
 from zope.interface import alsoProvides
 from zope.schema import interfaces
 
-
 # get rid of unhelpful help text
 interfaces.IMinMaxLen["min_length"].description = ""
 interfaces.IMinMaxLen["max_length"].description = ""

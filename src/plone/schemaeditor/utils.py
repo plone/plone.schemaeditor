@@ -8,7 +8,6 @@ from zope.interface.interfaces import IInterface
 from zope.interface.interfaces import ObjectEvent
 from zope.schema.interfaces import IField
 
-
 _zope_interface_version_major = int(
     distribution("zope.interface").version.split(".")[0]
 )
