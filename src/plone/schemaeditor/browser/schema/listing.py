@@ -13,7 +13,6 @@ from zope.component import queryUtility
 from zope.event import notify
 from zope.interface import implementer
 
-
 try:
     from plone.protect.utils import addTokenToUrl
 except ImportError:
