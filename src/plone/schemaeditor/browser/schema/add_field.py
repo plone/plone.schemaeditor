@@ -60,7 +60,7 @@ class FieldAddForm(AutoExtensibleForm, form.AddForm):
         # set the extra attributes using the proper adapter
         for schemata in self.additionalSchemata:
             for key in extra:
-                (interface_name, property_name) = key.split(".")
+                interface_name, property_name = key.split(".")
                 if interface_name != schemata.__name__:
                     continue
                 setattr(schemata(field_obj), property_name, extra[key])
