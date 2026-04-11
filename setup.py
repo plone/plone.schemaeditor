@@ -46,7 +46,6 @@ setup(
         "plone.memoize",
         "plone.protect",
         "plone.supermodel",
-        "setuptools",
         "zope.cachedescriptors",
         "zope.component",
         "zope.container",
