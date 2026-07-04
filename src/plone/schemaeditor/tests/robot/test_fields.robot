@@ -160,6 +160,9 @@ I add a new field
     Type Text    //textarea[@name="form.widgets.description"]    my description of the field
     Select Options By    //select[@name="form.widgets.factory:list"]    label    ${FIELD_TYPE}
     Click    //div[contains(@class,"modal-footer")]//button[@id="form-buttons-add"]
+    the overlay is closed
+    Get Text    //*[@id="global_statusmessage"]    contains    Field added successfully.
+    Get Element Count    //div[@data-field_id="${FIELD_ID}"]//a[contains(text(),'Settings…')]    should be    1
 
 I add a new fieldset
     [Arguments]    ${FIELDSET_LABEL}    ${FIELDSET_ID}
