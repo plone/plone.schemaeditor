@@ -8,6 +8,15 @@ Changelog
 
 .. towncrier release notes start
 
+5.0.1 (2026-07-27)
+------------------
+
+Internal:
+
+
+- Fix intermittent error in test robot `Scenario: Add a fieldSet and move a field into this fieldset`. @wesleybl (#159)
+
+
 5.0.0 (2026-05-18)
 ------------------
 
